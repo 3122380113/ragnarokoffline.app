@@ -122,6 +122,7 @@ struct Rule {
 	std::string ev_signal;       ///< signal: its name, lower-case
 	uint32 ev_mob = 0;           ///< encounter_ended: only this monster (0 = any)
 	uint8 ev_reason = 0;         ///< encounter_ended / target_lost: 0 any, 1 died, 2 vanished
+	int8 ev_boss = -1;           ///< encounter_ended / target_lost: 1 only a boss, 0 only an ordinary monster
 	bool ev_signal_self = false; ///< signal: also hear its own (From: anyone)
 	uint32 within_ms = 3000;
 
@@ -577,7 +578,7 @@ bool StrategyDatabase::parse_event(const ryml::NodeRef &node, Rule &rule)
 	};
 	std::string name;
 	if (node.is_map()) {
-		this->warn_unknown_keys(node, { "Event", "By", "Name", "Mob", "Reason", "Value", "Item", "Slot", "Skill", "Status", "At", "Match",
+		this->warn_unknown_keys(node, { "Event", "By", "Name", "Mob", "Reason", "Boss", "Value", "Item", "Slot", "Skill", "Status", "At", "Match",
 			"From", "Within" }, "On");
 		if (!this->asString(node, "Event", name))
 			return false;
@@ -617,6 +618,16 @@ bool StrategyDatabase::parse_event(const ryml::NodeRef &node, Rule &rule)
 			this->invalidWarning(node["Reason"], "Reason is died, vanished or any.\n");
 			return false;
 		}
+	}
+	if (this->nodeExists(node, "Boss")) {
+		bool boss = false;
+		if (rule.event != Event::EncounterEnded && rule.event != Event::TargetLost) {
+			this->invalidWarning(node["Boss"], "Boss belongs to encounter_ended and target_lost.\n");
+			return false;
+		}
+		if (!this->asBool(node, "Boss", boss))
+			return false;
+		rule.ev_boss = boss ? 1 : 0;
 	}
 	if (this->nodeExists(node, "Name")) {
 		this->asString(node, "Name", rule.ev_signal);
@@ -1852,12 +1863,14 @@ struct Occurrence {
 	uint32 mob_id;
 	int32 instance;
 	bool died;                  ///< died, or still alive but gone (teleported, out of sight, another map)
+	bool boss;                  ///< it was boss-class (read while it was still there)
 };
 
 struct ShellState {
 	uint32 char_id = 0;
 	// For encounter_ended / target_lost: what the last turn saw.
 	std::vector<std::pair<uint32, int32>> last_encounters; ///< (mob id, instance)
+	std::unordered_set<int32> last_bosses; ///< the boss-class ones among last_encounters and last_target
 	int32 last_target = 0;
 	uint32 last_target_mob = 0;
 	t_tick last_seen = 0;
@@ -2415,6 +2428,8 @@ static void poll_event(Turn &t, const Rule &rule, RuleState &rs)
 			if (rule.ev_mob != 0 && o.mob_id != rule.ev_mob)
 				continue;
 			if ((rule.ev_reason == 1 && !o.died) || (rule.ev_reason == 2 && o.died))
+				continue;
+			if (rule.ev_boss >= 0 && o.boss != (rule.ev_boss == 1))
 				continue;
 			char what[64];
 			safesnprintf(what, sizeof(what), "%s (%s)", rule.event == Event::EncounterEnded ? "encounter_ended" : "target_lost",
@@ -3754,7 +3769,7 @@ static void track_fight(Turn &t, const std::vector<PlanRef> &plans)
 			now.emplace_back(kind, p.instance);
 	}
 	auto record = [&](Event kind, uint32 mob, int32 instance, bool died) {
-		st.occurrences.push_back({ ++g_occurrence_seq, t.tick, kind, mob, instance, died });
+		st.occurrences.push_back({ ++g_occurrence_seq, t.tick, kind, mob, instance, died, st.last_bosses.count(instance) != 0 });
 		while (!st.occurrences.empty()
 				&& (st.occurrences.size() > 16 || DIFF_TICK(t.tick, st.occurrences.front().tick) > 10000))
 			st.occurrences.pop_front();
@@ -3779,6 +3794,15 @@ static void track_fight(Turn &t, const std::vector<PlanRef> &plans)
 	st.last_target = sd->pop.target_id;
 	const mob_data *md = st.last_target != 0 ? map_id2md(st.last_target) : nullptr;
 	st.last_target_mob = md != nullptr ? md->mob_id : 0;
+	// Boss or not is asked once the monster is gone, and a dead one cannot be asked: note it now.
+	st.last_bosses.clear();
+	if (md != nullptr && md->status.class_ == CLASS_BOSS)
+		st.last_bosses.insert(md->id);
+	for (const auto &e : st.last_encounters) {
+		const mob_data *em = map_id2md(e.second);
+		if (em != nullptr && em->status.class_ == CLASS_BOSS)
+			st.last_bosses.insert(em->id);
+	}
 }
 
 } // namespace pop_strategy
