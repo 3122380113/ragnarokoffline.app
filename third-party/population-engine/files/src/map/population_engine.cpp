@@ -9414,6 +9414,16 @@ static uint16_t find_valid_equip_item(uint32 equip_type) {
 // Get appropriate weapon item ID for a job
 // Get base job class (1st class) from any job ID
 static uint16_t get_base_job(uint16_t job_id) {
+    // RAGNAROKMAC: rAthena's own answer first. The ranges below start with
+    // JOB_KNIGHT..JOB_ROYAL_GUARD, which is ids 7..4066: nearly every job came back a
+    // Swordman, so one with no rows of its own (a Super Novice, a Gunslinger, a High Mage)
+    // was given the Swordman's skills and gear. The map id knows each job's first class,
+    // the expanded jobs their own (Gunslinger, Ninja, Taekwon, Summoner).
+    if (const uint64 mapid = pc_jobid2mapid(job_id); mapid != static_cast<uint64>(-1)) {
+        const int32 base = pc_mapid2jobid(mapid & MAPID_FIRSTMASK, SEX_MALE);
+        if (base >= 0)
+            return static_cast<uint16_t>(base);
+    }
     // Map advanced jobs to their base 1st class
     if (job_id == JOB_SWORDMAN || (job_id >= JOB_KNIGHT && job_id <= JOB_ROYAL_GUARD) ||
         (job_id >= JOB_BABY_KNIGHT && job_id <= JOB_BABY_ROYAL_GUARD) ||
