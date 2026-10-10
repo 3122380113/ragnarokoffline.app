@@ -24,6 +24,7 @@ not yet. Adjust names, priorities and numbers to your plan. The
 - [Sit down to regenerate between fights](#sit-down-to-regenerate-between-fights)
 - [Don't make a boss teleport](#dont-make-a-boss-teleport)
 - [Stand inside a Land Protector, not on its rim](#stand-inside-a-land-protector-not-on-its-rim)
+- [Step out from behind a wall](#step-out-from-behind-a-wall)
 
 **Damage**
 - [A bolt by element at what is on the party](#a-bolt-by-element-at-what-is-on-the-party)
@@ -305,6 +306,22 @@ its edge. `Depth` asks for a cell that many cells inside:
 
 Three deep is the middle 5x5 of a level 5 Land Protector. A smaller field gives
 its deepest cells.
+
+## Step out from behind a wall
+
+A cast needs a clear line. A caster with a tree or a corner between it and its
+target has every cast refused, and with a last `Hold` rule it stands there. Put
+this above the casts:
+
+```yaml
+- Name: into_the_clear
+  Priority: 61
+  MoveTo: { Sight: target, Within: 8, Range: 8 }   # Range: the spell's reach
+```
+
+It steps to the nearest cell from which its current target is in the clear, and
+passes once it stands on one. For a healer, give it the member: `Target: { Ally:
+attacked }`.
 
 ## A bolt by element at what is on the party
 

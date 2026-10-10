@@ -110,3 +110,13 @@ test('a refused cast says why, and a ground skill asks for its cell before it is
 	assert.match(body('static const char *why_cell('), /skill_pos_maxcount_check\(sd, x, y, id, lv, BL_PC, false\)/);
 	assert.match(body('static const char *why_requirement('), /a catalyst is missing: %d %s/);
 });
+
+test('MoveTo Sight walks to a clear line within range, and is there only with both', () => {
+	const move = body('static const char *move_to(');
+	assert.match(move, /clear_line\(sd, sd->x, sd->y, to\) && distance_bl\(sd, to\) <= rule\.move_range/);
+	assert.match(move, /far > rule\.move_range \|\| far < 1 \|\| !clear_line\(/);
+	// The test is rAthena's own for a shot: path_search_long over walls.
+	assert.match(body('static bool clear_line('), /path_search_long\(nullptr, sd->m, x, y, to->x, to->y, CELL_CHKWALL\)/);
+	// Standing in the clear does not pin the companion: following still applies.
+	assert.match(src, /rule\.move != Move::Reachable && rule\.move != Move::Sight\)/);
+});

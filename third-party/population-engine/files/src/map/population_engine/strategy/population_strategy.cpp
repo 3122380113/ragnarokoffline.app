@@ -65,7 +65,7 @@ enum class From : uint8 { Anyone, Owner, Leader };
 enum class At : uint8 { Party, Self, Owner, Anyone };
 /// Who cast it (casts' By:) or whose ground units count (Field's Owner:).
 enum class Who : uint8 { Self, Party, Monster, Enemy, Anyone };
-enum class Move : uint8 { None, EventCell, EventUnit, Field, Reachable };
+enum class Move : uint8 { None, EventCell, EventUnit, Field, Reachable, Sight };
 enum class Retreat : uint8 { None, Away, Owner };
 
 /// Requires: what a companion must (and must not) have for a rule or a build to exist for it.
@@ -189,6 +189,7 @@ struct Rule {
 	Who move_owner = Who::Anyone;
 	int16 move_within = 8;
 	int16 move_depth = 0;        ///< MoveTo Field: that many cells inside the field's edge (0 = any cell of it)
+	int16 move_range = 9;        ///< MoveTo Sight: a cell at most this far from the target
 	bool consume = false;        ///< take the skill's ItemCost from the inventory, as a player pays it
 	/// UseItem: an item from the companion's own bag, used as a player uses it (its script, its
 	/// delay, one taken). A list uses the first one it carries. The rule exists only for a
@@ -1315,9 +1316,24 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 	if (this->nodeExists(node, "MoveTo")) {
 		const ryml::NodeRef m = node["MoveTo"];
 		if (m.is_map()) {
-			this->warn_unknown_keys(m, { "Field", "Owner", "Within", "Depth" }, "MoveTo");
+			this->warn_unknown_keys(m, { "Field", "Owner", "Within", "Depth", "Sight", "Range" }, "MoveTo");
 			std::string skill;
-			if (!this->asString(m, "Field", skill) || (rule->move_skill = skill_of(skill)) == 0) {
+			if (this->nodeExists(m, "Sight")) {
+				// { Sight: target, Within, Range }: to the nearest cell with a clear line to the rule's target.
+				std::string of;
+				this->asString(m, "Sight", of);
+				if (lower(of) != "target" || this->nodeExists(m, "Field")) {
+					this->invalidWarning(m, "MoveTo's Sight is target, and takes Within and Range; the rule is skipped.\n");
+					return nullptr;
+				}
+				if (this->nodeExists(m, "Within"))
+					this->asInt16(m, "Within", rule->move_within);
+				rule->move_within = static_cast<int16>(cap_value(static_cast<int>(rule->move_within), 1, AREA_SIZE));
+				if (this->nodeExists(m, "Range"))
+					this->asInt16(m, "Range", rule->move_range);
+				rule->move_range = static_cast<int16>(cap_value(static_cast<int>(rule->move_range), 1, AREA_SIZE));
+				rule->move = Move::Sight;
+			} else if (!this->asString(m, "Field", skill) || (rule->move_skill = skill_of(skill)) == 0) {
 				this->invalidWarning(m, "MoveTo needs a known Field skill; the rule is skipped.\n");
 				return nullptr;
 			}
@@ -1335,7 +1351,8 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 			if (this->nodeExists(m, "Depth"))
 				this->asInt16(m, "Depth", rule->move_depth);
 			rule->move_depth = static_cast<int16>(cap_value(static_cast<int>(rule->move_depth), 0, 7));
-			rule->move = Move::Field;
+			if (rule->move != Move::Sight)
+				rule->move = Move::Field;
 		} else if (lower(scalar(m)) == "event_cell") {
 			rule->move = Move::EventCell;
 		} else if (lower(scalar(m)) == "event") {
@@ -1343,7 +1360,7 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 		} else if (lower(scalar(m)) == "reachable") {
 			rule->move = Move::Reachable;
 		} else {
-			this->invalidWarning(m, "MoveTo is event, event_cell, reachable or { Field: <skill> }; the rule is skipped.\n");
+			this->invalidWarning(m, "MoveTo is event, event_cell, reachable, { Field: <skill> } or { Sight: target }; the rule is skipped.\n");
 			return nullptr;
 		}
 	}
@@ -3272,7 +3289,14 @@ static void keep_deep_cells(map_session_data *sd, const Rule &rule, std::vector<
 			cells.push_back(r.second);
 }
 
-static const char *move_to(Turn &t, const Rule &rule, const RuleState &rs, block_list *about, bool &there)
+/// Whether a shot from (x, y) reaches `to` unhindered: rAthena's own test for a cast or an arrow
+/// (battle_check_range's path_search_long over walls).
+static bool clear_line(const map_session_data *sd, int16 x, int16 y, const block_list *to)
+{
+	return path_search_long(nullptr, sd->m, x, y, to->x, to->y, CELL_CHKWALL);
+}
+
+static const char *move_to(Turn &t, const Rule &rule, const RuleState &rs, block_list *about, block_list *target, bool &there)
 {
 	map_session_data *sd = t.sd;
 	there = false;
@@ -3317,6 +3341,49 @@ static const char *move_to(Turn &t, const Rule &rule, const RuleState &rs, block
 				return "";
 		}
 		return "no reachable cell nearby";
+	}
+	if (rule.move == Move::Sight) {
+		// To the nearest cell from which the rule's target is in the clear: a caster behind a
+		// tree or a corner had every cast refused and stood there. Nearest first, so it steps
+		// round the obstacle rather than across the field, and never further from the target
+		// than Range, so the step does not take it out of its spell's reach.
+		block_list *to = target != nullptr ? target : about;
+		if (to == nullptr || to == sd)
+			return nullptr;
+		// In the clear and within Range: there. In the clear but further off (a first step that
+		// only rounded the corner) is not yet where a cast can be made from.
+		if (clear_line(sd, sd->x, sd->y, to) && distance_bl(sd, to) <= rule.move_range) {
+			there = true;
+			return "";
+		}
+		if (unit_is_walking(sd))
+			return "";
+		const map_data *mapd = map_getmapdata(sd->m);
+		if (mapd == nullptr)
+			return "no map";
+		std::vector<std::tuple<int, int, int16, int16>> spots; // (steps from here, cells from the target, x, y)
+		const int w = rule.move_within;
+		for (int dx = -w; dx <= w; ++dx) {
+			for (int dy = -w; dy <= w; ++dy) {
+				const int x = sd->x + dx, y = sd->y + dy;
+				if ((dx == 0 && dy == 0) || x < 0 || y < 0 || x >= mapd->xs || y >= mapd->ys
+						|| !map_getcell(sd->m, x, y, CELL_CHKPASS))
+					continue;
+				const int far = std::max(std::abs(to->x - x), std::abs(to->y - y));
+				if (far > rule.move_range || far < 1 || !clear_line(sd, static_cast<int16>(x), static_cast<int16>(y), to))
+					continue;
+				spots.emplace_back(std::max(std::abs(dx), std::abs(dy)), far, static_cast<int16>(x), static_cast<int16>(y));
+			}
+		}
+		if (spots.empty())
+			return "no cell nearby has a clear line to it";
+		std::sort(spots.begin(), spots.end());
+		if (!population_shell_can_emit_movement(sd, MovementOwner::Combat, "strategy:move_to"))
+			return nullptr;
+		for (size_t i = 0; i < spots.size() && i < 24; ++i)
+			if (unit_walktoxy(sd, std::get<2>(spots[i]), std::get<3>(spots[i]), 4))
+				return "";
+		return "no path to a cell with a clear line";
 	}
 	std::vector<std::pair<int16, int16>> cells;
 	if (rule.move == Move::EventUnit) {
@@ -3862,8 +3929,8 @@ static Outcome run_rule(Turn &t, const Rule &rule, const Plan &plan, PlanState &
 		acted = true;
 	} else if (rule.move != Move::None) {
 		bool there = false;
-		const char *why = move_to(t, rule, rs, about, there);
-		if (there && rule.move != Move::Reachable)
+		const char *why = move_to(t, rule, rs, about, target, there);
+		if (there && rule.move != Move::Reachable && rule.move != Move::Sight)
 			hold_position(t); // standing where the rule wants it: following must not walk it off
 		if (there || why == nullptr)
 			return Outcome::Skipped;
@@ -3872,7 +3939,8 @@ static Outcome run_rule(Turn &t, const Rule &rule, const Plan &plan, PlanState &
 			return Outcome::Skipped;
 		}
 		trace(sd, *t.st, t.tick, "rule %s: moving to %s", name, rule.move == Move::EventCell ? "the cast's cell"
-			: rule.move == Move::EventUnit ? "them" : rule.move == Move::Reachable ? "where it can reach" : skill_get_desc(rule.move_skill));
+			: rule.move == Move::EventUnit ? "them" : rule.move == Move::Reachable ? "where it can reach"
+			: rule.move == Move::Sight ? "a clear line" : skill_get_desc(rule.move_skill));
 		acted = true;
 	} else if (rule.kite) {
 		bool safe = false;
