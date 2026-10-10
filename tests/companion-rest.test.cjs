@@ -76,7 +76,9 @@ test('the follow leaves a resting companion down, and stands it before it moves'
 		'a sitting shell cannot be placed and walk on; stand it before a warp');
 	assert.match(follow, /if \(owner_distance > leash\) \{\s*pop_shell_stand\(sd\);/,
 		'and before it walks back to its owner');
-	assert.match(src, /if \(pop_shell_rest\(sd, owner, desired_target, now\)\)\s*continue;\s*if \(sd->state\.population_combat\)\s*population_engine_combat_per_tick\(sd, true\);/,
+	// Unless its rules have yet to see its fight end (population_strategy_wants_turn): that one
+	// turn comes first, or a companion low enough to rest never saw encounter_ended.
+	assert.match(src, /if \(!population_strategy_wants_turn\(sd, now\) && pop_shell_rest\(sd, owner, desired_target, now\)\)\s*continue;\s*if \(sd->state\.population_combat\)\s*population_engine_combat_per_tick\(sd, true\);/,
 		'a companion rests before its combat tick and skips it while it does');
 });
 
