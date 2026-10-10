@@ -1503,13 +1503,10 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 		for (const std::string &item : keyed ? scalars(e["Item"]) : scalars(e)) {
 			const t_itemid id = item_of(item);
 			const std::shared_ptr<item_data> data = id != 0 ? itemdb_exists(id) : nullptr;
+			// Any piece that is worn: weapons, armour, headgear, accessories, costumes, shadow gear.
+			// Not ammunition, which the engine chooses for the weapon and the target itself.
 			if (data == nullptr || !itemdb_isequip2(data.get()) || (data->equip & EQP_AMMO)) {
-				this->invalidWarning(e, "Equip: '%s' is not a piece of gear; the rule is skipped.\n", item.c_str());
-				return nullptr;
-			}
-			// Weapons wait: skills ask for weapon types, attack speed changes, ammunition follows.
-			if (data->type == IT_WEAPON) {
-				this->invalidWarning(e, "Equip: '%s' is a weapon; a plan switches armour, shields, garments, shoes, headgear and accessories. The rule is skipped.\n", item.c_str());
+				this->invalidWarning(e, "Equip: '%s' is not a piece of gear (ammunition is chosen by the engine); the rule is skipped.\n", item.c_str());
 				return nullptr;
 			}
 			rule->equip_items.push_back(id);

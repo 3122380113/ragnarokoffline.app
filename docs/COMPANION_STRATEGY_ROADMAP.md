@@ -14,7 +14,7 @@ how it would work, what it would add, and where to start.
 | 1 | Holding position wins over following | built, played (Phreeoni) |
 | 2 | Leaving hostile ground (`Leave:`) | built, not yet played |
 | 3 | Choosing who to help or fight (selectors, `SetTarget`) | built, played (Phreeoni) |
-| 4 | Items and gear | [inventories](#inventories-the-foundation), catalysts, [using items](#using-items) (`UseItem`) and [switching gear](#switching-gear-to-the-situation) (`Equip`, for companions that started unequipped) built; weapons and the save of the normal set **not done** |
+| 4 | Items and gear | [inventories](#inventories-the-foundation), catalysts, [using items](#using-items) (`UseItem`) and [switching gear](#switching-gear-to-the-situation) (`Equip`, any worn piece, for companions that started unequipped) built; the save of the normal set **not done** |
 | 5 | [Time and memory](#5-time-and-memory) | step 1 (time in strategy and fight, renewing before a status lapses) built, not yet played; step 2 (flags and counters) **not done** |
 | 6 | Companions coordinating | signals and claims built, not yet played; role plans built and played; [roles that change in a fight](#6-coordination-roles-that-change-in-a-fight-and-claims) **not done** |
 | 7 | Boss mechanics (MVP survey, A to F) | built; phases, reacting to a summon and revealing a hidden boss played |
@@ -380,9 +380,9 @@ Four steps, each of use without the next:
    takes a shield off too), and once no `Equip` rule claims a slot for about
    10 s the earlier pieces go back on. A rule in a boss plan with
    `Encounter: true` is then "worn while the boss is within 14 cells", with no
-   rule to write for putting it back. Armour, shield, garment, shoes and
-   accessories first; weapons later (skills ask for weapon types, attack speed
-   changes, ammunition follows the weapon).
+   rule to write for putting it back. Any worn piece can be named, weapons included (a
+   two-handed weapon takes the shield off too, and both come back); ammunition
+   stays the engine's choice.
 4. **Saving.** The save records the normal set as worn and the fight gear as
    carried, so a restart brings the companion back in its normal gear and the
    rule equips again if the boss is still there.

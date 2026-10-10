@@ -699,6 +699,17 @@ afterwards:
           Equip: Flame_Sprits_Armor_
 ```
 
+A weapon works the same way: a holy weapon against the undead, a bow for a
+monster that must be kept at a distance.
+
+```yaml
+- Mob: { Race: Undead }
+  Jobs:
+    - Job: Knight
+      Rules:
+        - { Name: holy_blade, Priority: 55, Equip: Excalibur }
+```
+
 A companion without the piece has no such rule, so one table serves a geared
 party and a bare one. The trace shows each change: `put on Manteau (took off
 Muffler)`, and `gear: Manteau off, no rule asks for it any more (back on:

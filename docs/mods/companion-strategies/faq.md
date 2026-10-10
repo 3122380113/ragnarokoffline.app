@@ -224,11 +224,11 @@ made it.
 Yes, with **Settings → Population → Companion inventory** on, so that a companion
 owns its bag. A `UseItem` rule uses what is in it (a potion, a cure, an elemental
 converter, a Fly Wing), and a skill's catalyst or trap is taken from it when the
-skill is cast. An `Equip` rule changes armour, a shield, a garment, shoes,
-headgear or an accessory for as long as the rule applies, for a companion that
-**started unequipped** (the setting of that name): everything it wears and
-carries is then yours, handed over in the Companions window's Gear tab. Weapons
-are not switched yet.
+skill is cast. An `Equip` rule changes any worn piece (a weapon, a shield,
+armour, a garment, shoes, headgear, an accessory) for as long as the rule
+applies, for a companion that **started unequipped** (the setting of that name):
+everything it wears and carries is then yours, handed over in the Companions
+window's Gear tab.
 
 ### Do regular AI characters use plans too?
 

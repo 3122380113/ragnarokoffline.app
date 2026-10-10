@@ -182,6 +182,7 @@ test('Equip asks for the card with a plain loop, and reads Item without overwrit
 	assert.doesNotMatch(piece, /none_of\(std::begin\(it\.card\)/);
 	assert.match(src, /keyed \? scalars\(e\["Item"\]\) : scalars\(e\)/);
 	assert.doesNotMatch(src, /names = e\["Item"\]/);
-	// Weapons are refused at load, not found out in a fight.
-	assert.match(src, /if \(data->type == IT_WEAPON\) \{/);
+	// Any worn piece may be named, a weapon too; ammunition stays the engine's.
+	assert.doesNotMatch(src, /data->type == IT_WEAPON/);
+	assert.match(src, /!itemdb_isequip2\(data\.get\(\)\) \|\| \(data->equip & EQP_AMMO\)/);
 });
