@@ -1991,6 +1991,7 @@ struct ShellState {
 	bool trace = false;
 	uint32 tracer_char = 0;     ///< a regular shell's trace goes to this player (a companion's to its owner)
 	t_tick hold_until = 0;      ///< a rule is positioning the companion: following waits until then
+	t_tick answer_until = 0;    ///< an ending was just recorded: its rules may act before the engine's rest
 	t_tick fight_since = 0;     ///< InFight: when the current fight began
 	t_tick last_engaged = 0;    ///< the last turn it had a target or a monster's plan
 	bool sat = false;           ///< a Sit rule sat it down: stood up again when none applies
@@ -4340,6 +4341,7 @@ static void track_fight(Turn &t, const std::vector<PlanRef> &plans)
 	}
 	auto record = [&](Event kind, uint32 mob, int32 instance, bool died) {
 		st.occurrences.push_back({ ++g_occurrence_seq, t.tick, kind, mob, instance, died, st.last_bosses.count(instance) != 0 });
+		st.answer_until = t.tick + 3000; // see population_strategy_wants_turn
 		while (!st.occurrences.empty()
 				&& (st.occurrences.size() > 16 || DIFF_TICK(t.tick, st.occurrences.front().tick) > 10000))
 			st.occurrences.pop_front();
@@ -4548,6 +4550,33 @@ bool population_strategy_keeps_seated(const map_session_data *sd)
 		return false;
 	const auto it = g_shells.find(sd->id);
 	return it != g_shells.end() && it->second.char_id == sd->status.char_id && it->second.sat;
+}
+
+bool population_strategy_wants_turn(const map_session_data *sd, t_tick tick)
+{
+	if (g_db.rule_count == 0 || !takes_part(sd))
+		return false;
+	const auto it = g_shells.find(sd->id);
+	if (it == g_shells.end() || it->second.char_id != sd->status.char_id)
+		return false;
+	const ShellState &st = it->second;
+	// An ending recorded a moment ago, and a rule its event woke that has not acted yet.
+	if (DIFF_TICK(st.answer_until, tick) > 0) {
+		for (const auto &r : st.rules)
+			if (DIFF_TICK(r.second.pending_until, tick) > 0)
+				return true;
+	}
+	// What the last turn was fighting is gone, and no turn has compared since. After 2 s the next
+	// turn starts afresh anyway (track_fight), so there is nothing left to report.
+	if (st.last_seen == 0 || DIFF_TICK(tick, st.last_seen) > 2000)
+		return false;
+	bool gone = false;
+	for (const auto &e : st.last_encounters)
+		if (gone_died(sd, e.second, gone) || gone)
+			return true;
+	if (st.last_target != 0 && st.last_target != sd->pop.target_id && (gone_died(sd, st.last_target, gone) || gone))
+		return true;
+	return false;
 }
 
 bool population_strategy_holds_position(const map_session_data *sd, t_tick tick)

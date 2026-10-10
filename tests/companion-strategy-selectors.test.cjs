@@ -138,3 +138,16 @@ test('Aim puts a ground cast on a cell of its own, and Lead on where a walking t
 	// Aim is refused at load on anything but a ground Cast.
 	assert.match(src, /Aim belongs to a Cast of a ground skill/);
 });
+
+test('a fight that has just ended is seen by the rules before the engine rests the companion', () => {
+	const eng = read('files', 'src', 'map', 'population_engine.cpp');
+	assert.match(eng, /if \(!population_strategy_wants_turn\(sd, now\) && pop_shell_rest\(sd, owner, desired_target, now\)\)\n\t\t\tcontinue;/);
+	const wants = body('bool population_strategy_wants_turn(');
+	// Nothing loaded, nothing asked for: the hook costs a stock server nothing.
+	assert.match(wants, /if \(g_db\.rule_count == 0 \|\| !takes_part\(sd\)\)\n\t\treturn false;/);
+	// Only for a monster that is really gone, and only until the next turn has compared.
+	assert.match(wants, /gone_died\(sd, e\.second, gone\) \|\| gone/);
+	assert.match(wants, /DIFF_TICK\(tick, st\.last_seen\) > 2000/);
+	// And a bounded while after an ending for the rule it woke.
+	assert.match(src, /st\.answer_until = t\.tick \+ 3000;/);
+});

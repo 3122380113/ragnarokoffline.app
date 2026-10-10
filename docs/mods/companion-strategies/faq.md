@@ -200,7 +200,9 @@ make companions step to where the boss could reach them first. They apply only
 where the boss would really answer: out of its reach, with a teleport for the
 state it is in. When it happens anyway, `encounter_ended` with `Reason: vanished`
 fires; add `Boss: true` so the rule is not set off by ordinary monsters of a plan
-with `Encounter: true`.
+with `Encounter: true`. A companion out of SP sees it too, before it sits down to
+rest. One that is already resting when something happens (a party-chat word, a
+signal) does not: no rule runs during a rest.
 
 ### The server says something about my table at start
 

@@ -5124,7 +5124,8 @@ TIMER_FUNC(population_engine_global_combat_timer)
 				sd->ud.target_to != owner->id && !population_strategy_holds_position(sd, now))
 				unit_stop_walking(sd, USW_FIXPOS);
 		}
-		if (pop_shell_rest(sd, owner, desired_target, now))
+		// RAGNAROKMAC (companion strategies): a fight that has just ended is seen by the rules first.
+		if (!population_strategy_wants_turn(sd, now) && pop_shell_rest(sd, owner, desired_target, now))
 			continue;
 		if (sd->state.population_combat)
 			population_engine_combat_per_tick(sd, true);

@@ -44,6 +44,12 @@ bool population_strategy_handles_resurrection(map_session_data *sd);
 /// A Sit rule has the companion seated: the follow code leaves it down while its owner stands still.
 bool population_strategy_keeps_seated(const map_session_data *sd);
 bool population_strategy_holds_position(const map_session_data *sd, t_tick tick);
+/// Whether the companion's rules have yet to see its fight end: a monster it was fighting or an
+/// encounter it was in is gone and no turn has noticed, or an event rule that answers that is
+/// still waiting to act. The engine lets such a companion take its turn before it sits down to
+/// rest: the tick a lone boss dies is the tick nothing needs the companion any more, so one below
+/// its rest mark sat down at once and its rules never saw encounter_ended.
+bool population_strategy_wants_turn(const map_session_data *sd, t_tick tick);
 
 /// Whether the skill rotation may use `skill_id` against `target`: false when a rule
 /// set bans it for that monster, or turns the rotation off there.
