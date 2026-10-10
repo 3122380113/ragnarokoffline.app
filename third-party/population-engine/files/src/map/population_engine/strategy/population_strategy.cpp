@@ -190,6 +190,11 @@ struct Rule {
 	int16 move_within = 8;
 	int16 move_depth = 0;        ///< MoveTo Field: that many cells inside the field's edge (0 = any cell of it)
 	bool consume = false;        ///< take the skill's ItemCost from the inventory, as a player pays it
+	/// UseItem: an item from the companion's own bag, used as a player uses it (its script, its
+	/// delay, one taken). A list uses the first one it carries. The rule exists only for a
+	/// companion that carries one of them. use_item is the first of the list.
+	t_itemid use_item = 0;
+	std::vector<t_itemid> use_items;
 
 	uint32 cooldown_ms = 0;
 	bool one_per_party = false;
@@ -965,7 +970,7 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 		return nullptr;
 	}
 	this->warn_unknown_keys(node, { "Name", "Priority", "Remove", "Requires", "On", "When", "Charges", "Field",
-		"Enemy", "Count", "Reach", "Absent", "Present", "Cast", "Level", "Target", "Consume", "Say", "Channel", "Retreat", "Distance", "Hold", "Sit", "KeepDistance", "Kite", "MoveTo", "Leave", "Switch", "Signal", "SetTarget", "Cooldown", "Claim", "InStrategy", "InFight",
+		"Enemy", "Count", "Reach", "Absent", "Present", "Cast", "Level", "Target", "Consume", "UseItem", "Say", "Channel", "Retreat", "Distance", "Hold", "Sit", "KeepDistance", "Kite", "MoveTo", "Leave", "Switch", "Signal", "SetTarget", "Cooldown", "Claim", "InStrategy", "InFight",
 		"OnePerParty" }, "a rule");
 
 	auto rule = std::make_shared<Rule>();
@@ -1379,6 +1384,21 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 			return nullptr;
 		}
 	}
+	if (this->nodeExists(node, "UseItem")) {
+		for (const std::string &item : scalars(node["UseItem"])) {
+			const t_itemid id = item_of(item);
+			if (id == 0) {
+				this->invalidWarning(node["UseItem"], "Unknown item '%s'; the rule is skipped.\n", item.c_str());
+				return nullptr;
+			}
+			rule->use_items.push_back(id);
+		}
+		if (rule->use_items.empty()) {
+			this->invalidWarning(node["UseItem"], "UseItem needs an item or a list of them; the rule is skipped.\n");
+			return nullptr;
+		}
+		rule->use_item = rule->use_items.front();
+	}
 	if (this->nodeExists(node, "Switch"))
 		this->asString(node, "Switch", rule->switch_to);
 	if (this->nodeExists(node, "Signal")) {
@@ -1415,13 +1435,13 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 	}
 
 	const int moves = (rule->cast_skill != 0) + (rule->retreat != Retreat::None) + rule->hold + rule->sit
-		+ (rule->keep_distance > 0) + (rule->move != Move::None) + rule->leave + rule->kite;
+		+ (rule->keep_distance > 0) + (rule->move != Move::None) + rule->leave + rule->kite + (rule->use_item != 0);
 	if (moves == 0 && rule->say.empty() && rule->switch_to.empty() && rule->signal.empty() && !rule->set_target) {
-		this->invalidWarning(node, "A rule needs Cast, Retreat, KeepDistance, Kite, MoveTo, Leave, Hold, Sit, Say, Switch, Signal or SetTarget; the rule is skipped.\n");
+		this->invalidWarning(node, "A rule needs Cast, UseItem, Retreat, KeepDistance, Kite, MoveTo, Leave, Hold, Sit, Say, Switch, Signal or SetTarget; the rule is skipped.\n");
 		return nullptr;
 	}
 	if (moves > 1) {
-		this->invalidWarning(node, "A rule takes only one of Cast, Retreat, KeepDistance, Kite, MoveTo, Leave, Hold and Sit; the rule is skipped.\n");
+		this->invalidWarning(node, "A rule takes only one of Cast, UseItem, Retreat, KeepDistance, Kite, MoveTo, Leave, Hold and Sit; the rule is skipped.\n");
 		return nullptr;
 	}
 	if (rule->move == Move::EventCell && rule->event != Event::Casts) {
@@ -1436,6 +1456,9 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 		this->invalidWarning(node, "Target event/source needs an On: event; the rule is skipped.\n");
 		return nullptr;
 	}
+	// An item used on every turn its condition holds would empty the bag before the effect shows.
+	if (rule->use_item != 0 && rule->cooldown_ms == 0)
+		rule->cooldown_ms = 1000;
 	// A line said on every turn its condition holds would flood the chat; a signal sent every
 	// turn would set every listener off again and again.
 	if (!rule->say.empty() && rule->event == Event::None && rule->cooldown_ms == 0)
@@ -3328,6 +3351,15 @@ static bool requires_ok(const map_session_data *sd, const Requirements &req)
 	return true;
 }
 
+/// UseItem: the first item of the rule's list that is in the bag; 0 with none of them.
+static t_itemid carried_item(const map_session_data *sd, const Rule &rule)
+{
+	for (const t_itemid id : rule.use_items)
+		if (pc_search_inventory(const_cast<map_session_data *>(sd), id) >= 0)
+			return id;
+	return 0;
+}
+
 /// Whether a rule may cast this skill at all: the companion has it, and its owner has not
 /// unticked it in the companion's skill selection (population_shell_skill_selected, the combat
 /// file). That selection is a deliberate choice; a plan does not override it.
@@ -3346,6 +3378,9 @@ static bool requires_ok(const map_session_data *sd, const Rule &rule)
 	} else if (rule.cast_skill != 0 && !may_cast(sd, rule.cast_skill)) {
 		return false;
 	}
+	// UseItem: only what it carries. Without Companion inventory that is what the engine hands it.
+	if (rule.use_item != 0 && carried_item(sd, rule) == 0)
+		return false;
 	return requires_ok(sd, rule.req);
 }
 
@@ -3415,6 +3450,53 @@ static void rise(Turn &t)
 		skill_sit(sd, false);
 		clif_standing(*sd);
 	}
+}
+
+/// UseItem: one of `nameid` from the bag, the player's own path (pc_useitem: the item's delay, its
+/// job and level limits, its script, one taken). False when rAthena refuses it.
+static bool use_item(Turn &t, t_itemid nameid, block_list *target)
+{
+	map_session_data *sd = t.sd;
+	const int16 idx = pc_search_inventory(sd, nameid);
+	// Not into a cast under way: an item's own cast would lose the item it is paid with.
+	if (idx < 0 || pc_isdead(sd) || sd->ud.skilltimer != INVALID_TIMER)
+		return false;
+	const int32 had = sd->inventory.u.items_inventory[idx].amount;
+	if (!pc_useitem(sd, idx))
+		return false;
+	// An item that casts a skill (a converter, a Fly Wing, a scroll) only arms it: the client
+	// answers with the cast, and rAthena takes the item when that cast goes through. A shell has
+	// no client, so the cast is made here: on itself, or for a skill that needs one, on the
+	// rule's target (a helping skill never on a monster, a harming one never on the party).
+	if (sd->skillitem != 0) {
+		const uint16 id = sd->skillitem, lv = sd->skillitemlv;
+		const int32 inf = skill_get_inf(id);
+		block_list *at = sd;
+		if (!(inf & INF_SELF_SKILL) && target != nullptr && (target->type == BL_MOB) != ((inf & INF_SUPPORT_SKILL) != 0))
+			at = target;
+		const bool harms = (inf & (INF_ATTACK_SKILL | INF_GROUND_SKILL)) != 0 && !(inf & INF_SELF_SKILL);
+		const bool ok = !(harms && at == sd && (inf & INF_ATTACK_SKILL))
+			&& ((inf & INF_GROUND_SKILL) ? unit_skilluse_pos(sd, at->x, at->y, id, lv) : unit_skilluse_id(sd, at->id, id, lv)) != 0;
+		if (!ok) {
+			sd->skillitem = sd->skillitemlv = 0; // disarmed: nothing was cast, nothing is taken
+			return false;
+		}
+	}
+	// The use animation for everyone around, which clif_useitemack sends only to a session.
+	if (!session_isActive(sd->fd)) {
+		PACKET_ZC_USE_ITEM_ACK p = {};
+		p.packetType = useItemAckType;
+		p.index = idx + 2;
+#if PACKETVER >= 3
+		const t_itemid view = itemdb_viewid(nameid);
+		p.itemId = static_cast<decltype(p.itemId)>(view > 0 ? view : nameid);
+		p.AID = sd->id;
+#endif
+		p.amount = had - 1;
+		p.result = true;
+		clif_send(&p, sizeof(p), sd, AREA_WOS);
+	}
+	return true;
 }
 
 static Outcome run_rule(Turn &t, const Rule &rule, const Plan &plan, PlanState &ps, bool do_skills, bool attack_only)
@@ -3588,6 +3670,21 @@ static Outcome run_rule(Turn &t, const Rule &rule, const Plan &plan, PlanState &
 			target != nullptr ? status_get_name(*target) : target_id != 0 ? "a target now gone" : "self",
 			sd->battle_status.sp, sd->battle_status.max_sp);
 		acted = true;
+	} else if (rule.use_item != 0) {
+		const int32 enemy_id = t.enemy != nullptr ? t.enemy->id : 0;
+		const int32 target_id = target != nullptr ? target->id : 0;
+		const t_itemid nameid = carried_item(sd, rule);
+		const bool used = nameid != 0 && use_item(t, nameid, target);
+		// An item's script can do anything a skill can (a Fly Wing moves the companion).
+		target = target_id != 0 ? map_id2bl(target_id) : nullptr;
+		t.enemy = enemy_id != 0 ? same_map_bl(sd, enemy_id) : nullptr;
+		if (!used) {
+			trace(sd, *t.st, t.tick, "rule %s: %s not used (its delay, its job or level limit, the companion's state, or no target for what it casts)",
+				name, nameid != 0 ? itemdb_name(nameid) : "the item");
+			return Outcome::Skipped;
+		}
+		trace(sd, *t.st, t.tick, "rule %s: used %s", name, itemdb_name(nameid));
+		acted = true;
 	} else if (rule.retreat != Retreat::None) {
 		const char *why = retreat(t, rule, rs);
 		if (why == nullptr)
@@ -3668,7 +3765,7 @@ static Outcome run_rule(Turn &t, const Rule &rule, const Plan &plan, PlanState &
 		acted = true;
 	}
 
-	if (acted && rule.cast_skill == 0)
+	if (acted && rule.cast_skill == 0 && rule.use_item == 0)
 		hold_position(t); // Retreat, KeepDistance, MoveTo, Leave, Hold, Sit
 	if (rule.set_target && target != nullptr && target->type == BL_MOB && !t.target_set) {
 		t.target_set = true;
