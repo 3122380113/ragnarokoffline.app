@@ -89,7 +89,7 @@ struct Selector {
 	Member who = Member::Party;  ///< Enemy attacking/target_of: whose attacker or whose target
 	bool not_self = false;       ///< leave the companion itself out
 	Member prefer = Member::Any; ///< Enemy attacking: monsters on this member first
-	int8 role = -1;              ///< Ally: only members with this role
+	uint8 roles = 0;             ///< Ally: only members with one of these roles (a bit per PopulationRoleType; 0 = any)
 	std::vector<int32> jobs;     ///< Ally: only these jobs (each with its family and base class)
 	int16 status = -1;           ///< Ally missing: lacking this status
 	int32 expiring_ms = 0;       ///< Ally missing: or having it with less than this left (0: only lacking)
@@ -831,12 +831,19 @@ bool StrategyDatabase::parse_selector(const ryml::NodeRef &node, Selector &sel)
 		this->asBool(node, "NotSelf", sel.not_self);
 	if (this->nodeExists(node, "Boss"))
 		this->asBool(node, "Boss", sel.boss_only);
+	// A list takes any of them, as Requires' Role does: [attacker, support] is "anyone but the tank".
 	if (this->nodeExists(node, "Role")) {
-		std::string role;
-		this->asString(node, "Role", role);
-		if ((sel.role = role_of(role)) == -2) {
-			this->invalidWarning(node["Role"], "Role must be tank, support, attacker or none; the rule is skipped.\n");
+		if (sel.kind != Selector::Kind::Ally) {
+			this->invalidWarning(node["Role"], "Role narrows an Ally selector (an Enemy one has Who and Prefer); the rule is skipped.\n");
 			return false;
+		}
+		for (const std::string &name : scalars(node["Role"])) {
+			const int8 role = role_of(name);
+			if (role == -2) {
+				this->invalidWarning(node["Role"], "Role is tank, support, attacker or none, or a list of them ('%s'); the rule is skipped.\n", name.c_str());
+				return false;
+			}
+			sel.roles |= static_cast<uint8>(1u << role);
 		}
 	}
 	if (this->nodeExists(node, "Job")) {
@@ -2625,7 +2632,8 @@ static block_list *select_ally(Turn &t, const Selector &sel, int range, uint16 s
 		// Ally: dead picks the fallen, nearest first; every other pick, the living.
 		if (pc_isdead(m) != (sel.pick == Selector::Pick::Dead) || !check_distance_bl(sd, m, range))
 			continue;
-		if (sel.role >= 0 && (!population_engine_is_population_pc(m->id) || m->pop.role != sel.role))
+		if (sel.roles != 0 && (!population_engine_is_population_pc(m->id)
+				|| (sel.roles & (1u << static_cast<uint8>(m->pop.role))) == 0))
 			continue;
 		if (!sel.jobs.empty() && std::none_of(sel.jobs.begin(), sel.jobs.end(), [&](int32 j) { return job_matches(m, j); }))
 			continue;
