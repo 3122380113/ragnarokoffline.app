@@ -92,6 +92,7 @@ struct Selector {
 	uint8 roles = 0;             ///< Ally: only members with one of these roles (a bit per PopulationRoleType; 0 = any)
 	bool not_owner = false;      ///< Ally: leave the owner out (buff the party, not the player it follows)
 	std::vector<uint16> skills;  ///< Enemy casting: only these casts (empty = any)
+	std::vector<uint32> mobs;    ///< Enemy: only these monsters, by mob id (empty = any)
 	std::vector<int32> jobs;     ///< Ally: only these jobs (each with its family and base class)
 	int16 status = -1;           ///< Ally missing: lacking this status
 	int32 expiring_ms = 0;       ///< Ally missing: or having it with less than this left (0: only lacking)
@@ -791,7 +792,7 @@ bool StrategyDatabase::parse_requires(const ryml::NodeRef &node, Requirements &r
 bool StrategyDatabase::parse_selector(const ryml::NodeRef &node, Selector &sel)
 {
 	this->warn_unknown_keys(node, { "Enemy", "Ally", "Who", "NotSelf", "NotOwner", "Prefer", "Role", "Job", "Status",
-		"Skill", "Range", "Boss", "Race", "Element", "Expiring" }, "Target");
+		"Skill", "Mob", "Range", "Boss", "Race", "Element", "Expiring" }, "Target");
 	std::string pick;
 	if (this->nodeExists(node, "Enemy")) {
 		static const std::map<std::string, Selector::Pick> picks = {
@@ -866,6 +867,22 @@ bool StrategyDatabase::parse_selector(const ryml::NodeRef &node, Selector &sel)
 			return false;
 		}
 		this->asBool(node, "NotOwner", sel.not_owner);
+	}
+	// Mob: the monster an Enemy selector means, as an entry names it -- one or a list. Boss, Race
+	// and Element cannot tell a boss from its miniboss slaves (Dark Lord's Dark Illusions).
+	if (this->nodeExists(node, "Mob")) {
+		if (sel.kind != Selector::Kind::Enemy) {
+			this->invalidWarning(node["Mob"], "Mob narrows an Enemy selector; the rule is skipped.\n");
+			return false;
+		}
+		for (const std::string &name : scalars(node["Mob"])) {
+			const uint32 id = mob_of(name);
+			if (id == 0) {
+				this->invalidWarning(node["Mob"], "Unknown monster '%s'; the rule is skipped.\n", name.c_str());
+				return false;
+			}
+			sel.mobs.push_back(id);
+		}
 	}
 	// Skill: which casts an Enemy: casting selector means -- one skill or a list.
 	if (this->nodeExists(node, "Skill")) {
@@ -1046,7 +1063,7 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 
 	if (this->nodeExists(node, "Count")) {
 		const ryml::NodeRef c = node["Count"];
-		this->warn_unknown_keys(c, { "Enemy", "Who", "NotSelf", "Boss", "Race", "Element", "Skill", "Around", "Range", "Below", "AtLeast" },
+		this->warn_unknown_keys(c, { "Enemy", "Who", "NotSelf", "Boss", "Race", "Element", "Skill", "Mob", "Around", "Range", "Below", "AtLeast" },
 			"Count");
 		static const std::map<std::string, Selector::Pick> picks = {
 			{ "any", Selector::Pick::Nearest }, { "attacking", Selector::Pick::Attacking },
@@ -1087,6 +1104,16 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 				return nullptr;
 			}
 			(race ? rule->count_sel.race : rule->count_sel.element) = static_cast<int8>(v);
+		}
+		if (this->nodeExists(c, "Mob")) {
+			for (const std::string &name : scalars(c["Mob"])) {
+				const uint32 id = mob_of(name);
+				if (id == 0) {
+					this->invalidWarning(c["Mob"], "Unknown monster '%s'; the rule is skipped.\n", name.c_str());
+					return nullptr;
+				}
+				rule->count_sel.mobs.push_back(id);
+			}
 		}
 		if (this->nodeExists(c, "Skill")) {
 			if (rule->count_sel.pick != Selector::Pick::Casting) {
@@ -2601,6 +2628,8 @@ static bool enemy_matches(Turn &t, const Selector &sel, const mob_data *md, int 
 	rank = 0;
 	if (sel.boss_only && status_get_class_(md) != CLASS_BOSS)
 		return false;
+	if (!sel.mobs.empty() && std::find(sel.mobs.begin(), sel.mobs.end(), md->mob_id) == sel.mobs.end())
+		return false;
 	block_list *bl = const_cast<mob_data *>(md);
 	if (sel.race >= 0 && status_get_race(bl) != sel.race)
 		return false;
@@ -2662,6 +2691,8 @@ static block_list *select_enemy(Turn &t, const Selector &sel, int range)
 					id = ud->target > 0 ? ud->target : (ud->skilltimer != INVALID_TIMER ? ud->skilltarget : 0);
 			}
 			mob_data *md = id != 0 ? map_id2md(id) : nullptr;
+			if (md != nullptr && !sel.mobs.empty() && std::find(sel.mobs.begin(), sel.mobs.end(), md->mob_id) == sel.mobs.end())
+				continue;
 			if (md != nullptr && md->m == sd->m && !status_isdead(*md) && check_distance_bl(sd, md, range)) {
 				if (t.claim != nullptr && claimed_by_other(sd, *t.claim, md->id, t.tick, &t.claim_holder)) {
 					t.claim_passed = md->id;
