@@ -12,6 +12,7 @@
 #include "population_engine/runtime/population_shell_ammo.hpp"
 #include "population_engine/runtime/population_shell_inventory.hpp" // RAGNAROKMAC
 #include "population_engine/runtime/population_companion_roam.hpp" // RAGNAROKMAC (roam)
+#include "population_engine/runtime/population_shell_gear.hpp" // RAGNAROKMAC
 #include "population_engine/runtime/population_shell_loot.hpp"
 #include "population_engine/runtime/population_shell_selling.hpp"
 #include "population_engine/runtime/population_shell_runtime.hpp"
@@ -819,6 +820,9 @@ static uint16_t find_valid_equip_item(uint32 equip_type);
 static void population_engine_shell_equip_item(map_session_data* sd, t_itemid nameid, uint32_t index, const char* slot_label, uint32 force_pos = 0)
 {
 	if (!sd || nameid == 0)
+		return;
+	// RAGNAROKMAC (companions start unequipped): such a companion is dressed by its owner alone.
+	if (population_shell_gear_bare(sd))
 		return;
 	// Guard against max_weight reset by prior pc_equipitem → status_calc_pc calls.
 	sd->max_weight = 2000000;
@@ -4800,6 +4804,8 @@ uint32_t population_engine_companion_draft(map_session_data *owner, uint16_t job
 	// here (the row does not exist yet) while reporting no error - which is exactly
 	// how a drafted companion stayed invisible to @companion list. Create the row.
 	population_engine_persist_companion_row(shell, owner);
+	// RAGNAROKMAC (companions start unequipped): with the setting on, nothing of the spawn's stays.
+	population_shell_gear_drafted(shell);
 	// Tell an open panel about the new companion; the roster changed.
 	population_engine_push_companion_list(owner);
 	ShowInfo("population_engine: drafted companion '%s' (job %u) for owner %u.\n",
@@ -7581,6 +7587,10 @@ static uint32_t pop_companion_worn_positions(const map_session_data *shell)
 /// from the job's gear set, the same picks spawn and job advance use.
 static void pop_companion_reequip_own(map_session_data *shell, uint32_t freed)
 {
+	// RAGNAROKMAC (companions start unequipped): it has no gear of its own to put back, and a
+	// slot its owner left empty stays empty.
+	if (population_shell_gear_bare(shell))
+		return;
 	for (int16 i = 0; i < MAX_INVENTORY && freed != 0; ++i) {
 		const struct item &slot = shell->inventory.u.items_inventory[i];
 		if (!slot.nameid || slot.equip || slot.amount <= 0)
@@ -8777,6 +8787,8 @@ static void population_engine_recall_one_companion(map_session_data *owner, int1
 	shell->status.status_point = 0;
 	shell->status.trait_point  = 0;
 
+	// RAGNAROKMAC (companions start unequipped): how it was drafted, before anything dresses it.
+	population_shell_gear_recalled(shell);
 	population_engine_shell_equip_item(shell, armor, index_, "armor");
 	population_engine_shell_equip_item(shell, shoes, index_, "shoes");
 	// Goal 2: accessories persist too

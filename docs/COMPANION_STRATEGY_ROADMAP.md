@@ -339,7 +339,7 @@ an event).
 (`gear_detail`, the gear-return patches `0007` and `0025`); a new action in the
 strategy module, beside `UseItem`.
 
-**The plan (agreed 2026-10, not built).** Found while writing boss plans: a plan
+**The plan (agreed 2026-10; step 1 of 4 built).** Found while writing boss plans: a plan
 names gear a member should wear for a fight (a Raydric garment against Dark Lord,
 an Alice shield, fire armour against Meteor Storm), and the companion puts it on
 when the encounter starts. The test to pass: a plan for Dark Lord that says
@@ -355,7 +355,9 @@ What stands in the way is in the engine more than in the table:
 
 Four steps, each of use without the next:
 
-1. **A setting, "Companions start unequipped"** (off by default). A companion
+1. **Built:** **a setting, "Companions start unequipped"** (off by default;
+   `runtime/population_shell_gear.cpp`, patch 0036, the `start_unequipped`
+   column). A companion
    drafted with it on gets no gear from the engine, at the draft or at a job
    change; potions and ammunition keep their own settings. The companion
    remembers how it was drafted, so changing the setting later changes no

@@ -252,6 +252,19 @@ instrument to sing, and Gypsies, Wanderers and Trouveres need a whip to dance.
 Item costs are a separate setting, **Companion inventory**: off, arrows and
 gemstones are never needed; on, they come from its bag (see [Its bag](#its-bag)).
 
+### Starting unequipped
+
+A new companion normally comes dressed for its class, and the engine gives it
+new gear when it changes class. With **Settings → Population → Companions start
+unequipped** on, a companion you draft or hire starts with no weapon, armour or
+headgear, and is never given any: trade it what it should wear and it puts it on.
+Until then it fights bare-handed, and with Weapon rules on its weapon skills wait
+for a weapon. Arrows and potions are not gear; they follow Companion inventory.
+
+A companion keeps the way it started. Turning the setting on changes none you
+already have, and one drafted while it was on stays the way it is when you turn
+it off again.
+
 ## Free or hired
 
 **Settings → Population → Companions** decides what a new companion costs:
