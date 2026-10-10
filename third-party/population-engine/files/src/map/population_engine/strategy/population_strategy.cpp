@@ -4831,6 +4831,27 @@ bool population_strategy_keeps_seated(const map_session_data *sd)
 	return it != g_shells.end() && it->second.char_id == sd->status.char_id && it->second.sat;
 }
 
+uint32 population_strategy_normal_equip(const map_session_data *sd, int16 index)
+{
+	const item &it = sd->inventory.u.items_inventory[index];
+	const auto found = g_shells.find(sd->id);
+	if (found == g_shells.end() || found->second.char_id != sd->status.char_id)
+		return it.equip;
+	for (const GearSwap &s : found->second.swaps) {
+		if (s.on_index == index && it.nameid == s.on_id && it.equip != 0)
+			return 0;
+		// Only while the swap still stands: once the owner has moved either piece, what is
+		// worn is what the owner wants.
+		const item &on = sd->inventory.u.items_inventory[s.on_index];
+		if (on.nameid != s.on_id || on.equip == 0)
+			continue;
+		for (const auto &b : s.before)
+			if (std::get<0>(b) == index && it.nameid == std::get<1>(b) && it.equip == 0)
+				return std::get<2>(b);
+	}
+	return it.equip;
+}
+
 bool population_strategy_wants_turn(const map_session_data *sd, t_tick tick)
 {
 	if (g_db.rule_count == 0 || !takes_part(sd))

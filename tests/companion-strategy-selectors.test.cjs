@@ -176,6 +176,20 @@ test('Equip is worn while its rule applies, whatever else takes the turn, and co
 	assert.match(body('bool population_strategy_wants_turn('), /for \(const GearSwap &s : st\.swaps\)\n\t\tif \(DIFF_TICK\(s\.until, tick\) <= 0\)\n\t\t\treturn true;/);
 });
 
+test('the save records the normal set: a fight\'s piece as carried, what it replaced as worn', () => {
+	const normal = body('uint32 population_strategy_normal_equip(');
+	assert.match(normal, /if \(s\.on_index == index && it\.nameid == s\.on_id && it\.equip != 0\)\n\t\t\treturn 0;/);
+	assert.match(normal, /return std::get<2>\(b\);/);
+	// Once the owner has moved the switched piece, what is worn is what is saved.
+	assert.match(normal, /if \(on\.nameid != s\.on_id \|\| on\.equip == 0\)\n\t\t\tcontinue;/);
+	// Every writer of the row asks: the slot columns (twice), gear_detail, the bag and its digest.
+	const count = (text) => (text.match(/population_shell_gear_as_saved\(sd, i\)/g) || []).length;
+	assert.equal(count(read('files', 'src', 'map', 'population_engine.cpp')), 3);
+	assert.equal(count(read('files', 'src', 'map', 'population_engine', 'runtime', 'population_shell_inventory.cpp')), 2);
+	assert.match(read('files', 'src', 'map', 'population_engine', 'runtime', 'population_shell_gear.cpp'),
+		/if \(it\.nameid != 0 && !\(it\.equip & EQP_AMMO\)\)\n\t\tit\.equip = population_strategy_normal_equip\(sd, index\);/);
+});
+
 test('Equip asks for the card with a plain loop, and reads Item without overwriting the node', () => {
 	const piece = body('static int16 equip_piece(');
 	assert.match(piece, /carded = it\.card\[c\] == rule\.equip_card;/);

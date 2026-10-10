@@ -383,9 +383,13 @@ Four steps, each of use without the next:
    rule to write for putting it back. Any worn piece can be named, weapons included (a
    two-handed weapon takes the shield off too, and both come back); ammunition
    stays the engine's choice.
-4. **Saving.** The save records the normal set as worn and the fight gear as
-   carried, so a restart brings the companion back in its normal gear and the
-   rule equips again if the boss is still there.
+4. **Built:** **saving.** The save records the normal set as worn and the fight
+   gear as carried, so a restart brings the companion back in its normal gear
+   and the rule equips again if the boss is still there. Every place that
+   writes a companion's row (the slot columns, `gear_detail`, the bag) asks
+   `population_shell_gear_as_saved` for each item, which asks the strategy
+   module what its rules have changed. Nothing in the row's shape changes, and
+   once the owner moves a switched piece by hand the row follows the owner.
 
 The risk that matters is a player's item lost or doubled: every path that hands
 gear back (a job change, a dismissal, Take back) has to count the bag as well as

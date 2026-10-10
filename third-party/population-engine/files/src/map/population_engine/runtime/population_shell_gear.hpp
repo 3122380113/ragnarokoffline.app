@@ -15,6 +15,7 @@
 #pragma once
 
 #include <common/cbasetypes.hpp>
+#include <common/mmo.hpp>
 
 class map_session_data;
 
@@ -54,3 +55,10 @@ bool population_shell_gear_can_switch(const map_session_data *sd);
 bool population_shell_gear_put_on(map_session_data *shell, int16 index, uint32 pos);
 /// Takes the worn piece at `index` off, into the bag.
 bool population_shell_gear_take_off(map_session_data *shell, int16 index);
+
+// --- What the save records (step 4) ---------------------------------------------
+/// The item at `index` as the companion's row should keep it: a copy whose `equip` is its place
+/// in the companion's normal set. A piece an Equip rule has on for a fight is saved as carried,
+/// and the piece it took off as worn where it was, so a companion saved in mid-fight comes back
+/// in its own gear with the fight's piece in its bag. Any other item is returned as it is.
+item population_shell_gear_as_saved(const map_session_data *sd, int16 index);

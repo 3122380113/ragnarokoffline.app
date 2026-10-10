@@ -7396,7 +7396,7 @@ bool population_engine_persist_companion_row(map_session_data *sd, const map_ses
 	// those slots from the numbers, so they came back as nothing. The worn items go in instead.
 	uint32_t head_top = 0, head_mid = 0, head_low = 0, garment = 0;
 	for (int16_t i = 0; i < MAX_INVENTORY; ++i) {
-		const struct item &slot = sd->inventory.u.items_inventory[i];
+		const struct item slot = population_shell_gear_as_saved(sd, i); // RAGNAROKMAC (Equip): the normal set
 		if (!slot.nameid || !slot.equip) continue; // equipped only
 		if ((slot.equip & EQP_HAND_R) && !(slot.equip & EQP_SHADOW_WEAPON))  weapon  = slot.nameid;
 		else if ((slot.equip & EQP_HAND_L) && !(slot.equip & EQP_SHADOW_SHIELD)) shield = slot.nameid;
@@ -7696,7 +7696,7 @@ static std::string pop_companion_gear_detail(const map_session_data *sd)
 	std::string out = "v1";
 	char entry[512];
 	for (int16 i = 0; i < MAX_INVENTORY; ++i) {
-		const struct item &it = sd->inventory.u.items_inventory[i];
+		const struct item it = population_shell_gear_as_saved(sd, i); // RAGNAROKMAC (Equip): the normal set
 		if (!it.nameid || !it.equip || it.amount <= 0)
 			continue;
 		int n = snprintf(entry, sizeof(entry), ";%u,%u,%d,%u,%u,%u,%u,%u,%d,%" PRIu64,
@@ -7836,7 +7836,7 @@ void population_engine_persist_companion_gear(map_session_data *sd)
 	// The worn headgear, not status.head_*: that is each piece's look, not its item.
 	uint32_t head_top=0, head_mid=0, head_low=0;
 	for (int16_t i = 0; i < MAX_INVENTORY; ++i) {
-		const struct item &slot = sd->inventory.u.items_inventory[i];
+		const struct item slot = population_shell_gear_as_saved(sd, i); // RAGNAROKMAC (Equip): the normal set
 		if (!slot.nameid || !slot.equip) continue; // equipped only
 		if (slot.equip & EQP_SHADOW_WEAPON)       sh_weapon  = slot.nameid;
 		else if (slot.equip & EQP_SHADOW_SHIELD)  sh_shield  = slot.nameid;

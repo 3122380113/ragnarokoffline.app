@@ -25,6 +25,7 @@
 #include "../../population_engine.hpp"
 #include "../core/population_engine_core.hpp"
 #include "population_shell_inventory.hpp"
+#include "../strategy/population_strategy.hpp"
 
 namespace {
 
@@ -442,4 +443,12 @@ bool population_shell_gear_take_off(map_session_data *shell, int16 index)
 		return false;
 	own_what_it_wears(shell);
 	return true;
+}
+
+item population_shell_gear_as_saved(const map_session_data *sd, int16 index)
+{
+	item it = sd->inventory.u.items_inventory[index];
+	if (it.nameid != 0 && !(it.equip & EQP_AMMO))
+		it.equip = population_strategy_normal_equip(sd, index);
+	return it;
 }
