@@ -187,6 +187,7 @@ struct Rule {
 	uint16 move_skill = 0;
 	Who move_owner = Who::Anyone;
 	int16 move_within = 8;
+	int16 move_depth = 0;        ///< MoveTo Field: that many cells inside the field's edge (0 = any cell of it)
 	bool consume = false;        ///< take the skill's ItemCost from the inventory, as a player pays it
 
 	uint32 cooldown_ms = 0;
@@ -1282,7 +1283,7 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 	if (this->nodeExists(node, "MoveTo")) {
 		const ryml::NodeRef m = node["MoveTo"];
 		if (m.is_map()) {
-			this->warn_unknown_keys(m, { "Field", "Owner", "Within" }, "MoveTo");
+			this->warn_unknown_keys(m, { "Field", "Owner", "Within", "Depth" }, "MoveTo");
 			std::string skill;
 			if (!this->asString(m, "Field", skill) || (rule->move_skill = skill_of(skill)) == 0) {
 				this->invalidWarning(m, "MoveTo needs a known Field skill; the rule is skipped.\n");
@@ -1299,6 +1300,9 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 			if (this->nodeExists(m, "Within"))
 				this->asInt16(m, "Within", rule->move_within);
 			rule->move_within = static_cast<int16>(cap_value(static_cast<int>(rule->move_within), 1, AREA_SIZE));
+			if (this->nodeExists(m, "Depth"))
+				this->asInt16(m, "Depth", rule->move_depth);
+			rule->move_depth = static_cast<int16>(cap_value(static_cast<int>(rule->move_depth), 0, 7));
 			rule->move = Move::Field;
 		} else if (lower(scalar(m)) == "event_cell") {
 			rule->move = Move::EventCell;
@@ -3026,6 +3030,40 @@ static const char *keep_away(Turn &t, const Rule &rule, const RuleState &rs, blo
 }
 
 /// MoveTo: far_enough (the rule passes) when already there; "" when it set off; else why not.
+/// MoveTo's Depth: of a field's cells, keep those at least `move_depth` cells inside its edge
+/// (every cell that near is the field's too), so what lands beside the field does not reach.
+/// A field too small for that keeps its deepest cells: the middle of a 3x3 is as far in as it goes.
+static void keep_deep_cells(map_session_data *sd, const Rule &rule, std::vector<std::pair<int16, int16>> &cells)
+{
+	// The field can run on past Within: look that much further for what counts as inside.
+	std::vector<std::pair<int16, int16>> all;
+	field_units(sd, rule.move_skill, rule.move_owner,
+		static_cast<int16>(std::min<int>(rule.move_within + 2 * rule.move_depth, 2 * AREA_SIZE)), &all);
+	const std::set<std::pair<int16, int16>> field(all.begin(), all.end());
+	auto depth = [&](const std::pair<int16, int16> &c) {
+		int d = 0;
+		for (; d < rule.move_depth; ++d) {
+			const int r = d + 1;
+			for (int dx = -r; dx <= r; ++dx)
+				for (int dy = -r; dy <= r; ++dy)
+					if (std::max(std::abs(dx), std::abs(dy)) == r
+							&& field.count({ static_cast<int16>(c.first + dx), static_cast<int16>(c.second + dy) }) == 0)
+						return d;
+		}
+		return d;
+	};
+	int best = 0;
+	std::vector<std::pair<int, std::pair<int16, int16>>> ranked;
+	for (const auto &c : cells) {
+		ranked.emplace_back(depth(c), c);
+		best = std::max(best, ranked.back().first);
+	}
+	cells.clear();
+	for (const auto &r : ranked)
+		if (r.first >= best)
+			cells.push_back(r.second);
+}
+
 static const char *move_to(Turn &t, const Rule &rule, const RuleState &rs, block_list *about, bool &there)
 {
 	map_session_data *sd = t.sd;
@@ -3096,6 +3134,8 @@ static const char *move_to(Turn &t, const Rule &rule, const RuleState &rs, block
 		field_units(sd, rule.move_skill, rule.move_owner, rule.move_within, &cells);
 		if (cells.empty())
 			return nullptr; // no such field right now: nothing to do, not a failure to report
+		if (rule.move_depth > 0)
+			keep_deep_cells(sd, rule, cells);
 	}
 	if (std::any_of(cells.begin(), cells.end(), [&](const auto &c) { return c.first == sd->x && c.second == sd->y; })) {
 		there = true;
