@@ -104,7 +104,7 @@ test('a refused cast says why, and a ground skill asks for its cell before it is
 	assert.doesNotMatch(cast, /return "(refused|cannot use it now|out of range|not enough SP)";/);
 	assert.match(cast, /why\("out of range: %d > %d"/);
 	assert.match(cast, /why\("on cooldown, %\.1f s left"/);
-	assert.match(cast, /why_cell\(sd, id, lv, target->x, target->y\)/);
+	assert.match(cast, /why_cell\(sd, id, lv, ax, ay\)/);
 	assert.match(cast, /return why_unit_refused\(/);
 	// The cell check is rAthena's own, which it runs only when the cast ends.
 	assert.match(body('static const char *why_cell('), /skill_pos_maxcount_check\(sd, x, y, id, lv, BL_PC, false\)/);
@@ -119,4 +119,22 @@ test('MoveTo Sight walks to a clear line within range, and is there only with bo
 	assert.match(body('static bool clear_line('), /path_search_long\(nullptr, sd->m, x, y, to->x, to->y, CELL_CHKWALL\)/);
 	// Standing in the clear does not pin the companion: following still applies.
 	assert.match(src, /rule\.move != Move::Reachable && rule\.move != Move::Sight\)/);
+});
+
+test('Aim puts a ground cast on a cell of its own, and Lead on where a walking target will be', () => {
+	const cast = body('static const char *cast(');
+	assert.match(cast, /const bool aimed = rule\.aim && \(inf & INF_GROUND_SKILL\) != 0 && target != sd;/);
+	// Every use of the landing cell goes through the aimed one.
+	assert.match(cast, /why_cell\(sd, id, lv, ax, ay\)/);
+	assert.match(cast, /unit_skilluse_pos\(sd, ax, ay, id, lv\)/);
+	assert.doesNotMatch(cast, /unit_skilluse_pos\(sd, target->x/);
+	const aim = body('static const char *aim_cell(');
+	assert.match(aim, /rule\.aim_lead \? cell_after\(target, skill_castfix\(sd, id, lv\), tx, ty\) : 0/);
+	assert.match(aim, /map_getcell\(sd->m, x, y, CELL_CHKPASS\)/);
+	// The walk is read from the unit's own path, at its own speed.
+	const after = body('static int cell_after(');
+	assert.match(after, /ud->walkpath\.path_pos/);
+	assert.match(after, /\(dir & 1\) \? speed \* 14 \/ 10 : speed/);
+	// Aim is refused at load on anything but a ground Cast.
+	assert.match(src, /Aim belongs to a Cast of a ground skill/);
 });

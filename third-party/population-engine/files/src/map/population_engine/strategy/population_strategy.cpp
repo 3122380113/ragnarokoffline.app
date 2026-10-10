@@ -191,6 +191,13 @@ struct Rule {
 	int16 move_depth = 0;        ///< MoveTo Field: that many cells inside the field's edge (0 = any cell of it)
 	int16 move_range = 9;        ///< MoveTo Sight: a cell at most this far from the target
 	bool consume = false;        ///< take the skill's ItemCost from the inventory, as a player pays it
+	// Aim: where a ground Cast lands, when not at the target's feet. aim_cells cells from the
+	// companion (or from the target) along the line between the two; aim_lead takes the target
+	// to be where its walk will have brought it when the cast lands.
+	bool aim = false;
+	int16 aim_cells = 0;
+	bool aim_from_target = false;
+	bool aim_lead = false;
 	/// UseItem: an item from the companion's own bag, used as a player uses it (its script, its
 	/// delay, one taken). A list uses the first one it carries. The rule exists only for a
 	/// companion that carries one of them. use_item is the first of the list.
@@ -971,7 +978,7 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 		return nullptr;
 	}
 	this->warn_unknown_keys(node, { "Name", "Priority", "Remove", "Requires", "On", "When", "Charges", "Field",
-		"Enemy", "Count", "Reach", "Absent", "Present", "Cast", "Level", "Target", "Consume", "UseItem", "Say", "Channel", "Retreat", "Distance", "Hold", "Sit", "KeepDistance", "Kite", "MoveTo", "Leave", "Switch", "Signal", "SetTarget", "Cooldown", "Claim", "InStrategy", "InFight",
+		"Enemy", "Count", "Reach", "Absent", "Present", "Cast", "Level", "Target", "Aim", "Consume", "UseItem", "Say", "Channel", "Retreat", "Distance", "Hold", "Sit", "KeepDistance", "Kite", "MoveTo", "Leave", "Switch", "Signal", "SetTarget", "Cooldown", "Claim", "InStrategy", "InFight",
 		"OnePerParty" }, "a rule");
 
 	auto rule = std::make_shared<Rule>();
@@ -1400,6 +1407,39 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 			this->invalidWarning(k, "KeepDistance needs Min above 0, and Max at least Min; the rule is skipped.\n");
 			return nullptr;
 		}
+	}
+	if (this->nodeExists(node, "Aim")) {
+		// Aim: { Cells: 3, From: self | target, Lead: true } -- a ground Cast's cell.
+		const ryml::NodeRef a = node["Aim"];
+		if (!a.is_map()) {
+			this->invalidWarning(a, "Aim is a map: { Cells, From, Lead }; the rule is skipped.\n");
+			return nullptr;
+		}
+		this->warn_unknown_keys(a, { "Cells", "From", "Lead" }, "Aim");
+		if (rule->cast_skill == 0 || !(skill_get_inf(rule->cast_skill) & INF_GROUND_SKILL)) {
+			this->invalidWarning(a, "Aim belongs to a Cast of a ground skill; the rule is skipped.\n");
+			return nullptr;
+		}
+		if (this->nodeExists(a, "Cells"))
+			this->asInt16(a, "Cells", rule->aim_cells);
+		rule->aim_cells = static_cast<int16>(cap_value(static_cast<int>(rule->aim_cells), 0, AREA_SIZE));
+		if (this->nodeExists(a, "From")) {
+			std::string from;
+			this->asString(a, "From", from);
+			from = lower(from);
+			if (from == "target") rule->aim_from_target = true;
+			else if (from != "self") {
+				this->invalidWarning(a["From"], "Aim's From is self (default) or target; the rule is skipped.\n");
+				return nullptr;
+			}
+		}
+		if (this->nodeExists(a, "Lead"))
+			this->asBool(a, "Lead", rule->aim_lead);
+		if (rule->aim_cells == 0 && !rule->aim_lead) {
+			this->invalidWarning(a, "Aim needs Cells, Lead, or both; the rule is skipped.\n");
+			return nullptr;
+		}
+		rule->aim = true;
 	}
 	if (this->nodeExists(node, "UseItem")) {
 		for (const std::string &item : scalars(node["UseItem"])) {
@@ -3062,7 +3102,8 @@ static const char *why_cell(map_session_data *sd, uint16 id, uint16 lv, int16 x,
 
 /// Why unit_skilluse_id / unit_skilluse_pos returned 0: their own checks, in their order, as far
 /// as they can be asked again without casting.
-static const char *why_unit_refused(map_session_data *sd, block_list *target, uint16 id, uint16 lv, bool ground)
+static const char *why_unit_refused(map_session_data *sd, block_list *target, uint16 id, uint16 lv, bool ground,
+	int16 x, int16 y)
 {
 	if (sd->ud.state.blockedskill)
 		return why("its skills are blocked");
@@ -3071,18 +3112,104 @@ static const char *why_unit_refused(map_session_data *sd, block_list *target, ui
 	if (const char *cost = why_requirement(sd, id, lv); cost != nullptr)
 		return cost;
 	const int range = skill_get_range2(sd, id, lv, true);
-	if (target != sd) {
-		const int d = distance_bl(sd, target);
-		if (ground && unit_is_walking(sd))
+	if (ground && (x != sd->x || y != sd->y)) {
+		// The cell a ground skill is aimed at, which Aim can put away from the target.
+		block_list cell;
+		cell.type = BL_NUL;
+		cell.m = sd->m;
+		cell.x = x;
+		cell.y = y;
+		const int d = std::max(std::abs(sd->x - x), std::abs(sd->y - y));
+		if (unit_is_walking(sd))
 			return why("it was still walking (%d cells off, range %d)", d, range);
+		if (!battle_check_range(sd, &cell, range))
+			return d > range ? why("out of range: %d > %d", d, range) : why("no clear line to the cell");
+	} else if (!ground && target != sd) {
+		const int d = distance_bl(sd, target);
 		if (!battle_check_range(sd, target, range))
-			return d > range ? why("out of range: %d > %d", d, range) : why("no clear line to %s", ground ? "the cell" : "the target");
+			return d > range ? why("out of range: %d > %d", d, range) : why("no clear line to the target");
 	}
 	return why("rAthena refused it (the skill's own check when a cast begins)");
 }
 
+/// Where a walking unit will be `ms` from now: along the path it is on, at its speed (a
+/// diagonal step costs 1.4). A unit standing still, or at the end of its path, is where it is.
+/// Returns how many cells ahead that is.
+static int cell_after(block_list *bl, int32 ms, int16 &x, int16 &y)
+{
+	x = bl->x;
+	y = bl->y;
+	const unit_data *ud = unit_bl2ud(bl);
+	if (ud == nullptr || ud->walktimer == INVALID_TIMER || ms <= 0)
+		return 0;
+	const int speed = std::max(1, static_cast<int>(status_get_speed(bl)));
+	int steps = 0;
+	for (int i = ud->walkpath.path_pos; i < ud->walkpath.path_len; ++i) {
+		const int dir = ud->walkpath.path[i];
+		const int cost = (dir & 1) ? speed * 14 / 10 : speed;
+		if (ms < cost)
+			break;
+		ms -= cost;
+		x += dirx[dir];
+		y += diry[dir];
+		++steps;
+	}
+	return steps;
+}
+
+/// What the trace adds to an aimed cast: the cell, and how it was come by.
+static std::string g_cast_note;
+
+/// Aim: the cell a ground cast lands on. From the companion (or the target), aim_cells along
+/// the line between the two; with Lead the target counts as where it will be when the cast
+/// lands. A cell nobody can stand on is pulled back toward where the count began. A reason
+/// when there is no such cell.
+static const char *aim_cell(map_session_data *sd, const Rule &rule, block_list *target, uint16 id, uint16 lv,
+	int16 &x, int16 &y)
+{
+	int16 tx = target->x, ty = target->y;
+	const int led = rule.aim_lead ? cell_after(target, skill_castfix(sd, id, lv), tx, ty) : 0;
+	x = tx;
+	y = ty;
+	char note[96] = "";
+	if (rule.aim_cells > 0) {
+		const int dx = tx - sd->x, dy = ty - sd->y;
+		const int dist = std::max(std::abs(dx), std::abs(dy));
+		if (dist == 0)
+			return why("nowhere to aim: %s stands on its cell", status_get_name(*target));
+		// k cells from the companion along the line; counted from the target, dist - cells.
+		// Too close for the cell asked for: there is no such cell between the two.
+		if (dist <= rule.aim_cells)
+			return why("too close to aim %d cells %s: %s is %d away", static_cast<int>(rule.aim_cells),
+				rule.aim_from_target ? "in front of it" : "toward it", status_get_name(*target), dist);
+		int k = rule.aim_from_target ? dist - rule.aim_cells : rule.aim_cells;
+		const int step = rule.aim_from_target ? 1 : -1; // back toward where the count began
+		bool found = false;
+		for (; k >= 1 && k <= dist; k += step) {
+			x = static_cast<int16>(sd->x + (dx * k + (dx >= 0 ? dist / 2 : -(dist / 2))) / dist);
+			y = static_cast<int16>(sd->y + (dy * k + (dy >= 0 ? dist / 2 : -(dist / 2))) / dist);
+			if (map_getcell(sd->m, x, y, CELL_CHKPASS)) {
+				found = true;
+				break;
+			}
+		}
+		if (!found)
+			return why("no free cell to aim at %d cells %s", static_cast<int>(rule.aim_cells),
+				rule.aim_from_target ? "in front of it" : "toward it");
+		safesnprintf(note, sizeof(note), ", %d cells from itself, %d from %s", k, dist - k, led > 0 ? "where it will be" : "it");
+	}
+	char buf[160];
+	if (led > 0)
+		safesnprintf(buf, sizeof(buf), " at (%d,%d)%s, led %d cells", x, y, note, led);
+	else
+		safesnprintf(buf, sizeof(buf), " at (%d,%d)%s%s", x, y, note, rule.aim_lead ? ", not led (it stands still)" : "");
+	g_cast_note = buf;
+	return nullptr;
+}
+
 static const char *cast(Turn &t, const Rule &rule, block_list *target, uint16 id)
 {
+	g_cast_note.clear();
 	map_session_data *sd = t.sd;
 	const uint16 known = pc_checkskill(sd, id);
 	const uint16 lv = rule.cast_lv > 0 ? std::min<uint16>(rule.cast_lv, known) : known;
@@ -3112,8 +3239,19 @@ static const char *cast(Turn &t, const Rule &rule, block_list *target, uint16 id
 		return why_state(sd, id, lv);
 	if (skill_get_sp(id, lv) > static_cast<int32>(sd->battle_status.sp))
 		return why("not enough SP: needs %d, has %u", skill_get_sp(id, lv), sd->battle_status.sp);
-	if (const int range = skill_get_range2(sd, id, lv, true); target != sd && !check_distance_bl(sd, target, range))
+	// Where a ground skill lands: the target's feet, or the cell Aim works out.
+	int16 ax = target->x, ay = target->y;
+	const bool aimed = rule.aim && (inf & INF_GROUND_SKILL) != 0 && target != sd;
+	if (aimed) {
+		if (const char *no_cell = aim_cell(sd, rule, target, id, lv, ax, ay); no_cell != nullptr)
+			return no_cell;
+	}
+	if (const int range = skill_get_range2(sd, id, lv, true); aimed) {
+		if (const int d = std::max(std::abs(sd->x - ax), std::abs(sd->y - ay)); d > range)
+			return why("out of range: the cell is %d > %d", d, range);
+	} else if (target != sd && !check_distance_bl(sd, target, range)) {
 		return why("out of range: %d > %d", distance_bl(sd, target), range);
+	}
 	if (!status_check_skilluse(sd, target, id, 0)) {
 		if (target->type != BL_PC && status_isdead(*target))
 			return why("%s is dead", status_get_name(*target));
@@ -3123,21 +3261,21 @@ static const char *cast(Turn &t, const Rule &rule, block_list *target, uint16 id
 		return why("%s cannot be cast at now (its state: rAthena's status_check_skilluse)", status_get_name(*target));
 	}
 	if (inf & INF_GROUND_SKILL) {
-		if (const char *taken = why_cell(sd, id, lv, target->x, target->y); taken != nullptr)
+		if (const char *taken = why_cell(sd, id, lv, ax, ay); taken != nullptr)
 			return taken;
 	}
 	// Sanctuary heals the monsters standing in it unless they are undead or demons (the combat file).
-	if ((inf & INF_GROUND_SKILL) && pop_ground_heal_helps_enemy(sd, id, target->x, target->y))
+	if ((inf & INF_GROUND_SKILL) && pop_ground_heal_helps_enemy(sd, id, ax, ay))
 		return "it would heal a monster";
 	const std::vector<std::pair<t_itemid, int32>> cost = rule.consume && kPayCatalysts
 		? item_cost(id, lv) : std::vector<std::pair<t_itemid, int32>>();
 	if (!can_pay(sd, cost))
 		return why("a catalyst is missing");
 	const bool ok = (inf & INF_GROUND_SKILL)
-		? unit_skilluse_pos(sd, target->x, target->y, id, lv) != 0
+		? unit_skilluse_pos(sd, ax, ay, id, lv) != 0
 		: unit_skilluse_id(sd, target->id, id, lv) != 0;
 	if (!ok)
-		return why_unit_refused(sd, target, id, lv, (inf & INF_GROUND_SKILL) != 0);
+		return why_unit_refused(sd, target, id, lv, (inf & INF_GROUND_SKILL) != 0, ax, ay);
 	// Paid when the cast starts, not when it lands: an interrupted cast still costs the stone.
 	pay(sd, cost);
 	// rAthena paces the next action itself: the cast timer (skilltimer) and the after-cast delay
@@ -3887,9 +4025,9 @@ static Outcome run_rule(Turn &t, const Rule &rule, const Plan &plan, PlanState &
 			trace(sd, *t.st, t.tick, "rule %s: %s not cast (%s)", name, skill_get_desc(skill), why);
 			return Outcome::Skipped;
 		}
-		trace(sd, *t.st, t.tick, "rule %s: %s on %s (SP %u/%u)", name, skill_get_desc(skill),
+		trace(sd, *t.st, t.tick, "rule %s: %s on %s%s (SP %u/%u)", name, skill_get_desc(skill),
 			target != nullptr ? status_get_name(*target) : target_id != 0 ? "a target now gone" : "self",
-			sd->battle_status.sp, sd->battle_status.max_sp);
+			g_cast_note.c_str(), sd->battle_status.sp, sd->battle_status.max_sp);
 		acted = true;
 	} else if (rule.use_item != 0) {
 		const int32 enemy_id = t.enemy != nullptr ? t.enemy->id : 0;

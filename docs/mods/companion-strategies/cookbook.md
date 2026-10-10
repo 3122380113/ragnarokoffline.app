@@ -25,6 +25,7 @@ not yet. Adjust names, priorities and numbers to your plan. The
 - [Don't make a boss teleport](#dont-make-a-boss-teleport)
 - [Stand inside a Land Protector, not on its rim](#stand-inside-a-land-protector-not-on-its-rim)
 - [Step out from behind a wall](#step-out-from-behind-a-wall)
+- [An Ice Wall between you and what is coming](#an-ice-wall-between-you-and-what-is-coming)
 
 **Damage**
 - [A bolt by element at what is on the party](#a-bolt-by-element-at-what-is-on-the-party)
@@ -33,6 +34,9 @@ not yet. Adjust names, priorities and numbers to your plan. The
 - [Two of a kind: split the targets](#two-of-a-kind-split-the-targets)
 - [Turn heals on the undead](#turn-heals-on-the-undead)
 - [Interrupt only the casts that matter](#interrupt-only-the-casts-that-matter)
+- [A Fire Wall in its path](#a-fire-wall-in-its-path)
+- [A trap in front of it, not under it](#a-trap-in-front-of-it-not-under-it)
+- [An area spell where the pack will be](#an-area-spell-where-the-pack-will-be)
 - [Two builds of one class](#two-builds-of-one-class)
 
 **Boss mechanics**
@@ -323,6 +327,27 @@ It steps to the nearest cell from which its current target is in the clear, and
 passes once it stands on one. For a healer, give it the member: `Target: { Ally:
 attacked }`.
 
+## An Ice Wall between you and what is coming
+
+A ground spell lands at its target's feet: an Ice Wall aimed at a monster goes
+up on the monster, not in its way. `Aim` puts it on the line between the two:
+
+```yaml
+- Name: wall_it_off
+  Priority: 78
+  Cast: WZ_ICEWALL
+  Target: { Enemy: attacking, Who: self }       # what is coming for me
+  Aim: { Cells: 3 }                             # three cells from me, toward it
+  Field: { Skill: WZ_ICEWALL, Owner: self, Range: 5, Below: 1 }   # none standing yet
+  Cooldown: 3000
+```
+
+With the monster three cells off or closer there is no cell between the two that
+far out, and the rule does not cast. The `Field` condition keeps it to one wall
+at a time. Ice Wall blocks shots as
+well as steps: follow it with a spell that needs no line (Storm Gust, Heaven's
+Drive on a cell), or [step to a clear line](#step-out-from-behind-a-wall).
+
 ## A bolt by element at what is on the party
 
 ```yaml
@@ -422,6 +447,53 @@ as the cast lasts (an `On: casts` event fires once):
   Priority: 70
   Cast: AC_DOUBLE
   Target: { Enemy: casting, Skill: [WZ_JUPITEL, MG_THUNDERSTORM] }
+```
+
+## A Fire Wall in its path
+
+By the time a cast is done, a walking monster is no longer where it was. `Lead`
+aims where its walk will have brought it, by its speed and the companion's cast
+time:
+
+```yaml
+- Name: firewall_ahead
+  Priority: 66
+  Cast: MG_FIREWALL
+  Target: { Enemy: attacking, Who: self }
+  Aim: { Cells: 2, From: target, Lead: true }   # two cells in front of where it will be
+  Cooldown: 2500
+```
+
+A monster that stands still is where it is, and `Lead` changes nothing.
+
+## A trap in front of it, not under it
+
+A trap cannot be laid on a cell a monster stands on (the trace: `the cell is
+taken: Dark Lord stands on it`). Lay it where the monster is about to step:
+
+```yaml
+- Name: snare_its_path
+  Priority: 72
+  Cast: HT_ANKLESNARE
+  Target: { Enemy: boss, Mob: DARK_LORD, Range: 9 }
+  Aim: { Cells: 2, From: target, Lead: true }
+  Cooldown: 6000
+```
+
+Ankle Snare needs two free cells round it: `Cells: 2` from the target, no less.
+
+## An area spell where the pack will be
+
+Storm Gust takes its time. Against monsters walking in, cast it where they will
+be when it lands:
+
+```yaml
+- Name: gust_the_pack
+  Priority: 50
+  Count: { Around: target, Range: 4, AtLeast: 3 }
+  Cast: WZ_STORMGUST
+  Target: { Enemy: nearest }
+  Aim: { Lead: true }
 ```
 
 ## Two builds of one class
