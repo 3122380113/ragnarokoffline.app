@@ -19,6 +19,8 @@ const factory = read(MAP + 'population_engine/population_engine_factory.cpp');
 const patch = read('third-party/population-engine/patches/0036-companions-start-unequipped.patch');
 const schema = read('third-party/population-engine/files/sql-files/population_engine/cp_companion_persistence.sql');
 const cmds = read('stack/src/cmds.rs');
+const patch36 = read('third-party/population-engine/patches/0036-companion-spare-gear.patch');
+const panel = read('patches/CompanionPanel.js');
 const settings = read('src/settings.html');
 const main = read('electron/main.js');
 const { lines, companionStartUnequipped } = require('../electron/population-conf');
@@ -85,4 +87,45 @@ test('Settings offers the choice, off by default, and writes it', () => {
 	const base = { population_enable: true, population_max: 1500, population_density: 100 };
 	assert.match(lines(base), /^population_engine_companion_start_unequipped: 0$/m);
 	assert.match(lines({ ...base, population_companion_start_unequipped: true }), /^population_engine_companion_start_unequipped: 1$/m);
+});
+
+// --- Spare gear ---------------------------------------------------------------
+
+test('the command is one line in rAthena, and the rest is ours', () => {
+	assert.match(patch36, /^\+\tif \(strcmpi\(cmd, "spare"\) == 0\) \{\n\+\t\tpopulation_shell_gear_command\(sd, param\);/m);
+	assert.match(patch36, /^\+#include "population_engine\/runtime\/population_shell_gear\.hpp"$/m);
+});
+
+test('only a companion that started unequipped, with a saved bag, carries spares', () => {
+	const no = body(gear, 'const char *cannot_carry(');
+	assert.match(no, /if \(!population_shell_gear_bare\(shell\)\)/);
+	assert.match(no, /if \(!population_shell_has_own_inventory\(shell\)\)/);
+	assert.match(body(gear, 'void population_shell_gear_command('), /if \(const char \*no = cannot_carry\(shell\); no != nullptr\)/);
+});
+
+test('everything such a companion wears counts as its owner\'s after every change', () => {
+	assert.match(body(gear, 'void own_what_it_wears('), /shell->pop\.companion_given_mask = worn;/);
+	assert.match(body(gear, 'void save_now('), /own_what_it_wears\(shell\);/);
+	// Bag and worn gear are both written at once, and the owner's half first.
+	assert.match(body(gear, 'void save_now('), /population_shell_inventory_save\(shell, true\);\n\tpopulation_engine_persist_companion_gear\(shell\);/);
+	assert.match(body(gear, 'int population_shell_gear_return_spares('), /chrif_save\(owner, CSAVE_INVENTORY\);\n\t\tsave_now\(shell\);/);
+});
+
+test('a piece handed back is never lost: the owner\'s bag, or the ground at their feet', () => {
+	const back = body(gear, 'bool hand_back(');
+	assert.match(back, /pc_additem\(owner, &tmp, amount, LOG_TYPE_NPC\) != ADDITEM_SUCCESS\n\t\t\t&& map_addflooritem\(/);
+	assert.match(back, /return false;\n\t\}\n\tpc_delitem\(shell, i, amount, 0, 1, LOG_TYPE_NPC\);/);
+});
+
+test('taking everything returns what is carried, and a row with carried gear is not removed', () => {
+	assert.match(engine, /if \(slot_mask == 0\)\n\t\treturned \+= population_shell_gear_return_spares\(owner, shell\);/);
+	assert.match(engine, /return holds \|\| population_shell_gear_row_has_spares\(shell_index\);/);
+	assert.match(body(gear, 'bool population_shell_gear_row_has_spares('), /WHERE shell_index=%u AND start_unequipped=1/);
+});
+
+test('the Gear tab mirrors the server: it asks again after every button', () => {
+	assert.match(panel, /function parseGearLine\(text\)/);
+	assert.match(panel, /if \(parseGearLine\(text\) \|\| parseSkillLine\(text\)/);
+	for (const action of ['stow \\$\\{slot\\}', 'wear \\$\\{sp\\.place\\}', 'take \\$\\{sp\\.place\\}'])
+		assert.match(panel, new RegExp('talk\\(`@companion spare \\$\\{m\\.name\\} ' + action + '`, false\\);\\s+talk\\(`@companion spare \\$\\{m\\.name\\} raw`, false\\);'));
 });

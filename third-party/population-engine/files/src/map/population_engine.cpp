@@ -7661,6 +7661,9 @@ int population_engine_companion_return_gear(map_session_data *owner, map_session
 			freed |= worn;
 		}
 	}
+	// RAGNAROKMAC (spare gear): "everything" is what it carries too.
+	if (slot_mask == 0)
+		returned += population_shell_gear_return_spares(owner, shell);
 	if (returned > 0) {
 		pop_companion_reequip_own(shell, freed);
 		ShowInfo("population_engine: returned %d worn item(s) from companion %u to owner %u\n",
@@ -8224,7 +8227,8 @@ bool population_engine_companion_holds_given_gear(uint32_t owner_account, uint32
 		holds = data != nullptr && strtoul(data, nullptr, 10) != 0;
 	}
 	Sql_FreeResult(mmysql_handle);
-	return holds;
+	// RAGNAROKMAC (spare gear): what it carries is the owner's as much as what it wears.
+	return holds || population_shell_gear_row_has_spares(shell_index);
 }
 
 /// Prints the owner's saved companions (name, job, active, favorite) to the

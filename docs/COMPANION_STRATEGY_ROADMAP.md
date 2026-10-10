@@ -339,7 +339,7 @@ an event).
 (`gear_detail`, the gear-return patches `0007` and `0025`); a new action in the
 strategy module, beside `UseItem`.
 
-**The plan (agreed 2026-10; step 1 of 4 built).** Found while writing boss plans: a plan
+**The plan (agreed 2026-10; steps 1 and 2 of 4 built).** Found while writing boss plans: a plan
 names gear a member should wear for a fight (a Raydric garment against Dark Lord,
 an Alice shield, fire armour against Meteor Storm), and the companion puts it on
 when the encounter starts. The test to pass: a plan for Dark Lord that says
@@ -366,7 +366,8 @@ Four steps, each of use without the next:
    companions only**; for one the engine dressed, `Equip` rules do not apply.
    (Marking the engine's gear as character-bound was considered and turned
    down.)
-2. **Carrying spares.** Trading stays as it is: a traded piece is put on. The
+2. **Built:** **carrying spares** (`@companion spare`, patch 0036, the Gear
+   tab; the buttons are not yet tried in the client). Trading stays as it is: a traded piece is put on. The
    Companions window's Gear tab gets **Carry as spare** beside **Take back** on a
    worn piece, and a **Carried** list with **Wear** and **Take back**; the panel
    sends the commands, a player types none. Needs Companion inventory, which

@@ -26,3 +26,18 @@ void population_shell_gear_drafted(map_session_data *shell);
 /// A saved companion has just been spawned for a recall, before the recall dresses it: reads
 /// how it was drafted from its row.
 void population_shell_gear_recalled(map_session_data *shell);
+
+// --- Spare gear (the roadmap's "Switching gear", step 2) ----------------------
+// A companion that started unequipped can carry pieces it does not wear. Trading still puts a
+// piece on; "@companion spare <name> stow <slot>" moves a worn piece into its bag, "wear" puts
+// a carried one on, "take" hands a carried one back to the owner. The Companions window's Gear
+// tab sends these. It needs Companion inventory, which is what saves the bag.
+
+/// "@companion spare <name> list|raw|stow <slots>|wear <n>|take <n>". Answers `owner` itself.
+void population_shell_gear_command(map_session_data *owner, const char *param);
+/// Every carried piece of equipment goes back to the owner: "take everything", and a companion
+/// about to be removed. Returns how many. Nothing for a companion the engine dressed.
+int population_shell_gear_return_spares(map_session_data *owner, map_session_data *shell);
+/// Whether a saved companion's row holds carried equipment: one that is not summoned cannot
+/// hand it back, so it is not removed until it has been.
+bool population_shell_gear_row_has_spares(uint32 shell_index);

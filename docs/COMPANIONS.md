@@ -265,6 +265,21 @@ A companion keeps the way it started. Turning the setting on changes none you
 already have, and one drafted while it was on stays the way it is when you turn
 it off again.
 
+### Spare gear
+
+A companion that started unequipped can carry pieces beside the ones it wears,
+with **Companion inventory** on (that is what saves its bag). Trading works as
+ever: a traded piece is put on. In the Companions window's **Gear** tab:
+
+- **Carry as spare** on a worn slot moves that piece into its bag;
+- the **Carried** list shows what it holds, with **Wear** (the piece it replaces
+  goes into the bag, not back to you) and **Take back**;
+- **All** takes back everything, worn and carried.
+
+A companion that still wears or carries anything of yours is not removed while it
+is not summoned: summon it and take the gear back first. The same as commands:
+`@companion spare <name> list`, `stow <slot>`, `wear <#>`, `take <#>`.
+
 ## Free or hired
 
 **Settings → Population → Companions** decides what a new companion costs:
