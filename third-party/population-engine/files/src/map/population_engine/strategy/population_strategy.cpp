@@ -90,6 +90,7 @@ struct Selector {
 	bool not_self = false;       ///< leave the companion itself out
 	Member prefer = Member::Any; ///< Enemy attacking: monsters on this member first
 	uint8 roles = 0;             ///< Ally: only members with one of these roles (a bit per PopulationRoleType; 0 = any)
+	bool not_owner = false;      ///< Ally: leave the owner out (buff the party, not the player it follows)
 	std::vector<uint16> skills;  ///< Enemy casting: only these casts (empty = any)
 	std::vector<int32> jobs;     ///< Ally: only these jobs (each with its family and base class)
 	int16 status = -1;           ///< Ally missing: lacking this status
@@ -777,7 +778,7 @@ bool StrategyDatabase::parse_requires(const ryml::NodeRef &node, Requirements &r
 /// On an Enemy: attacking or target_of selector, Job is the member's: "what is hitting a Priest".
 bool StrategyDatabase::parse_selector(const ryml::NodeRef &node, Selector &sel)
 {
-	this->warn_unknown_keys(node, { "Enemy", "Ally", "Who", "NotSelf", "Prefer", "Role", "Job", "Status",
+	this->warn_unknown_keys(node, { "Enemy", "Ally", "Who", "NotSelf", "NotOwner", "Prefer", "Role", "Job", "Status",
 		"Skill", "Range", "Boss", "Race", "Element", "Expiring" }, "Target");
 	std::string pick;
 	if (this->nodeExists(node, "Enemy")) {
@@ -846,6 +847,13 @@ bool StrategyDatabase::parse_selector(const ryml::NodeRef &node, Selector &sel)
 			}
 			sel.roles |= static_cast<uint8>(1u << role);
 		}
+	}
+	if (this->nodeExists(node, "NotOwner")) {
+		if (sel.kind != Selector::Kind::Ally) {
+			this->invalidWarning(node["NotOwner"], "NotOwner belongs to an Ally selector; the rule is skipped.\n");
+			return false;
+		}
+		this->asBool(node, "NotOwner", sel.not_owner);
 	}
 	// Skill: which casts an Enemy: casting selector means -- one skill or a list.
 	if (this->nodeExists(node, "Skill")) {
@@ -2664,12 +2672,17 @@ static block_list *select_ally(Turn &t, const Selector &sel, int range, uint16 s
 		// Ally: dead picks the fallen, nearest first; every other pick, the living.
 		if (pc_isdead(m) != (sel.pick == Selector::Pick::Dead) || !check_distance_bl(sd, m, range))
 			continue;
+		if (sel.not_owner && m == t.owner)
+			continue;
 		if (sel.roles != 0 && (!population_engine_is_population_pc(m->id)
 				|| (sel.roles & (1u << static_cast<uint8>(m->pop.role))) == 0))
 			continue;
 		if (!sel.jobs.empty() && std::none_of(sel.jobs.begin(), sel.jobs.end(), [&](int32 j) { return job_matches(m, j); }))
 			continue;
 		if (skill != 0 && pop_ally_skill_refused(sd, m, skill))
+			continue;
+		// A cast at a member nobody can see (Hiding, Cloaking, a GM's @hide) is refused every time.
+		if (skill != 0 && m != sd && (m->sc.option & (OPTION_HIDE | OPTION_CLOAK | OPTION_CHASEWALK | OPTION_INVISIBLE)) != 0)
 			continue;
 		if (t.claim != nullptr && claimed_by_other(sd, *t.claim, m->id, t.tick, &t.claim_holder)) {
 			t.claim_passed = m->id;
