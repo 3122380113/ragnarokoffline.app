@@ -339,20 +339,54 @@ an event).
 (`gear_detail`, the gear-return patches `0007` and `0025`); a new action in the
 strategy module, beside `UseItem`.
 
-**Asked for, and put off (2026-10).** Found while writing boss plans: a plan
-names gear a member should wear for a fight (a Raydric garment against Dark
-Lord, an Alice shield, fire armour against Meteor Storm), and the companion puts
-it on when the encounter starts. The boss tests gave a member an armour element
-by script instead. The test to pass: a plan for Dark Lord that says "Raydric
-garment", and the companion wears one while Dark Lord is within 14 cells. To
-settle before writing it:
-- what a gear rule does with Companion inventory off, when there is no bag to
-  take the piece from;
-- what puts the earlier piece back when the encounter ends (`encounter_ended`,
-  or leaving the strategy);
-- how a swapped piece sits with the given-gear mask and the `gear_detail`
-  snapshot, so a recall does not bring the companion back in its boss gear, and
-  a piece the owner gave is still handed back as the owner's.
+**The plan (agreed 2026-10, not built).** Found while writing boss plans: a plan
+names gear a member should wear for a fight (a Raydric garment against Dark Lord,
+an Alice shield, fire armour against Meteor Storm), and the companion puts it on
+when the encounter starts. The test to pass: a plan for Dark Lord that says
+"Raydric garment", and the companion wears one while Dark Lord is within 14 cells.
+
+What stands in the way is in the engine more than in the table:
+- a companion cannot carry a spare: traded equipment is worn at once, and the
+  piece it pushes off is handed back to the owner;
+- the engine marks the owner's gear by position (`companion_given_mask`), which
+  stops telling the owner's spare from the companion's own gear once pieces move
+  between body and bag;
+- nothing puts gear back, and the save records whatever is worn.
+
+Four steps, each of use without the next:
+
+1. **A setting, "Companions start unequipped"** (off by default). A companion
+   drafted with it on gets no gear from the engine, at the draft or at a job
+   change; potions and ammunition keep their own settings. The companion
+   remembers how it was drafted, so changing the setting later changes no
+   existing companion. Everything such a companion wears or carries came from
+   its owner, so there is nothing to tell apart. **Gear switching is for these
+   companions only**; for one the engine dressed, `Equip` rules do not apply.
+   (Marking the engine's gear as character-bound was considered and turned
+   down.)
+2. **Carrying spares.** Trading stays as it is: a traded piece is put on. The
+   Companions window's Gear tab gets **Carry as spare** beside **Take back** on a
+   worn piece, and a **Carried** list with **Wear** and **Take back**; the panel
+   sends the commands, a player types none. Needs Companion inventory, which
+   saves the bag in full (refine, cards, options). Deleting or dismissing a
+   companion for good returns its bag to the owner first.
+3. **The rule action `Equip`**: `Equip: <item>`, a list (the first one carried),
+   or `{ Item, Card }`. Like `UseItem`, the rule exists only for a companion that
+   carries the piece. Like `Sit`, it holds **while the rule applies**: the piece
+   goes on, the module notes every slot the swap changed (a two-handed weapon
+   takes a shield off too), and once no `Equip` rule claims a slot for about
+   10 s the earlier pieces go back on. A rule in a boss plan with
+   `Encounter: true` is then "worn while the boss is within 14 cells", with no
+   rule to write for putting it back. Armour, shield, garment, shoes and
+   accessories first; weapons later (skills ask for weapon types, attack speed
+   changes, ammunition follows the weapon).
+4. **Saving.** The save records the normal set as worn and the fight gear as
+   carried, so a restart brings the companion back in its normal gear and the
+   rule equips again if the boss is still there.
+
+The risk that matters is a player's item lost or doubled: every path that hands
+gear back (a job change, a dismissal, Take back) has to count the bag as well as
+the body. Steps 1 and 2 carry that and want the most testing.
 
 ## 5. Time and memory
 
