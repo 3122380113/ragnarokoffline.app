@@ -90,6 +90,7 @@ struct Selector {
 	bool not_self = false;       ///< leave the companion itself out
 	Member prefer = Member::Any; ///< Enemy attacking: monsters on this member first
 	uint8 roles = 0;             ///< Ally: only members with one of these roles (a bit per PopulationRoleType; 0 = any)
+	std::vector<uint16> skills;  ///< Enemy casting: only these casts (empty = any)
 	std::vector<int32> jobs;     ///< Ally: only these jobs (each with its family and base class)
 	int16 status = -1;           ///< Ally missing: lacking this status
 	int32 expiring_ms = 0;       ///< Ally missing: or having it with less than this left (0: only lacking)
@@ -776,8 +777,8 @@ bool StrategyDatabase::parse_requires(const ryml::NodeRef &node, Requirements &r
 /// On an Enemy: attacking or target_of selector, Job is the member's: "what is hitting a Priest".
 bool StrategyDatabase::parse_selector(const ryml::NodeRef &node, Selector &sel)
 {
-	this->warn_unknown_keys(node, { "Enemy", "Ally", "Who", "NotSelf", "Prefer", "Role", "Job", "Status", "Range", "Boss",
-		"Race", "Element", "Expiring" }, "Target");
+	this->warn_unknown_keys(node, { "Enemy", "Ally", "Who", "NotSelf", "Prefer", "Role", "Job", "Status",
+		"Skill", "Range", "Boss", "Race", "Element", "Expiring" }, "Target");
 	std::string pick;
 	if (this->nodeExists(node, "Enemy")) {
 		static const std::map<std::string, Selector::Pick> picks = {
@@ -844,6 +845,21 @@ bool StrategyDatabase::parse_selector(const ryml::NodeRef &node, Selector &sel)
 				return false;
 			}
 			sel.roles |= static_cast<uint8>(1u << role);
+		}
+	}
+	// Skill: which casts an Enemy: casting selector means -- one skill or a list.
+	if (this->nodeExists(node, "Skill")) {
+		if (sel.kind != Selector::Kind::Enemy || sel.pick != Selector::Pick::Casting) {
+			this->invalidWarning(node["Skill"], "Skill belongs to Enemy: casting; the rule is skipped.\n");
+			return false;
+		}
+		for (const std::string &name : scalars(node["Skill"])) {
+			const uint16 id = skill_of(name);
+			if (id == 0) {
+				this->invalidWarning(node["Skill"], "Unknown skill '%s'; the rule is skipped.\n", name.c_str());
+				return false;
+			}
+			sel.skills.push_back(id);
 		}
 	}
 	if (this->nodeExists(node, "Job")) {
@@ -1010,7 +1026,7 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 
 	if (this->nodeExists(node, "Count")) {
 		const ryml::NodeRef c = node["Count"];
-		this->warn_unknown_keys(c, { "Enemy", "Who", "NotSelf", "Boss", "Race", "Element", "Around", "Range", "Below", "AtLeast" },
+		this->warn_unknown_keys(c, { "Enemy", "Who", "NotSelf", "Boss", "Race", "Element", "Skill", "Around", "Range", "Below", "AtLeast" },
 			"Count");
 		static const std::map<std::string, Selector::Pick> picks = {
 			{ "any", Selector::Pick::Nearest }, { "attacking", Selector::Pick::Attacking },
@@ -1051,6 +1067,20 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 				return nullptr;
 			}
 			(race ? rule->count_sel.race : rule->count_sel.element) = static_cast<int8>(v);
+		}
+		if (this->nodeExists(c, "Skill")) {
+			if (rule->count_sel.pick != Selector::Pick::Casting) {
+				this->invalidWarning(c["Skill"], "Skill belongs to Enemy: casting; the rule is skipped.\n");
+				return nullptr;
+			}
+			for (const std::string &name : scalars(c["Skill"])) {
+				const uint16 id = skill_of(name);
+				if (id == 0) {
+					this->invalidWarning(c["Skill"], "Unknown skill '%s'; the rule is skipped.\n", name.c_str());
+					return nullptr;
+				}
+				rule->count_sel.skills.push_back(id);
+			}
 		}
 		if (this->nodeExists(c, "Around")) {
 			std::string around;
@@ -2525,7 +2555,9 @@ static bool enemy_matches(Turn &t, const Selector &sel, const mob_data *md, int 
 	case Selector::Pick::LowestHp: rank = hp_pct(md); return true;
 	case Selector::Pick::Boss:     return status_get_class_(md) == CLASS_BOSS;
 	case Selector::Pick::Slaves:   return md->master_id != 0;
-	case Selector::Pick::Casting:  return md->ud.skilltimer != INVALID_TIMER;
+	case Selector::Pick::Casting:
+		return md->ud.skilltimer != INVALID_TIMER && (sel.skills.empty()
+			|| std::find(sel.skills.begin(), sel.skills.end(), md->ud.skill_id) != sel.skills.end());
 	// Hiding, Cloaking, Chase Walk -- and a Hode's burrow, which is Hiding too.
 	case Selector::Pick::Hidden:   return (md->sc.option & (OPTION_HIDE | OPTION_CLOAK | OPTION_CHASEWALK)) != 0;
 	default:                       return true;
