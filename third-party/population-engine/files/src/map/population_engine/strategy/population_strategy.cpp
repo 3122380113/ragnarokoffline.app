@@ -2501,16 +2501,31 @@ static int32 mob_scan_cb(block_list *bl, va_list ap)
 	return 0;
 }
 
-/// Whether a monster could fight back against a companion standing at (x, y). rAthena teleports a
-/// boss on `rudeattacked` when its target hits it and it can neither hit back from where it
-/// stands nor walk to it within its chase range (mob.cpp, the "rude attacked check"); an immobile
-/// monster (Ankle Snare, Spider Web) cannot walk at all. This asks the same question.
+/// Whether rAthena counts a monster as held where it stands, for its "rude attacked check"
+/// (mob.cpp, mob_ai_sub_hard): it cannot move now, and that is one of the holds the check names
+/// rather than the pause every attack and cast brings (unit_can_move is false through those too:
+/// read alone, a boss in the middle of a fight looked unreachable on most turns). A monster that
+/// never walks (Amon Ra) is not held by that either: rAthena goes on to ask for a path.
+static bool mob_held(mob_data *md)
+{
+	if (status_has_mode(&md->status, MD_CANMOVE) && unit_can_move(md))
+		return false;
+	if (DIFF_TICK(gettick(), md->ud.canmove_tick) <= 0)
+		return false;
+	return (battle_config.mob_ai & 0x2) != 0 || md->sc.getSCE(SC_SPIDERWEB) != nullptr || md->sc.getSCE(SC_BITE) != nullptr
+		|| md->sc.getSCE(SC_VACUUM_EXTREME) != nullptr || md->sc.getSCE(SC_THORNSTRAP) != nullptr
+		|| md->sc.getSCE(SC__MANHOLE) != nullptr || md->walktoxy_fail_count > 0;
+}
+
+/// Whether a monster could fight back against a companion standing at (x, y): it can hit from
+/// where it stands, or it is not held and there is a path within its chase range. The question
+/// rAthena's rude attacked check asks, the same way.
 static bool mob_reaches_cell(mob_data *md, int16 x, int16 y)
 {
 	const int d = std::max(std::abs(md->x - x), std::abs(md->y - y));
 	if (d <= md->status.rhw.range)
 		return true;
-	if (!status_has_mode(&md->status, MD_CANMOVE) || !unit_can_move(md))
+	if (mob_held(md))
 		return false;
 	return d <= md->db->range3 && unit_can_reach_pos(md, x, y, 0);
 }
@@ -2519,9 +2534,32 @@ static bool mob_reaches(mob_data *md, map_session_data *sd)
 {
 	if (battle_check_range(md, sd, md->status.rhw.range))
 		return true;
-	if (!status_has_mode(&md->status, MD_CANMOVE) || !unit_can_move(md))
+	if (mob_held(md))
 		return false;
 	return unit_can_reach_bl(md, sd, md->db->range3, 0, nullptr, nullptr);
+}
+
+/// Whether a monster has an answer to being hit by `sd` from where it cannot fight back: a
+/// `rudeattacked` skill for the state it will be in when rAthena weighs the hit (mobskill_use's
+/// own test). rAthena does nothing else on a rude attack, so without one there is nothing to
+/// avoid. A monster busy with someone else stays in the state it is in: Dark Lord teleports for
+/// it only while idle or walking, never while it fights the tank. One that is after the
+/// companion itself (or after nobody) gives up a target it cannot reach and is idle by then.
+static bool mob_answers_rude(const mob_data *md, const map_session_data *sd)
+{
+	if (md->db == nullptr || md->state.skillstate == MSS_DEAD)
+		return false;
+	const bool drops_target = md->target_id == 0 || md->target_id == sd->id;
+	for (const auto &ms : md->db->skill) {
+		if (ms == nullptr || ms->cond1 != MSC_RUDEATTACKED)
+			continue;
+		if (ms->state == md->state.skillstate || ms->state == MSS_ANY
+				|| (ms->state == MSS_ANYTARGET && md->target_id != 0 && md->state.skillstate != MSS_LOOT))
+			return true;
+		if (drops_target && (ms->state == MSS_IDLE || ms->state == MSS_WALK))
+			return true;
+	}
+	return false;
 }
 
 /// MaxAttackers: how many of the party are on this monster ahead of the companion. The owner
@@ -3414,7 +3452,9 @@ static Outcome run_rule(Turn &t, const Rule &rule, const Plan &plan, PlanState &
 	}
 	if (rule.reach >= 0) {
 		mob_data *md = about != nullptr && about->type == BL_MOB ? reinterpret_cast<mob_data *>(about) : nullptr;
-		if (md == nullptr || mob_reaches(md, sd) != (rule.reach == 1))
+		// Reach: false is "hitting it from here would be answered": out of its reach, and it has a
+		// rudeattacked skill for the state it is in. Reach: true is only the first half.
+		if (md == nullptr || (rule.reach == 1 ? !mob_reaches(md, sd) : (mob_reaches(md, sd) || !mob_answers_rude(md, sd))))
 			return Outcome::Skipped;
 	}
 
