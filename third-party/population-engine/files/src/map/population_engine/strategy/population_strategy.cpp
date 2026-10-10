@@ -3205,11 +3205,13 @@ static bool requires_ok(const map_session_data *sd, const Requirements &req)
 		return false;
 	if (req.roles != 0 && (req.roles & (1u << static_cast<uint8>(sd->pop.role))) == 0)
 		return false;
+	// A skill its owner unticked in the companion's skill selection counts as one it lacks:
+	// every companion has its whole tree, so the selection is what tells two builds apart.
 	for (const uint16 id : req.skills)
-		if (pc_checkskill(sd, id) == 0)
+		if (pc_checkskill(sd, id) == 0 || !population_shell_skill_selected(sd, id))
 			return false;
 	for (const uint16 id : req.lacks)
-		if (pc_checkskill(sd, id) > 0)
+		if (pc_checkskill(sd, id) > 0 && population_shell_skill_selected(sd, id))
 			return false;
 	for (const t_itemid id : req.items)
 		if (pc_search_inventory(sd, id) < 0)
