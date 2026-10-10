@@ -337,7 +337,22 @@ an event).
 
 **Where to start.** The worn-gear code in `population_engine.cpp`
 (`gear_detail`, the gear-return patches `0007` and `0025`); a new action in the
-strategy module.
+strategy module, beside `UseItem`.
+
+**Asked for, and put off (2026-10).** Found while writing boss plans: a plan
+names gear a member should wear for a fight (a Raydric garment against Dark
+Lord, an Alice shield, fire armour against Meteor Storm), and the companion puts
+it on when the encounter starts. The boss tests gave a member an armour element
+by script instead. The test to pass: a plan for Dark Lord that says "Raydric
+garment", and the companion wears one while Dark Lord is within 14 cells. To
+settle before writing it:
+- what a gear rule does with Companion inventory off, when there is no bag to
+  take the piece from;
+- what puts the earlier piece back when the encounter ends (`encounter_ended`,
+  or leaving the strategy);
+- how a swapped piece sits with the given-gear mask and the `gear_detail`
+  snapshot, so a recall does not bring the companion back in its boss gear, and
+  a piece the owner gave is still handed back as the owner's.
 
 ## 5. Time and memory
 
