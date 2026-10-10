@@ -41,3 +41,16 @@ int population_shell_gear_return_spares(map_session_data *owner, map_session_dat
 /// Whether a saved companion's row holds carried equipment: one that is not summoned cannot
 /// hand it back, so it is not removed until it has been.
 bool population_shell_gear_row_has_spares(uint32 shell_index);
+
+// --- Switching gear in a plan (step 3) -----------------------------------------
+// What the strategy module's Equip rule needs: whether this companion may switch at all, and
+// one piece on or off with the owner's custody kept in step. Neither writes the row; the
+// engine's own gear poll does.
+
+/// A companion that started unequipped, with a bag of its own: the only kind a plan may dress.
+bool population_shell_gear_can_switch(const map_session_data *sd);
+/// Puts the bag's piece at `index` on (at `pos`, or where the item goes with 0). What it
+/// replaces stays in the bag.
+bool population_shell_gear_put_on(map_session_data *shell, int16 index, uint32 pos);
+/// Takes the worn piece at `index` off, into the bag.
+bool population_shell_gear_take_off(map_session_data *shell, int16 index);

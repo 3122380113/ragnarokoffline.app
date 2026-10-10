@@ -14,7 +14,7 @@ how it would work, what it would add, and where to start.
 | 1 | Holding position wins over following | built, played (Phreeoni) |
 | 2 | Leaving hostile ground (`Leave:`) | built, not yet played |
 | 3 | Choosing who to help or fight (selectors, `SetTarget`) | built, played (Phreeoni) |
-| 4 | Items and gear | [inventories](#inventories-the-foundation), catalysts and [using items](#using-items) (`UseItem`) built; [switching gear](#switching-gear-to-the-situation) **not done** |
+| 4 | Items and gear | [inventories](#inventories-the-foundation), catalysts, [using items](#using-items) (`UseItem`) and [switching gear](#switching-gear-to-the-situation) (`Equip`, for companions that started unequipped) built; weapons and the save of the normal set **not done** |
 | 5 | [Time and memory](#5-time-and-memory) | step 1 (time in strategy and fight, renewing before a status lapses) built, not yet played; step 2 (flags and counters) **not done** |
 | 6 | Companions coordinating | signals and claims built, not yet played; role plans built and played; [roles that change in a fight](#6-coordination-roles-that-change-in-a-fight-and-claims) **not done** |
 | 7 | Boss mechanics (MVP survey, A to F) | built; phases, reacting to a summon and revealing a hidden boss played |
@@ -339,7 +339,7 @@ an event).
 (`gear_detail`, the gear-return patches `0007` and `0025`); a new action in the
 strategy module, beside `UseItem`.
 
-**The plan (agreed 2026-10; steps 1 and 2 of 4 built).** Found while writing boss plans: a plan
+**The plan (agreed 2026-10; steps 1 to 3 of 4 built).** Found while writing boss plans: a plan
 names gear a member should wear for a fight (a Raydric garment against Dark Lord,
 an Alice shield, fire armour against Meteor Storm), and the companion puts it on
 when the encounter starts. The test to pass: a plan for Dark Lord that says
@@ -373,7 +373,7 @@ Four steps, each of use without the next:
    sends the commands, a player types none. Needs Companion inventory, which
    saves the bag in full (refine, cards, options). Deleting or dismissing a
    companion for good returns its bag to the owner first.
-3. **The rule action `Equip`**: `Equip: <item>`, a list (the first one carried),
+3. **Built:** **the rule action `Equip`**: `Equip: <item>`, a list (the first one carried),
    or `{ Item, Card }`. Like `UseItem`, the rule exists only for a companion that
    carries the piece. Like `Sit`, it holds **while the rule applies**: the piece
    goes on, the module notes every slot the swap changed (a two-handed weapon

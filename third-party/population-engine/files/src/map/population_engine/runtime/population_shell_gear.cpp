@@ -414,3 +414,32 @@ void population_shell_gear_command(map_session_data *owner, const char *param)
 	save_now(shell);
 	say(owner, "%s put on the %s.", shell->status.name, id->ename.c_str());
 }
+
+// --- Switching gear in a plan ---------------------------------------------------
+
+bool population_shell_gear_can_switch(const map_session_data *sd)
+{
+	return sd != nullptr && cannot_carry(sd) == nullptr;
+}
+
+bool population_shell_gear_put_on(map_session_data *shell, int16 index, uint32 pos)
+{
+	if (shell == nullptr || index < 0 || index >= MAX_INVENTORY || !is_spare(shell->inventory.u.items_inventory[index]))
+		return false;
+	const std::shared_ptr<item_data> id = itemdb_exists(shell->inventory.u.items_inventory[index].nameid);
+	if (id == nullptr || !pc_equipitem(shell, index, pos != 0 ? pos : id->equip, false))
+		return false;
+	own_what_it_wears(shell);
+	return true;
+}
+
+bool population_shell_gear_take_off(map_session_data *shell, int16 index)
+{
+	if (shell == nullptr || index < 0 || index >= MAX_INVENTORY)
+		return false;
+	const item &it = shell->inventory.u.items_inventory[index];
+	if (it.nameid == 0 || it.equip == 0 || (it.equip & EQP_AMMO) || !pc_unequipitem(shell, index, 2))
+		return false;
+	own_what_it_wears(shell);
+	return true;
+}
