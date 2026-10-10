@@ -806,8 +806,30 @@ In party chat, the owner types the companion's name and `trace`:
     Seraphina trace
 
 The companion then reports to its owner each rule it acts on, each event it
-notices, each strategy change, and why a matching rule's cast failed (out of
-range, not enough SP, no catalyst). The same line again does not repeat for 3 s.
+notices, each strategy change, and why a matching rule's cast was not made. The
+same line again does not repeat for 3 s.
+
+A refusal says what it was, with the numbers where there are any, because what
+to do about it depends on which:
+
+| The trace says | What to do |
+|---|---|
+| `out of range: 8 > 3` | bring the companion closer (`KeepDistance: { Max }`), or aim at something nearer |
+| `no clear line to the target` | a wall is between them: move, or wait |
+| `the cell is taken: Raydric stands on it` | a trap or field cannot go under a monster or beside a member: aim at a cell, not at the monster |
+| `the cell is taken (another trap or field is there, ...)` | it is already placed, or the skill has as many as it may place |
+| `not enough SP: needs 40, has 12` | keep SP back (`When: self_sp_ge40`) |
+| `a catalyst is missing: 1 Blue_Gemstone` | stock the bag (Companion inventory) |
+| `on cooldown, 12.4 s left` | give the rule that `Cooldown`, or a second skill to fall back on |
+| `the wrong weapon for it`, `it must be riding`, `not enough spirit spheres: needs 5, has 2` | a `Requires` or a `When` that asks first |
+| `its own state forbids it (silenced, ...)` | nothing to cast with: cure it, or hold |
+| `Hela is hidden`, `Poring is dead` | the target cannot be cast at |
+| `rAthena refused it (the skill's own check when a cast begins)` | a rule of that one skill; its entry in rAthena's skill code says which |
+
+A trap or a field is checked for its cell before the cast: rAthena itself only
+checks when the cast ends, when the catalyst is already spent and nothing is
+placed. A companion still in its after-cast delay, or casting, is not reported:
+that is every cast's ordinary wait.
 Typing it again turns it off.
 
 The server checks the table when it starts. An unknown monster, job, skill, item

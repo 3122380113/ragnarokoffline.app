@@ -2929,6 +2929,141 @@ static uint16 best_against(const map_session_data *sd, const Rule &rule, block_l
 	return best;
 }
 
+// --- Why a cast was not made, for the trace ---------------------------------
+// A plan's author can only act on a refusal that says what it was: step closer (out of range),
+// aim elsewhere (the cell is taken), wait (a cooldown), stock the bag (a catalyst), or drop the
+// rule. Each reason is worked out only once the cast has been refused.
+
+static std::string g_cast_why;
+
+static const char *why(const char *fmt, ...)
+{
+	char buf[160];
+	va_list ap;
+	va_start(ap, fmt);
+	vsnprintf(buf, sizeof(buf), fmt, ap);
+	va_end(ap);
+	g_cast_why = buf;
+	return g_cast_why.c_str();
+}
+
+/// What the skill costs that the companion does not have (skill_get_requirement, which already
+/// leaves out what a shell is excused from); nullptr when it has all of it.
+static const char *why_requirement(map_session_data *sd, uint16 id, uint16 lv)
+{
+	const s_skill_condition req = skill_get_requirement(sd, id, lv);
+	if (req.sp > 0 && static_cast<uint32>(req.sp) > sd->battle_status.sp)
+		return why("not enough SP: needs %d, has %u", req.sp, sd->battle_status.sp);
+	if (req.hp > 0 && static_cast<uint32>(req.hp) >= sd->battle_status.hp)
+		return why("not enough HP: needs more than %d, has %u", req.hp, sd->battle_status.hp);
+	if (req.zeny > 0 && sd->status.zeny < req.zeny)
+		return why("not enough zeny: needs %d", req.zeny);
+	if (req.spiritball > 0 && sd->spiritball < req.spiritball)
+		return why("not enough spirit spheres: needs %d, has %d", req.spiritball, static_cast<int>(sd->spiritball));
+	if (req.weapon != 0 && !pc_check_weapontype(sd, req.weapon))
+		return why("the wrong weapon for it");
+	if (req.ammo != 0) {
+		const int16 idx = sd->equip_index[EQI_AMMO];
+		if (idx < 0 || sd->inventory_data[idx] == nullptr || !(req.ammo & (1 << sd->inventory_data[idx]->subtype)))
+			return why("no ammunition of the kind it needs");
+		if (sd->inventory.u.items_inventory[idx].amount < req.ammo_qty)
+			return why("not enough ammunition: needs %d, has %d", req.ammo_qty,
+				static_cast<int>(sd->inventory.u.items_inventory[idx].amount));
+	}
+	for (int i = 0; i < MAX_SKILL_ITEM_REQUIRE; ++i) {
+		if (req.itemid[i] == 0)
+			continue;
+		const int16 idx = pc_search_inventory(sd, req.itemid[i]);
+		if (idx < 0 || sd->inventory.u.items_inventory[idx].amount < req.amount[i])
+			return why("a catalyst is missing: %d %s", std::max(1, req.amount[i]), itemdb_name(req.itemid[i]));
+	}
+	return nullptr;
+}
+
+/// Why pop_skill_state_ok (the combat file) said no: its checks, in its order.
+static const char *why_state(map_session_data *sd, uint16 id, uint16 lv)
+{
+	const std::shared_ptr<s_skill_db> skill = skill_db.find(id);
+	if (skill == nullptr)
+		return why("no such skill");
+	const int l = cap_value(static_cast<int>(lv), 1, MAX_SKILL_LEVEL);
+	if (skill->require.spiritball[l - 1] > 0 && sd->spiritball < skill->require.spiritball[l - 1])
+		return why("not enough spirit spheres: needs %d, has %d", skill->require.spiritball[l - 1], static_cast<int>(sd->spiritball));
+	if (skill->require.ap[l - 1] > 0 && sd->battle_status.ap < static_cast<uint32>(skill->require.ap[l - 1]))
+		return why("not enough AP: needs %d, has %u", skill->require.ap[l - 1], sd->battle_status.ap);
+	if (!status_check_skilluse(sd, nullptr, id, 0))
+		return why("its own state forbids it (silenced, stunned, hidden, or a status that stops skills)");
+	if (!population_shell_inventory_can_pay_skill(sd, id, lv)) {
+		const char *what = why_requirement(sd, id, lv);
+		return what != nullptr ? what : why("a catalyst is missing");
+	}
+	static const std::map<int32, const char *> states = {
+		{ ST_HIDDEN, "hidden" }, { ST_RIDING, "riding" }, { ST_FALCON, "with a falcon" }, { ST_CART, "with a cart" },
+		{ ST_SHIELD, "holding a shield" }, { ST_RECOVER_WEIGHT_RATE, "under its weight limit" },
+		{ ST_WATER, "standing in water" }, { ST_RIDINGDRAGON, "riding a dragon" }, { ST_WUG, "with a warg" },
+		{ ST_RIDINGWUG, "riding a warg" }, { ST_MADO, "in a Madogear" }, { ST_ELEMENTALSPIRIT, "with an elemental spirit" },
+		{ ST_ELEMENTALSPIRIT2, "with an elemental spirit" }, { ST_PECO, "riding" }, { ST_SUNSTANCE, "in the Sun stance" },
+		{ ST_MOONSTANCE, "in the Lunar stance" }, { ST_STARSTANCE, "in the Star stance" },
+		{ ST_UNIVERSESTANCE, "in the Universe stance" },
+	};
+	const auto it = states.find(skill->require.state);
+	return it != states.end() ? why("it must be %s", it->second) : why("its state does not allow it");
+}
+
+struct CellScan {
+	const block_list *self;
+	const block_list *found;
+};
+
+static int32 cell_scan_cb(block_list *bl, va_list ap)
+{
+	CellScan *scan = va_arg(ap, CellScan *);
+	if (bl->prev != nullptr && !status_isdead(*bl) && scan->found == nullptr)
+		scan->found = bl;
+	return 0;
+}
+
+/// Why a ground skill cannot be placed at (x, y): rAthena's skill_pos_maxcount_check, which it
+/// runs only when the cast ENDS -- by then the cast is made and its catalyst taken, with nothing
+/// placed and nothing said. A trap aimed at a monster's own cell failed that way every time.
+/// nullptr when the cell is free.
+static const char *why_cell(map_session_data *sd, uint16 id, uint16 lv, int16 x, int16 y)
+{
+	if (skill_pos_maxcount_check(sd, x, y, id, lv, BL_PC, false))
+		return nullptr;
+	const std::shared_ptr<s_skill_db> skill = skill_db.find(id);
+	if (skill != nullptr && skill->unit_flag[UF_NOFOOTSET] && (battle_config.skill_nofootset & BL_PC)) {
+		const int r = std::max(0, skill_get_unit_range(id, lv))
+			+ std::max(0, static_cast<int>(skill->unit_layout_type[cap_value(static_cast<int>(lv), 1, MAX_SKILL_LEVEL) - 1]));
+		CellScan scan{ sd, nullptr };
+		map_foreachinallarea(cell_scan_cb, sd->m, x - r, y - r, x + r, y + r, BL_CHAR, &scan);
+		if (scan.found != nullptr)
+			return why("the cell is taken: %s stands %s", status_get_name(*scan.found), r > 0 ? "too near it" : "on it");
+	}
+	return why("the cell is taken (another trap or field is there, or it has as many as it may place)");
+}
+
+/// Why unit_skilluse_id / unit_skilluse_pos returned 0: their own checks, in their order, as far
+/// as they can be asked again without casting.
+static const char *why_unit_refused(map_session_data *sd, block_list *target, uint16 id, uint16 lv, bool ground)
+{
+	if (sd->ud.state.blockedskill)
+		return why("its skills are blocked");
+	if (target != sd && battle_config.ksprotection && mob_ksprotected(sd, target))
+		return why("%s is another player's monster", status_get_name(*target));
+	if (const char *cost = why_requirement(sd, id, lv); cost != nullptr)
+		return cost;
+	const int range = skill_get_range2(sd, id, lv, true);
+	if (target != sd) {
+		const int d = distance_bl(sd, target);
+		if (ground && unit_is_walking(sd))
+			return why("it was still walking (%d cells off, range %d)", d, range);
+		if (!battle_check_range(sd, target, range))
+			return d > range ? why("out of range: %d > %d", d, range) : why("no clear line to %s", ground ? "the cell" : "the target");
+	}
+	return why("rAthena refused it (the skill's own check when a cast begins)");
+}
+
 static const char *cast(Turn &t, const Rule &rule, block_list *target, uint16 id)
 {
 	map_session_data *sd = t.sd;
@@ -2947,26 +3082,45 @@ static const char *cast(Turn &t, const Rule &rule, block_list *target, uint16 id
 		return nullptr; // busy casting: not a failure worth reporting
 	if (!combo_step && (DIFF_TICK(t.tick, sd->ud.canact_tick) < 0 || DIFF_TICK(t.tick, sd->pop.skill_cd) < 0))
 		return nullptr;
-	if (skill_isNotOk(id, *sd) || !pop_skill_weapon_ok(sd, id) || !pop_skill_state_ok(sd, id, lv))
-		return "cannot use it now";
+	if (skill_isNotOk(id, *sd)) {
+		const auto cd = sd->scd.find(id);
+		const TimerData *td = cd != sd->scd.end() ? get_timer(cd->second) : nullptr;
+		if (td != nullptr)
+			return why("on cooldown, %.1f s left", std::max<int64>(0, DIFF_TICK(td->tick, t.tick)) / 1000.0);
+		return why("not allowed here or now (the map, a mount, or its global skill delay)");
+	}
+	if (!pop_skill_weapon_ok(sd, id))
+		return why("the wrong weapon for it");
+	if (!pop_skill_state_ok(sd, id, lv))
+		return why_state(sd, id, lv);
 	if (skill_get_sp(id, lv) > static_cast<int32>(sd->battle_status.sp))
-		return "not enough SP";
-	if (target != sd && !check_distance_bl(sd, target, skill_get_range2(sd, id, lv, true)))
-		return "out of range";
-	if (!status_check_skilluse(sd, target, id, 0))
-		return "refused";
+		return why("not enough SP: needs %d, has %u", skill_get_sp(id, lv), sd->battle_status.sp);
+	if (const int range = skill_get_range2(sd, id, lv, true); target != sd && !check_distance_bl(sd, target, range))
+		return why("out of range: %d > %d", distance_bl(sd, target), range);
+	if (!status_check_skilluse(sd, target, id, 0)) {
+		if (target->type != BL_PC && status_isdead(*target))
+			return why("%s is dead", status_get_name(*target));
+		const status_change *tsc = status_get_sc(target);
+		if (tsc != nullptr && (tsc->option & (OPTION_HIDE | OPTION_CLOAK | OPTION_CHASEWALK | OPTION_INVISIBLE)) != 0)
+			return why("%s is hidden", status_get_name(*target));
+		return why("%s cannot be cast at now (its state: rAthena's status_check_skilluse)", status_get_name(*target));
+	}
+	if (inf & INF_GROUND_SKILL) {
+		if (const char *taken = why_cell(sd, id, lv, target->x, target->y); taken != nullptr)
+			return taken;
+	}
 	// Sanctuary heals the monsters standing in it unless they are undead or demons (the combat file).
 	if ((inf & INF_GROUND_SKILL) && pop_ground_heal_helps_enemy(sd, id, target->x, target->y))
 		return "it would heal a monster";
 	const std::vector<std::pair<t_itemid, int32>> cost = rule.consume && kPayCatalysts
 		? item_cost(id, lv) : std::vector<std::pair<t_itemid, int32>>();
 	if (!can_pay(sd, cost))
-		return "no catalyst";
+		return why("a catalyst is missing");
 	const bool ok = (inf & INF_GROUND_SKILL)
 		? unit_skilluse_pos(sd, target->x, target->y, id, lv) != 0
 		: unit_skilluse_id(sd, target->id, id, lv) != 0;
 	if (!ok)
-		return "refused";
+		return why_unit_refused(sd, target, id, lv, (inf & INF_GROUND_SKILL) != 0);
 	// Paid when the cast starts, not when it lands: an interrupted cast still costs the stone.
 	pay(sd, cost);
 	// rAthena paces the next action itself: the cast timer (skilltimer) and the after-cast delay

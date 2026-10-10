@@ -97,3 +97,16 @@ test('a drafted companion comes at its owner\'s level, and the ladder skips jobs
 	assert.match(eng, /if \(mode == 0\) \{\n[^\n]*\n\t\tg_pop_draft_level = static_cast<int16_t>\(owner->status\.base_level\);/);
 	assert.match(eng, /if \(!job_db\.exists\(target\)\)\n\t\t\tcontinue;/);
 });
+
+test('a refused cast says why, and a ground skill asks for its cell before it is cast', () => {
+	const cast = body('static const char *cast(');
+	// No bare reason is left in the cast path.
+	assert.doesNotMatch(cast, /return "(refused|cannot use it now|out of range|not enough SP)";/);
+	assert.match(cast, /why\("out of range: %d > %d"/);
+	assert.match(cast, /why\("on cooldown, %\.1f s left"/);
+	assert.match(cast, /why_cell\(sd, id, lv, target->x, target->y\)/);
+	assert.match(cast, /return why_unit_refused\(/);
+	// The cell check is rAthena's own, which it runs only when the cast ends.
+	assert.match(body('static const char *why_cell('), /skill_pos_maxcount_check\(sd, x, y, id, lv, BL_PC, false\)/);
+	assert.match(body('static const char *why_requirement('), /a catalyst is missing: %d %s/);
+});
