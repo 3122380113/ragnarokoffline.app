@@ -1178,9 +1178,9 @@ mods' copies are combined. That makes it the place for a server extension the
 player should be able to turn on: ship `db/when/<key>/extension_db.yml` with
 just that extension's `Id` and `Enabled: true`.
 
-### `skill("<AegisName>", { ... })` — the four skill hooks
+### `skill("<AegisName>", { ... })` — the skill hooks
 
-Takes any of four functions, keyed by the name in `skill_db.yml` —
+Takes any of these functions, keyed by the name in `skill_db.yml` —
 `MG_FIREBOLT`, not "Fire Bolt".
 
 | Hook | Called | Return |
@@ -1189,12 +1189,29 @@ Takes any of four functions, keyed by the name in `skill_db.yml` —
 | `hit(c, stock)` | when a weapon skill's accuracy is calculated | the hit rate bonus |
 | `element(c, stock)` | when the attack's element is decided | an element, e.g. `const("ELE_FIRE")` |
 | `on_hit(c)` | on every hit, once its damage is known | nothing; call the actions below |
+| `level(c, stock)` | when the skill's formula reads a player's base level | the level to use; `stock` is the real one |
+| `job_level(c, stock)` | when the skill's formula reads a player's job level | the job level to use |
+| `heal(c, stock)` | when Heal, Highness Heal or Coluceo Heal restores HP | the amount; `c.base` is it before the skill's own bonus |
 
 `ratio`, `hit` and `element` receive the stock result and return a new one;
 returning `nil` keeps it. They work for the roughly 1,060 skills rAthena has
 given their own C++ class, which includes every damaging player skill. For
 the rest, the server says so in the log when it starts, and `on_hit` still
 works.
+
+`level` and `job_level` are asked only by the skills whose formulas read the
+level outside the damage percentage, and only for players: `level` by
+`RK_DRAGONBREATH`, `RK_DRAGONBREATH_WATER`, `RK_ENCHANTBLADE`,
+`NC_SELFDESTRUCTION`, `SR_GATEOFHELL`, `SR_CRESCENTELBOW`, `AB_RENOVATIO`,
+`LG_EXEEDBREAK`, `OB_ZANGETSU`, `KO_JYUMONJIKIRI`, `SJ_GRAVITYCONTROL`, the
+`EM_EL_` skills (the Elemental Master's level), `AL_DEMONBANE`, `SL_SMA`,
+`TK_JUMPKICK`, `SG_SUN_ANGER`, `SG_MOON_ANGER`, `SG_STAR_ANGER`, and in
+pre-renewal only `AL_HEAL`, `AB_HIGHNESSHEAL` and `PR_TURNUNDEAD`; `job_level`
+by `RL_QD_SHOT`, `LG_EXEEDBREAK`, `MI_RUSH_WINDMILL` and
+`WA_MOONLIT_SERENADE`. They see `c.caster` only: there is no `c.target`, and
+`c.skill_lv` is 0. In renewal, change what a heal restores with `heal`, not
+`level`. `heal` is not asked when Heal damages an Undead. Results are kept
+between 0 and the level limit (or 0 and up for `heal`).
 
 ### `item("<AegisName>", { ... })` — the two equipment hooks
 
