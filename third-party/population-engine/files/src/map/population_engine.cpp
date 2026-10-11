@@ -4944,7 +4944,10 @@ uint32_t population_engine_companion_hire(map_session_data *owner, uint16_t job_
 		return 0;
 	const int mode = population_engine_companion_hire_mode();
 	if (mode == 0) {
+		// RAGNAROKMAC: a free draft comes at its owner's level too, as a hired one does.
+		g_pop_draft_level = static_cast<int16_t>(owner->status.base_level);
 		const uint32_t made = population_engine_companion_draft(owner, job_id, 1, name_hint, sex);
+		g_pop_draft_level = 0;
 		if (made == 0)
 			msg = "Could not draft that companion (see map-server console).";
 		return made;
@@ -5960,9 +5963,12 @@ static map_session_data* population_engine_spawn_shell(int16_t map_id, int x, in
 		}
 		// RAGNAROKMAC: a hired companion comes at its owner's level, within
 		// the band its profile allows (population_engine_companion_hire).
+		// Never below the band (a transcendent class has a floor), but past its top up to the
+		// class's own cap: the band is where the crowd rolls, not a limit on a player's party.
 		if (g_pop_draft_level > 0)
 			rolled = static_cast<int16_t>(cap_value(static_cast<int>(g_pop_draft_level),
-				static_cast<int>(pop_cfg->base_level_min), static_cast<int>(hi)));
+				static_cast<int>(pop_cfg->base_level_min),
+				std::max(static_cast<int>(hi), static_cast<int>(pc_maxbaselv(sd)))));
 		sd->status.base_level = cap_value(rolled, 1, MAX_LEVEL);
 	} else {
 		// Upstream defaults an undeclared BaseLevel to 99, which is how a
@@ -9414,6 +9420,16 @@ static uint16_t find_valid_equip_item(uint32 equip_type) {
 // Get appropriate weapon item ID for a job
 // Get base job class (1st class) from any job ID
 static uint16_t get_base_job(uint16_t job_id) {
+    // RAGNAROKMAC: rAthena's own answer first. The ranges below start with
+    // JOB_KNIGHT..JOB_ROYAL_GUARD, which is ids 7..4066: nearly every job came back a
+    // Swordman, so one with no rows of its own (a Super Novice, a Gunslinger, a High Mage)
+    // was given the Swordman's skills and gear. The map id knows each job's first class,
+    // the expanded jobs their own (Gunslinger, Ninja, Taekwon, Summoner).
+    if (const uint64 mapid = pc_jobid2mapid(job_id); mapid != static_cast<uint64>(-1)) {
+        const int32 base = pc_mapid2jobid(mapid & MAPID_FIRSTMASK, SEX_MALE);
+        if (base >= 0)
+            return static_cast<uint16_t>(base);
+    }
     // Map advanced jobs to their base 1st class
     if (job_id == JOB_SWORDMAN || (job_id >= JOB_KNIGHT && job_id <= JOB_ROYAL_GUARD) ||
         (job_id >= JOB_BABY_KNIGHT && job_id <= JOB_BABY_ROYAL_GUARD) ||
