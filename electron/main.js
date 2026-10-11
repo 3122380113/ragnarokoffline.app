@@ -2732,8 +2732,13 @@ const handlers = {
 		// partition that could not be created, a hypervisor that is not
 		// available) sits in that file. A report arrived with an empty console
 		// log, a generic timeout, and this never collected.
+		// The .prev pair is the run before this one (nebula 0.2.7 and later):
+		// when the VM died on its own, the player has usually started it again
+		// before reporting, and that start replaced the logs that say why.
 		for (const [file, want] of [['nebulad.log', 200], ['vessel-console.log', 100],
 		                            ['vessel-console.worker-stderr.log', 100],
+		                            ['vessel-console.prev.log', 100],
+		                            ['vessel-console.worker-stderr.prev.log', 100],
 		                            ['launchd.err.log', 60]]) {
 			const p2 = path.join(nebulaLogs, file);
 			if (fs.existsSync(p2)) {
