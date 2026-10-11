@@ -28,6 +28,11 @@ void population_shell_gear_drafted(map_session_data *shell);
 /// how it was drafted from its row.
 void population_shell_gear_recalled(map_session_data *shell);
 
+/// Everything a companion that started unequipped wears is its owner's, however it got there (a
+/// trade, the Gear tab, a script's equip): marks it so in companion_given_mask, which is what
+/// "take back" and the removal check read. Does nothing for a companion the engine dressed.
+void population_shell_gear_owned(map_session_data *shell);
+
 // --- Spare gear (the roadmap's "Switching gear", step 2) ----------------------
 // A companion that started unequipped can carry pieces it does not wear. Trading still puts a
 // piece on; "@companion spare <name> stow <slot>" moves a worn piece into its bag, "wear" puts

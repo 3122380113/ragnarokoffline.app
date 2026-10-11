@@ -170,8 +170,7 @@ void save_now(map_session_data *shell)
 	population_engine_persist_companion_gear(shell);
 }
 
-/// One bag entry to its owner: into the owner's bag, or at their feet when it is full. Never
-/// lost: on neither, it stays with the companion.
+/// One bag entry to its owner: into the owner's bag, or it stays with the companion.
 bool hand_back(map_session_data *owner, map_session_data *shell, int16 i)
 {
 	item tmp = shell->inventory.u.items_inventory[i];
@@ -285,6 +284,12 @@ int population_shell_gear_return_spares(map_session_data *owner, map_session_dat
 		save_now(shell);
 	}
 	return returned;
+}
+
+void population_shell_gear_owned(map_session_data *shell)
+{
+	if (shell != nullptr && population_shell_gear_bare(shell))
+		own_what_it_wears(shell);
 }
 
 bool population_shell_gear_keeps_spares(map_session_data *owner, const map_session_data *shell)

@@ -111,6 +111,12 @@ test('everything such a companion wears counts as its owner\'s after every chang
 	assert.match(body(gear, 'int population_shell_gear_return_spares('), /chrif_save\(owner, CSAVE_INVENTORY\);\n\t\tsave_now\(shell\);/);
 });
 
+test('however a piece got onto such a companion, it is the owner\'s when gear is taken back or saved', () => {
+	assert.match(body(gear, 'void population_shell_gear_owned('), /if \(shell != nullptr && population_shell_gear_bare\(shell\)\)\n\t\town_what_it_wears\(shell\);/);
+	assert.match(engine, /if \(!population_engine_is_population_pc\(shell->id\)\) return -1;\n\tpopulation_shell_gear_owned\(shell\);/);
+	assert.match(engine, /if \(owner == 0\) return; \/\/ not a recruited companion\n\tpopulation_shell_gear_owned\(sd\);/);
+});
+
 test('a piece handed back goes into the owner\'s bag or stays put: never onto the floor', () => {
 	const back = body(gear, 'bool hand_back(');
 	assert.match(back, /if \(pc_additem\(owner, &tmp, amount, LOG_TYPE_NPC\) != ADDITEM_SUCCESS\)\n\t\treturn false;\n\tpc_delitem\(shell, i, amount, 0, 1, LOG_TYPE_NPC\);/);

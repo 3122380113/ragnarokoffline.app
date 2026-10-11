@@ -7638,6 +7638,7 @@ int population_engine_companion_return_gear(map_session_data *owner, map_session
 {
 	if (!owner || !shell) return -1;
 	if (!population_engine_is_population_pc(shell->id)) return -1;
+	population_shell_gear_owned(shell); // RAGNAROKMAC (start unequipped): all it wears is the owner's
 
 	int returned = 0, kept_own = 0;
 	uint32_t freed = 0;
@@ -7825,6 +7826,7 @@ void population_engine_persist_companion_gear(map_session_data *sd)
 	// The row's owner is the companion's registered owner (set at recruit).
 	const uint32_t owner = sd->pop.companion_owner_account;
 	if (owner == 0) return; // not a recruited companion
+	population_shell_gear_owned(sd); // RAGNAROKMAC (start unequipped): all it wears is the owner's
 
 	const uint32_t index_ = sd->status.char_id - POPULATION_ENGINE_CHAR_ID_BASE;
 
