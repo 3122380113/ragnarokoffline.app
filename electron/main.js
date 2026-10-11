@@ -3093,13 +3093,21 @@ const handlers = {
 		const chosen = typeof file === 'string' ? file.trim() : '';
 		if (chosen && !fs.statSync(chosen, { throwIfNoEntry: false })?.isFile()) throw new Error('the fallback GRF is not a file');
 		if (chosen && path.resolve(chosen) === path.resolve(prev.data_grf)) throw new Error('that is your own data.grf');
+		// The asset server refuses to start on an archive it cannot open, so a
+		// file it would refuse is turned away here, not on the next launch.
+		if (chosen) require('./ui-skin').grfNames(chosen);
 		const next = { ...prev, fallback_grf: chosen };
-		fs.writeFileSync(clientConfigPath(), JSON.stringify(next, null, 2));
 		const hadAssets = assetServer.running;
+		fs.writeFileSync(clientConfigPath(), JSON.stringify(next, null, 2));
 		try {
 			await linkClient(next);
-		} finally {
 			if (hadAssets) await assetsStart();
+		} catch (error) {
+			// Put the previous list back, so a bad pick never leaves the game
+			// without its asset server.
+			fs.writeFileSync(clientConfigPath(), JSON.stringify(prev, null, 2));
+			try { await linkClient(prev); if (hadAssets) await assetsStart(); } catch (e) { appLog(`fallback GRF: restoring the previous assets failed: ${e.message}`); }
+			throw error;
 		}
 		return require('./client-detect').describe(stateDir());
 	},
