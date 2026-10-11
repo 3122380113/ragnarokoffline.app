@@ -3923,7 +3923,6 @@ static bool use_item(Turn &t, t_itemid nameid, block_list *target)
 	// Not into a cast under way: an item's own cast would lose the item it is paid with.
 	if (idx < 0 || pc_isdead(sd) || sd->ud.skilltimer != INVALID_TIMER)
 		return false;
-	const int32 had = sd->inventory.u.items_inventory[idx].amount;
 	if (!pc_useitem(sd, idx))
 		return false;
 	// An item that casts a skill (a converter, a Fly Wing, a scroll) only arms it: the client
@@ -3943,20 +3942,6 @@ static bool use_item(Turn &t, t_itemid nameid, block_list *target)
 			sd->skillitem = sd->skillitemlv = 0; // disarmed: nothing was cast, nothing is taken
 			return false;
 		}
-	}
-	// The use animation for everyone around, which clif_useitemack sends only to a session.
-	if (!session_isActive(sd->fd)) {
-		PACKET_ZC_USE_ITEM_ACK p = {};
-		p.packetType = useItemAckType;
-		p.index = idx + 2;
-#if PACKETVER >= 3
-		const t_itemid view = itemdb_viewid(nameid);
-		p.itemId = static_cast<decltype(p.itemId)>(view > 0 ? view : nameid);
-		p.AID = sd->id;
-#endif
-		p.amount = had - 1;
-		p.result = true;
-		clif_send(&p, sizeof(p), sd, AREA_WOS);
 	}
 	return true;
 }
