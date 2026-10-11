@@ -276,6 +276,10 @@ ever: a traded piece is put on. In the Companions window's **Gear** tab:
   goes into the bag, not back to you) and **Take back**;
 - **All** takes back everything, worn and carried.
 
+A carried piece your bag has no room for (or that is too heavy) stays with the
+companion: it is never dropped on the ground. A companion that still carries one
+is not removed either; make room and remove it again.
+
 A companion that still wears or carries anything of yours is not removed while it
 is not summoned: summon it and take the gear back first. The same as commands:
 `@companion spare <name> list`, `stow <slot>`, `wear <#>`, `take <#>`.

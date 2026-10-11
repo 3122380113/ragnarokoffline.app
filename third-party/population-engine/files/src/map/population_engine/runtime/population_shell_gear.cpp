@@ -177,12 +177,10 @@ bool hand_back(map_session_data *owner, map_session_data *shell, int16 i)
 	item tmp = shell->inventory.u.items_inventory[i];
 	const int32 amount = tmp.amount;
 	tmp.equip = 0;
-	if (pc_additem(owner, &tmp, amount, LOG_TYPE_NPC) != ADDITEM_SUCCESS
-			&& map_addflooritem(&tmp, amount, owner->m, owner->x, owner->y, 0, 0, 0, 0, 0) == 0) {
-		ShowWarning("population_engine: could not return spare item %u from companion %u to owner %u; it stays with the companion\n",
-			(unsigned)tmp.nameid, shell->status.char_id, owner->status.account_id);
+	// No room or too heavy: it stays where it is. Never onto the floor, where it would expire
+	// or be picked up by a passing shell.
+	if (pc_additem(owner, &tmp, amount, LOG_TYPE_NPC) != ADDITEM_SUCCESS)
 		return false;
-	}
 	pc_delitem(shell, i, amount, 0, 1, LOG_TYPE_NPC);
 	return true;
 }
@@ -279,12 +277,28 @@ int population_shell_gear_return_spares(map_session_data *owner, map_session_dat
 	for (int16 i = 0; i < MAX_INVENTORY; ++i)
 		if (is_spare(shell->inventory.u.items_inventory[i]) && hand_back(owner, shell, i))
 			++returned;
+	if (population_shell_gear_keeps_spares(nullptr, shell) && owner->fd > 0)
+		say(owner, "%s still carries gear your bag has no room for. Make room and take it again.", shell->status.name);
 	if (returned > 0) {
 		// Owner first: if a crash falls between the two saves, the piece is doubled, not lost.
 		chrif_save(owner, CSAVE_INVENTORY);
 		save_now(shell);
 	}
 	return returned;
+}
+
+bool population_shell_gear_keeps_spares(map_session_data *owner, const map_session_data *shell)
+{
+	if (shell == nullptr || !population_shell_gear_bare(shell))
+		return false;
+	int left = 0;
+	for (int16 i = 0; i < MAX_INVENTORY; ++i)
+		if (is_spare(shell->inventory.u.items_inventory[i]))
+			++left;
+	if (left > 0 && owner != nullptr && owner->fd > 0)
+		say(owner, "%s keeps %d piece(s) of yours that did not fit in your bag, so it is not removed. Make room and remove it again.",
+			shell->status.name, left);
+	return left > 0;
 }
 
 bool population_shell_gear_row_has_spares(uint32 shell_index)
@@ -395,7 +409,7 @@ void population_shell_gear_command(map_session_data *owner, const char *param)
 	const std::shared_ptr<item_data> id = itemdb_exists(shell->inventory.u.items_inventory[i].nameid);
 	if (strcmpi(action.c_str(), "take") == 0) {
 		if (!hand_back(owner, shell, i)) {
-			say(owner, "Could not hand it over; it stays with %s.", shell->status.name);
+			say(owner, "Your bag has no room for it (or it is too heavy); it stays with %s.", shell->status.name);
 			return;
 		}
 		chrif_save(owner, CSAVE_INVENTORY);

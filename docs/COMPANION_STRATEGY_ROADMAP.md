@@ -366,7 +366,7 @@ Four steps, each of use without the next:
    companions only**; for one the engine dressed, `Equip` rules do not apply.
    (Marking the engine's gear as character-bound was considered and turned
    down.)
-2. **Built:** **carrying spares** (`@companion spare`, patch 0036, the Gear
+2. **Built:** **carrying spares** (`@companion spare`, patch 0037, the Gear
    tab; the buttons are not yet tried in the client). Trading stays as it is: a traded piece is put on. The
    Companions window's Gear tab gets **Carry as spare** beside **Take back** on a
    worn piece, and a **Carried** list with **Wear** and **Take back**; the panel

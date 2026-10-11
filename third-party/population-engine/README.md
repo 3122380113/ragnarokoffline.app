@@ -590,7 +590,7 @@ the row, and the setting acts at the draft only.
 
 **Spare gear.** Such a companion can carry equipment it does not wear, with
 Companion inventory on. `@companion spare <name> list | stow <slot> | wear <#> |
-take <#>` (patch 0036, one line in the command; the rest is in
+take <#>` (patch 0037, one line in the command; the rest is in
 `population_shell_gear.cpp`) moves pieces between body and bag and back to the
 owner; `raw` is the listing the Companions window reads (`@CPGR`, `@CPGW`,
 `@CPGS`, `@CPGREND`). Everything it wears counts as the owner's: after each change

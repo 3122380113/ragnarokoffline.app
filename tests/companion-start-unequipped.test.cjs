@@ -19,7 +19,7 @@ const factory = read(MAP + 'population_engine/population_engine_factory.cpp');
 const patch = read('third-party/population-engine/patches/0036-companions-start-unequipped.patch');
 const schema = read('third-party/population-engine/files/sql-files/population_engine/cp_companion_persistence.sql');
 const cmds = read('stack/src/cmds.rs');
-const patch36 = read('third-party/population-engine/patches/0036-companion-spare-gear.patch');
+const patch36 = read('third-party/population-engine/patches/0037-companion-spare-gear.patch');
 const panel = read('patches/CompanionPanel.js');
 const settings = read('src/settings.html');
 const main = read('electron/main.js');
@@ -111,10 +111,14 @@ test('everything such a companion wears counts as its owner\'s after every chang
 	assert.match(body(gear, 'int population_shell_gear_return_spares('), /chrif_save\(owner, CSAVE_INVENTORY\);\n\t\tsave_now\(shell\);/);
 });
 
-test('a piece handed back is never lost: the owner\'s bag, or the ground at their feet', () => {
+test('a piece handed back goes into the owner\'s bag or stays put: never onto the floor', () => {
 	const back = body(gear, 'bool hand_back(');
-	assert.match(back, /pc_additem\(owner, &tmp, amount, LOG_TYPE_NPC\) != ADDITEM_SUCCESS\n\t\t\t&& map_addflooritem\(/);
-	assert.match(back, /return false;\n\t\}\n\tpc_delitem\(shell, i, amount, 0, 1, LOG_TYPE_NPC\);/);
+	assert.match(back, /if \(pc_additem\(owner, &tmp, amount, LOG_TYPE_NPC\) != ADDITEM_SUCCESS\)\n\t\treturn false;\n\tpc_delitem\(shell, i, amount, 0, 1, LOG_TYPE_NPC\);/);
+	// On the floor it expires, or a passing shell loots it.
+	assert.doesNotMatch(gear, /map_addflooritem/);
+	// So a companion that could not hand everything back is not removed with it.
+	assert.match(patch36, /^\+\t\t\tif \(population_shell_gear_keeps_spares\(sd, live\)\)\n\+\t\t\t\treturn -1;/m);
+	assert.match(patch36, /population_engine_companion_return_gear\(sd, live, 0\);\n\+/);
 });
 
 test('taking everything returns what is carried, and a row with carried gear is not removed', () => {

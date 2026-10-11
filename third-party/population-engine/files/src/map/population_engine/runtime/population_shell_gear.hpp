@@ -37,8 +37,13 @@ void population_shell_gear_recalled(map_session_data *shell);
 /// "@companion spare <name> list|raw|stow <slots>|wear <n>|take <n>". Answers `owner` itself.
 void population_shell_gear_command(map_session_data *owner, const char *param);
 /// Every carried piece of equipment goes back to the owner: "take everything", and a companion
-/// about to be removed. Returns how many. Nothing for a companion the engine dressed.
+/// about to be removed. Returns how many; one the owner's bag has no room for stays with the
+/// companion. Nothing for a companion the engine dressed.
 int population_shell_gear_return_spares(map_session_data *owner, map_session_data *shell);
+/// Whether a summoned companion still carries spares after they were asked back: the owner's
+/// bag had no room, and a piece is never dropped on the floor. With `owner`, says so: the
+/// remove command then leaves the companion be.
+bool population_shell_gear_keeps_spares(map_session_data *owner, const map_session_data *shell);
 /// Whether a saved companion's row holds carried equipment: one that is not summoned cannot
 /// hand it back, so it is not removed until it has been.
 bool population_shell_gear_row_has_spares(uint32 shell_index);
