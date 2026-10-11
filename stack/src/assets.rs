@@ -257,6 +257,27 @@ fn restore_signboard_name(dir: &Path) -> Result<(), String> {
     Ok(())
 }
 
+/// Tables in ROenglishRE's base layer with no English in them, that are older
+/// copies of what the player's own GRF carries, under `data/`.
+///
+/// `hateffectinfo.lub` is a 2024 copy of kRO's hat effect table, and it
+/// opens with a `HatEFID` of its own that replaces the client's
+/// `hateffectids.lub` -- 225 names against 282 in a 2025-11-05 kRO client
+/// and 323 in an October 2026 iRO one, with no `FOOTPRINT_EF_*`. Every hat
+/// effect above 225 then has no entry, and `footprinteffectinfo.lub` stops at
+/// "table index is nil". Both clients' own copies leave `HatEFID` alone.
+const STALE_TRANSLATION_TABLES: &[&str] = &["luafiles514/lua files/hateffectinfo/hateffectinfo.lub"];
+
+fn drop_stale_translation_tables(data: &Path) -> Result<(), String> {
+    for table in STALE_TRANSLATION_TABLES {
+        let path = data.join(table);
+        if path.is_file() {
+            fs::remove_file(&path).map_err(|e| e.to_string())?;
+        }
+    }
+    Ok(())
+}
+
 pub fn link(cfg: &Config, args: &[String]) -> Result<(), String> {
     let data = readable_path(
         Path::new(args.first().ok_or("data.grf path required")?),
@@ -338,6 +359,7 @@ pub fn link(cfg: &Config, args: &[String]) -> Result<(), String> {
             }
         }
         restore_signboard_name(&en.join("data/luafiles514/lua files"))?;
+        drop_stale_translation_tables(&en.join("data"))?;
         let era = if crate::cmds::is_prerenewal(cfg) { "Pre-Renewal" } else { "Renewal" };
         let (take, skip) = translation_layer_rules(cfg);
         for layer in translation_layers(&translation, packetver, era)? {
@@ -390,6 +412,17 @@ pub fn link(cfg: &Config, args: &[String]) -> Result<(), String> {
             }
         }
     }
+    if !text.translated() {
+        // iRO ships lowercase iteminfo; roBrowser requests itemInfo even on
+        // case-sensitive disks. Keep the original and prefer an existing alias.
+        for ext in ["lub", "lua"] {
+            let src = merged.join(format!("iteminfo.{ext}"));
+            let dst = merged.join(format!("itemInfo.{ext}"));
+            if src.is_file() && !dst.exists() {
+                copy_file(&src, &dst)?;
+            }
+        }
+    }
     if text.translated() {
         copy_file(
             &en.join("SystemEN/LuaFiles514/itemInfo.lua"),
@@ -420,8 +453,9 @@ pub fn link(cfg: &Config, args: &[String]) -> Result<(), String> {
     // Bumped when how the tree is staged changes without its inputs changing
     // (v3: the signboard table's name; v4: the client's item table staged
     // behind the English one; v5: the Compatibility layers stacked by packet
-    // version), so a client holding the old staging in its cache drops it.
-    fnv(&mut fingerprint, b"owned-assets-v5");
+    // version; v6: the translation's hat effect table left out; v7: native
+    // itemInfo filename aliases), so a client holding the old staging drops it.
+    fnv(&mut fingerprint, b"owned-assets-v7");
     fnv(&mut fingerprint, text.as_str().as_bytes());
     // Config.local.js carries it, and that file is an ordinary HTTP request
     // the shell only re-fetches when this fingerprint moves. Left out at the
@@ -1092,6 +1126,32 @@ mod tests {
         fs::remove_dir_all(cfg.state.parent().unwrap()).unwrap();
     }
 
+    /// The translation's hat effect table replaces the client's `HatEFID`
+    /// with an older, shorter one, so it is not staged and the client's own
+    /// copy is served from its GRF. The rest of the folder still is.
+    #[test]
+    fn the_translations_hat_effect_table_leaves_the_clients_in_front() {
+        let cfg = fixture_config("hateffect");
+        let client = cfg.state.parent().unwrap().join("client");
+        write(&client.join("data.grf"), "archive");
+        let en = cfg.root.join("vendor/ROenglishRE/Translation");
+        write(&en.join("Renewal/data/table.txt"), "renewal table");
+        write(&en.join("Renewal/SystemEN/LuaFiles514/itemInfo.lua"), "English items");
+        write(&en.join("Renewal/SystemEN/OngoingQuests.lub"), "English quests");
+        let dir = "data/luafiles514/lua files/hateffectinfo";
+        write(&en.join("Renewal").join(dir).join("hateffectinfo.lub"), "HatEFID = { 225 names }");
+        write(&en.join("Renewal").join(dir).join("other.lub"), "kept");
+        write(&cfg.root.join("config/Config.local.js"), "window.ROConfigLocal = {\nrenewal: true,\n};\n");
+        write(&cfg.root.join("config/index.html"), "game entry");
+        let args = vec![client.join("data.grf").to_str().unwrap().to_string()];
+
+        link(&cfg, &args).unwrap();
+        let staged = cfg.state.join("assets/.translation").join(dir);
+        assert!(!staged.join("hateffectinfo.lub").exists());
+        assert_eq!(fs::read_to_string(staged.join("other.lub")).unwrap(), "kept");
+        fs::remove_dir_all(cfg.state.parent().unwrap()).unwrap();
+    }
+
     /// A kRO client's own Korean copies must not win over the English ones
     /// the translation carries under other names or in its Compatibility
     /// layers (#164), and the extras list cannot reach outside its trees.
@@ -1218,7 +1278,7 @@ mod tests {
         let client = cfg.state.parent().unwrap().join("client");
         for (path, text) in [
             ("data.grf", "archive"),
-            ("System/itemInfo.lub", "itens do cliente"),
+            ("System/iteminfo.lub", "itens do cliente"),
             ("System/OngoingQuestInfoList_True.lub", "missões"),
             ("System/font.ttf", "font"),
         ] {
@@ -1250,6 +1310,7 @@ mod tests {
             "English items"
         );
         assert!(cfg.state.join("assets/.translation/data/table.txt").exists());
+        assert!(!cfg.state.join("assets/System/itemInfo.lub").exists());
         assert!(fs::read_to_string(cfg.state.join("assets/Config.local.js"))
             .unwrap()
             .contains("langtype: 0,"));

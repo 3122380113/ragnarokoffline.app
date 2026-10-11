@@ -39,14 +39,16 @@ jobs:
       - run: python3 tests/diagnostics/verify-shell-returns.py
       # vendor/rathena is now the pin with the server mods applied, the tree the
       # navigation-server-npcs, -monsters and -warps indexes describe (each
-      # one's test matches the name). The test skips without such a
-      # checkout; here it must not, or a pin bump would leave the index stale
-      # unnoticed. scripts/navigation-index.sh regenerates it.
+      # one's test matches the first name), and the stock groups.yml and
+      # atcommands.yml that groups.rs's STOCK_GRANTS and STOCK_ALIASES restate.
+      # These tests skip without such a checkout; here they must not, or a pin
+      # bump would leave a table stale unnoticed.
+      # scripts/navigation-index.sh regenerates the indexes.
       - uses: dtolnay/rust-toolchain@stable
-      - name: The navigation indexes describe the pinned server
+      - name: The navigation indexes and stock grants describe the pinned server
         env:
           REQUIRE_PINNED_RATHENA: "1"
-        run: cargo test --locked --quiet --manifest-path stack/Cargo.toml the_shipped_index_matches_the_pinned_server
+        run: cargo test --locked --quiet --manifest-path stack/Cargo.toml -- the_shipped_index_matches_the_pinned_server stock_tables_match_the_pinned_server
   client-build:
     runs-on: ubuntu-latest
     timeout-minutes: 10

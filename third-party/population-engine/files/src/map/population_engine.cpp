@@ -804,6 +804,8 @@ static std::string generate_bot_name(uint32_t index);
 static std::string generate_population_pc_name(uint32_t index, const PopulationEngine* cfg);
 static int16_t get_random_job_id();
 static char    get_job_required_sex(uint16_t job_id);
+static uint16_t get_job_max_cloth_color(uint16_t job_id);
+static uint16_t population_fit_cloth_color(uint16_t job_id, uint16_t color);
 static uint16_t get_base_job(uint16_t job_id);
 static uint16_t get_job_weapon(uint16_t job_id);
 static uint16_t get_random_headgear(uint8_t slot);
@@ -3929,6 +3931,11 @@ static bool pop_companion_apply_job_change(map_session_data *sd, uint16_t forced
 	// mado that the old one did not have (Swordsman -> Knight, Blacksmith -> Mechanic, ...).
 	population_engine_sync_shell_vehicle(sd);
 	population_engine_sync_shell_homunculus(sd);
+	// RAGNAROKMAC: the new class may have fewer palettes than the old (Swordsman 0-4,
+	// Crusader 0-3).
+	const uint16_t cloth = population_fit_cloth_color(sd->status.class_, sd->status.clothes_color);
+	if (cloth != sd->status.clothes_color)
+		pc_changelook(sd, LOOK_CLOTHES_COLOR, cloth);
 	// Persist the new job + reset job level right away so a crash can't roll it back.
 	population_engine_persist_companion_gear(sd);
 	return true;
@@ -5865,6 +5872,7 @@ static map_session_data* population_engine_spawn_shell(int16_t map_id, int x, in
 
 	sd->status.hair         = cap_value(eff_hair, MIN_HAIR_STYLE, MAX_HAIR_STYLE);
 	sd->status.hair_color   = cap_value(eff_hair_color, MIN_HAIR_COLOR, MAX_HAIR_COLOR);
+	eff_cloth = population_fit_cloth_color(job_id, eff_cloth); // RAGNAROKMAC
 	sd->status.clothes_color = cap_value(eff_cloth, MIN_CLOTH_COLOR, MAX_CLOTH_COLOR);
 	sd->status.body         = sd->status.class_;
 	// status.weapon is weapon_type enum, not an item id; pc_calcweapontype sets it after equip.
@@ -6576,7 +6584,8 @@ static map_session_data* population_engine_spawn_shell(int16_t map_id, int x, in
         pc_setoption(sd, (sd->sc.option & ~mount_options) | returning->option, MADO_ROBOT);
         sd->status.hair = sd->vd.look[LOOK_HAIR] = returning->hair;
         sd->status.hair_color = sd->vd.look[LOOK_HAIR_COLOR] = returning->hair_color;
-        sd->status.clothes_color = sd->vd.look[LOOK_CLOTHES_COLOR] = returning->cloth_color;
+        sd->status.clothes_color = sd->vd.look[LOOK_CLOTHES_COLOR] =
+            population_fit_cloth_color(sd->status.class_, returning->cloth_color); // RAGNAROKMAC
     }
 
     // Elysium stress_test fake PCs: sync paper doll to the map before spawn so observers match stock AC shells.
@@ -9247,6 +9256,56 @@ static char get_job_required_sex(uint16_t job_id) {
     
     // Gender-neutral jobs
     return '\0';
+}
+
+/// RAGNAROKMAC: the highest clothes colour the official client has a body palette for.
+///
+/// MAX_CLOTH_COLOR (max_cloth_color, 7) is right for 3rd and 4th classes, which ship
+/// palettes 0-7, but most older classes ship fewer: a shell rolled past them asks the
+/// client for a .pal that does not exist and is drawn in the default colours. Counted
+/// from kRO's and iRO's data.grf (data/palette/몸/<class>_<sex>_<n>.pal), both sexes,
+/// and the Peco a Knight or Crusader rides, since the engine mounts them.
+static uint16_t get_job_max_cloth_color(uint16_t job_id) {
+    switch (job_id) {
+        // Palettes 0-3
+        case JOB_ASSASSIN: case JOB_CRUSADER: case JOB_CRUSADER2: case JOB_MONK:
+        case JOB_SAGE: case JOB_ROGUE: case JOB_DANCER:
+        case JOB_LORD_KNIGHT: case JOB_LORD_KNIGHT2: case JOB_HIGH_PRIEST:
+        case JOB_HIGH_WIZARD: case JOB_WHITESMITH: case JOB_SNIPER:
+        case JOB_ASSASSIN_CROSS: case JOB_PALADIN: case JOB_PALADIN2:
+        case JOB_CHAMPION: case JOB_PROFESSOR: case JOB_STALKER: case JOB_CREATOR:
+        case JOB_CLOWN: case JOB_GYPSY:
+        case JOB_BABY_ASSASSIN: case JOB_BABY_CRUSADER: case JOB_BABY_CRUSADER2:
+        case JOB_BABY_MONK: case JOB_BABY_SAGE: case JOB_BABY_ROGUE:
+            return static_cast<uint16_t>(std::min<int32>(3, MAX_CLOTH_COLOR));
+
+        // Palettes 0-4
+        case JOB_SWORDMAN: case JOB_MAGE: case JOB_ARCHER: case JOB_ACOLYTE:
+        case JOB_MERCHANT: case JOB_THIEF:
+        case JOB_KNIGHT: case JOB_KNIGHT2: case JOB_PRIEST: case JOB_WIZARD:
+        case JOB_BLACKSMITH: case JOB_HUNTER: case JOB_ALCHEMIST: case JOB_BARD:
+        case JOB_SWORDMAN_HIGH: case JOB_MAGE_HIGH: case JOB_ARCHER_HIGH:
+        case JOB_ACOLYTE_HIGH: case JOB_MERCHANT_HIGH: case JOB_THIEF_HIGH:
+        case JOB_BABY_SWORDMAN: case JOB_BABY_MAGE: case JOB_BABY_ARCHER:
+        case JOB_BABY_ACOLYTE: case JOB_BABY_MERCHANT: case JOB_BABY_THIEF:
+        case JOB_BABY_KNIGHT: case JOB_BABY_KNIGHT2: case JOB_BABY_PRIEST:
+        case JOB_BABY_WIZARD: case JOB_BABY_BLACKSMITH: case JOB_BABY_HUNTER:
+        case JOB_BABY_ALCHEMIST: case JOB_BABY_BARD: case JOB_BABY_DANCER:
+            return static_cast<uint16_t>(std::min<int32>(4, MAX_CLOTH_COLOR));
+
+        default:
+            return MAX_CLOTH_COLOR;
+    }
+}
+
+/// RAGNAROKMAC: `color` if this class has a palette for it, otherwise a colour it does have.
+/// Re-rolled rather than clamped, so the class's top colour is not picked more often than
+/// the rest.
+static uint16_t population_fit_cloth_color(uint16_t job_id, uint16_t color) {
+    const int32 max = get_job_max_cloth_color(job_id);
+    if (color <= max || max < MIN_CLOTH_COLOR)
+        return color;
+    return static_cast<uint16_t>(population_roll_closed_range(MIN_CLOTH_COLOR, max));
 }
 
 char population_engine_job_required_sex(uint16_t job_id) {

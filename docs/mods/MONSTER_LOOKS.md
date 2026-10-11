@@ -309,20 +309,29 @@ its enum in `src/map/script.hpp`. The number is what the server sends.
 - **Item** is every item in rAthena's item tables (both eras) whose script
   switches the effect on. A dash means no item uses it, and the effect is
   still there for scripts.
-- **Client draws** is what the client shows for it in renewal, read from the
-  hat effect table the app serves (ROenglishRE's
-  `luafiles514/lua files/hateffectinfo/hateffectinfo.lub`). That is either
-  an animation file under `data/texture/effect/`, which comes from the
-  player's client data, or one of roBrowser's numbered effects
-  (`EffectTable.js`). **Nothing** means one of two things. Either the table
-  has no entry for that number, or the entry names a numbered effect that
-  roBrowser has not implemented: in both cases `hateffect` succeeds and
-  nothing appears. In pre-renewal the app serves no copy of the table, so the
-  player's own client decides.
+- **Client draws** is what the client shows for it, read from the player's
+  own hat effect table (`luafiles514/lua files/hateffectinfo/hateffectinfo.lub`
+  and `footprinteffectinfo.lub` in their GRF). The app serves no copy of its
+  own: ROenglishRE's is older and replaces the client's list of effect names
+  with a shorter one. A drawn effect is either an animation file under
+  `data/texture/effect/`, which comes from the player's client data, or one
+  of roBrowser's numbered effects (`EffectTable.js`). A footprint is drawn
+  from `footprinteffectinfo.lub` as the wearer walks, and the column names the
+  animation (STR) or image (PNG) it leaves on the ground. **Nothing** means the
+  table has no entry for that number, the entry names a numbered effect that
+  roBrowser has not implemented, or the effect is a kind of footprint
+  roBrowser does not draw yet. In every case `hateffect` succeeds and nothing
+  appears.
+  The column is for an iRO client. iRO and kRO number every effect the same
+  way, but each has entries the other lacks; where a kRO client draws
+  something different, the row says so in brackets.
 
-The list was generated from the rAthena, roBrowserLegacy and ROenglishRE
-commits in `config/VENDOR_PINS`. A later pin can add constants, and can turn a
-"nothing" into a picture.
+The list was generated from the rAthena and roBrowserLegacy commits in
+`config/VENDOR_PINS`, an October 2026 iRO `data.grf` and a 2025-11-05 kRO
+`data.grf`. A later pin or a newer client can add constants, and can turn a
+"nothing" into a picture. `scripts/hat-effects-doc.py` regenerates the **Client
+draws** column from the pins and the two GRFs: with `--iro` and `--kro` it lists
+the rows that would change, and with `--write` as well it rewrites them.
 
 | # | Constant | Item | Client draws |
 |---|---|---|---|
@@ -354,7 +363,7 @@ commits in `config/VENDOR_PINS`. A later pin can add constants, and can turn a
 | 26 | `HAT_EF_CIRCLEPOWER` | Blue Aura Effect | nothing: effect 1122 is not in roBrowser's effect table |
 | 27 | `HAT_EF_BOTTOM_BLOODYLUST` | — | `EF_BOTTOM_BLOODYLUST` (effect 829) |
 | 28 | `HAT_EF_WATER_BELOW` | — | nothing: `EF_WATER_BELOW` is not in roBrowser's effect table |
-| 29 | `HAT_EF_LEVEL99_150` | — | nothing: `EF_LEVEL99_150` is not in roBrowser's effect table |
+| 29 | `HAT_EF_LEVEL99_150` | — | `EF_LEVEL99_150` (effect 881) |
 | 30 | `HAT_EF_YELLOWFLY3` | — | nothing: `EF_YELLOWFLY3` is not in roBrowser's effect table |
 | 31 | `HAT_EF_KAGEMUSYA` | Shadow Effect | nothing: `EF_KAGEMUSYA` is not in roBrowser's effect table |
 | 32 | `HAT_EF_CHERRYBLOSSOM` | Pink Glow Effect | nothing: `EF_CHERRYBLOSSOM` is not in roBrowser's effect table |
@@ -384,32 +393,32 @@ commits in `config/VENDOR_PINS`. A later pin can add constants, and can turn a
 | 56 | `HAT_EF_MAGICCIRCLE` | Costume Magic Circle | `efst_Magiccircle/mc.str` |
 | 57 | `HAT_EF_BRYSINGGAMEN` | — | nothing: effect 1193 is not in roBrowser's effect table |
 | 58 | `HAT_EF_MAGINGIORDE` | — | nothing: effect 1194 is not in roBrowser's effect table |
-| 59 | `HAT_EF_LEVEL99_RED` | — | nothing: effect 1164 is not in roBrowser's effect table |
-| 60 | `HAT_EF_LEVEL99_ULTRAMARINE` | — | nothing: effect 1165 is not in roBrowser's effect table |
-| 61 | `HAT_EF_LEVEL99_CYAN` | — | nothing: effect 1166 is not in roBrowser's effect table |
-| 62 | `HAT_EF_LEVEL99_LIME` | — | nothing: effect 1167 is not in roBrowser's effect table |
-| 63 | `HAT_EF_LEVEL99_VIOLET` | — | nothing: effect 1168 is not in roBrowser's effect table |
-| 64 | `HAT_EF_LEVEL99_LILAC` | — | nothing: effect 1169 is not in roBrowser's effect table |
-| 65 | `HAT_EF_LEVEL99_SUN_ORANGE` | — | nothing: effect 1170 is not in roBrowser's effect table |
-| 66 | `HAT_EF_LEVEL99_DEEP_PINK` | — | nothing: effect 1171 is not in roBrowser's effect table |
-| 67 | `HAT_EF_LEVEL99_BLACK` | — | nothing: effect 1172 is not in roBrowser's effect table |
-| 68 | `HAT_EF_LEVEL99_WHITE` | — | nothing: effect 1173 is not in roBrowser's effect table |
-| 69 | `HAT_EF_LEVEL160_RED` | — | nothing: effect 1174 is not in roBrowser's effect table |
-| 70 | `HAT_EF_LEVEL160_ULTRAMARINE` | — | nothing: effect 1175 is not in roBrowser's effect table |
-| 71 | `HAT_EF_LEVEL160_CYAN` | — | nothing: effect 1176 is not in roBrowser's effect table |
-| 72 | `HAT_EF_LEVEL160_LIME` | — | nothing: effect 1177 is not in roBrowser's effect table |
-| 73 | `HAT_EF_LEVEL160_VIOLET` | — | nothing: effect 1178 is not in roBrowser's effect table |
-| 74 | `HAT_EF_LEVEL160_LILAC` | — | nothing: effect 1179 is not in roBrowser's effect table |
-| 75 | `HAT_EF_LEVEL160_SUN_ORANGE` | — | nothing: effect 1180 is not in roBrowser's effect table |
-| 76 | `HAT_EF_LEVEL160_DEEP_PINK` | — | nothing: effect 1181 is not in roBrowser's effect table |
-| 77 | `HAT_EF_LEVEL160_BLACK` | — | nothing: effect 1182 is not in roBrowser's effect table |
-| 78 | `HAT_EF_LEVEL160_WHITE` | — | nothing: effect 1183 is not in roBrowser's effect table |
+| 59 | `HAT_EF_LEVEL99_RED` | — | effect 1164 |
+| 60 | `HAT_EF_LEVEL99_ULTRAMARINE` | — | effect 1165 |
+| 61 | `HAT_EF_LEVEL99_CYAN` | — | effect 1166 |
+| 62 | `HAT_EF_LEVEL99_LIME` | — | effect 1167 |
+| 63 | `HAT_EF_LEVEL99_VIOLET` | — | effect 1168 |
+| 64 | `HAT_EF_LEVEL99_LILAC` | — | effect 1169 |
+| 65 | `HAT_EF_LEVEL99_SUN_ORANGE` | — | effect 1170 |
+| 66 | `HAT_EF_LEVEL99_DEEP_PINK` | — | effect 1171 |
+| 67 | `HAT_EF_LEVEL99_BLACK` | — | effect 1172 |
+| 68 | `HAT_EF_LEVEL99_WHITE` | — | effect 1173 |
+| 69 | `HAT_EF_LEVEL160_RED` | — | effect 1174 |
+| 70 | `HAT_EF_LEVEL160_ULTRAMARINE` | — | effect 1175 |
+| 71 | `HAT_EF_LEVEL160_CYAN` | — | effect 1176 |
+| 72 | `HAT_EF_LEVEL160_LIME` | — | effect 1177 |
+| 73 | `HAT_EF_LEVEL160_VIOLET` | — | effect 1178 |
+| 74 | `HAT_EF_LEVEL160_LILAC` | — | effect 1179 |
+| 75 | `HAT_EF_LEVEL160_SUN_ORANGE` | — | effect 1180 |
+| 76 | `HAT_EF_LEVEL160_DEEP_PINK` | — | effect 1181 |
+| 77 | `HAT_EF_LEVEL160_BLACK` | — | effect 1182 |
+| 78 | `HAT_EF_LEVEL160_WHITE` | — | effect 1183 |
 | 79 | `HAT_EF_FULL_BLOOMCHERRY_TREE` | Costume Full Bloom Cherry Tree, Rental Costume Full Bloom Cherry Tree, Costume Cookie Party | `efst_Full_BloomCherry_Tree/Full_BloomCherry_Tree.str` |
 | 80 | `HAT_EF_C_BLESSINGS_OF_SOUL` | Costume Blessings Of Soul | `efst_C_Blessings_Of_Soul/blessingsofsoul.str` |
 | 81 | `HAT_EF_MANYSTARS` | Costume Group of Stars | `efst_ManyStars/hikariga.str` |
-| 82 | `HAT_EF_SUBJECT_AURA_GOLD` | — | nothing: effect 1211 is not in roBrowser's effect table |
-| 83 | `HAT_EF_SUBJECT_AURA_WHITE` | — | nothing: effect 1212 is not in roBrowser's effect table |
-| 84 | `HAT_EF_SUBJECT_AURA_RED` | — | nothing: effect 1213 is not in roBrowser's effect table |
+| 82 | `HAT_EF_SUBJECT_AURA_GOLD` | — | effect 1211 |
+| 83 | `HAT_EF_SUBJECT_AURA_WHITE` | — | effect 1212 |
+| 84 | `HAT_EF_SUBJECT_AURA_RED` | — | effect 1213 |
 | 85 | `HAT_EF_C_SHINING_ANGEL_WING` | Costume Shining Angel Wings | `efst_C_Shining_Angel_Wing/C_Shining_Angel_Wing.str` |
 | 86 | `HAT_EF_MAGIC_STAR_TW` | Costume Illusion Crystal | `efst_Mstone/stoneofint2.str` |
 | 87 | `HAT_EF_DIGITAL_SPACE` | Costume Digital Space | `EF_DIGITAL_SPACE` (effect 1240) |
@@ -418,42 +427,42 @@ commits in `config/VENDOR_PINS`. A later pin can add constants, and can turn a
 | 90 | `HAT_EF_MAGICCIRCLERAINBOW` | Costume Magic Circle Rainbow | `efst_MagiccircleRainbow/mcr.str` |
 | 91 | `HAT_EF_SNOWFLAKE_TIARA` | Costume Snow Flower | `efst_SnowFlake_Tiara/nnnaaa.str` |
 | 92 | `HAT_EF_MIDGARTS_GLORY` | Costume Rune-Midgarts Glory | `efst_Midgarts_Glory/halo_2.str` |
-| 93 | `HAT_EF_LEVEL99_TIGER` | — | nothing: effect 1291 is not in roBrowser's effect table |
-| 94 | `HAT_EF_LEVEL160_TIGER` | — | nothing: effect 1292 is not in roBrowser's effect table |
+| 93 | `HAT_EF_LEVEL99_TIGER` | — | effect 1291 |
+| 94 | `HAT_EF_LEVEL160_TIGER` | — | effect 1292 |
 | 95 | `HAT_EF_FLUFFYWING` | Costume: Wing of Harmony, Costume Urd Wings | `efst_FluffyWing/ypen.str` |
 | 96 | `HAT_EF_C_GHOST_EFFECT` | Costume Ghost Effect, Ghost Effect | `efst_C_Ghost_Effect/C_Ghost_Effect.str` |
 | 97 | `HAT_EF_C_POPPING_PORING_AURA` | Costume Popping Poring Aura | `efst_C_Popping_Poring_Aura/C_Popping_Poring_Aura.str` |
 | 98 | `HAT_EF_RESONATETAEGO` | Ancient Resonance, Costume Ancient Resonance, Rumble Effect | `efst_ResonateTaego/youmei.str` |
-| 99 | `HAT_EF_99LV_RUNE_RED` | — | nothing: effect 1325 is not in roBrowser's effect table |
-| 100 | `HAT_EF_99LV_ROYAL_GUARD_BLUE` | — | nothing: effect 1326 is not in roBrowser's effect table |
-| 101 | `HAT_EF_99LV_WARLOCK_VIOLET` | — | nothing: effect 1327 is not in roBrowser's effect table |
-| 102 | `HAT_EF_99LV_SORCERER_LBLUE` | — | nothing: effect 1328 is not in roBrowser's effect table |
-| 103 | `HAT_EF_99LV_RANGER_GREEN` | — | nothing: effect 1329 is not in roBrowser's effect table |
-| 104 | `HAT_EF_99LV_MINSTREL_PINK` | — | nothing: effect 1330 is not in roBrowser's effect table |
-| 105 | `HAT_EF_99LV_ARCHBISHOP_WHITE` | — | nothing: effect 1331 is not in roBrowser's effect table |
-| 106 | `HAT_EF_99LV_GUILL_SILVER` | — | nothing: effect 1332 is not in roBrowser's effect table |
-| 107 | `HAT_EF_99LV_SHADOWC_BLACK` | — | nothing: effect 1333 is not in roBrowser's effect table |
-| 108 | `HAT_EF_99LV_MECHANIC_GOLD` | — | nothing: effect 1334 is not in roBrowser's effect table |
-| 109 | `HAT_EF_99LV_GENETIC_YGREEN` | — | nothing: effect 1335 is not in roBrowser's effect table |
-| 110 | `HAT_EF_160LV_RUNE_RED` | Costume Red Aura | nothing: effect 1336 is not in roBrowser's effect table |
-| 111 | `HAT_EF_160LV_ROYAL_G_BLUE` | — | nothing: effect 1337 is not in roBrowser's effect table |
-| 112 | `HAT_EF_160LV_WARLOCK_VIOLET` | — | nothing: effect 1338 is not in roBrowser's effect table |
-| 113 | `HAT_EF_160LV_SORCERER_LBLUE` | — | nothing: effect 1339 is not in roBrowser's effect table |
-| 114 | `HAT_EF_160LV_RANGER_GREEN` | — | nothing: effect 1340 is not in roBrowser's effect table |
-| 115 | `HAT_EF_160LV_MINSTREL_PINK` | — | nothing: effect 1341 is not in roBrowser's effect table |
-| 116 | `HAT_EF_160LV_ARCHB_WHITE` | — | nothing: effect 1342 is not in roBrowser's effect table |
-| 117 | `HAT_EF_160LV_GUILL_SILVER` | — | nothing: effect 1343 is not in roBrowser's effect table |
-| 118 | `HAT_EF_160LV_SHADOWC_BLACK` | — | nothing: effect 1344 is not in roBrowser's effect table |
-| 119 | `HAT_EF_160LV_MECHANIC_GOLD` | Costume Gold Aura | nothing: effect 1345 is not in roBrowser's effect table |
-| 120 | `HAT_EF_160LV_GENETIC_YGREEN` | — | nothing: effect 1346 is not in roBrowser's effect table |
+| 99 | `HAT_EF_99LV_RUNE_RED` | — | effect 1325 |
+| 100 | `HAT_EF_99LV_ROYAL_GUARD_BLUE` | — | effect 1326 |
+| 101 | `HAT_EF_99LV_WARLOCK_VIOLET` | — | effect 1327 |
+| 102 | `HAT_EF_99LV_SORCERER_LBLUE` | — | effect 1328 |
+| 103 | `HAT_EF_99LV_RANGER_GREEN` | — | effect 1329 |
+| 104 | `HAT_EF_99LV_MINSTREL_PINK` | — | effect 1330 |
+| 105 | `HAT_EF_99LV_ARCHBISHOP_WHITE` | — | effect 1331 |
+| 106 | `HAT_EF_99LV_GUILL_SILVER` | — | effect 1332 |
+| 107 | `HAT_EF_99LV_SHADOWC_BLACK` | — | effect 1333 |
+| 108 | `HAT_EF_99LV_MECHANIC_GOLD` | — | effect 1334 |
+| 109 | `HAT_EF_99LV_GENETIC_YGREEN` | — | effect 1335 |
+| 110 | `HAT_EF_160LV_RUNE_RED` | Costume Red Aura | effect 1336 |
+| 111 | `HAT_EF_160LV_ROYAL_G_BLUE` | — | effect 1337 |
+| 112 | `HAT_EF_160LV_WARLOCK_VIOLET` | — | effect 1338 |
+| 113 | `HAT_EF_160LV_SORCERER_LBLUE` | — | effect 1339 |
+| 114 | `HAT_EF_160LV_RANGER_GREEN` | — | effect 1340 |
+| 115 | `HAT_EF_160LV_MINSTREL_PINK` | — | effect 1341 |
+| 116 | `HAT_EF_160LV_ARCHB_WHITE` | — | effect 1342 |
+| 117 | `HAT_EF_160LV_GUILL_SILVER` | — | effect 1343 |
+| 118 | `HAT_EF_160LV_SHADOWC_BLACK` | — | effect 1344 |
+| 119 | `HAT_EF_160LV_MECHANIC_GOLD` | Costume Gold Aura | effect 1345 |
+| 120 | `HAT_EF_160LV_GENETIC_YGREEN` | — | effect 1346 |
 | 121 | `HAT_EF_WATER_BELOW3` | — | `efst_Waterfield/waterfield2.str` |
 | 122 | `HAT_EF_WATER_BELOW4` | Water Field Effect | `efst_Waterfield2/waterfield3.str` |
-| 123 | `HAT_EF_C_VALKYRIE_WING` | Costume Valkyrie Wings | nothing: effect 1377 is not in roBrowser's effect table |
+| 123 | `HAT_EF_C_VALKYRIE_WING` | Costume Valkyrie Wings | effect 1377 |
 | 124 | `HAT_EF_2019RTC_CELEAURA_TW` | — | `efst_2019RTC_CeleAura_TW/poporingb.str` |
 | 125 | `HAT_EF_2019RTC1ST_TW` | — | `efst_2019RTC1ST_TW/kporingbg.str` |
 | 126 | `HAT_EF_2019RTC2ST_TW` | — | `efst_2019RTC2ST_TW/angelpo.str` |
 | 127 | `HAT_EF_2019RTC3ST_TW` | — | `efst_2019RTC3ST_TW/dringbg.str` |
-| 128 | `HAT_EF_CONS_OF_WIND` | — | nothing: effect 1531 is not in roBrowser's effect table |
+| 128 | `HAT_EF_CONS_OF_WIND` | — | effect 1531 |
 | 129 | `HAT_EF_MAPLE_FALLS` | — | `efst_maple_falls/maple_falls.str` |
 | 130 | `HAT_EF_BJ_HEADSETB` | Costume OnAir BJ Headset | `BJ_HeadsetB/rhythmageruyo.str` |
 | 131 | `HAT_EF_VIP_HAIR` | Costume: Blue Devil Wig, Costume: Red Lotus Demon Wig | `efst_VIP_Hair/rainbow_2.str` |
@@ -465,14 +474,14 @@ commits in `config/VENDOR_PINS`. A later pin can add constants, and can turn a
 | 137 | `HAT_EF_2020RTC_02` | 2020RTC Silver Naughty Ghost | `2020RTC_02/mcblack.str` |
 | 138 | `HAT_EF_2020RTC_03` | 2020RTC Bronze Naughty Ghost | `2020RTC_03/mcred.str` |
 | 139 | `HAT_EF_C_2020RTC_IMP_TW` | — | `C_2020RTC_Imp_TW/mc.str` |
-| 140 | `HAT_EF_SUBJECT_AURA_BLACK` | — | nothing: effect 2281 is not in roBrowser's effect table |
-| 141 | `HAT_EF_2020RTC_EFFECT_01` | — | nothing: effect 2281 is not in roBrowser's effect table |
-| 142 | `HAT_EF_2020RTC_EFFECT_02` | — | nothing: effect 2281 is not in roBrowser's effect table |
-| 143 | `HAT_EF_2020RTC_EFFECT_03` | — | nothing: effect 2281 is not in roBrowser's effect table |
-| 144 | `HAT_EF_99LV_STAR_E_MBLUE` | Costume Midnight Blue Energy | nothing: effect 2281 is not in roBrowser's effect table |
-| 145 | `HAT_EF_160LV_STAR_E_MBLUE` | Costume Midnight Blue Aura | nothing: effect 2282 is not in roBrowser's effect table |
-| 146 | `HAT_EF_99LV_SOUL_R_GRAY` | Costume Gray Energy | nothing: effect 2283 is not in roBrowser's effect table |
-| 147 | `HAT_EF_160LV_SOUL_R_GRAY` | Costume Gray Aura | nothing: effect 2284 is not in roBrowser's effect table |
+| 140 | `HAT_EF_SUBJECT_AURA_BLACK` | — | effect 2281 |
+| 141 | `HAT_EF_2020RTC_EFFECT_01` | — | effect 2281 |
+| 142 | `HAT_EF_2020RTC_EFFECT_02` | — | effect 2281 |
+| 143 | `HAT_EF_2020RTC_EFFECT_03` | — | effect 2281 |
+| 144 | `HAT_EF_99LV_STAR_E_MBLUE` | Costume Midnight Blue Energy | effect 2281 |
+| 145 | `HAT_EF_160LV_STAR_E_MBLUE` | Costume Midnight Blue Aura | effect 2282 |
+| 146 | `HAT_EF_99LV_SOUL_R_GRAY` | Costume Gray Energy | effect 2283 |
+| 147 | `HAT_EF_160LV_SOUL_R_GRAY` | Costume Gray Aura | effect 2284 |
 | 148 | `HAT_EF_GEARWHEEL` | Costume Rotating Gears | `C_Rotating_Gears/gearwheel.str` |
 | 149 | `HAT_EF_GIFT_OF_SNOW` | Costume Gift of Snow | `efst_gift_of_snow/gift_of_snow.str` |
 | 150 | `HAT_EF_SNOW_POWDER` | Costume Snow Powder | `efst_Snow_Powder/ssnnnn2.str` |
@@ -484,11 +493,11 @@ commits in `config/VENDOR_PINS`. A later pin can add constants, and can turn a
 | 156 | `HAT_EF_C_HELM_OF_RA` | — | `C_Helm_Of_Ra/HelmOfSun3.str` |
 | 157 | `HAT_EF_C_2021RTC_HEADSET_TW` | — | `C_2021RTC_Headset_TW/hd.str` |
 | 158 | `HAT_EF_C_MOONSTAR_ACCESSORY` | — | `moonstar.str` |
-| 159 | `HAT_EF_BLACK_THUNDER` | Costume Black Thunder, Eye of the Storm, [Not For Sale] Eye of the Storm | nothing: effect 2346 is not in roBrowser's effect table |
-| 160 | `HAT_EF_BLACK_THUNDER_DARK` | — | nothing: effect 2347 is not in roBrowser's effect table |
+| 159 | `HAT_EF_BLACK_THUNDER` | Costume Black Thunder, Eye of the Storm, [Not For Sale] Eye of the Storm | effect 2346 |
+| 160 | `HAT_EF_BLACK_THUNDER_DARK` | — | effect 2347 |
 | 161 | `HAT_EF_C_RELEASED_GROUND` | — | `C_Released_Ground/ki.str` |
 | 162 | `HAT_EF_C_SAMBA_CARNIVAL` | Costume Samba Carnival | `efst_C_Samba_Carnival/twinklestar.str` |
-| 163 | `HAT_EF_POISON_MASTER` | Costume Cons of Poison | nothing: effect 2310 is not in roBrowser's effect table |
+| 163 | `HAT_EF_POISON_MASTER` | Costume Cons of Poison | effect 2310 |
 | 164 | `HAT_EF_C_SWIRLING_FLAME` | — | `C_Swirling_Flame/vortexf2.str` |
 | 165 | `HAT_EF_C_2021RTC_HEADSET_1_TW` | — | `C_2021RTC_Headset_1_TW/hd.str` |
 | 166 | `HAT_EF_C_2021RTC_HEADSET_2_TW` | — | `C_2021RTC_Headset_2_TW/hd.str` |
@@ -505,7 +514,7 @@ commits in `config/VENDOR_PINS`. A later pin can add constants, and can turn a
 | 177 | `HAT_EF_SUBJECT_AURA_NAVY` | — | nothing: effect 2301 is not in roBrowser's effect table |
 | 178 | `HAT_EF_20TH_SCARF_J` | Costume Memorial Claus | `efst_20th_Scarf_J/singa.str` |
 | 179 | `HAT_EF_GHOST_FIRE` | — | `Efst_Ghost_Fire/strangelights2.str` |
-| 180 | `HAT_EF_SERPENT_SHADOW` | Costume Serpentine Vision | nothing: effect 2394 is not in roBrowser's effect table |
+| 180 | `HAT_EF_SERPENT_SHADOW` | Costume Serpentine Vision | effect 2394 |
 | 181 | `HAT_EF_C_1ST_EVT_HAT_MSP` | Costume GGH 1st Anniversary Hat | `efst_C_1st_Evt_Hat_MSP/firework.str` |
 | 182 | `HAT_EF_C_1ST_EVT_BALLOON_MSP` | Costume GGH 1st Anniversary Balloons | `efst_C_1st_Evt_Balloon_MSP/ggh1st.str` |
 | 183 | `HAT_EF_RABBIT_AURA` | — | `efst_rabbit_aura/toto.str` |
@@ -550,71 +559,71 @@ commits in `config/VENDOR_PINS`. A later pin can add constants, and can turn a
 | 222 | `HAT_EF_COSMIC_CONNECTION` | Costume Cosmic Connection (Garment), Cosmic Connection, Costume Cosmic Connection | `efst_Cosmic_Connection/strbright.str` |
 | 223 | `HAT_EF_C_BABY_GLOOM` | Costume Baby Gloom Under Night | `efst_C_Baby_Gloom/gloom.str` |
 | 224 | `HAT_EF_WINTERNIGHTBELLS` | Costume Winter Night Bells | `efst_WinterNightBells/christmasx4.str` |
-| 225 | `HAT_EF_NIGHTSKYOFRUTIE` | Costume Night Sky of Lutie | nothing: no entry in the client's table |
-| 226 | `FOOTPRINT_EF_BASE` | Footprint Effect | nothing: no entry in the client's table |
-| 227 | `FOOTPRINT_EF_STR_BASE` | Whirlwind Footprint | nothing: no entry in the client's table |
-| 228 | `FOOTPRINT_EF_PURPLESTAR` | Purple Star Footprint | nothing: no entry in the client's table |
-| 229 | `FOOTPRINT_EF_YELLOWSTAR` | Yellow Star Footprint | nothing: no entry in the client's table |
-| 230 | `FOOTPRINT_EF_REDSTAR` | Red Star Footprint | nothing: no entry in the client's table |
-| 231 | `HAT_EF_RAINBOW_POISON_MASTER` | Charm of Anywhere | nothing: no entry in the client's table |
-| 232 | `HAT_EF_C_ANCIENT_RUNE` | Costume Ancient Runes | nothing: no entry in the client's table |
-| 233 | `HAT_EF_C_DRAGON_GREEN_AURA` | Costume Green Aura Dragon | nothing: no entry in the client's table |
-| 234 | `HAT_EF_C_DRAGON_RED_AURA` | Costume Red Aura Dragon | nothing: no entry in the client's table |
-| 235 | `HAT_EF_C_DRAGON_YELLOW_AURA` | Costume Yellow Aura Dragon | nothing: no entry in the client's table |
-| 236 | `HAT_EF_INTERDIMENSIONAL_RIFT` | Interdimensional Rift, Costume Interdimensional Rift, Costume Interdimensional Rift (Garment) | nothing: no entry in the client's table |
-| 237 | `HAT_EF_C_CLB_SS_LL` | Costume Shiba Says Luke | nothing: no entry in the client's table |
-| 238 | `HAT_EF_VACATION` | Costume Summer Beach | nothing: no entry in the client's table |
-| 239 | `HAT_EF_C_FH_LOSTWING` | Costume Fallen Heaven Lost Wing | nothing: no entry in the client's table |
-| 240 | `FOOTPRINT_EF_DOGFOOT` | Puppy Footprint | nothing: no entry in the client's table |
-| 241 | `HAT_EF_C_AUSPICLOUD` | Costume Auspicious Clouds | nothing: no entry in the client's table |
-| 242 | `HAT_EF_AURA_OF_GHOST_S` | Costume Aura of Ghost Ship | nothing: no entry in the client's table |
-| 243 | `HAT_EF_C_ROS2024_WING_1` | 2024 ROS Winner Wing | nothing: no entry in the client's table |
-| 244 | `FOOTPRINT_EF_DUMPLING` | Dumpling Footprint | nothing: no entry in the client's table |
-| 245 | `FOOTPRINT_EF_PANDA_BASIC` | Panda Basic Footprint | nothing: no entry in the client's table |
-| 246 | `FOOTPRINT_EF_PANDA_COLOR` | Panda Color Footprint | nothing: no entry in the client's table |
-| 247 | `HAT_EF_ATQUE_POENITENTIA` | Costume Atokwe Poenitentia | nothing: no entry in the client's table |
-| 248 | `HAT_EF_PERM_FROST_OBLIVION` | Costume Permafrost Oblivion | nothing: no entry in the client's table |
-| 249 | `HAT_EF_ATQUE_POENITENTIA2` | — | nothing: no entry in the client's table |
-| 250 | `HAT_EF_GUIDE_OF_DEAD_TEXT` | Costume Guide's Letter | nothing: no entry in the client's table |
-| 251 | `HAT_EF_MEDJED_TEXT` | Costume Guardian's Letter | nothing: no entry in the client's table |
-| 252 | `HAT_EF_INKPAINTING_DAY` | Costume Ink Painting (Daytime) | nothing: no entry in the client's table |
-| 253 | `HAT_EF_INKPAINTING_NIGHT` | Costume Ink Painting (Night) | nothing: no entry in the client's table |
-| 254 | `HAT_EF_KUNG_FU_PANDA` | — | nothing: no entry in the client's table |
-| 255 | `HAT_EF_C_MGSGPH_POTARL` | — | nothing: no entry in the client's table |
-| 256 | `HAT_EF_C_IGUAZU_FALLS` | — | nothing: no entry in the client's table |
-| 257 | `FOOTPRINT_EF_BLOSSOM` | — | nothing: no entry in the client's table |
-| 258 | `FOOTPRINT_EF_BUD` | — | nothing: no entry in the client's table |
-| 259 | `FOOTPRINT_EF_BUTTERFLY_BLUE` | Blue Butterfly Footprint | nothing: no entry in the client's table |
-| 260 | `FOOTPRINT_EF_BUTTERFLY_PURPLE` | Purple Butterfly Footprints | nothing: no entry in the client's table |
-| 261 | `FOOTPRINT_EF_BUTTERFLY_YELLOW` | Yellow Butterfly Footprints | nothing: no entry in the client's table |
-| 262 | `HAT_EF_HANMAC_MUNCH` | Costume Successful Munch | nothing: no entry in the client's table |
-| 263 | `FOOTPRINT_EF_VICTORY2025` | ROS 2025 Footprint | nothing: no entry in the client's table |
-| 264 | `FOOTPRINT_EF_DRAGON_FACE_2D` | Footprint (2D) | nothing: no entry in the client's table |
-| 265 | `FOOTPRINT_EF_DRAGON_FACE_3D` | Footprint (3D) | nothing: no entry in the client's table |
-| 266 | `HAT_EF_C_OVER_CLOUD` | Costume Over the Clouds | nothing: no entry in the client's table |
-| 267 | `HAT_EF_C_AURORA_ON_CLOUDS` | Costume Aurora on Clouds | nothing: no entry in the client's table |
-| 268 | `HAT_EF_ROS_REDSPIRIT` | — | nothing: no entry in the client's table |
-| 269 | `HAT_EF_ROS_BLUESPIRIT` | — | nothing: no entry in the client's table |
-| 270 | `HAT_EF_DIVINE_SKY_INVITE` | Costume Divine Invitation | nothing: no entry in the client's table |
-| 271 | `FOOTPRINT_EF_DIVINE` | Divine Light Footprints | nothing: no entry in the client's table |
-| 272 | `FOOTPRINT_EF_NYAR_BLUE` | Nyar's Blue Footprints | nothing: no entry in the client's table |
-| 273 | `FOOTPRINT_EF_NYAR_PURPLE` | Nyar's Purple Footprints | nothing: no entry in the client's table |
-| 274 | `HAT_EF_C_NIGHTMARE_CHAIN` | Costume Nightmare Chain | nothing: no entry in the client's table |
-| 275 | `HAT_EF_C_SPOT_MIKE` | Costume Idol Standing Mic | nothing: no entry in the client's table |
-| 276 | `HAT_EF_C_SPOT_FLOWER` | Costume Idol's Flower Stage | nothing: no entry in the client's table |
-| 277 | `HAT_EF_C_2025ROSFESTA` | Costume ROS 2025 Champion Coat | nothing: no entry in the client's table |
-| 278 | `HAT_EF_GOLDEN_AURA_TW` | — | nothing: no entry in the client's table |
-| 279 | `HAT_EF_C_S_BEELZEBUB_WING` | — | nothing: no entry in the client's table |
-| 280 | `FOOTPRINT_EF_FEATHER` | Costume Celestial Integrity | nothing: no entry in the client's table |
-| 281 | `HAT_EF_SOLID_STATE_RECOGNITION` | — | nothing: no entry in the client's table |
-| 282 | `HAT_EF_C_CURSED_SERPENT` | Costume Cursed Serpent | nothing: no entry in the client's table |
+| 225 | `HAT_EF_NIGHTSKYOFRUTIE` | Costume Night Sky of Lutie | `efst_NightSkyOfRutie/christmasx3.str` |
+| 226 | `FOOTPRINT_EF_BASE` | Footprint Effect | a PNG footprint, `footprint0.png` |
+| 227 | `FOOTPRINT_EF_STR_BASE` | Whirlwind Footprint | a STR footprint, `footprint/bottom_crack.str` |
+| 228 | `FOOTPRINT_EF_PURPLESTAR` | Purple Star Footprint | a STR footprint, `footprint_purplestar/footprint_bottom_purplestar/footprint_bottom_purple.str` |
+| 229 | `FOOTPRINT_EF_YELLOWSTAR` | Yellow Star Footprint | a STR footprint, `footprint_yellowstar/footprint_bottom_yellowstar/footprint_bottom_yellow.str` |
+| 230 | `FOOTPRINT_EF_REDSTAR` | Red Star Footprint | a STR footprint, `footprint_redstar/footprint_bottom_redstar/footprint_bottom_red.str` |
+| 231 | `HAT_EF_RAINBOW_POISON_MASTER` | Charm of Anywhere | effect 2413 |
+| 232 | `HAT_EF_C_ANCIENT_RUNE` | Costume Ancient Runes | `efst_C_Ancient_Rune/sangorunic1.str` |
+| 233 | `HAT_EF_C_DRAGON_GREEN_AURA` | Costume Green Aura Dragon | `efst_C_Dragon_Green_Aura/gryoumei.str` |
+| 234 | `HAT_EF_C_DRAGON_RED_AURA` | Costume Red Aura Dragon | `efst_C_Dragon_Red_Aura/redyoumei.str` |
+| 235 | `HAT_EF_C_DRAGON_YELLOW_AURA` | Costume Yellow Aura Dragon | `efst_C_Dragon_Yellow_Aura/redyoumei2.str` |
+| 236 | `HAT_EF_INTERDIMENSIONAL_RIFT` | Interdimensional Rift, Costume Interdimensional Rift, Costume Interdimensional Rift (Garment) | `efst_Interdimensional_Rift/Blackhole.str` |
+| 237 | `HAT_EF_C_CLB_SS_LL` | Costume Shiba Says Luke | `efst_C_CLB_SS_LL/bbcat.str` |
+| 238 | `HAT_EF_VACATION` | Costume Summer Beach | `efst_Vacation/vacation.str` |
+| 239 | `HAT_EF_C_FH_LOSTWING` | Costume Fallen Heaven Lost Wing | `efst_C_FH_Lostwing/fhlostwing.str` |
+| 240 | `FOOTPRINT_EF_DOGFOOT` | Puppy Footprint | a STR footprint, `footprint_DogFoot/footprint_bottom_DogFoot/footprint_shibasays.str` |
+| 241 | `HAT_EF_C_AUSPICLOUD` | Costume Auspicious Clouds | `C_Auspicloud/sucloud.str` |
+| 242 | `HAT_EF_AURA_OF_GHOST_S` | Costume Aura of Ghost Ship | effect 2424 |
+| 243 | `HAT_EF_C_ROS2024_WING_1` | 2024 ROS Winner Wing | `efst_C_ROS2024_Wing_1/2024win.str` |
+| 244 | `FOOTPRINT_EF_DUMPLING` | Dumpling Footprint | a STR footprint, `footprint_dumpling/footprint_bottom_dumpling/footprint_dumpling_bottom.str` |
+| 245 | `FOOTPRINT_EF_PANDA_BASIC` | Panda Basic Footprint | a STR footprint, `footprint_panda/footprint_panda_bottom_basic/footprint_bottom_panda_basic.str` |
+| 246 | `FOOTPRINT_EF_PANDA_COLOR` | Panda Color Footprint | a STR footprint, `footprint_panda/footprint_panda_bottom_color/footprint_panda_bottom_color.str` |
+| 247 | `HAT_EF_ATQUE_POENITENTIA` | Costume Atokwe Poenitentia | effect 2428 |
+| 248 | `HAT_EF_PERM_FROST_OBLIVION` | Costume Permafrost Oblivion | effect 2429 |
+| 249 | `HAT_EF_ATQUE_POENITENTIA2` | — | nothing: no entry in the client's table (kRO: `efst_Atque_Poenitentia2/caeffect.str`) |
+| 250 | `HAT_EF_GUIDE_OF_DEAD_TEXT` | Costume Guide's Letter | effect 2430 |
+| 251 | `HAT_EF_MEDJED_TEXT` | Costume Guardian's Letter | effect 2431 |
+| 252 | `HAT_EF_INKPAINTING_DAY` | Costume Ink Painting (Daytime) | `efst_InkPainting_Day/bushinkpaint1.str` |
+| 253 | `HAT_EF_INKPAINTING_NIGHT` | Costume Ink Painting (Night) | `efst_InkPainting_Night/bushinkpaint2.str` |
+| 254 | `HAT_EF_KUNG_FU_PANDA` | — | `efst_Kung_Fu_Panda/redyoumei2.str` |
+| 255 | `HAT_EF_C_MGSGPH_POTARL` | — | `efst_c_mysgph_portal/potal.str` |
+| 256 | `HAT_EF_C_IGUAZU_FALLS` | — | nothing: no entry in the client's table (kRO: `efst_C_Iguazu_Falls/Waterfall.str`) |
+| 257 | `FOOTPRINT_EF_BLOSSOM` | — | a STR footprint, `footprint_blossom/footprint_blossom_bottom/footprint_blossom_bottom.str` |
+| 258 | `FOOTPRINT_EF_BUD` | — | nothing: no entry in the client's table (kRO: a STR footprint, `footprint_bud/footprint_bud/footprint_bud.str`) |
+| 259 | `FOOTPRINT_EF_BUTTERFLY_BLUE` | Blue Butterfly Footprint | nothing: no entry in the client's table (kRO: a STR footprint, `footprint_butterfly/footprint_butterfly_blue/footprint_butterfly_blue.str`) |
+| 260 | `FOOTPRINT_EF_BUTTERFLY_PURPLE` | Purple Butterfly Footprints | a STR footprint, `footprint_butterfly/footprint_butterfly_purple/footprint_butterfly_purple.str` |
+| 261 | `FOOTPRINT_EF_BUTTERFLY_YELLOW` | Yellow Butterfly Footprints | a STR footprint, `footprint_butterfly/footprint_butterfly_yellow/footprint_butterfly_yellow.str` |
+| 262 | `HAT_EF_HANMAC_MUNCH` | Costume Successful Munch | nothing: no entry in the client's table (kRO: `efst_hanmac_munch/munch.str`) |
+| 263 | `FOOTPRINT_EF_VICTORY2025` | ROS 2025 Footprint | nothing: no entry in the client's table (kRO: a STR footprint, `footprint_victory2025/footprint_victory2025_bottom/footprint_victory_bottom.str`) |
+| 264 | `FOOTPRINT_EF_DRAGON_FACE_2D` | Footprint (2D) | a STR footprint, `footprint_dragon_face_2d/footprint_dragon_face_2d_bottom/fp_dragon_face_basic_bottom_pink.str` |
+| 265 | `FOOTPRINT_EF_DRAGON_FACE_3D` | Footprint (3D) | a STR footprint, `footprint_dragon_face_3d/footprint_dragon_face_3d_bottom/fp_dragon_face_3d_bottom.str` |
+| 266 | `HAT_EF_C_OVER_CLOUD` | Costume Over the Clouds | `efst_C_Over_Cloud/drgbgeffect.str` |
+| 267 | `HAT_EF_C_AURORA_ON_CLOUDS` | Costume Aurora on Clouds | `efst_C_Aurora_On_Clouds/drgauroraeffect.str` |
+| 268 | `HAT_EF_ROS_REDSPIRIT` | — | nothing: no entry in the client's table (kRO: `efst_ROS_RedSpirit/kiaura1.str`) |
+| 269 | `HAT_EF_ROS_BLUESPIRIT` | — | nothing: no entry in the client's table (kRO: `efst_ROS_BlueSpirit/kiaura2.str`) |
+| 270 | `HAT_EF_DIVINE_SKY_INVITE` | Costume Divine Invitation | `efst_Divine_Sky_Invite/Midgard2.str` |
+| 271 | `FOOTPRINT_EF_DIVINE` | Divine Light Footprints | a STR footprint, `footprint_divine/footprint_divine_bottom/footprint_divine_bottom.str` |
+| 272 | `FOOTPRINT_EF_NYAR_BLUE` | Nyar's Blue Footprints | a STR footprint, `footprint_nyar_blue/footprint_nyar_blue_bottom/footprint_nyar_blue_bottom.str` |
+| 273 | `FOOTPRINT_EF_NYAR_PURPLE` | Nyar's Purple Footprints | a STR footprint, `footprint_nyar_purple/footprint_nyar_purple_bottom/footprint_nyar_purple_bottom.str` |
+| 274 | `HAT_EF_C_NIGHTMARE_CHAIN` | Costume Nightmare Chain | `efst_C_Nightmare_Chain/rrrooo2.str` |
+| 275 | `HAT_EF_C_SPOT_MIKE` | Costume Idol Standing Mic | `C_Spot_Mike/Spotlight2.str` |
+| 276 | `HAT_EF_C_SPOT_FLOWER` | Costume Idol's Flower Stage | nothing: no entry in the client's table (kRO: `C_Spot_Flower/Spotlight1.str`) |
+| 277 | `HAT_EF_C_2025ROSFESTA` | Costume ROS 2025 Champion Coat | nothing: no entry in the client's table (kRO: nothing: effect 2443 is not in roBrowser's effect table) |
+| 278 | `HAT_EF_GOLDEN_AURA_TW` | — | nothing: no entry in the client's table (kRO: `efst_Golden_Aura_TW/fhlostwing2.str`) |
+| 279 | `HAT_EF_C_S_BEELZEBUB_WING` | — | effect 2458 |
+| 280 | `FOOTPRINT_EF_FEATHER` | Costume Celestial Integrity | a STR footprint, `footprint_feather/footprint_feather/footprint_feather.str` |
+| 281 | `HAT_EF_SOLID_STATE_RECOGNITION` | — | nothing: no entry in the client's table (kRO: `Solid_State_Recognition/mdenv.str`) |
+| 282 | `HAT_EF_C_CURSED_SERPENT` | Costume Cursed Serpent | `efst_C_Cursed_Serpent/encro.str` |
 | 283 | `FOOTPRINT_EF_BASIC` | — | nothing: no entry in the client's table |
 | 284 | `HAT_EF_C_GGH_ANNIVERSARY` | — | nothing: no entry in the client's table |
-| 285 | `FOOTPRINT_EF_DIVINE_BLUE` | Sacred Blue Light Footprints | nothing: no entry in the client's table |
-| 286 | `FOOTPRINT_EF_BLUESTAR` | Blue Star Footprints | nothing: no entry in the client's table |
-| 287 | `FOOTPRINT_EF_PHOENIX` | Phoenix Operation Footprints | nothing: no entry in the client's table |
-| 288 | `HAT_EF_C_CLB_GAT_DOC` | Costume Emergency Communication | nothing: no entry in the client's table |
+| 285 | `FOOTPRINT_EF_DIVINE_BLUE` | Sacred Blue Light Footprints | a STR footprint, `footprint_divine_blue/footprint_divine_blue_bottom/footprint_divine_blue_bottom.str` (kRO: nothing: no entry in the client's table) |
+| 286 | `FOOTPRINT_EF_BLUESTAR` | Blue Star Footprints | a STR footprint, `footprint_bluestar/footprint_bottom_bluestar/footprint_bottom_blue.str` (kRO: nothing: no entry in the client's table) |
+| 287 | `FOOTPRINT_EF_PHOENIX` | Phoenix Operation Footprints | a STR footprint, `footprint_phoenix/footprint_bottom_phoenix/footprint_bottom_phoenix.str` (kRO: nothing: no entry in the client's table) |
+| 288 | `HAT_EF_C_CLB_GAT_DOC` | Costume Emergency Communication | `efst_C_CLB_GAT_doc/Gatchamanvi.str` (kRO: nothing: no entry in the client's table) |
 | 289 | `HAT_EF_C_EYE_OF_NECROMANCER` | Costume Eye of Necromancer | nothing: no entry in the client's table |
 | 290 | `HAT_EF_C_JAOW_PIRUN` | Costume Jaow Pirun Sra Yok | nothing: no entry in the client's table |
-| 291 | `FOOTPRINT_EF_FLOWER_GARDEN` | Flower Garden | nothing: no entry in the client's table |
-| 292 | `HAT_EF_C_ANGEL_GIFT` | Costume Angel's Gift | nothing: no entry in the client's table |
+| 291 | `FOOTPRINT_EF_FLOWER_GARDEN` | Flower Garden | a STR footprint, `footprint_flower_garden/footprint_flower_garden_left/footprint_flower_garden_left.str` (kRO: nothing: no entry in the client's table) |
+| 292 | `HAT_EF_C_ANGEL_GIFT` | Costume Angel's Gift | `efst_C_Angel_Gift/hikariri.str` (kRO: nothing: no entry in the client's table) |

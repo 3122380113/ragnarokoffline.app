@@ -326,6 +326,39 @@
       ]
     },
     {
+      "name": "city-unity",
+      "version": "",
+      "author": "akreao",
+      "description": "kRO's Major City Contribution system from 2015. Join the City Merchant Union in the Eden Group lobby, collect Union Insignias while you hunt, and invest them in Prontera, Geffen, Payon, Morroc, Juno, Einbroch, Lighthalzen, Rachel or Veins to unlock that city's Unity gear. A request board adds a weekly boss bounty and daily dungeon deliveries, with English quest text. Works with or without eden-rework-2021. Renewal only.",
+      "homepage": "https://github.com/akreao/city-unity",
+      "tags": [
+        "eden",
+        "gear",
+        "kro",
+        "npc",
+        "quest",
+        "renewal",
+        "unity"
+      ],
+      "icon": "images/icon.png",
+      "screenshots": [],
+      "requires": {
+        "mods": [],
+        "era": "renewal",
+        "app": ""
+      },
+      "source": {
+        "github": "akreao/city-unity",
+        "asset": "city-unity-*.zip"
+      },
+      "files": [
+        {
+          "path": "images/icon.png",
+          "sha256": "bfe8c3472d18059cd373a366a075fc282aaa38c4c7fe15428fd6e2d0e86ef219"
+        }
+      ]
+    },
+    {
       "name": "droprate-penalty-remover",
       "version": "1.0.1",
       "author": "Leptis",
@@ -912,6 +945,53 @@
       ]
     },
     {
+      "name": "renewal-world",
+      "version": "0.1.0",
+      "author": "BlaXun",
+      "description": "Opens renewal's new lands in pre-renewal, joined to the old world where renewal joins them: Bifrost, Mora, Eclage and El Dicastes, Verus, the ships from Alberta to Dewata, Port Malaya, Malangdo and Rockridge, and new floors of Niflheim, Izlude, Abyss Lakes, Einbroch and Magma dungeons. With the quest areas setting on, also Lasagna, Bios Island, Rudus, Amicitia, the nightmare and illusion dungeons, Prontera Castle and other episode areas, whose entrances renewal keeps behind quests. 122 maps. This first version opens the way only: the new maps have no monsters, shops or quests yet. Every entrance renewal locks behind a quest is a free gate here.",
+      "homepage": "https://github.com/Flux159/ragnarokoffline.app/tree/main/registry/mods/renewal-world",
+      "tags": [
+        "exploration",
+        "maps",
+        "pre-renewal",
+        "travel",
+        "world"
+      ],
+      "icon": "",
+      "screenshots": [],
+      "requires": {
+        "mods": [],
+        "era": "pre-renewal",
+        "app": ">=1.4.3"
+      },
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "84d4925dd92d00ee5b24cb97535efcebe3a45f22c1487314fa191c97df0f9762"
+        },
+        {
+          "path": "mod.json",
+          "sha256": "f916b4541c82d3b0b9dc1267e276f05d506da64301eec70e16e373f2d6bd94d5"
+        },
+        {
+          "path": "npc/renewal_world_gates.txt",
+          "sha256": "4e2d28c28a7ecc89fe479e734b147407b381857e21d15792c6cae00b0ca998e1"
+        },
+        {
+          "path": "npc/renewal_world_mapflags.txt",
+          "sha256": "c621d6331a08b02ed2e06ca1f28499efb8e098064e0a34df9df1e57459747118"
+        },
+        {
+          "path": "npc/renewal_world_warps.txt",
+          "sha256": "7c26dfbcb82b06a872dcaf7c0e5caa91c7c1624fdb4f1bc795a96168e2fba253"
+        },
+        {
+          "path": "npc/when/quest_areas/renewal_world_quest_areas.txt",
+          "sha256": "7c1284bdc8a86b68fcc3b908be4c702c7693a88282cba70af0298fa873209580"
+        }
+      ]
+    },
+    {
       "name": "royal-nightmare",
       "version": "",
       "author": "Lil Art",
@@ -941,6 +1021,31 @@
           "sha256": "680a9d2920038ab63a2e11ce9f7c3c2c2458b327a7b47a5ce0e1ab0d2d15fab1"
         }
       ]
+    },
+    {
+      "name": "solo-community-goals",
+      "version": "",
+      "author": "akreao",
+      "description": "Server-wide goals sized for one player or a small party. The Illusion dungeon bosses appear after 5% of the kills they normally wait for, Bomi turns into Berserk Bomi after one delivery instead of thirty, the Orbs of Seal in the Illusion of Frozen stay lit until all four are, and Rachel's temple opens the Sanctuary quest without 10,000 donations. Every number is in the settings. The stock scripts still spawn the bosses, so their dialogue, drops and rewards are unchanged.",
+      "homepage": "https://github.com/akreao/solo-community-goals",
+      "tags": [
+        "bosses",
+        "quality-of-life",
+        "quests",
+        "solo"
+      ],
+      "icon": "",
+      "screenshots": [],
+      "requires": {
+        "mods": [],
+        "era": "any",
+        "app": ""
+      },
+      "source": {
+        "github": "akreao/solo-community-goals",
+        "asset": "solo-community-goals-*.zip"
+      },
+      "files": []
     },
     {
       "name": "standart-npc",
