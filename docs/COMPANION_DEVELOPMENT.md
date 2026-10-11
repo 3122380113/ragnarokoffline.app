@@ -208,7 +208,7 @@ once for a companion that does not roam:
 | `population_engine.cpp` | `pop_companion_follow_owner`: the sitting check, the leash, and a return before the in-sight warp | the whole map is its own; a map change still brings it along |
 | `population_engine.cpp` | `pop_shell_rest`: the owner walking | a roamer's rest is not cut short by its owner moving elsewhere |
 | `population_engine.cpp` | companion loop: life watch, `population_companion_roam_target(...)` around `pop_companion_combat_target`, the stop-walking and the formation step | its own fight near itself, its walk kept, no formation |
-| `population_engine.cpp` | `population_engine_on_shell_death`, companion branch | "I'm down!" in party chat and the window refreshed |
+| `population_engine.cpp` | `population_engine_on_shell_death`, companion branch | "I'm down!" in party chat (roaming companions only) and the window refreshed |
 | `population_engine.cpp` | party-chat `recall` | recalled companions follow again |
 | `population_engine.cpp` | `population_engine_recall_companions`, after the query | the flag restored from the rows (a nested query would clobber the recall's result set) |
 | `population_engine.cpp` | `population_engine_companion_list_raw` and the recruit `INSERT` | the `roam` and `dead` fields; a re-recruited row starts following |

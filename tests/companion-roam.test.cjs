@@ -121,10 +121,11 @@ test('@companion roam sets one companion or all of them', () => {
 	assert.match(hpp, /int population_engine_companion_set_roam\(uint32_t owner_account, const char \*name, bool roam,/);
 });
 
-test('a companion that dies says so, and its row shows it until it is revived', () => {
+test('a roaming companion that dies says so, and every dead companion is marked in its row until it is revived', () => {
 	const death = body(src, 'void population_engine_on_shell_death(');
 	assert.match(death, /population_companion_on_down\(sd\);/);
 	const down = body(roam, 'void population_companion_on_down(');
+	assert.match(down, /if \(population_companion_roams\(sd\)\) \{/, 'only a roaming companion speaks');
 	assert.match(down, /"%s : I'm down! \(%s %d, %d\)"/, 'with where it fell');
 	assert.match(down, /party_send_message\(sd, msg, strlen\(msg\) \+ 1\);/);
 	assert.match(down, /population_engine_push_companion_list_for_shell\(sd\);/);

@@ -202,10 +202,10 @@ Level 3 Resurrection restores 50% HP. Resurrection remains available in every
 combat mode and role because recovery is treated as a class capability rather
 than an offensive action.
 
-When a companion dies it says so in party chat, with where it fell, for
-example `Rover : I'm down! (prt_fild08 240, 362)`, and its row in the
-Companions window is marked ✝ until it is revived. A roaming companion often
-falls out of your sight, so the coordinates are how you find the corpse.
+When a companion dies its row in the Companions window is marked ✝ until it
+is revived. A roaming companion also says so in party chat, with where it fell,
+for example `Rover : I'm down! (prt_fild08 240, 362)`: it often falls out of
+your sight, so the coordinates are how you find the corpse.
 
 If the companion's owner leaves the map while the companion is dead, the corpse
 is released and removed from the party. It cannot be recovered afterwards.

@@ -180,10 +180,13 @@ void population_companion_on_down(map_session_data *sd)
 {
 	if (sd == nullptr)
 		return;
-	char msg[CHAT_SIZE_MAX];
-	safesnprintf(msg, sizeof(msg), "%s : I'm down! (%s %d, %d)",
-		sd->status.name, mapindex_id2name(sd->mapindex), sd->x, sd->y);
-	party_send_message(sd, msg, strlen(msg) + 1);
+	// Only a roaming companion says so: one that follows fell where its owner can see it.
+	if (population_companion_roams(sd)) {
+		char msg[CHAT_SIZE_MAX];
+		safesnprintf(msg, sizeof(msg), "%s : I'm down! (%s %d, %d)",
+			sd->status.name, mapindex_id2name(sd->mapindex), sd->x, sd->y);
+		party_send_message(sd, msg, strlen(msg) + 1);
+	}
 	sd->pop.companion_was_dead = true;
 	population_engine_push_companion_list_for_shell(sd);
 }

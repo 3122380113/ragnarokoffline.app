@@ -601,8 +601,8 @@ to roam in the Companions window (`@companion roam [<name>] on|off`, unknown whi
 the setting is off). A roaming
 companion walks its owner's map as a field shell does and fights near itself,
 by its stance; it still changes maps with its owner and stays in the party. When
-any companion dies it says "I'm down!" in party chat with its position, and the
-window marks it. The code is `runtime/population_companion_roam.cpp`, reached
+a roaming companion dies it says "I'm down!" in party chat with its position;
+the window marks any companion that dies. The code is `runtime/population_companion_roam.cpp`, reached
 from lines marked `RAGNAROKMAC (roam)`; [COMPANION_DEVELOPMENT.md](../../docs/COMPANION_DEVELOPMENT.md)
 lists them. Nothing changes for a companion that follows.
 
