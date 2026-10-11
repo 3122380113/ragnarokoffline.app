@@ -258,8 +258,8 @@ gemstones are never needed; on, they come from its bag (see [Its bag](#its-bag))
 
 | Setting | What it means |
 | --- | --- |
-| Free choice (the default) | The Summon tab drafts any job, at any time, as before. |
-| Hired from the Companions panel | The Summon tab offers only jobs of your own class tier (1st, 2nd including transcendent, 3rd or 4th), and the companion comes at your base level, within the range its job's profile allows. Each hire costs the fee below. |
+| Free choice (the default) | The Summon tab drafts any job, at any time. The companion comes at your base level: never below the lowest level its job's profile allows, and up to the class's own level cap. |
+| Hired from the Companions panel | The Summon tab offers only jobs of your own class tier (1st, 2nd including transcendent, 3rd or 4th), and the companion comes at your base level, as a free one does. Each hire costs the fee below. |
 | Hired from a Companion Recruiter | The same rules, from a Companion Recruiter who stands two cells east of the healer in each main town. The Summon tab points you there. |
 
 The fee is **Fee per level** zeny times the companion's level, and/or the

@@ -4944,7 +4944,10 @@ uint32_t population_engine_companion_hire(map_session_data *owner, uint16_t job_
 		return 0;
 	const int mode = population_engine_companion_hire_mode();
 	if (mode == 0) {
+		// RAGNAROKMAC: a free draft comes at its owner's level too, as a hired one does.
+		g_pop_draft_level = static_cast<int16_t>(owner->status.base_level);
 		const uint32_t made = population_engine_companion_draft(owner, job_id, 1, name_hint, sex);
+		g_pop_draft_level = 0;
 		if (made == 0)
 			msg = "Could not draft that companion (see map-server console).";
 		return made;
@@ -5960,9 +5963,12 @@ static map_session_data* population_engine_spawn_shell(int16_t map_id, int x, in
 		}
 		// RAGNAROKMAC: a hired companion comes at its owner's level, within
 		// the band its profile allows (population_engine_companion_hire).
+		// Never below the band (a transcendent class has a floor), but past its top up to the
+		// class's own cap: the band is where the crowd rolls, not a limit on a player's party.
 		if (g_pop_draft_level > 0)
 			rolled = static_cast<int16_t>(cap_value(static_cast<int>(g_pop_draft_level),
-				static_cast<int>(pop_cfg->base_level_min), static_cast<int>(hi)));
+				static_cast<int>(pop_cfg->base_level_min),
+				std::max(static_cast<int>(hi), static_cast<int>(pc_maxbaselv(sd)))));
 		sd->status.base_level = cap_value(rolled, 1, MAX_LEVEL);
 	} else {
 		// Upstream defaults an undeclared BaseLevel to 99, which is how a
