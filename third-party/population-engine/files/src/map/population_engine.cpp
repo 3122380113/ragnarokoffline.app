@@ -3813,6 +3813,10 @@ static uint16_t pop_companion_next_job(uint16_t job_id, int32_t base_lv, int32_t
 		if (a.from != job_id) continue;
 		if (base_lv < a.base_lv || job_lv < a.job_lv) continue;
 		const uint16_t target = (a.to_b != 0 && (rnd() % 2)) ? a.to_b : a.to_a;
+		// RAGNAROKMAC: a class this server's era has no job for (a third class in pre-renewal)
+		// is not a step: pc_jobchange refuses it, and the ladder asked again at every check.
+		if (!job_db.exists(target))
+			continue;
 		if (!allow_rebirth && pop_job_change_is_rebirth(job_id, target))
 			continue; // a rebirth waits for the player
 		return target;

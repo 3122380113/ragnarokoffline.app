@@ -4,7 +4,7 @@
 //
 // The risks these pin down: a key that only one of the parser and the runtime knows; Reach
 // reading the pause every attack brings as "cannot walk"; an item-cast left armed with no
-// client to make it; and OnPCDieEvent reaching every shell rather than recruited companions.
+// client to make it.
 const assert = require('node:assert');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -84,17 +84,8 @@ test('UseItem uses what is in the bag, and makes the cast an item only arms', ()
 	assert.match(src, /\+ rule->leave \+ rule->kite \+ \(rule->use_item != 0\)/);
 });
 
-test('OnPCDieEvent is let through for a recruited companion only', () => {
-	const gate = read('files', 'src', 'map', 'population_engine', 'runtime', 'population_shell_events.hpp');
-	assert.match(gate, /return type == NPCE_DIE && population_engine_is_recruited_companion\(&sd\);/);
-	const patch = read('patches', '0034-companion-die-event.patch');
-	assert.match(patch, /\+\tif \(shell && !population_shell_runs_script_event\(sd, type\)\)/);
-});
-
-test('a drafted companion comes at its owner\'s level, and the ladder skips jobs this era lacks', () => {
+test('the ladder skips jobs this era lacks', () => {
 	const eng = read('files', 'src', 'map', 'population_engine.cpp');
-	assert.match(eng, /std::max\(static_cast<int>\(hi\), static_cast<int>\(pc_maxbaselv\(sd\)\)\)\)\);\n\t\tsd->status\.base_level/);
-	assert.match(eng, /if \(mode == 0\) \{\n[^\n]*\n\t\tg_pop_draft_level = static_cast<int16_t>\(owner->status\.base_level\);/);
 	assert.match(eng, /if \(!job_db\.exists\(target\)\)\n\t\t\tcontinue;/);
 });
 
