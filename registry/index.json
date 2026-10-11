@@ -731,11 +731,11 @@
       "files": [
         {
           "path": "CHANGELOG.md",
-          "sha256": "f45f1786b003feda52a1050e28f48cba2f9e4a0eb64e928abcdb602e4a8b0fdc"
+          "sha256": "a1f078e4eb46484c156cdcfc39a5440ac15689a41196d68cce5c07d9d8f54f41"
         },
         {
           "path": "README.md",
-          "sha256": "ff464e35e2456ab84e41404d4569c80edbf152d63f1fc092a734eb309db64b0a"
+          "sha256": "1a85b2b3e41f6cdc84ba6393e91329576cb17b744f87f6523ba5b7e17d809dae"
         },
         {
           "path": "db/population_vendor_pop.yml",
@@ -759,7 +759,7 @@
         },
         {
           "path": "mod.json",
-          "sha256": "f704669bd2a20031d2e8075a28378fe4f49a6dce1762d9d673718f4c73aa5172"
+          "sha256": "db7d3d24aa916ba0a28ab4b5d11d21665de1675b107886a95be2becd0d7572f2"
         },
         {
           "path": "npc/prontera-vendors-customers.txt",

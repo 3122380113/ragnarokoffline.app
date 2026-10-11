@@ -38,7 +38,7 @@ goes to the following lane, so a busy lane keeps a few natural gaps; a lower
 density leaves wider gaps and spreads the stalls over more lanes. When every
 lane has its share, the rest go to whichever lane is least full. No stall
 stands within 3 cells of an NPC, the same rule a player's own shop follows.
-On an app build without the density setting (1.5.6 and older) each lane
+On an app build without the density setting (1.5.8 and older) each lane
 fills to 70–80 %; on one older than lane filling, stalls spread at random
 over all their lanes instead.
 
@@ -59,7 +59,7 @@ defaults. On an app without settings pages they show in the Mods tab.
 | Buy shops | on | Off removes every buying store. |
 | Buy stalls | 30 | The most buying stores that stand on their lanes (0–100), in the evening; fewer at other hours. |
 | Minutes before a stall changes | 120 | How long a vendor stays before packing up. Each varies by up to half either way, and stalls are checked once a minute, so short values run long (2 means roughly 1–5 minutes). 0 keeps them until the server restarts. |
-| Stall density (%) | 80 | How full a lane gets before stalls open in the next one (20–100). Lower leaves gaps and uses more lanes. Needs an app newer than 1.5.6. |
+| Stall density (%) | 80 | How full a lane gets before stalls open in the next one (20–100). Lower leaves gaps and uses more lanes. Needs app 1.5.9 or newer. |
 | Price level (%) | 100 | Every price × this / 100, for sell stalls and buyers alike. Nothing goes below what an NPC pays. |
 | Vendors respect the population limit | on | Off: stalls spawn even when the fake-player limit is reached (they still count toward it). |
 | Vendors shout their wares | on | Stalls call out a real item and price now and then ("S> Elunium 13K", "B> Oridecon 9500"). |
@@ -551,7 +551,7 @@ registry/mods/prontera-vendors/
 │   ├── prontera-vendors-supply.txt     the hunted supply and @supply
 │   ├── prontera-vendors-supply-data.txt  its maps, yields and MvPs (generated)
 │   ├── prontera-vendors-newer.txt   the settings that need app 1.4.5
-│   └── prontera-vendors-density.txt the stall density, for an app newer than 1.5.6
+│   └── prontera-vendors-density.txt the stall density, for app 1.5.9 and newer
 ├── db/
 │   ├── population_vendors.yml       markets + themes (generated)
 │   ├── population_vendor_pop.yml    one vendor profile per theme (generated)
