@@ -3706,10 +3706,9 @@ Body:
       - { SkillId: TK_COUNTER, Level: 7, Rate: 10000, Condition: self_status, CondValue: SC_COMBO }
       - { SkillId: TK_JUMPKICK, Level: 7, Rate: 9000 }
 
-  # Soul Linker: its own spirit and the Ka- buffs on itself, Estin and Estun, Esma while it is open.
+  # Soul Linker: the Ka- buffs on itself, Estin and Estun, Esma while it is open.
   - JobId: 4049
     Skills:
-      - { SkillId: SL_SOULLINKER, Level: 5, Rate: 8000, Target: self, Condition: not_self_status, CondValue: SC_SPIRIT }
       - { SkillId: SL_KAIZEL, Level: 7, Rate: 8000, Target: self, Condition: not_self_status, CondValue: SC_KAIZEL }
       - { SkillId: SL_KAAHI, Level: 7, Rate: 8000, Target: self, Condition: not_self_status, CondValue: SC_KAAHI }
       - { SkillId: SL_KAUPE, Level: 3, Rate: 8000, Target: self, Condition: not_self_status, CondValue: SC_KAUPE }
@@ -3959,7 +3958,6 @@ Body:
       - { SkillId: SP_SOULUNITY, Level: 7, Rate: 8000, Target: self, Condition: not_self_status, CondValue: SC_SOULUNITY }
       - { SkillId: SP_SPA, Level: 10, Rate: 9000 }
       - { SkillId: SP_SWHOO, Level: 10, Rate: 7000, Condition: enemy_count_nearby, CondValue: 2 }
-      - { SkillId: SL_SOULLINKER, Level: 5, Rate: 8000, Target: self, Condition: not_self_status, CondValue: SC_SPIRIT }
       - { SkillId: SL_KAIZEL, Level: 7, Rate: 8000, Target: self, Condition: not_self_status, CondValue: SC_KAIZEL }
       - { SkillId: SL_KAAHI, Level: 7, Rate: 8000, Target: self, Condition: not_self_status, CondValue: SC_KAAHI }
       - { SkillId: SL_KAUPE, Level: 3, Rate: 8000, Target: self, Condition: not_self_status, CondValue: SC_KAUPE }
