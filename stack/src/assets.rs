@@ -901,7 +901,8 @@ fn write_client_config(
         body = insert_before_close(body,
             "\titemPackageSupplement: 'data/luafiles514/lua files/selectpackage/selectpackageitem_supplement.lua',\n");
     }
-    // The tables mods add beside the client's base tables.
+    // The tables mods add to the client's own, each a list the client loads
+    // beside its base; client_tables says in which order, and why.
     for entry in tables.config_entries(web) {
         body = insert_before_close(body, &entry);
     }

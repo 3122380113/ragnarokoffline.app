@@ -1,5 +1,6 @@
--- Missing iRO selection packages, verified against stock Renewal rAthena:
--- 5209ce07ec58dc7f1875da47d8e6b0e0bae2a9a1 db/re/item_packages.yml
+-- Missing iRO selection packages, copied from stock Renewal rAthena's
+-- db/re/item_packages.yml. CI checks them against the pinned rAthena
+-- (tests/diagnostics/verify-selection-packages.py).
 -- Keep the original group IDs and rewards. The client adds absent boxes only.
 -- Loaded separately from native tables; labels come from the active item-name table.
 -- This is a deliberately bounded snapshot, not a replacement package database.
