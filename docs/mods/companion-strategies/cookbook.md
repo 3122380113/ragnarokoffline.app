@@ -24,6 +24,7 @@ not yet. Adjust names, priorities and numbers to your plan. The
 - [Sit down to regenerate between fights](#sit-down-to-regenerate-between-fights)
 - [Don't make a boss teleport](#dont-make-a-boss-teleport)
 - [Stand inside a Land Protector, not on its rim](#stand-inside-a-land-protector-not-on-its-rim)
+- [Clear a boss's Land Protector](#clear-a-bosss-land-protector)
 - [Step out from behind a wall](#step-out-from-behind-a-wall)
 - [An Ice Wall between you and what is coming](#an-ice-wall-between-you-and-what-is-coming)
 
@@ -310,6 +311,33 @@ its edge. `Depth` asks for a cell that many cells inside:
 
 Three deep is the middle 5x5 of a level 5 Land Protector. A smaller field gives
 its deepest cells.
+
+## Clear a boss's Land Protector
+
+A boss that lays Land Protector under the party wipes the Pneuma and Safety
+Walls standing there, and none can be put back while it lasts. In pre-renewal a
+Land Protector laid on another removes both, cell by cell. `Target: { Field }`
+aims a ground cast at the middle of a field someone else laid:
+
+```yaml
+- Job: Sage
+  Rules:
+    - Name: clear_their_lp
+      Priority: 86
+      Cast: SA_LANDPROTECTOR
+      Target: { Field: SA_LANDPROTECTOR, Owner: enemy, Within: 9 }
+    - Name: walk_to_their_lp
+      Priority: 85
+      MoveTo: { Field: SA_LANDPROTECTOR, Owner: enemy, Within: 12, Depth: 5 }
+```
+
+Land Protector reaches only 2 cells, so the second rule walks the Sage to the
+field's middle (`Depth: 5` is deeper than any Land Protector goes, which gives
+its deepest cell); the first then casts. Both stop applying once the field is
+gone. With Companion inventory on, the Sage needs a Blue and a Yellow Gemstone
+in its bag for each cast; the trace says so when one is missing. Cast the same level the boss uses, or part of its field is left: a
+smaller one clears only the cells it covers. The same target works for any
+ground skill and any field: `Owner: party` for a member's, `anyone` for all.
 
 ## Step out from behind a wall
 

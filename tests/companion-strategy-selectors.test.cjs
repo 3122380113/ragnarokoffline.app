@@ -123,7 +123,7 @@ test('MoveTo Sight walks to a clear line within range, and is there only with bo
 
 test('Aim puts a ground cast on a cell of its own, and Lead on where a walking target will be', () => {
 	const cast = body('static const char *cast(');
-	assert.match(cast, /const bool aimed = rule\.aim && \(inf & INF_GROUND_SKILL\) != 0 && target != sd;/);
+	assert.match(cast, /const bool aimed = \(at_field \|\| rule\.aim\) && \(inf & INF_GROUND_SKILL\) != 0 && target != sd;/);
 	// Every use of the landing cell goes through the aimed one.
 	assert.match(cast, /why_cell\(sd, id, lv, ax, ay\)/);
 	assert.match(cast, /unit_skilluse_pos\(sd, ax, ay, id, lv\)/);
@@ -150,4 +150,21 @@ test('a fight that has just ended is seen by the rules before the engine rests t
 	assert.match(wants, /DIFF_TICK\(tick, st\.last_seen\) > 2000/);
 	// And a bounded while after an ending for the rule it woke.
 	assert.match(src, /st\.answer_until = t\.tick \+ 3000;/);
+});
+
+test('Target: { Field } aims a ground cast at the middle of a field someone else laid', () => {
+	const parse = body('RulePtr StrategyDatabase::parse_rule(');
+	assert.match(parse, /this->warn_unknown_keys\(f, \{ "Field", "Owner", "Within" \}, "Target"\);/);
+	// Only for a ground Cast, and the enemy's by default.
+	assert.match(parse, /Target: \{ Field \} is the cell of a ground field, for a ground Cast/);
+	assert.match(src, /Who tfield_owner = Who::Enemy;/);
+	assert.match(body('static block_list *resolve_target('), /if \(rule\.tfield_skill != 0\)\n\t\treturn field_target\(/);
+	// The nearest field, then that field's middle unit: never a cell of another field.
+	const pick = body('static block_list *field_target(');
+	assert.match(pick, /if \(u->group != nearest->group\)\n\t\t\tcontinue;/);
+	// A field is a cell: nobody's state is asked about, and Aim has no say.
+	const cast = body('static const char *cast(Turn &t, const Rule &rule, block_list *target, uint16 id)');
+	assert.match(cast, /const bool at_field = target->type == BL_SKILL;/);
+	assert.match(cast, /if \(aimed && !at_field\)/);
+	assert.match(cast, /if \(at_field\) \{\n\t\tif \(!status_check_skilluse\(sd, nullptr, id, 0\)\)/);
 });

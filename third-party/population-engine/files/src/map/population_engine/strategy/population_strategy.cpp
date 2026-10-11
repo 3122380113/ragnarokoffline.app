@@ -183,6 +183,11 @@ struct Rule {
 	uint16 leave_skill = 0;
 	Who leave_owner = Who::Enemy;
 	int16 leave_within = 8;
+	// Target: { Field }: a ground Cast aimed at the nearest ground field of a skill someone else
+	// laid (a Land Protector on a boss's Land Protector), at the field's middle cell.
+	uint16 tfield_skill = 0;
+	Who tfield_owner = Who::Enemy;
+	int16 tfield_within = 9;
 	// MoveTo: the cell an event's cast aims at, or the nearest cell of a ground field.
 	Move move = Move::None;
 	uint16 move_skill = 0;
@@ -1248,7 +1253,30 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 				this->invalidWarning(node["Consume"], "%s has no ItemCost; Consume does nothing.\n", skill.c_str());
 		}
 	}
-	if (this->nodeExists(node, "Target") && node["Target"].is_map()) {
+	if (this->nodeExists(node, "Target") && node["Target"].is_map() && this->nodeExists(node["Target"], "Field")) {
+		const ryml::NodeRef f = node["Target"];
+		this->warn_unknown_keys(f, { "Field", "Owner", "Within" }, "Target");
+		std::string skill, owner;
+		this->asString(f, "Field", skill);
+		if ((rule->tfield_skill = skill_of(skill)) == 0) {
+			this->invalidWarning(f["Field"], "Unknown skill '%s'; the rule is skipped.\n", skill.c_str());
+			return nullptr;
+		}
+		if (rule->cast_skill == 0 || !(skill_get_inf(rule->cast_skill) & INF_GROUND_SKILL)) {
+			this->invalidWarning(f, "Target: { Field } is the cell of a ground field, for a ground Cast; the rule is skipped.\n");
+			return nullptr;
+		}
+		if (this->nodeExists(f, "Owner")) {
+			this->asString(f, "Owner", owner);
+			if (!who_of(owner, rule->tfield_owner)) {
+				this->invalidWarning(f["Owner"], "Owner must be self, party, monster, enemy or anyone; the rule is skipped.\n");
+				return nullptr;
+			}
+		}
+		if (this->nodeExists(f, "Within"))
+			this->asInt16(f, "Within", rule->tfield_within);
+		rule->tfield_within = static_cast<int16>(cap_value(static_cast<int>(rule->tfield_within), 1, AREA_SIZE));
+	} else if (this->nodeExists(node, "Target") && node["Target"].is_map()) {
 		if (!this->parse_selector(node["Target"], rule->sel))
 			return nullptr;
 	} else if (this->nodeExists(node, "Target")) {
@@ -1416,6 +1444,10 @@ RulePtr StrategyDatabase::parse_rule(const ryml::NodeRef &node, bool &remove)
 			return nullptr;
 		}
 		this->warn_unknown_keys(a, { "Cells", "From", "Lead" }, "Aim");
+		if (rule->tfield_skill != 0) {
+			this->invalidWarning(a, "Aim has no say with Target: { Field }, which is a cell already; the rule is skipped.\n");
+			return nullptr;
+		}
 		if (rule->cast_skill == 0 || !(skill_get_inf(rule->cast_skill) & INF_GROUND_SKILL)) {
 			this->invalidWarning(a, "Aim belongs to a Cast of a ground skill; the rule is skipped.\n");
 			return nullptr;
@@ -2265,6 +2297,67 @@ static int32 field_units(map_session_data *sd, uint16 skill_id, Who owner, int16
 	return scan.count;
 }
 
+struct FieldTargetScan {
+	const map_session_data *sd;
+	uint16 skill_id;
+	Who owner;
+	std::vector<skill_unit *> units;
+};
+
+static int32 field_target_cb(block_list *bl, va_list ap)
+{
+	FieldTargetScan *scan = va_arg(ap, FieldTargetScan *);
+	skill_unit *unit = reinterpret_cast<skill_unit *>(bl);
+	if (unit->alive && unit->group != nullptr && unit->group->skill_id == scan->skill_id
+			&& is_who(scan->sd, unit->group->src_id, scan->owner))
+		scan->units.push_back(unit);
+	return 0;
+}
+
+/// Target: { Field }: of the fields of `skill_id` that `owner` laid within `within`, the one with
+/// the cell nearest the companion, and of that field the unit in its middle. One cast (as one
+/// Land Protector laid on another) then covers as much of it as a cast can. The unit stands for
+/// its cell: a ground cast only reads where its target is.
+static block_list *field_target(map_session_data *sd, uint16 skill_id, Who owner, int16 within)
+{
+	FieldTargetScan scan{ sd, skill_id, owner, {} };
+	// A field can run on past Within: its far cells count for where its middle is.
+	map_foreachinrange(field_target_cb, sd, std::min<int>(within + 2 * AREA_SIZE / 3, 2 * AREA_SIZE), BL_SKILL, &scan);
+	const skill_unit *nearest = nullptr;
+	int best = within + 1;
+	for (const skill_unit *u : scan.units) {
+		const int d = distance_bl(sd, u);
+		if (d < best || (d == best && nearest != nullptr && u->id < nearest->id)) {
+			best = d;
+			nearest = u;
+		}
+	}
+	if (nearest == nullptr)
+		return nullptr;
+	int64 sx = 0, sy = 0, n = 0;
+	for (const skill_unit *u : scan.units) {
+		if (u->group != nearest->group)
+			continue;
+		sx += u->x;
+		sy += u->y;
+		++n;
+	}
+	skill_unit *middle = nullptr;
+	int64 off = INT64_MAX;
+	for (skill_unit *u : scan.units) {
+		if (u->group != nearest->group)
+			continue;
+		// Distance from the mean, kept in whole numbers: n times each coordinate against the sums.
+		const int64 dx = u->x * n - sx, dy = u->y * n - sy;
+		const int64 d = dx * dx + dy * dy;
+		if (d < off || (d == off && middle != nullptr && u->id < middle->id)) {
+			off = d;
+			middle = u;
+		}
+	}
+	return middle;
+}
+
 /// The plain ItemCost a player would pay for this skill at this level. Shells are exempt from
 /// item costs (patch 0001, skill_get_requirement), so Consume: true pays it here instead. The
 /// special cases rAthena makes for a few skills (gemstone-saving partners, the Mistress card)
@@ -2887,6 +2980,8 @@ static block_list *select_ally(Turn &t, const Selector &sel, int range, uint16 s
 static block_list *resolve_target(Turn &t, const Rule &rule, const RuleState &rs, int range)
 {
 	map_session_data *sd = t.sd;
+	if (rule.tfield_skill != 0)
+		return field_target(sd, rule.tfield_skill, rule.tfield_owner, rule.tfield_within);
 	if (rule.sel.kind == Selector::Kind::Enemy)
 		return select_enemy(t, rule.sel, rule.sel.range > 0 ? rule.sel.range : range);
 	if (rule.sel.kind == Selector::Kind::Ally)
@@ -3242,8 +3337,9 @@ static const char *cast(Turn &t, const Rule &rule, block_list *target, uint16 id
 		return why("not enough SP: needs %d, has %u", skill_get_sp(id, lv), sd->battle_status.sp);
 	// Where a ground skill lands: the target's feet, or the cell Aim works out.
 	int16 ax = target->x, ay = target->y;
-	const bool aimed = rule.aim && (inf & INF_GROUND_SKILL) != 0 && target != sd;
-	if (aimed) {
+	const bool at_field = target->type == BL_SKILL; // Target: { Field }: a cell, with no one to ask about
+	const bool aimed = (at_field || rule.aim) && (inf & INF_GROUND_SKILL) != 0 && target != sd;
+	if (aimed && !at_field) {
 		if (const char *no_cell = aim_cell(sd, rule, target, id, lv, ax, ay); no_cell != nullptr)
 			return no_cell;
 	}
@@ -3253,7 +3349,13 @@ static const char *cast(Turn &t, const Rule &rule, block_list *target, uint16 id
 	} else if (target != sd && !check_distance_bl(sd, target, range)) {
 		return why("out of range: %d > %d", distance_bl(sd, target), range);
 	}
-	if (!status_check_skilluse(sd, target, id, 0)) {
+	if (at_field) {
+		if (!status_check_skilluse(sd, nullptr, id, 0))
+			return why_state(sd, id, lv);
+		char at[48];
+		safesnprintf(at, sizeof(at), " at (%d,%d)", ax, ay);
+		g_cast_note = at;
+	} else if (!status_check_skilluse(sd, target, id, 0)) {
 		if (target->type != BL_PC && status_isdead(*target))
 			return why("%s is dead", status_get_name(*target));
 		const status_change *tsc = status_get_sc(target);
@@ -4027,7 +4129,7 @@ static Outcome run_rule(Turn &t, const Rule &rule, const Plan &plan, PlanState &
 			return Outcome::Skipped;
 		}
 		trace(sd, *t.st, t.tick, "rule %s: %s on %s%s (SP %u/%u)", name, skill_get_desc(skill),
-			target != nullptr ? status_get_name(*target) : target_id != 0 ? "a target now gone" : "self",
+			rule.tfield_skill != 0 ? "the field" : target != nullptr ? status_get_name(*target) : target_id != 0 ? "a target now gone" : "self",
 			g_cast_note.c_str(), sd->battle_status.sp, sd->battle_status.max_sp);
 		acted = true;
 	} else if (rule.use_item != 0) {
