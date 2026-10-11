@@ -1060,6 +1060,10 @@ const SETTINGS_DEFAULTS = {
 	// consumed. Off leaves stock behavior; on writes `arrow_decrement: no`.
 	// Read at map-server boot, so Apply restarts the map server for it.
 	unlimited_arrows: false,
+	// Issue #533: Teleport Lv 1 learned or granted by a card (Creamy) asks
+	// Random / Cancel; on, it warps at once, as a Fly Wing does. Maps to
+	// rAthena's skip_teleport_lv1_menu (conf/battle/skill.conf), stock `no`.
+	skip_teleport_lv1_menu: false,
 	population_enable: false,
 	// A ceiling, not a target. Demand-driven spawning builds only the maps
 	// somebody is on, and a map holds 20-40 by the spawn tables, so this binds
@@ -1353,6 +1357,7 @@ function toBattleConf(s) {
 		// battle_config.arrow_decrement). Default 'yes' == the shipped
 		// battle.conf, so an untouched install writes nothing surprising.
 		`arrow_decrement: ${s.unlimited_arrows ? 'no' : 'yes'}\n` +
+		`skip_teleport_lv1_menu: ${s.skip_teleport_lv1_menu ? 'yes' : 'no'}\n` +
 		// One cap in the UI, several keys here, because rAthena caps third,
 		// baby, extended and summoner classes separately and a player who
 		// raises "the" limit means all of them -- setting only max_parameter

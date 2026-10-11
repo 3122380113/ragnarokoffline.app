@@ -163,6 +163,15 @@ Hair and clothes now use rAthena's client-supported palette constants instead
 of hard-coded ranges that selected invalid values and collapsed most shells to
 the same red-haired fallback. Profile ranges remain able to narrow the choice.
 
+Those constants stop at `max_cloth_color` (7), which only 3rd and 4th classes
+have palettes for. 1st and 2nd classes ship 0-4, and transcendent 2nd classes,
+Assassin, Crusader, Monk, Rogue, Sage and Dancer ship 0-3. A colour past that
+asks the client for a `.pal` that does not exist, and the shell is drawn in the
+default colours. `get_job_max_cloth_color` lists each class's last palette,
+counted from kRO's and iRO's `data.grf`. A shell given a colour its class lacks
+is re-rolled within the class's range: at spawn, on return, and when a
+companion changes job.
+
 The generated-name tables use a root, consonant bridge, and ending structure,
 providing 16,896 pronounceable combinations before repetition. The same shape
 is used by the compiled fallback when no YAML-generated name is available.

@@ -9,9 +9,9 @@
 # what scripts/vendor-bump.sh resolves -- builds fetch the commit.
 #
 #   name              url                                                commit                                    branch
-roBrowserLegacy   https://github.com/Flux159/roBrowserLegacy.git   9ed5cb85865bacb10099f8cc9e339d76760bedaf  ragnarokoffline
+roBrowserLegacy   https://github.com/Flux159/roBrowserLegacy.git   074878fc1412c7fef6af5c03e01e38579cd80010  ragnarokoffline
 ROenglishRE       https://github.com/llchrisll/ROenglishRE.git     66cdfec631603fda6a90ba4bbe26ab07b5204c84
-rathena           https://github.com/Flux159/rathena.git           5209ce07ec58dc7f1875da47d8e6b0e0bae2a9a1  ragnarokoffline
+rathena           https://github.com/Flux159/rathena.git           8ff133fb8296fbec98d85b0bb970d78f176ef0a7  ragnarokoffline
 #
 # The upstream commit our rAthena fork is based on, without our fixes. Only the
 # diagnostics in test.yml fetch it, to show each bug a fix commit addresses is

@@ -408,6 +408,17 @@ pub fn link(cfg: &Config, args: &[String]) -> Result<(), String> {
             }
         }
     }
+    if !text.translated() {
+        // iRO ships lowercase iteminfo; roBrowser requests itemInfo even on
+        // case-sensitive disks. Keep the original and prefer an existing alias.
+        for ext in ["lub", "lua"] {
+            let src = merged.join(format!("iteminfo.{ext}"));
+            let dst = merged.join(format!("itemInfo.{ext}"));
+            if src.is_file() && !dst.exists() {
+                copy_file(&src, &dst)?;
+            }
+        }
+    }
     if text.translated() {
         copy_file(
             &en.join("SystemEN/LuaFiles514/itemInfo.lua"),
@@ -438,9 +449,9 @@ pub fn link(cfg: &Config, args: &[String]) -> Result<(), String> {
     // Bumped when how the tree is staged changes without its inputs changing
     // (v3: the signboard table's name; v4: the client's item table staged
     // behind the English one; v5: the Compatibility layers stacked by packet
-    // version; v6: the translation's hat effect table left out), so a client
-    // holding the old staging in its cache drops it.
-    fnv(&mut fingerprint, b"owned-assets-v6");
+    // version; v6: the translation's hat effect table left out; v7: native
+    // itemInfo filename aliases), so a client holding the old staging drops it.
+    fnv(&mut fingerprint, b"owned-assets-v7");
     fnv(&mut fingerprint, text.as_str().as_bytes());
     // Config.local.js carries it, and that file is an ordinary HTTP request
     // the shell only re-fetches when this fingerprint moves. Left out at the
@@ -1267,7 +1278,7 @@ mod tests {
         let client = cfg.state.parent().unwrap().join("client");
         for (path, text) in [
             ("data.grf", "archive"),
-            ("System/itemInfo.lub", "itens do cliente"),
+            ("System/iteminfo.lub", "itens do cliente"),
             ("System/OngoingQuestInfoList_True.lub", "missões"),
             ("System/font.ttf", "font"),
         ] {
@@ -1299,6 +1310,7 @@ mod tests {
             "English items"
         );
         assert!(cfg.state.join("assets/.translation/data/table.txt").exists());
+        assert!(!cfg.state.join("assets/System/itemInfo.lub").exists());
         assert!(fs::read_to_string(cfg.state.join("assets/Config.local.js"))
             .unwrap()
             .contains("langtype: 0,"));

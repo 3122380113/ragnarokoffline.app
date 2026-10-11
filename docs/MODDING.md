@@ -1345,6 +1345,9 @@ stack traceback:
 
 [`examples/mods/blaze-shield-lua`](../examples/mods/blaze-shield-lua) is a
 complete one: Blaze Shield honouring drain cards and Hylozoist Card.
+[`examples/mods/skill-tuning`](../examples/mods/skill-tuning) changes stock
+skills from both sides, `db/` and `lua/`. Its README lists what is easy to get
+wrong and what a mod cannot change yet.
 
 ### A mod, or a change to the server?
 

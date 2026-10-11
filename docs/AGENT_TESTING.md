@@ -38,7 +38,10 @@ npm ci && npx playwright install chromium
 
 Then create and boot the world. It defaults to `artifacts/agent-world`, and
 takes the VM runtime and your GRF selection from the installed app's data
-folder (override with `RO_E2E_RUNTIME` and `RO_E2E_CLIENT_JSON`):
+folder — `~/Library/Application Support/Ragnarok Offline` on macOS,
+`$XDG_DATA_HOME/Ragnarok Offline` (`~/.local/share/Ragnarok Offline`) on Linux,
+`%APPDATA%\Ragnarok Offline` on Windows, or `RAGNAROK_OFFLINE_HOME` when set
+(override with `RO_E2E_RUNTIME` and `RO_E2E_CLIENT_JSON`):
 
 ```sh
 scripts/rotest world prepare   # once; refuses an existing folder
