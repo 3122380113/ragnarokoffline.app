@@ -238,7 +238,10 @@ void list(map_session_data *owner, map_session_data *shell, bool raw)
 	else if (no != nullptr)
 		say(owner, "%s", no);
 	int worn = 0, carried = 0;
-	for (int pass = 0; pass < 2; ++pass) {
+	// Carried pieces are listed only for a companion that started unequipped: anyone else's bag
+	// holds the engine's own gear (a piece a trade pushed off, the old class's set), not spares.
+	const int passes = population_shell_gear_bare(shell) ? 2 : 1;
+	for (int pass = 0; pass < passes; ++pass) {
 		for (int16 i = 0; i < MAX_INVENTORY; ++i) {
 			const item &it = shell->inventory.u.items_inventory[i];
 			if (it.nameid == 0 || it.amount <= 0)
@@ -272,11 +275,11 @@ int population_shell_gear_return_spares(map_session_data *owner, map_session_dat
 {
 	if (owner == nullptr || shell == nullptr || !population_shell_gear_bare(shell))
 		return 0;
-	int returned = 0;
+	int returned = 0, left = 0;
 	for (int16 i = 0; i < MAX_INVENTORY; ++i)
-		if (is_spare(shell->inventory.u.items_inventory[i]) && hand_back(owner, shell, i))
-			++returned;
-	if (population_shell_gear_keeps_spares(nullptr, shell) && owner->fd > 0)
+		if (is_spare(shell->inventory.u.items_inventory[i]))
+			++(hand_back(owner, shell, i) ? returned : left);
+	if (left > 0 && owner->fd > 0)
 		say(owner, "%s still carries gear your bag has no room for. Make room and take it again.", shell->status.name);
 	if (returned > 0) {
 		// Owner first: if a crash falls between the two saves, the piece is doubled, not lost.
@@ -300,6 +303,14 @@ bool population_shell_gear_keeps_spares(map_session_data *owner, const map_sessi
 	for (int16 i = 0; i < MAX_INVENTORY; ++i)
 		if (is_spare(shell->inventory.u.items_inventory[i]))
 			++left;
+	// With Companion inventory off the saved bag is not loaded, so its spares are in the row only:
+	// removing the companion would delete them with it.
+	if (left == 0 && !population_shell_has_own_inventory(shell) && population_shell_gear_row_has_spares(index_of(shell))) {
+		if (owner != nullptr && owner->fd > 0)
+			say(owner, "%s keeps spare gear of yours in its saved bag, so it is not removed. Turn Companion inventory back on and take it first.",
+				shell->status.name);
+		return true;
+	}
 	if (left > 0 && owner != nullptr && owner->fd > 0)
 		say(owner, "%s keeps %d piece(s) of yours that did not fit in your bag, so it is not removed. Make room and remove it again.",
 			shell->status.name, left);
@@ -402,7 +413,13 @@ void population_shell_gear_command(map_session_data *owner, const char *param)
 		say(owner, stowed > 0 ? "%s now carries %d more piece(s) as spare." : "%s wears nothing there.", shell->status.name, stowed);
 		return;
 	}
-	// wear <#> / take <#>: a place in the bag, as "list" shows it.
+	// wear <#> / take <#>: a place in the bag, as "list" shows it. Only a companion that started
+	// unequipped: in a dressed one's bag, an unworn piece is the engine's (pushed off by a trade,
+	// or left from its old class), and "take" would hand the owner gear nobody gave it.
+	if (!population_shell_gear_bare(shell)) {
+		say(owner, "%s", cannot_carry(shell));
+		return;
+	}
 	char *end = nullptr;
 	const long place = at + 1 < words.size() ? strtol(words[at + 1].c_str(), &end, 10) : -1;
 	if (place < 0 || place >= MAX_INVENTORY || end == nullptr || *end != '\0'
