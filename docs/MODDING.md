@@ -2211,9 +2211,12 @@ one `@@event stylist` line just before it opens the window:
 	end;
 ```
 
-Each part is optional. `head`, `headpalette` and `bodypalette` (hair style,
-hair colour, clothes colour) are `<zeny>:<item>`: the window lists the Zeny,
-or the item (a coupon) that pays instead, 0 for none. With `pay=<command>`
+Each part is optional. `head`, `headpalette`, `bodypalette` and `bodystyle`
+(hair style, hair colour, clothes colour, outfit) are `<zeny>:<item>`: the
+window lists the Zeny, or the item (a coupon) that pays instead, 0 for none.
+The Outfit tab (standard or alternative outfit) appears only with `bodystyle`:
+send it only to a class that has an alternative outfit, since the server
+refuses the rest. With `pay=<command>`
 the window also offers "Pay with Zeny" or "Pay with coupons", and on Buy first
 sends a [server request](#windows-and-server-requests) `pay 0` or `pay 1` to
 that command. The script records the choice for the server and answers `ok`;

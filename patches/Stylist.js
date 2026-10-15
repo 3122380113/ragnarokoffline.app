@@ -33,10 +33,12 @@
  * pay. A script that knows both says so before it opens the window, in a line
  * PluginWindows.mjs keeps out of chat:
  *
- *     @@event stylist pay=<command> head=<zeny>:<item> headpalette=... bodypalette=...
+ *     @@event stylist pay=<command> head=<zeny>:<item> headpalette=... bodypalette=... bodystyle=...
  *
  * Every part is optional. `<item>` is the coupon that pays for that look
- * instead of the Zeny (0: Zeny only). With `pay=`, the window offers Zeny or
+ * instead of the Zeny (0: Zeny only). The outfit tab (standard or alternative
+ * outfit) is there only when the NPC prices it: which classes have an
+ * alternative outfit is the server's table, so the NPC says so by offering it. With `pay=`, the window offers Zeny or
  * coupons, and on Buy first asks `@<command> <id> pay <0|1>` -- a server
  * request the script answers (setstylistpayment, rAthena's
  * stylist_script_costs extension) -- and only then sends the purchase. With
@@ -75,7 +77,9 @@ const range = (from, to) => Array.from({ length: to - from + 1 }, (_, i) => from
  *
  * `prop` is the Entity property that shows it, `field` its field in
  * CZ_REQ_STYLE_CHANGE2, `values` what the stylist table rAthena ships
- * (`db/re/stylist.yml`) sells, `index` the table's index for a value.
+ * (`db/re/stylist.yml`) sells, `index` the table's index for a value, `key`
+ * its name in the NPC's offer when that is not `prop`, `labels` a caption per
+ * value.
  */
 const LOOKS = [
 	{ prop: 'head', field: 'HeadStyle', name: 'Hair style', values: range(1, 42), index: (v) => v },
@@ -92,8 +96,34 @@ const LOOKS = [
 		name: 'Clothes colour',
 		values: [0, 2, 3, 4, 5, 6, 7],
 		index: (v) => (v === 0 ? 1 : v)
+	},
+	{
+		// 0 the class's own outfit, 1 its alternative outfit: the client draws
+		// any body style above 0 as the class's alternative outfit.
+		prop: 'body',
+		key: 'bodystyle',
+		field: 'BodyStyle',
+		name: 'Outfit',
+		values: [0, 1],
+		index: (v) => v + 1,
+		labels: ['Standard', 'Alternative']
 	}
 ];
+
+/**
+ * Whether the look gets a tab: the outfit only when the NPC offers it
+ */
+function offered(look) {
+	return look.prop !== 'body' || !!(_offer && _offer.costs.body);
+}
+
+/**
+ * The outfit tab's value for a character. The server sends the body style as
+ * 0 or 1, but an entity may carry its outfit's job ID instead.
+ */
+function bodyStyle(player) {
+	return player && player.body > 0 && player.body !== player.job ? 1 : 0;
+}
 
 /**
  * Where a character stands on each kind of canvas (its feet), and how big
@@ -158,9 +188,10 @@ Stylist.setOffer = function setOffer(text, ask) {
 				offer.pay = value;
 				return;
 			}
-			if (LOOKS.some((look) => look.prop === key)) {
+			const look = LOOKS.find((l) => (l.key || l.prop) === key);
+			if (look) {
 				const [zeny, item] = value.split(':').map((n) => parseInt(n, 10) || 0);
-				offer.costs[key] = { zeny: Math.max(0, zeny), item: Math.max(0, item || 0) };
+				offer.costs[look.prop] = { zeny: Math.max(0, zeny), item: Math.max(0, item || 0) };
 			}
 		});
 
@@ -241,6 +272,7 @@ Stylist.onAppend = function onAppend() {
 	LOOKS.forEach((look) => {
 		_original[look.prop] = player ? player[look.prop] | 0 : 0;
 	});
+	_original.body = bodyStyle(player);
 	_choice = { ..._original };
 	_tab = 'head';
 	_direction = 0;
@@ -311,8 +343,8 @@ Stylist.onKeyDown = function onKeyDown(event) {
 };
 
 /**
- * A character to draw: the player's class, sex and alternative outfit, the
- * given look, and nothing worn
+ * A character to draw: the player's class and sex, the given look (outfit
+ * included), and nothing worn
  */
 function makeEntity(look) {
 	const player = Session.Entity;
@@ -333,8 +365,8 @@ function makeEntity(look) {
 	});
 
 	// Entity.set() leaves out the body style (alternative outfit).
-	if (player && player.body > 0 && player.body !== player.job) {
-		entity.body = player.body;
+	if (look.body) {
+		entity.body = look.body;
 	}
 
 	return entity;
@@ -378,6 +410,14 @@ function buildPane() {
 		canvas.style.width = area.width * area.scale + 'px';
 		canvas.style.height = area.height * area.scale + 'px';
 		cell.appendChild(canvas);
+
+		if (look.labels) {
+			const label = document.createElement('div');
+			label.className = 'label';
+			label.textContent = look.labels[look.values.indexOf(value)];
+			cell.appendChild(label);
+			cell.classList.add('labelled');
+		}
 
 		if (value === _original[look.prop]) {
 			const now = document.createElement('div');
@@ -466,6 +506,7 @@ function refresh() {
 
 	root.querySelectorAll('.tab').forEach((tab) => {
 		const prop = tab.getAttribute('data-look');
+		tab.classList.toggle('hidden', !offered(LOOKS.find((l) => l.prop === prop)));
 		tab.classList.toggle('on', prop === _tab);
 		tab.classList.toggle('changed', _choice[prop] !== _original[prop]);
 	});
