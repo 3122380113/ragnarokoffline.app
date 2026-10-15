@@ -2198,6 +2198,41 @@ plugin hears every event.
 [`mods/ingame-database`](../mods/ingame-database) is a complete one: an item
 and monster lookup window.
 
+#### The stylist window's prices and payment
+
+The stylist window (`openstylist`) is the app's own, and its packets carry
+neither prices nor how the player pays. An NPC that knows both says so with
+one `@@event stylist` line just before it opens the window:
+
+```c
+	close2;
+	dispbottom "@@event stylist pay=mymod_style head=100000:7622 headpalette=100000:0 bodypalette=100000:6046";
+	openstylist;
+	end;
+```
+
+Each part is optional. `head`, `headpalette` and `bodypalette` (hair style,
+hair colour, clothes colour) are `<zeny>:<item>`: the window lists the Zeny,
+or the item (a coupon) that pays instead, 0 for none. With `pay=<command>`
+the window also offers "Pay with Zeny" or "Pay with coupons", and on Buy first
+sends a [server request](#windows-and-server-requests) `pay 0` or `pay 1` to
+that command. The script records the choice for the server and answers `ok`;
+only then is the purchase sent. On any other answer, or none, nothing is
+bought. Charging the coupon is the server's part: the fork's
+`stylist_script_costs` extension (`setstylistcost` sets both ways to pay,
+`setstylistpayment` picks one).
+
+```c
+OnPay:	// bindatcmd "mymod_style", strnpcinfo(3) + "::OnPay", 0, 99;
+	if (.@atcmd_parameters$[1] == "pay")
+		setstylistpayment atoi(.@atcmd_parameters$[2]);
+	dispbottom "@@reply " + .@atcmd_parameters$[0] + " 1/1 ok";
+	end;
+```
+
+The line counts for the next window that opens within five seconds. Without
+it the window shows no prices and sells at `stylist.yml`'s.
+
 Allowed window actions currently cover Inventory, Equipment, SkillList, Quest,
 WorldMap, PartyFriends, WinStats and already-open Storage. Set `{ name, open: true }`
 to focus an existing window instead of toggling it closed. Storage must first be
