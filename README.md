@@ -22,6 +22,13 @@ assets, first launch — or follow the same three steps below.
 **1. Download a build.** Grab the latest release for your platform from the
 [releases page](../../releases).
 
+Once installed, the app keeps itself up to date on macOS, Windows and the Linux
+AppImage: it downloads new versions in the background, and **Settings → General →
+Updates → Restart to install** installs one (a red mark on General says one is
+ready). Nothing installs until you press it, unless you tick *Automatically install
+updates on restart of app*; *Automatic updates* turns the background check off. A
+version older than the first one with this needs one last manual download.
+
 **2. Get the game files for your Ragnarok client.** You will need to obtain these from another source. Put it
 somewhere you can find again; unzipping a full client gives you a folder containing
 `data.grf`, `rdata.grf` and a `BGM` folder, which is what the app looks for. **kRO '23 and a current 2026 client are both tested.**
