@@ -40,6 +40,9 @@ Each file has a job the others cannot do:
 They are joined by one number, the **achievement id**. It must be the same in
 all of them.
 
+[`examples/mods/custom-achievement`](../../examples/mods/custom-achievement)
+is this page's two achievements as a mod you can install and copy.
+
 ## A hunting achievement, end to end
 
 Kill ten Porings, collect five Red Potions. Achievement id `900001` (see
@@ -142,7 +145,7 @@ whatever its targets say:
 ```
 
 ```
-prontera,152,187,4	script	Old Notice Board#myach	4_BULLETIN_BOARD2,{
+prontera,146,187,4	script	Old Notice Board#myach	2_BULLETIN_BOARD,{
 	mes "[Old Notice Board]";
 	mes "The ink has faded. Nobody has read this in years.";
 	if (!achievementexists(900002))

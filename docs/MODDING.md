@@ -1972,7 +1972,8 @@ the base, in mod order, the last definition of an achievement winning. This
 needs app 1.6.4 or later: an older one lets the file replace the client's
 whole table, so say `"requires": { "app": ">=1.6.4" }`.
 [Custom achievements](mods/CUSTOM_ACHIEVEMENTS.md) covers the whole
-achievement: the server's side, the window's tabs, ids and titles.
+achievement: the server's side, the window's tabs, ids and titles. See
+[`examples/mods/custom-achievement`](../examples/mods/custom-achievement).
 
 Everything else in `System/` still replaces the client's copy, so start from the
 translation's version and add to it.
