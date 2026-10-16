@@ -3302,6 +3302,7 @@ mob	renewal	3178	E1_ACIDUS	130	Dragon	Large	Dark	2	0	Acidus
 mob	renewal	3179	E1_ACIDUS_	130	Dragon	Large	Wind	2	0	Acidus
 mob	renewal	3180	E1_G_S_NYDHOG	117	Dragon	Large	Dark	4	0	Wywern
 mob	renewal	3181	E1_FELOCK	130	Dragon	Large	Dark	2	1	Captain Ferlock
+mob	renewal	3188	E2_FELOCK	130	Dragon	Large	Dark	2	1	Captain Ferlock
 mob	renewal	3190	MM_SARAH	160	Demihuman	Medium	Neutral	1	1	Sarah Irene
 mob	renewal	3191	MM_M_GIGAN1	160	Demon	Medium	Dark	2	0	Gigantes
 mob	renewal	3192	MM_M_GIGAN2	160	Demon	Medium	Dark	2	0	Gigantes
