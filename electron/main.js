@@ -1136,6 +1136,12 @@ const SETTINGS_DEFAULTS = {
 	// window already reads it, and it is deliberately ignored by
 	// writeSettingsFiles: the server knows nothing about it.
 	open_settings_first: false,
+	// Settings -> General -> Updates (app-update.js), also app preferences.
+	// auto_update: look for a new release every few hours and download it.
+	// install_update_on_quit: install a downloaded one on an ordinary quit;
+	// off, only "Restart to install" does.
+	auto_update: true,
+	install_update_on_quit: false,
 	// Pre-renewal is a different rAthena build, not a runtime option, so this
 	// selects which of the two the supervisor starts. Each mode keeps its own
 	// characters -- see db_volume() in stack/src/cmds.rs for why sharing them
@@ -1165,7 +1171,7 @@ function getSettings() {
 // Keys in settings.json that the app acts on rather than the server, and the
 // only names set_app_preference will write. Everything else in that file
 // changes how the server runs and has to go through Apply.
-const APP_PREFERENCES = new Set(['open_settings_first']);
+const APP_PREFERENCES = new Set(['open_settings_first', 'auto_update', 'install_update_on_quit']);
 // Settings -> Mods -> Favorites: how many mods can be starred (settings-store checks the same).
 const MOD_FAVORITES_MAX = 500;
 
@@ -3228,7 +3234,22 @@ const handlers = {
 		const on = !!value;
 		require('./settings-store').write(path.join(stateDir(), 'settings.json'),
 			{ [key]: on }, SETTINGS_DEFAULTS);
+		if (key === 'install_update_on_quit') appUpdater().preferencesChanged();
+		// Turned back on: look now rather than in up to four hours.
+		if (key === 'auto_update' && on) appUpdater().check();
 		return on;
+	},
+
+	// Settings -> General -> Updates.
+	app_update_status: () => appUpdater().status(),
+	app_update_check: () => appUpdater().check(),
+	// Quit the normal way -- before-quit stops the server first -- and let
+	// finishQuit hand over to the installer, which starts the new version.
+	app_update_install: () => {
+		if (!appUpdater().status().canInstall) throw new Error('No update is ready to install.');
+		updateRestartRequested = true;
+		app.quit();
+		return true;
 	},
 
 	copy_text: ({ text }) => clipboard.writeText(String(text || '')),
@@ -3679,6 +3700,52 @@ function buildMenu() {
 // ---------------------------------------------------------------------------
 
 let tearingDown = false;
+// Settings -> Updates -> Restart to install, pressed: see before-quit.
+let updateRestartRequested = false;
+
+let appUpdaterInstance = null;
+function appUpdater() {
+	if (appUpdaterInstance) return appUpdaterInstance;
+	const update = require('./app-update');
+	const prefs = () => {
+		try {
+			const s = getSettings();
+			return { auto: s.auto_update !== false, installOnQuit: s.install_update_on_quit === true };
+		} catch {
+			return { auto: true, installOnQuit: false };
+		}
+	};
+	appUpdaterInstance = update.createAppUpdater({
+		app,
+		log: appLog,
+		preferences: prefs,
+		availability: update.availability({
+			packaged: app.isPackaged,
+			headless: HEADLESS,
+			platform: process.platform,
+			appImage: !!process.env.APPIMAGE,
+			adHocSigned: process.platform === 'darwin' && app.isPackaged && macAdHocSigned(),
+			hasUpdateConfig: app.isPackaged && fs.existsSync(path.join(process.resourcesPath, 'app-update.yml')),
+		}),
+		load: () => require('electron-updater').autoUpdater,
+		nativeUpdater: () => require('electron').autoUpdater,
+	});
+	return appUpdaterInstance;
+}
+
+// A fork's build is sealed ad hoc (afterPack.js), and Squirrel.Mac refuses an
+// update whose signature does not match the running app's Developer ID -- so
+// such a copy would download every release and never install one.
+function macAdHocSigned() {
+	try {
+		const bundle = path.resolve(process.execPath, '..', '..', '..');
+		const out = require('child_process').spawnSync('codesign', ['-dv', bundle], { encoding: 'utf8', timeout: 10000 });
+		const text = `${out.stdout || ''}${out.stderr || ''}`;
+		return /Signature=adhoc/.test(text) || /TeamIdentifier=not set/.test(text) || !/TeamIdentifier=/.test(text);
+	} catch {
+		return true;
+	}
+}
 const crashMonitor = new (require('./crash-monitor').CrashMonitor)({
 	active: () => !tearingDown && assetServer.running && assetServer.current?.identity?.launchId,
 	collect: () => queueServerOperation(() => !tearingDown && assetServer.running
@@ -3801,11 +3868,13 @@ if (!app.requestSingleInstanceLock()) {
 		// So take the click as what it plainly means and come back on our own
 		// once the teardown is finished. app.relaunch only queues it; the
 		// exit already scheduled is what carries it out.
+		//
+		// Only noted here; the end of before-quit queues it, unless an update
+		// is being installed, in which case the installer starts the new
+		// version instead -- a relaunch of this one would race the files it is
+		// replacing.
 		if (tearingDown) {
-			if (!relaunchQueued) {
-				relaunchQueued = true;
-				app.relaunch();
-			}
+			relaunchQueued = true;
 			return;
 		}
 		// Headless has no window to bring forward; say where Settings is.
@@ -3831,6 +3900,9 @@ if (!app.requestSingleInstanceLock()) {
 // for an admin page, and anything that opens a window has nowhere to open.
 const HEADLESS_PAGE_HANDLERS = new Set([
 	'agent_replace_token', 'agent_set', 'agent_status', 'map_editor_agent_set', 'assets_ready', 'assets_stop', 'check_mod_updates',
+	// Settings -> Updates: headless reports itself off ("headless") and has
+	// nothing to install, so these only describe that.
+	'app_update_status', 'app_update_check', 'app_update_install',
 	'client_folders', 'copy_diagnostics', 'data_location', 'db_backup', 'db_backup_full', 'db_inspect',
 	'db_inspect_full', 'db_restore', 'db_restore_full', 'game_status', 'get_client_paths', 'client_detected', 'get_mode',
 	'get_settings', 'get_vm_ram_mib', 'host_facts', 'host_ram_mib', 'hosting_check', 'install_mod',
@@ -4061,6 +4133,10 @@ app.whenReady().then(() => {
 		openGame();
 	}
 
+	// The first look for a new release waits until the window is up; never a
+	// reason for a launch to fail.
+	try { appUpdater().start(); } catch (e) { appLog(`update: ${e.message}`); }
+
 	// Clicking the Dock icon with every window closed is the same question as
 	// launching the app, so it gets the same answer.
 	app.on('activate', () => {
@@ -4125,9 +4201,24 @@ app.on('before-quit', e => {
 	// the layout in it.
 	persistClientUi();
 	saveTrackedWindows();
-	teardownAsync().finally(() => {
+	teardownAsync().finally(async () => {
 		flushClientStorage();
-		app.exit(0);
+		// With the server stopped: install a downloaded update if the player
+		// asked for it (app-update.js decides), or exit as before.
+		const exitNow = () => {
+			if (relaunchQueued) app.relaunch();
+			app.exit(0);
+		};
+		const outcome = await appUpdater().finishQuit({
+			restartRequested: updateRestartRequested,
+			relaunch: relaunchQueued,
+			// The restart was asked for, so come back on this version rather
+			// than not at all.
+			stuck: () => { app.relaunch(); app.exit(0); },
+		}).catch(() => 'none');
+		if (outcome === 'handed-off') return;
+		if (outcome === 'installed') app.exit(0);
+		else exitNow();
 	});
 });
 
