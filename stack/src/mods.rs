@@ -1514,14 +1514,9 @@ fn sort_applied<M: std::borrow::Borrow<Installed>>(live: &mut Vec<M>) -> Vec<Str
 // ---------------------------------------------------------------------------
 
 fn copy_tree(src: &Path, dst: &Path) -> Result<(), String> {
-    copy_tree_owned(src, dst, "", None, &mut BTreeMap::new(), &mut Vec::new())
+    copy_tree_owned(src, dst, "", None, &[], &mut BTreeMap::new(), &mut Vec::new())
 }
 
-/// Copy a tree, and optionally record which mod each file came from.
-///
-/// The recording exists for one reason: two mods that both ship
-/// `db/mob_db.yml` resolve last-wins by name order, quietly, and the player has
-/// no way to tell that half of what they installed is not in effect. The
 /// The line `label` sits on, as (start of that line, start of the next).
 ///
 /// Matched at column zero and on the whole line, because `Body:` also appears
@@ -1641,12 +1636,22 @@ fn merge_tables(existing: &str, incoming: &str) -> Option<String> {
     Some(out)
 }
 
+/// Copy a tree, and optionally record which mod each file came from.
+///
+/// The recording exists for one reason: two mods that both ship
+/// `db/mob_db.yml` resolve last-wins by name order, quietly, and the player has
+/// no way to tell that half of what they installed is not in effect. The
 /// supervisor knows -- it is doing the overwriting -- so it says so.
+///
+/// `later` is the same folder in the owner's later roots (its era folder, then
+/// a client's). A file one of them also has is skipped: that copy replaces
+/// this one, and is merged when its own root is copied.
 fn copy_tree_owned(
     src: &Path,
     dst: &Path,
     rel: &str,
     owner: Option<&str>,
+    later: &[PathBuf],
     seen: &mut BTreeMap<String, String>,
     clashes: &mut Vec<(String, String)>,
 ) -> Result<(), String> {
@@ -1662,8 +1667,15 @@ fn copy_tree_owned(
             continue;
         }
         if from.is_dir() {
-            copy_tree_owned(&from, &to, &child, owner, seen, clashes)?;
+            let later: Vec<PathBuf> = later.iter().map(|root| root.join(e.file_name())).collect();
+            copy_tree_owned(&from, &to, &child, owner, &later, seen, clashes)?;
         } else {
+            // A later root has its own copy, which replaces this one. Leaving
+            // this one out, rather than letting that copy overwrite the file
+            // here, keeps the entries earlier mods merged into it (#538).
+            if later.iter().any(|root| root.join(e.file_name()).is_file()) {
+                continue;
+            }
             let Some(owner) = owner else {
                 let _ = fs::copy(&from, &to);
                 continue;
@@ -1815,21 +1827,26 @@ pub fn assemble(cfg: &Config) -> Result<Assembled, String> {
         let mut clashes: Vec<(String, String)> = Vec::new();
         for m in &live {
             // The era folder after the mod's own, under the same owner: its
-            // copy of a table replaces the mod's rather than merging with it.
-            for root in &m.roots {
+            // copy of a table replaces the mod's rather than merging with it,
+            // so the mod's own copy is left out (see copy_tree_owned).
+            for (i, root) in m.roots.iter().enumerate() {
                 let from = root.join("db");
                 if from.is_dir() {
-                    copy_tree_owned(&from, &dst, "", Some(&m.name), &mut owners, &mut clashes)?;
+                    let later: Vec<PathBuf> = m.roots[i + 1..].iter().map(|r| r.join("db")).collect();
+                    copy_tree_owned(&from, &dst, "", Some(&m.name), &later, &mut owners, &mut clashes)?;
                 }
             }
             // Then the parts behind the mod's own switches. Owned as
             // "<mod>/<key>", so a part's table is added to the mod's own copy
-            // of it rather than replacing it.
+            // of it rather than replacing it. Within a part, the era folder's
+            // copy replaces the mod's, as above.
             let settings = effective(&m.manifest, saved.get(&m.name));
-            for root in &m.roots {
+            for (i, root) in m.roots.iter().enumerate() {
                 for (key, folder) in conditional_folders(&root.join("db"), &m.name, "db", &settings) {
+                    let later: Vec<PathBuf> =
+                        m.roots[i + 1..].iter().map(|r| r.join("db").join("when").join(&key)).collect();
                     let owner = format!("{}/{key}", m.name);
-                    copy_tree_owned(&folder, &dst, "", Some(&owner), &mut owners, &mut clashes)?;
+                    copy_tree_owned(&folder, &dst, "", Some(&owner), &later, &mut owners, &mut clashes)?;
                 }
             }
         }
@@ -2231,17 +2248,20 @@ pub fn npc_sources(cfg: &Config, m: &Installed) -> Result<(Vec<String>, Vec<Path
 
 /// A mod's copies of one `db/` table, in the order `assemble` merges them:
 /// the last root's own copy (an era folder's replaces the mod's, as they share
-/// an owner), then every root's `when/<setting>/` copies while that setting is
-/// on, which are merged into it. For the navigation monster table (navmob.rs),
-/// which reads mob_db.yml the way the server's import does.
+/// an owner), then the `when/<setting>/` copies while that setting is on,
+/// which are merged into it -- for a part more than one root has, again only
+/// the last root's. For the navigation monster table (navmob.rs), which reads
+/// mob_db.yml the way the server's import does.
 pub fn db_sources(cfg: &Config, m: &Installed, table: &str) -> Result<Vec<PathBuf>, String> {
     let saved = read_settings(&cfg.state)?;
     let settings = effective(&m.manifest, saved.get(&m.name));
     let mut out: Vec<PathBuf> =
         m.roots.iter().map(|r| r.join("db").join(table)).filter(|p| p.is_file()).last().into_iter().collect();
-    for root in &m.roots {
-        for (_, folder) in conditional_folders(&root.join("db"), &m.name, "db", &settings) {
-            if folder.join(table).is_file() {
+    for (i, root) in m.roots.iter().enumerate() {
+        for (key, folder) in conditional_folders(&root.join("db"), &m.name, "db", &settings) {
+            let replaced =
+                m.roots[i + 1..].iter().any(|r| r.join("db").join("when").join(&key).join(table).is_file());
+            if folder.join(table).is_file() && !replaced {
                 out.push(folder.join(table));
             }
         }
@@ -4341,6 +4361,85 @@ mod tests {
         assert!(!build.join("db/re").exists() && !build.join("db/pre-re").exists());
     }
 
+    /// A later root's copy of a table replaces its own mod's copy, and nothing
+    /// else. By the time it is applied, the mods before it have merged their
+    /// entries into the same file, and those stay: overwriting the file erased
+    /// them, which is how the pre-renewal exp-card emptied every earlier mod's
+    /// items out of item_db (#538). A client's folder, after the era's, too.
+    #[test]
+    fn a_later_root_replaces_its_own_mods_table_and_keeps_earlier_mods_entries() {
+        let cfg = kind_config("era-keeps-earlier");
+        fs::create_dir_all(cfg.root.join("db-import")).unwrap();
+        install(&cfg, "a-items", "{}");
+        install(&cfg, "b-cards", r#"{"prerenewalFolder": "pre-re", "clientFolders": {"kRO": "kro"}}"#);
+        let a = cfg.state.join("mods/a-items");
+        let b = cfg.state.join("mods/b-cards");
+        for dir in [a.join("db"), b.join("db"), b.join("pre-re/db"), b.join("kro/db")] {
+            fs::create_dir_all(dir).unwrap();
+        }
+        let header = "Header:\n  Type: ITEM_DB\n  Version: 3\n\nBody:\n";
+        fs::write(a.join("db/item_db.yml"), format!("{header}  - Id: 50001\n")).unwrap();
+        fs::write(b.join("db/item_db.yml"), format!("{header}  - Id: 50051\n")).unwrap();
+        fs::write(b.join("pre-re/db/item_db.yml"), format!("# b-cards, pre-renewal\n{header}  - Id: 50052\n")).unwrap();
+        fs::write(b.join("kro/db/item_db.yml"), format!("{header}  - Id: 50053\n")).unwrap();
+        let build = cfg.state.join("modbuild/db");
+        let items = || table_ids(&fs::read_to_string(build.join("item_db.yml")).unwrap());
+
+        assemble(&cfg).unwrap();
+        assert_eq!(items(), [50001, 50051]);
+
+        fs::write(cfg.state.join("prerenewal"), "").unwrap();
+        assemble(&cfg).unwrap();
+        assert_eq!(items(), [50001, 50052], "the era copy replaces b-cards' own, and a-items' entry stays");
+
+        fs::write(cfg.state.join("client-detected.json"), r#"{"client": "kRO"}"#).unwrap();
+        assemble(&cfg).unwrap();
+        assert_eq!(items(), [50001, 50053]);
+        // Attributed to the mod whose copy is in effect.
+        assert_eq!(read_owners(&build)["item_db.yml"], "b-cards");
+    }
+
+    /// The same inside a part behind a switch: the era folder's copy of a
+    /// part's table replaces the mod's own copy of that part, and is added to
+    /// the table like any part -- after the mod's own entries and the earlier
+    /// mods', which all stay.
+    #[test]
+    fn an_era_copy_of_a_part_replaces_only_that_part() {
+        let cfg = kind_config("era-part-keeps-earlier");
+        fs::create_dir_all(cfg.root.join("db-import")).unwrap();
+        install(&cfg, "a-items", "{}");
+        install(
+            &cfg,
+            "b-cards",
+            r#"{"prerenewalFolder": "pre-re", "settings": [{"key": "x", "type": "boolean", "default": true}]}"#,
+        );
+        let a = cfg.state.join("mods/a-items");
+        let b = cfg.state.join("mods/b-cards");
+        for dir in [a.join("db"), b.join("db/when/x"), b.join("pre-re/db/when/x")] {
+            fs::create_dir_all(dir).unwrap();
+        }
+        let header = "Header:\n  Type: ITEM_DB\n  Version: 3\n\nBody:\n";
+        fs::write(a.join("db/item_db.yml"), format!("{header}  - Id: 50001\n")).unwrap();
+        fs::write(b.join("db/item_db.yml"), format!("{header}  - Id: 50051\n")).unwrap();
+        fs::write(b.join("db/when/x/item_db.yml"), format!("{header}  - Id: 50061\n")).unwrap();
+        fs::write(b.join("pre-re/db/when/x/item_db.yml"), format!("{header}  - Id: 50062\n")).unwrap();
+        let build = cfg.state.join("modbuild/db");
+        let items = || table_ids(&fs::read_to_string(build.join("item_db.yml")).unwrap());
+
+        assemble(&cfg).unwrap();
+        assert_eq!(items(), [50001, 50051, 50061]);
+
+        fs::write(cfg.state.join("prerenewal"), "").unwrap();
+        assemble(&cfg).unwrap();
+        assert_eq!(items(), [50001, 50051, 50062]);
+        // The navigation tables read the same copies the server merged.
+        let m = enabled(&cfg).into_iter().find(|m| m.name == "b-cards").unwrap();
+        assert_eq!(
+            db_sources(&cfg, &m, "item_db.yml").unwrap(),
+            [b.join("db/item_db.yml"), b.join("pre-re/db/when/x/item_db.yml")]
+        );
+    }
+
     /// One mod, several independent Lua parts, each behind a checkbox. A part
     /// loads under its own name, "<mod>/<key>", because the engine keeps one
     /// hook per mod for a skill: two parts of one mod hooking NJ_KAENSIN must
@@ -4443,7 +4542,8 @@ mod tests {
 
     // The navigation monster table merges mods' mob_db.yml the way the server
     // does (navmob.rs): mods in apply order, and within a mod the era folder's
-    // copy replacing the mod's own, with its switched-on parts added after.
+    // copy replacing the mod's own, with its switched-on parts added after --
+    // a part's era copy replacing the mod's own copy of that part, likewise.
     #[test]
     fn server_tables_are_read_in_the_order_and_shape_assemble_writes_them() {
         let cfg = kind_config("applied");
@@ -4470,10 +4570,14 @@ mod tests {
             .iter()
             .map(|p| p.strip_prefix(&dir).unwrap().to_string_lossy().replace('\\', "/"))
             .collect();
-        assert_eq!(got, ["re/db/mob_db.yml", "db/when/x/mob_db.yml", "re/db/when/x/mob_db.yml"]);
-        // Without the era copy, the mod's own.
+        assert_eq!(got, ["re/db/mob_db.yml", "re/db/when/x/mob_db.yml"]);
+        // Without the era copies, the mod's own.
         fs::remove_file(dir.join("re/db/mob_db.yml")).unwrap();
-        assert_eq!(db_sources(&cfg, &m, "mob_db.yml").unwrap()[0], dir.join("db/mob_db.yml"));
+        fs::remove_file(dir.join("re/db/when/x/mob_db.yml")).unwrap();
+        assert_eq!(
+            db_sources(&cfg, &m, "mob_db.yml").unwrap(),
+            [dir.join("db/mob_db.yml"), dir.join("db/when/x/mob_db.yml")]
+        );
     }
 
     // A skin overlays the whole interface folder, so two at once is a
