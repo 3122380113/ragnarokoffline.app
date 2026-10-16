@@ -489,10 +489,17 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: ragnarok-offline-${{ matrix.platform }}-${{ matrix.arch }}
+          # The installers, and what the app updates itself from
+          # (electron/app-update.js): latest*.yml, a .blockmap per installer,
+          # and on macOS the .zip Squirrel.Mac installs. latest*.yml by name,
+          # not *.yml: builder-debug.yml sits in the same folder.
           path: |
             dist/electron/*.dmg
             dist/electron/*.AppImage
             dist/electron/*.exe
+            dist/electron/*.zip
+            dist/electron/*.blockmap
+            dist/electron/latest*.yml
           if-no-files-found: warn
 
   release:
@@ -533,9 +540,15 @@ jobs:
         with:
           # Installers only, named explicitly rather than by a recursive glob,
           # so a new artifact in the run cannot silently become a release asset.
+          # The update files too: latest.yml, latest-mac.yml and
+          # latest-linux.yml name the installers by their file names and
+          # hashes, so they must travel with exactly these files.
           files: |
             artifacts/**/*.dmg
             artifacts/**/*.AppImage
             artifacts/**/*.exe
+            artifacts/**/*.zip
+            artifacts/**/*.blockmap
+            artifacts/**/latest*.yml
           body_path: ${{ steps.notes.outputs.path }}
           generate_release_notes: ${{ steps.notes.outputs.generate }}

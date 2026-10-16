@@ -2198,6 +2198,81 @@ plugin hears every event.
 [`mods/ingame-database`](../mods/ingame-database) is a complete one: an item
 and monster lookup window.
 
+#### The stylist window's prices and payment
+
+The stylist window (`openstylist`) is the app's own, and its packets carry
+neither prices nor how the player pays. An NPC that knows both says so with
+one `@@event stylist` line just before it opens the window:
+
+```
+@@event stylist pay=<command> head=<zeny>:<item> headpalette=<zeny>:<item> bodypalette=<zeny>:<item> bodystyle=<zeny>:<item>
+```
+
+Every part is optional, and the window ignores any key it does not know, so
+a line written for a later version still opens the window.
+
+- `head`, `headpalette`, `bodypalette` and `bodystyle` are hair style, hair
+  colour, clothes colour and outfit. Each is `<zeny>:<item>`: the Zeny, and
+  the item (a coupon) that pays instead, 0 for none. The window only shows
+  them; what the server charges is set separately (below).
+- The Outfit tab (standard or alternative outfit) appears only with
+  `bodystyle`. Send it only to a class that has an alternative outfit, since
+  the server refuses the rest.
+- With `pay=<command>` the window also offers "Pay with Zeny" or "Pay with
+  coupons". On Buy it first sends a
+  [server request](#windows-and-server-requests) `pay 0` or `pay 1` to that
+  command. The script records the choice and answers `ok`; only then is the
+  purchase sent. On any other answer, or none within five seconds, nothing is
+  bought.
+
+The line counts for the next window that opens within five seconds. Without
+it the window shows no prices and sells at `stylist.yml`'s.
+
+**Charging is the server's part**, through the fork's `stylist_script_costs`
+extension: switch it on in the mod's `db/extension_db.yml`, set each look's
+cost with `setstylistcost <look>,<zeny>{,<coupon>{,<coupon box>}}` in
+`OnInit`, and record the player's choice with `setstylistpayment <0|1>`. While
+it is on, an order with several changes is bought whole or not at all.
+`vendor/rathena/doc/script_commands.txt` has the details. Build the event line
+from `getstylistcost`, so the prices shown are always the ones charged:
+
+```yaml
+# db/extension_db.yml
+Header:
+  Type: EXTENSION_DB
+  Version: 1
+Body:
+  - Id: stylist_script_costs
+    Enabled: true
+```
+
+```c
+-	script	mymod_stylist	-1,{
+OnInit:
+	setstylistcost LOOK_HAIR, 100000, 7622;	// 100,000 Zeny or a Hairstyle Coupon
+	setstylistcost LOOK_HAIR_COLOR, 50000;	// Zeny only
+	bindatcmd "mymod_style", strnpcinfo(3) + "::OnPay", 0, 99;
+	end;
+OnPay:	// @mymod_style <id> pay <0|1>
+	if (.@atcmd_parameters$[1] == "pay" && setstylistpayment(atoi(.@atcmd_parameters$[2])))
+		dispbottom "@@reply " + .@atcmd_parameters$[0] + " 1/1 ok";
+	else
+		dispbottom "@@reply " + .@atcmd_parameters$[0] + " 1/1 refused";
+	end;
+}
+
+prontera,150,150,4	script	Stylist#mymod	4_F_KAFRA1,{
+	mes "[Stylist]";
+	mes "Shall we try a new look?";
+	close2;
+	dispbottom "@@event stylist pay=mymod_style"
+		+ " head=" + getstylistcost(LOOK_HAIR) + ":" + getstylistcost(LOOK_HAIR, 1)
+		+ " headpalette=" + getstylistcost(LOOK_HAIR_COLOR) + ":" + getstylistcost(LOOK_HAIR_COLOR, 1);
+	openstylist;
+	end;
+}
+```
+
 Allowed window actions currently cover Inventory, Equipment, SkillList, Quest,
 WorldMap, PartyFriends, WinStats and already-open Storage. Set `{ name, open: true }`
 to focus an existing window instead of toggling it closed. Storage must first be
