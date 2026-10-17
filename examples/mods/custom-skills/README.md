@@ -4,7 +4,7 @@ A Guillotine Cross reworked from a mod folder. It loses two skills, gains
 seven, and has a stacking poison and a combo window. Use it as a reference
 for adding skills, passives and statuses, and for taking skills away. It
 shows what each part does, where each part goes, and what was measured.
-[New skills, passives and statuses](../../docs/mods/CUSTOM_SKILLS.md) is the
+[New skills, passives and statuses](../../../docs/mods/CUSTOM_SKILLS.md) is the
 guide behind it.
 
 | | What it does | How |
@@ -99,7 +99,7 @@ server status.
 
 - **Renewal only.** Pre-renewal has no Guillotine Cross, so `mod.json` asks
   for renewal. A mod for both eras keeps its job-specific trees in
-  [era folders](../../docs/MODDING.md#renewalfolder--prerenewalfolder--one-mod-for-both-eras).
+  [era folders](../../../docs/MODDING.md#renewalfolder--prerenewalfolder--one-mod-for-both-eras).
 - **The skill points of a skill taken away are lost on the next save**
   unless something gives them back. `npc/refund.txt` does, at the first login
   after the mod is installed. List your own ids in it.

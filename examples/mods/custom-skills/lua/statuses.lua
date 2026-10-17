@@ -29,10 +29,10 @@ status("GCR_TOXIN", {
   end,
 
   -- And it hurts: every second, 4 HP a stack, dealt by the poisoner (who
-  -- gets the kill). c:damage ignores defence, like a poison does.
+  -- gets the kill). c:hurt ignores defence, like a poison does.
   tick = function(c)
     if c.source ~= nil then
-      c:damage(4 * c.stacks)
+      c:hurt(4 * c.stacks)
     end
   end,
 })
