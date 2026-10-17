@@ -58,17 +58,20 @@ export default function HomePage() {
             files, and start playing in Midgard.
           </p>
           <div className="hero-buttons">
-            <a
-              className="btn btn-primary"
-              href="https://github.com/Flux159/ragnarokoffline.app/releases/latest"
-              target="_blank"
-              rel="noopener"
-            >
+            <Link className="btn btn-primary" to="/docs/installing">
               Download
-            </a>
+            </Link>
             <Link className="btn btn-secondary" to="/docs/getting-started">
               Read the docs
             </Link>
+          </div>
+          <div className="hero-note">
+            Latest build:{' '}
+            <a href="https://github.com/Flux159/ragnarokoffline.app/releases/latest/download/Ragnarok-Offline-macOS.dmg">macOS</a>
+            {' · '}
+            <a href="https://github.com/Flux159/ragnarokoffline.app/releases/latest/download/Ragnarok-Offline-Windows.exe">Windows</a>
+            {' · '}
+            <a href="https://github.com/Flux159/ragnarokoffline.app/releases/latest/download/Ragnarok-Offline-Linux.AppImage">Linux</a>
           </div>
         </header>
 
