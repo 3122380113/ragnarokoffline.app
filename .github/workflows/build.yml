@@ -506,6 +506,10 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: app
     runs-on: ubuntu-latest
+    # contents for the release; actions to start the docs rebuild
+    permissions:
+      contents: write
+      actions: write
     steps:
       # Only the app artifacts. Without a pattern this downloads every artifact
       # in the run, which includes `client` -- the built roBrowser tree, some
@@ -524,37 +528,16 @@ jobs:
         with:
           sparse-checkout: release-notes
           path: source
-      # The installers again under names without a version, so
-      # releases/latest/download/<name> always fetches the newest one: the
-      # README's Install links and the docs site point there, and a player
-      # never has to pick an installer out of the update files below.
-      # Copies of the signed files, not rebuilds. The updater ignores them: it
-      # reads only latest*.yml, which name the versioned files.
-      - name: Installers under fixed names
-        run: |
-          mkdir stable
-          one() {
-            # unquoted on purpose: the pattern expands to the matching files
-            # shellcheck disable=SC2086
-            set -- $1
-            if [ "$#" -ne 1 ] || [ ! -f "$1" ]; then
-              echo "::error::expected exactly one installer, found: $*" >&2; exit 1
-            fi
-            echo "$1"
-          }
-          cp "$(one 'artifacts/*/*-arm64.dmg')" stable/Ragnarok-Offline-macOS.dmg
-          cp "$(one 'artifacts/*/*-x64.exe')" stable/Ragnarok-Offline-Windows.exe
-          cp "$(one 'artifacts/*/*-x86_64.AppImage')" stable/Ragnarok-Offline-Linux.AppImage
-          ls -l stable
       - name: The release notes
         id: notes
-        # A download line first, pointing at this release's own copies so an
-        # older release page still offers its own version, then the notes.
+        # A download line first, linking this release's own installers so a
+        # player never has to pick one out of the update files, then the notes.
         run: |
-          file="source/release-notes/${GITHUB_REF_NAME#v}.md"
+          version="${GITHUB_REF_NAME#v}"
+          file="source/release-notes/$version.md"
           base="https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}"
           {
-            echo "**Download:** [macOS (Apple Silicon)]($base/Ragnarok-Offline-macOS.dmg) · [Windows]($base/Ragnarok-Offline-Windows.exe) · [Linux (AppImage)]($base/Ragnarok-Offline-Linux.AppImage)"
+            echo "**Download:** [macOS (Apple Silicon)]($base/Ragnarok.Offline-$version-arm64.dmg) · [Windows]($base/Ragnarok.Offline-$version-x64.exe) · [Linux (AppImage)]($base/Ragnarok.Offline-$version-x86_64.AppImage)"
             echo
           } > body.md
           if [ -f "$file" ]; then
@@ -581,8 +564,15 @@ jobs:
             artifacts/**/*.zip
             artifacts/**/*.blockmap
             artifacts/**/latest*.yml
-            stable/Ragnarok-Offline-macOS.dmg
-            stable/Ragnarok-Offline-Windows.exe
-            stable/Ragnarok-Offline-Linux.AppImage
           body_path: ${{ steps.notes.outputs.path }}
           generate_release_notes: ${{ steps.notes.outputs.generate }}
+      # The docs site's /download/<platform>/ pages redirect to the newest
+      # installer by its versioned name, read when the site is built, so the
+      # site is rebuilt now that this release exists. A dispatch on main rather
+      # than a reusable workflow: the github-pages environment only deploys
+      # from main. A release made with this token would not start a `release`
+      # workflow, but a dispatch does.
+      - name: Rebuild the download pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-docs.yml --repo "$GITHUB_REPOSITORY" --ref main -f tag="$GITHUB_REF_NAME"

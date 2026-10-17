@@ -67,11 +67,11 @@ export default function HomePage() {
           </div>
           <div className="hero-note">
             Latest build:{' '}
-            <a href="https://github.com/Flux159/ragnarokoffline.app/releases/latest/download/Ragnarok-Offline-macOS.dmg">macOS</a>
+            <a href={`${import.meta.env.BASE_URL}download/mac/`}>macOS</a>
             {' · '}
-            <a href="https://github.com/Flux159/ragnarokoffline.app/releases/latest/download/Ragnarok-Offline-Windows.exe">Windows</a>
+            <a href={`${import.meta.env.BASE_URL}download/windows/`}>Windows</a>
             {' · '}
-            <a href="https://github.com/Flux159/ragnarokoffline.app/releases/latest/download/Ragnarok-Offline-Linux.AppImage">Linux</a>
+            <a href={`${import.meta.env.BASE_URL}download/linux/`}>Linux</a>
           </div>
         </header>
 
