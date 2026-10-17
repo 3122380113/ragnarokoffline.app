@@ -99,7 +99,8 @@ renewal. A headless client logged a character in, a script took it through
 each class in turn (each starting with none of the last class's skills or
 statuses), and a second mod watched from the outside: it logged each blow
 before the statuses' hooks and what it dealt in the end, and the
-character's statuses every second. 43 checks; all passed, on two runs.
+character's statuses every second. 43 checks; all passed, on two runs. The
+test is `tools/lua-test/run.sh third-class-sampler` in the rAthena fork.
 
 | | renewal |
 |---|---|

@@ -202,7 +202,14 @@ More hooks work on any skill, a stock one or a mod's own:
   `cost.ap`, `cost.zeny`, `cost.spiritball`, `cost.ammo_qty`, and `cost.items`,
   a list of `{ item = "RED_POTION", amount = 1 }`. The server asks for it
   several times for one use, so it must only compute: no actions, and nothing
-  that counts or remembers.
+  that counts or remembers. When it checks again at the end of the cast and
+  takes the cost, `c.target` is the target (`c.x`, `c.y` for a ground
+  skill): a cheaper strike on a marked enemy is a `cost` hook. The first
+  check, before the cast, has no target yet.
+- `range(c, range)` says how far the skill reaches for `c.caster`, from the
+  server's own (`range`, its `Range` with Vulture's Eye and the like): a
+  longer reach for those who have a passive or a status. On a status, it
+  works for every skill its holder uses.
 - `before_cast(c)` runs once per use just before the effect, while the
   caster still stands where it cast from: the place for a dash, or for what
   lies on the way. Returning `false` stops the effect: the use is paid for
@@ -312,7 +319,10 @@ A status with no hooks at all is a marker, like the combo window above, for
 other hooks to ask about.
 
 A mod's status lives in the server's memory. It ends with a logout or a server
-restart, and with the unit's death unless `end_on_death = false`.
+restart, and with the unit's death unless `end_on_death = false`. With
+`persist = true`, a player keeps it over a logout and a restart: it is kept in
+the mod's [char store](../MOD_STORE.md) with its stacks and the time it had
+left, and goes on when they are back.
 
 ### The server's own statuses
 
@@ -570,6 +580,10 @@ A `Dummyskill` unit hits whoever stands in it every `Interval`, with the
 skill's `Type`. With `Interval: -1` it never acts on anyone: a zone only
 `in_skill_area` reads (the sampler's Reverberation).
 
+A `power` on `c:place_unit`, or on a `c:cast` of a ground skill, reaches the
+hits its units deal later: a Storm Gust echoed at half power ticks at half
+power.
+
 **Holding a skill back.** `before_cast` returning `false` stops a use's
 effect once it is paid for: a spell can be stored and let go later with
 `c:cast`.
@@ -596,6 +610,28 @@ skill("SO_SPELLFIST", {
 server still uses up only the skill's own `AmmoAmount`. To use more, take
 them in `on_cast` with `c:take_item(c.caster.ammo_id, n)` (the sampler's
 Fear Breeze).
+
+**A longer reach.** A trap passive that adds a cell of placement range per
+level, for those who learned it:
+
+```lua
+for _, trap in ipairs({ "HT_LANDMINE", "HT_ANKLESNARE", "HT_CLAYMORETRAP" }) do
+  skill(trap, {
+    range = function(c, range) return range + c.caster:skill_lv("RAX_FIELD_ENGINEERING") end,
+  })
+end
+```
+
+**Cooldowns.** `c:cooldown(skill, ms)` starts a skill's cooldown as a use
+would (the hotkey bar shows it), `0` ends it, and `unit:cooldown_left(skill)`
+reads what is left: one skill that puts another on cooldown, a proc that
+resets one.
+
+**The server's numbers.** `battle_config("max_parameter")` reads the battle
+config; `element_rate`, `size_rate` and `def_rate` are the element table, the
+size table and the era's hard DEF formula, for a hook that works out a blow
+of its own (a pierce that gives back part of what DEF took, a fist that
+ignores size).
 
 **Copying and lending skills.** `c:copy_skill` fills Plagiarism's or
 Reproduce's slot (`unit:mob_skills()` lists a monster's), and `c:itemskill`
@@ -787,7 +823,8 @@ The client keeps what it has downloaded. After changing a table, see
   cast bar, its damage and the status icons, and nothing more.
 - **A status icon is one the client already has.** It takes the stock status's
   tooltip with it.
-- **A mod's statuses end with a logout or a restart.**
+- **A mod's statuses end with a logout or a restart**, unless `persist = true`
+  keeps a player's.
 - **Passives and `cost`/`can_cast` are for players.** A monster that uses a
   skill runs its `ratio`, `on_hit` and `on_cast`, and nothing a learner would.
 - **`custom = true` covers the four kinds above.** What a skill does beyond
@@ -818,7 +855,10 @@ To see what the hooks do, a second mod can watch from the outside: a passive
 of its own, given to a test character, whose `damage_taken` logs each blow
 before the statuses' hooks change it (passives run first), whose
 `on_hit_taken` logs what the blow dealt in the end, and whose `tick` logs the
-character's statuses. The third-class-sampler's test works that way.
+character's statuses. The third-class-sampler's test works that way. Both
+examples' tests are in the rAthena fork's
+[`tools/lua-test`](https://github.com/Flux159/rathena/tree/ragnarokoffline/tools/lua-test),
+with a headless client that plays them against a local server.
 
 In game, a GM character can try it all at once: `@jobchange 4059` for a
 Guillotine Cross, `@skillpoint 20` for points to spend, and `@resetskill` to

@@ -1212,10 +1212,15 @@ Takes any of these functions, keyed by the name in `skill_db.yml` —
 | `before_cast(c)` | once per use, just before its effect: the caster still stands where it cast from; `c.x`, `c.y` is the target cell | nothing; call the actions below, which happen before the effect. `false` stops the effect: the use is paid for and nothing else happens (`on_cast` still runs) |
 | `on_cast(c)` | once per use of the skill, after its effect, by a player or a monster; `c.x`, `c.y` is where | nothing; call the actions below |
 | `can_cast(c)` | when a player starts to use the skill | `false`, and a message the player is shown, refuses the use |
-| `cost(c, cost)` | when the server works out what a use costs, several times per use | nothing: change `cost.sp`, `hp`, `ap`, `zeny`, `spiritball` (`-1`: all of them), `ammo_qty` or `items` (a list of `{ item = "RED_POTION", amount = 1 }`) in place. It must only compute: no actions. `ammo_qty` is how many arrows the use needs; the server still uses up the skill's own `AmmoAmount`, so take any extra with `c:take_item(c.caster.ammo_id, n)` in `on_cast` |
+| `cost(c, cost)` | when the server works out what a use costs, several times per use. When it checks again at the end of the cast and takes the cost, `c.target` (or `c.x`, `c.y` for a ground skill) is where the use goes; its first check, before the cast, has neither | nothing: change `cost.sp`, `hp`, `ap`, `zeny`, `spiritball` (`-1`: all of them), `ammo_qty` or `items` (a list of `{ item = "RED_POTION", amount = 1 }`) in place. It must only compute: no actions. `ammo_qty` is how many arrows the use needs; the server still uses up the skill's own `AmmoAmount`, so take any extra with `c:take_item(c.caster.ammo_id, n)` in `on_cast` |
+| `range(c, range)` | whenever the server needs how far the skill reaches for `c.caster`: to check a use, and for the skill list a player's client gets | the range in cells, up to 30; `range` is the server's own (the skill's `Range`, with Vulture's Eye and the like) or the previous hook's return. It must only compute: no actions |
 
-`ratio`, `hit`, `element`, `hits` and `critical` receive the stock result and
-return a new one; returning `nil` keeps it. `ratio`, `hit`, `element`, `hits`
+`ratio`, `hit`, `element`, `hits`, `critical` and `range` receive the stock
+result and return a new one; returning `nil` keeps it. A player's client
+learns each skill's range with its skill list, which the server sends at
+login and when a skill is learned; a mod's status with a `range` hook sends it
+again when it starts and ends. `unit:skill_range(skill, level)` reads the
+range a unit has. `ratio`, `hit`, `element`, `hits`
 and `before_cast` work for the roughly 1,060 skills rAthena has given their
 own C++ class, which includes every damaging player skill. For the rest, the
 server says so in the log when it starts, and `on_hit` and `on_cast` still
@@ -1313,6 +1318,7 @@ status("GCR_MOMENTUM", {
 | `refresh` | `false`: a new application does not start the duration again |
 | `decay` | `{ every = 4000, stacks = 1 }`: loses stacks over time |
 | `end_on_death` | `false`: a player keeps it through death |
+| `persist` | `true`: a player keeps it over a logout and a server restart, with its stacks and the time it had left (which stands still while they are away). It is kept in the [char store](MOD_STORE.md) of the mod that defined it, under `_statuses`, and goes on when they are back without running `on_start` again. Other units' are not kept |
 
 | Hook | Called | Return |
 |---|---|---|
@@ -1323,6 +1329,7 @@ status("GCR_MOMENTUM", {
 | `on_death(c)` | the unit who has it, player or monster, is about to die | nothing; `c:survive()` keeps it at 1 HP |
 | `on_skill(c)` | the unit who has it used a skill, `c.used_skill` | nothing; call the actions below |
 | `cost(c, cost)`, `can_cast(c)` | as a skill's own, for **every** skill the player who has it uses, `c.used_skill` | as a skill's own |
+| `range(c, range)` | as a skill's own, for **every** skill the unit who has it uses, `c.used_skill` | as a skill's own |
 | `critical(c, stock)` | every weapon hit by the unit who has it; `c.used_skill_id` is 0 for a normal attack | `true` or `false` |
 | `craft(c, rate)`, `on_craft(c, item)`, `on_use(c)` | as for a learned skill | as for a learned skill |
 | `on_start(c)`, `on_end(c)` | it starts; it ends, `c.reason` being `"expired"`, `"decayed"`, `"removed"` or `"death"` | nothing; call the actions below |
@@ -1331,7 +1338,7 @@ status("GCR_MOMENTUM", {
 They see `c.status_name`, `c.unit` (who has it), `c.source` (who applied it;
 nil once that unit is gone), `c.stacks` and `c.remaining` (ms, -1 for no end). `c:apply_status` puts one on and
 `c:remove_status` takes it off (below). It lives in the server's memory, and
-ends with a logout or a restart.
+ends with a logout or a restart unless `persist = true`.
 
 `status()` with a server status's name, `status("SC_HIDING", { ... })`, takes
 `on_start`, `on_end` and `chance`. `on_start` sees `c.duration` and `c.val1`
@@ -1418,8 +1425,8 @@ cuts the blow down to the HP it took first, so there `c.overkill` is 0. A kill
 that `c:survive()` undid runs no `on_kill`.
 
 In `before_cast`, `on_cast` and `on_skill`, `c.x` and `c.y` are the cell the
-skill was used on; in `on_skill`, and in a status's `cost`, `can_cast` and
-`critical`, `c.used_skill`, `c.used_skill_id` and `c.used_skill_lv` are which.
+skill was used on; in `on_skill`, and in a status's `cost`, `can_cast`, `range`
+and `critical`, `c.used_skill`, `c.used_skill_id` and `c.used_skill_lv` are which.
 `craft` and `on_craft` have `c.craft_skill`, `c.craft_skill_id`, `c.item_id`
 and `c.item_name`, what is being made. `on_use` has `c.item`, the item being
 used, as a table like `unit:equipment()` returns.
@@ -1434,7 +1441,7 @@ Each unit (`c.caster`, `c.target`) has:
 | `hp` `maxhp` `sp` `maxsp` | current and maximum vitals |
 | `def` `mdef` `hit` `flee` `flee2` `cri` | the server's own numbers; `flee2` (perfect dodge) and `cri` are in tenths, so a 10% critical rate is `100` |
 | `amotion`, `aspd`, `speed` | the attack motion in ms, the attack speed as the client shows it, and ms per cell walked |
-| `race`, `element`, `size`, `boss`, `dead` | the usual flags; `boss` is true for MVPs |
+| `race`, `element`, `element_level`, `size`, `boss`, `dead` | the usual flags; `element_level` is 1 to 4, `boss` is true for MVPs |
 | `hidden` | in Hiding, Cloaking or Chase Walk |
 | `casting` | the skill it is casting right now, or `""` |
 | `master_id` | who it belongs to, for a summon, homunculus, mercenary, elemental or pet; 0 otherwise |
@@ -1447,6 +1454,8 @@ Each unit (`c.caster`, `c.target`) has:
 | `in_skill_area("GC_POISONSMOKE", owner)` | whether it stands in that ground skill's area; with an `owner` unit, only that unit's |
 | `ground_units("WZ_ICEWALL")` | the ground skills it has placed (only that skill's, when named), as `{ group, skill, level, map, x, y, remaining, cells = { { x, y }, ... } }`; `x`, `y` is the middle of its cells, where a square or a cross was cast |
 | `master()` | the unit it belongs to, or `nil` |
+| `cooldown_left("GC_CROSSIMPACT")` | the ms left of its cooldown of that skill, a player's, homunculus's or mercenary's; 0 for none |
+| `skill_range("SN_SHARPSHOOTING", level)` | how far it reaches with that skill at that level (1 by default), as the server checks a use: the skill's `Range`, what the unit adds to it, and mods' `range` hooks |
 
 A **player** unit also has:
 
@@ -1508,7 +1517,7 @@ options.
 | `c:status_val("SC_POISONREACT", n, value, who)` | set `val1` to `val4` (`n` is 1 to 4) of a server status while it runs, on `"target"` (default); what it does to stats is worked out again |
 | `c:apply_status("NAME", { stacks, duration, source }, who)` | put a mod's [status](#statusname-----buffs-and-debuffs) on `"target"` (default): 1 stack and its own duration unless the table says otherwise. It is applied by the hook's owner (the player who learned the skill, the unit with the status) unless `source` names a unit |
 | `c:remove_status("NAME", who, stacks, source)` | take a mod's status off `"target"` (default): every stack, or `stacks` of them; with `source` (a unit, or `true` for the hook's owner) only the ones it applied |
-| `c:cast("MG_FIREBOLT", level, who, { by, x, y, power })` | cast a skill the way `bAutoSpell` does, at `"target"` (default): the skill's own checks and after-cast delay, no cast time, its HP, spheres and zeny paid but no SP or items. `by` is who casts it (default `c.caster`); `x`, `y` the cell a ground skill goes to (default where `who` stands); `power` the % of its damage it deals as it is cast, 1 to 1000: the damage hooks see it scaled already. What a ground skill deals later, from the units it placed, is not scaled |
+| `c:cast("MG_FIREBOLT", level, who, { by, x, y, power })` | cast a skill the way `bAutoSpell` does, at `"target"` (default): the skill's own checks and after-cast delay, no cast time, its HP, spheres and zeny paid but no SP or items. `by` is who casts it (default `c.caster`); `x`, `y` the cell a ground skill goes to (default where `who` stands); `power` the % of its damage it deals, 1 to 1000: the damage hooks see it scaled already. The units a ground skill places as it is cast deal their later hits at the same power (Storm Gust's, Meteor Storm's); units a skill places afterwards from a timer of its own (Earth Strain's, Fire Rain's) do not |
 | `c:attack("SN_SHARPSHOOTING", level, who, { by, power })` | one hit of a damaging skill on `"target"` (default), nothing paid, no cast time or delay: a splash, a bounce, an echo. Only an enemy of the attacker is hit. `by` and `power` as for `c:cast`. The skill needs a `Type` and a `HitCount` in `skill_db.yml` (give a passive both to hit with it); a Splash Split skill deals its whole damage, the hit being on one target |
 | `c:polymorph()` | Hylozoist Card's effect: the target becomes a random monster. Bosses and status-immune monsters are left alone |
 | `c:spheres(n, who, { max, duration })` | a player gains `n` spirit spheres, or loses them for a negative `n`; `"caster"` by default. `max` is the most to hold (default the server's: 5, more under Raising Dragon), `duration` how long new ones last in ms |
@@ -1519,7 +1528,7 @@ options.
 | `c:set_target(who, target)` | a monster turns on `target` (default `"caster"`), as Provoke makes it |
 | `c:summon("PORING", { amount, duration, x, y, by, neutral })` | monsters that fight for the hook's owner (or `by`), as the `summon` script command makes them: 1 for 60 s at the owner's feet unless the table says otherwise. With `neutral = true` they are on nobody's side, as a map's own monsters are (a plant to harvest), and still leave when their time is up |
 | `c:expire(who, ms)` | a summoned monster (a summon, a plant, a sphere mine) leaves `ms` from now. A map's own monsters are left alone |
-| `c:place_unit("MG_FIREWALL", level, x, y, { duration, by })` | place a ground skill at a cell, owned by the hook's owner (or `by`), whatever the skill's own limit on how many may stand; `duration` in ms, default the skill's |
+| `c:place_unit("MG_FIREWALL", level, x, y, { duration, by, power })` | place a ground skill at a cell, owned by the hook's owner (or `by`), whatever the skill's own limit on how many may stand; `duration` in ms, default the skill's; `power` the % of the damage its hits deal |
 | `c:end_unit(group)` | remove a ground skill: a `group` from `unit:ground_units()` or `ground_units_around()` |
 | `c:give_item("RED_POTION", amount, who, { floor = true })` | an item for `"caster"` (default), when that is a player; at its feet with `floor`, or when the bag is full |
 | `c:take_item("MAGIC_GEAR_FUEL", amount, who)` | take items from a player, `"caster"` by default: all of them, or none when it has fewer |
@@ -1529,6 +1538,7 @@ options.
 | `c:mount("mado", on, who)` | put on (`on` true) or take off a `"peco"`, `"dragon"`, `"warg"`, `"mado"`, `"falcon"` or `"cart"`; `"caster"` by default. Whether the class can show it is the client's affair |
 | `c:cut_delay(ms, who)` | `"caster"` (default) can act that much sooner after its last skill |
 | `c:cut_cooldown("GC_CROSSIMPACT", ms, who)` | that skill's cooldown, for `"caster"` (default), ends that much sooner: a player's, a homunculus's or a mercenary's |
+| `c:cooldown("GC_CROSSIMPACT", ms, who)` | start that skill's cooldown for `"caster"` (default), as a use of it would: `ms` from now, replacing one that is running; `0` ends it. The player's hotkey bar shows it, and it is kept over a logout like any cooldown. A player's, a homunculus's or a mercenary's |
 | `c:survive()` | in `on_death` only: the unit keeps 1 HP instead of dying. Right away |
 
 A `c:cast` or `c:attack` sets off no attack hook (`on_hit`, `on_attack`,
@@ -1544,7 +1554,12 @@ These functions work anywhere:
 | Function | What it does |
 |---|---|
 | `const("SC_STUN")` | any constant a server script can use: `SC_*`, `ELE_*`, `RC_*`, `Job_*`, `W_*` |
-| `setting("<mod>", "<key>", default)` | a [setting](#settings--options-the-app-renders-for-you) from Settings → Mods. Booleans are `true`/`false` and numbers keep their fractions, unlike in an NPC script. Only mods' settings: the server's battle config (`max_parameter` and the like) is not readable from Lua, so a hook that depends on one writes the value in |
+| `setting("<mod>", "<key>", default)` | a [setting](#settings--options-the-app-renders-for-you) from Settings → Mods. Booleans are `true`/`false` and numbers keep their fractions, unlike in an NPC script. Only mods' settings: the server's own are `battle_config()` |
+| `battle_config("max_parameter")` | a value of the server's battle config (`conf/battle/`, with what mods change), as `getbattleflag` reads it in a script: a number, 0 for a name the server does not have |
+| `element_rate(element, unit)`, `element_rate(element, defense_element, level)` | the % of a blow of that element the server's element table (`db/attr_fix.yml`) lets through against a unit, or against an element at a level (1 by default): 200 doubles it, 0 is immune, below 0 heals. The table alone, without what statuses add in a fight; `nil` for a unit that is gone |
+| `size_rate(weapon_type, size)` | the % of a weapon's damage the size table (`db/size_fix.yml`, with the era's) lets through: `weapon_type` as `unit.weapon_type` (`const("W_KNUCKLE")`), `size` as `unit.size` (0 small, 1 medium, 2 large). 100 for a weapon type the table leaves out |
+| `def_rate(def)` | the % of a weapon blow that this much hard DEF (`unit.def`) lets through, by this era's formula: renewal's (4000 + DEF) / (4000 + 10 × DEF), as a number with a fraction; pre-renewal's 100 − DEF, never below 0. Soft DEF comes off after it |
+
 | `log(...)` | a line in the map server's log, with your mod's name on it |
 | `now()` | the server's clock in ms; only the difference between two readings means anything |
 | `skill_info("MG_FIREBOLT", level)` | what `skill_db.yml` says of a skill at a level (1 by default): `{ id, name, description, max_level, type, target, element, range, splash, hits, sp, hp, zeny, cast, delay, cooldown, duration, duration2, ground_unit, copyable }`; `type` is `"weapon"`, `"magic"`, `"misc"` or `"none"`, `target` `"attack"`, `"ground"`, `"self"`, `"support"` or `"passive"` |
@@ -1633,7 +1648,7 @@ needs anything more than a mod:
 | An NPC, a quest, a warp, a shop, what happens on an event | `npc/` | rAthena's script language |
 | A skill's damage formula, accuracy, element, hits, or whether it crits | `lua/` | `skill("...", { ratio, hit, element, hits, critical })` |
 | What a skill does when it hits: drain, heal, a status, a splash, a push | `lua/` | `skill("...", { on_hit })` and the [actions](#actions-you-can-request) |
-| When a skill may be used, what it costs, what comes before or after it | `lua/` | `skill("...", { can_cast, cost, before_cast, on_cast })` |
+| When a skill may be used, how far it reaches, what it costs, what comes before or after it | `lua/` | `skill("...", { can_cast, range, cost, before_cast, on_cast })` |
 | A new skill for a job, passive or used | `db/`, `lua/`, `data/` | `skill_db.yml` and `skill_tree.yml`, `skill("...", { custom = true })`, the client's skill tables: [New skills](mods/CUSTOM_SKILLS.md) |
 | Taking a skill away from a job, or changing what it needs first | `db/` | `skill_tree.yml`: `MaxLevel: 0`, or a requirement at `Level: 0` |
 | What every player who learned a skill gets: a passive | `lua/` | `skill("...", { bonus, stats, on_attack, damage_dealt, on_skill, tick, ... })` |

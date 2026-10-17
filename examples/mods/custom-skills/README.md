@@ -66,7 +66,9 @@ custom-skills/
 Every row of the table above was checked on a server built from the rAthena
 fork with these hooks. A headless client logged a character in, a script made
 it fight, and a second test mod watched this one's hooks. The same test ran on
-a pre-renewal server, with the skills put on an Assassin Cross.
+a pre-renewal server, with the skills put on an Assassin Cross. It is in the
+rAthena fork, as `tools/lua-test/run.sh custom-skills`; its README has the
+setup.
 
 | | renewal |
 |---|---|
