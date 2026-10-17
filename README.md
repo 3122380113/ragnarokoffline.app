@@ -17,13 +17,13 @@ requests are welcome as [issues](../../issues).
 ## Install
 
 The newest build for each platform. These links always fetch the latest
-release:
+release, and the file keeps its version in its name:
 
 | Platform | Download |
 |---|---|
-| macOS (Apple Silicon) | [Ragnarok-Offline-macOS.dmg](https://github.com/Flux159/ragnarokoffline.app/releases/latest/download/Ragnarok-Offline-macOS.dmg) |
-| Windows | [Ragnarok-Offline-Windows.exe](https://github.com/Flux159/ragnarokoffline.app/releases/latest/download/Ragnarok-Offline-Windows.exe) |
-| Linux | [Ragnarok-Offline-Linux.AppImage](https://github.com/Flux159/ragnarokoffline.app/releases/latest/download/Ragnarok-Offline-Linux.AppImage) |
+| macOS (Apple Silicon) | [Download for macOS](https://flux159.github.io/ragnarokoffline.app/download/mac/) |
+| Windows | [Download for Windows](https://flux159.github.io/ragnarokoffline.app/download/windows/) |
+| Linux (AppImage) | [Download for Linux](https://flux159.github.io/ragnarokoffline.app/download/linux/) |
 
 Older versions, and the update files the app downloads by itself, are on the
 [releases page](../../releases).
