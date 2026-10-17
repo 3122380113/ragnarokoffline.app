@@ -14,13 +14,26 @@ the assets. macOS, Linux and Windows.
 read [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md). Bugs and feature
 requests are welcome as [issues](../../issues).
 
+## Install
+
+The newest build for each platform. These links always fetch the latest
+release:
+
+| Platform | Download |
+|---|---|
+| macOS (Apple Silicon) | [Ragnarok-Offline-macOS.dmg](https://github.com/Flux159/ragnarokoffline.app/releases/latest/download/Ragnarok-Offline-macOS.dmg) |
+| Windows | [Ragnarok-Offline-Windows.exe](https://github.com/Flux159/ragnarokoffline.app/releases/latest/download/Ragnarok-Offline-Windows.exe) |
+| Linux | [Ragnarok-Offline-Linux.AppImage](https://github.com/Flux159/ragnarokoffline.app/releases/latest/download/Ragnarok-Offline-Linux.AppImage) |
+
+Older versions, and the update files the app downloads by itself, are on the
+[releases page](../../releases).
+
 ## Getting started
 
 **[Watch the setup walkthrough](https://youtu.be/1Ib_KqHDCLA)** — download,
 assets, first launch — or follow the same three steps below.
 
-**1. Download a build.** Grab the latest release for your platform from the
-[releases page](../../releases).
+**1. Download a build** for your platform from [Install](#install).
 
 Once installed, the app keeps itself up to date on macOS, Windows and the Linux
 AppImage: it downloads new versions in the background, and **Settings → General →
