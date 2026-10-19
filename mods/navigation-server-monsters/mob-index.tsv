@@ -431,11 +431,14 @@ load	renewal	npc/re/guides/guides_umbala.txt
 load	renewal	npc/re/guides/guides_veins.txt
 load	renewal	npc/re/guides/guides_woe_te.txt
 load	renewal	npc/re/instances/AirshipAssault.txt
+load	renewal	npc/re/instances/AirshipDestruction.txt
+load	renewal	npc/re/instances/BaggotLaboratory.txt
 load	renewal	npc/re/instances/BakonawaLake.txt
 load	renewal	npc/re/instances/BangungotHospital.txt
 load	renewal	npc/re/instances/BuwayaCave.txt
 load	renewal	npc/re/instances/CentralLaboratory.txt
 load	renewal	npc/re/instances/CharlestonCrisis.txt
+load	renewal	npc/re/instances/ConfusedSnakesNest.txt
 load	renewal	npc/re/instances/CorOperation.txt
 load	renewal	npc/re/instances/DeepForest.txt
 load	renewal	npc/re/instances/DevilTower.txt
@@ -450,6 +453,7 @@ load	renewal	npc/re/instances/HeartHunterWarBase.txt
 load	renewal	npc/re/instances/HiddenGarden.txt
 load	renewal	npc/re/instances/InfiniteSpace.txt
 load	renewal	npc/re/instances/IsleOfBios.txt
+load	renewal	npc/re/instances/IwinPatrol.txt
 load	renewal	npc/re/instances/LastRoom.txt
 load	renewal	npc/re/instances/LostFarm.txt
 load	renewal	npc/re/instances/MalangdoCulvert.txt
@@ -504,6 +508,7 @@ load	renewal	npc/re/merchants/enchan_rockridge.txt
 load	renewal	npc/re/merchants/enchan_sage_legacy_17_2.txt
 load	renewal	npc/re/merchants/enchan_verus.txt
 load	renewal	npc/re/merchants/enchantgrade.txt
+load	renewal	npc/re/merchants/episode_19.txt
 load	renewal	npc/re/merchants/Extended_Ammunition.txt
 load	renewal	npc/re/merchants/Extended_Stylist.txt
 load	renewal	npc/re/merchants/flute.txt
@@ -593,6 +598,7 @@ load	renewal	npc/re/quests/quests_illusion_dungeons.txt
 load	renewal	npc/re/quests/quests_17_1.txt
 load	renewal	npc/re/quests/quests_17_2.txt
 load	renewal	npc/re/quests/quests_18.txt
+load	renewal	npc/re/quests/quests_19.txt
 load	renewal	npc/re/quests/quests_aldebaran.txt
 load	renewal	npc/re/quests/quests_dewata.txt
 load	renewal	npc/re/quests/quests_dicastes.txt
@@ -720,6 +726,8 @@ load	renewal	npc/re/mobs/dungeons/gon_dun.txt
 load	renewal	npc/re/mobs/dungeons/ice_dun.txt
 load	renewal	npc/re/mobs/dungeons/in_sphinx.txt
 load	renewal	npc/re/mobs/dungeons/iz_dun.txt
+load	renewal	npc/re/mobs/dungeons/jor_ab.txt
+load	renewal	npc/re/mobs/dungeons/jor_dun.txt
 load	renewal	npc/re/mobs/dungeons/juperos.txt
 load	renewal	npc/re/mobs/dungeons/kh_dun.txt
 load	renewal	npc/re/mobs/dungeons/lhz_dun.txt
@@ -768,6 +776,7 @@ load	renewal	npc/re/mobs/fields/geffen.txt
 load	renewal	npc/re/mobs/fields/gonryun.txt
 load	renewal	npc/re/mobs/fields/gw_fild.txt
 load	renewal	npc/re/mobs/fields/hugel.txt
+load	renewal	npc/re/mobs/fields/jor_back.txt
 load	renewal	npc/re/mobs/fields/lighthalzen.txt
 load	renewal	npc/re/mobs/fields/louyang.txt
 load	renewal	npc/re/mobs/fields/lutie.txt
@@ -793,6 +802,7 @@ load	renewal	npc/re/warps/cities/einbech.txt
 load	renewal	npc/re/warps/cities/einbroch.txt
 load	renewal	npc/re/warps/cities/lasagna.txt
 load	renewal	npc/re/warps/cities/lighthalzen.txt
+load	renewal	npc/re/warps/cities/icecastle.txt
 load	renewal	npc/re/warps/cities/izlude.txt
 load	renewal	npc/re/warps/cities/malangdo.txt
 load	renewal	npc/re/warps/cities/malaya.txt
@@ -807,6 +817,7 @@ load	renewal	npc/re/warps/dungeons/ecl_dun.txt
 load	renewal	npc/re/warps/dungeons/ein_dun.txt
 load	renewal	npc/re/warps/dungeons/harboro2.txt
 load	renewal	npc/re/warps/dungeons/iz_dun.txt
+load	renewal	npc/re/warps/dungeons/jor_dun.txt
 load	renewal	npc/re/warps/dungeons/mag_dun.txt
 load	renewal	npc/re/warps/dungeons/moc_pryd.txt
 load	renewal	npc/re/warps/dungeons/nif_dun.txt
@@ -822,6 +833,7 @@ load	renewal	npc/re/warps/fields/dic_fild.txt
 load	renewal	npc/re/warps/fields/geffen_fild.txt
 load	renewal	npc/re/warps/fields/gw_fild.txt
 load	renewal	npc/re/warps/fields/hugel_fild.txt
+load	renewal	npc/re/warps/fields/jor_fild.txt
 load	renewal	npc/re/warps/fields/morroc_fild.txt
 load	renewal	npc/re/warps/fields/payon_fild.txt
 load	renewal	npc/re/warps/fields/prontera_fild.txt
@@ -3893,6 +3905,47 @@ mob	renewal	21392	ILL_GIEARTH	168	Demon	Small	Dark	3	0	Gutsy Giearth
 mob	renewal	21393	ILL_FARMILIAR	166	Brute	Small	Dark	2	0	Gutsy Familiar
 mob	renewal	21394	ILL_VITATA	169	Insect	Small	Poison	4	0	Diligent Vitata
 mob	renewal	21395	ILL_MAYA	175	Insect	Large	Neutral	4	1	Silent Maya
+mob	renewal	21513	EP19_NPC_IWIN	200	Brute	Medium	Neutral	1	0	Dummy
+mob	renewal	21514	EP19_NPC_IWIN_SN	200	Brute	Medium	Neutral	1	0	Dummy
+mob	renewal	21515	EP19_NPC_IWIN_SY	200	Brute	Medium	Neutral	1	0	Dummy
+mob	renewal	21516	EP19_NPC_IWIN_SB	200	Brute	Medium	Neutral	1	0	Dummy
+mob	renewal	21517	EP19_NPC_IWIN_SG	200	Brute	Medium	Neutral	1	0	Dummy
+mob	renewal	21518	EP19_NPC_IWIN_SR	200	Brute	Medium	Neutral	1	0	Dummy
+mob	renewal	21519	EP19_NPC_LEHAR	200	Brute	Medium	Neutral	1	0	Dummy
+mob	renewal	21520	EP19_LIMACINA	213	Fish	Large	Water	2	0	Limacina
+mob	renewal	21521	EP19_UNFROST_FLOWER	212	Fish	Medium	Water	3	0	Unfrost Flower
+mob	renewal	21522	EP19_CALMARING	209	Plant	Medium	Water	2	0	Calmaring
+mob	renewal	21523	EP19_ICE_STRAW	211	Fish	Small	Water	1	0	Ice Straw
+mob	renewal	21524	EP19_SHINING_SEAWEED	210	Plant	Medium	Neutral	2	0	Shining Seaweed
+mob	renewal	21525	EP19_ICE_GANGU	208	Insect	Small	Water	1	0	Ice Gangu
+mob	renewal	21526	EP19_RGAN_A	210	Formless	Medium	Poison	1	0	Primitive Rgan
+mob	renewal	21527	EP19_RGAN_B	212	Formless	Medium	Earth	2	0	Lowest Rgan
+mob	renewal	21528	EP19_RGAN_C	214	Formless	Medium	Neutral	3	0	Junior Rgan
+mob	renewal	21529	EP19_RGAN_D	215	Formless	Medium	Water	3	0	Intermediate Rgan
+mob	renewal	21530	EP19_RGAN_E	215	Formless	Medium	Wind	2	0	Rgan
+mob	renewal	21531	EP19_MD_AQUILA	210	Formless	Large	Neutral	3	0	Aquila
+mob	renewal	21532	EP19_MD_JUNCEA	215	Demihuman	Large	Poison	4	1	Simulation Juncea
+mob	renewal	21533	EP19_MD_JUNCEA_S	215	Formless	Large	Poison	4	1	Simulation Juncea
+mob	renewal	21534	EP19_MD_RGAN_E	213	Formless	Medium	Earth	1	0	Frightened Rgan
+mob	renewal	21535	EP19_MD_RGAN_D	211	Formless	Medium	Poison	2	0	Split Rgan
+mob	renewal	21536	EP19_MD_HEARTHUNTER_AT	210	Demihuman	Medium	Neutral	1	0	Modified Heart Hunter
+mob	renewal	21537	EP19_LIMACINA_BOSS	245	Fish	Large	Water	3	1	Ultra Limacina
+mob	renewal	21538	EP19_WASTED_RGAN_A	234	Formless	Medium	Poison	3	0	Discarded Primitive Rgan
+mob	renewal	21539	EP19_WASTED_RGAN_C	253	Formless	Medium	Wind	3	0	Intermediate Rgan
+mob	renewal	21540	EP19_CAVE_CALMARING	232	Plant	Medium	Water	3	0	Cave Calmaring
+mob	renewal	21541	EP19_CAVE_FLOWER	233	Fish	Medium	Water	3	0	Cave Flower
+mob	renewal	21542	EP19_HALLUCIGENIA	252	Insect	Medium	Water	3	0	Hallucigenia
+mob	renewal	21543	EP19_HALLUCIGENIA_BABY	234	Insect	Small	Water	2	0	Hallucigenia Baby
+mob	renewal	21544	EP19_ONE_EYE_DOLLOCARIS	251	Fish	Medium	Dark	3	0	One Eye Dollocaris
+mob	renewal	21545	EP19_DOLLOCARIS	253	Fish	Medium	Earth	3	0	Two Eyes Dollocaris
+mob	renewal	21588	EP19_MD_AQUILA_B	210	Formless	Small	Neutral	1	1	Aquila
+mob	renewal	21589	G_EP19_LIMACINA	213	Fish	Large	Water	2	0	Limacina
+mob	renewal	21590	EP19_MD_RGAN_ES	213	Formless	Medium	Earth	2	0	Rgan the furious
+mob	renewal	21599	EP19_HEARTHUNTER_AT	210	Demihuman	Medium	Neutral	1	0	Heart Hunter AT
+mob	renewal	21600	EP19_RE_RGAN_E	234	Formless	Medium	Earth	3	0	Renovated Superior Rgan
+mob	renewal	21601	EP19_ET_RGAN_D	252	Formless	Medium	Poison	2	0	Intermediate Rgan
+mob	renewal	21853	EP19_MD_BOX1	230	Formless	Small	Neutral	1	0	Suspicious Storage Stone
+mob	renewal	21854	EP19_MD_BOX2	230	Formless	Small	Neutral	1	0	Suspicious Storage Stone
 mob	renewal	21866	HEROS_IN_ORB_1	250	Formless	Small	Neutral	1	0	Spring Jewel
 mob	renewal	21867	HEROS_IN_ORB_2	250	Formless	Small	Neutral	1	0	Summer Jewel
 mob	renewal	21868	HEROS_IN_ORB_3	250	Formless	Small	Neutral	1	0	Autumn Jewel
@@ -13333,6 +13386,28 @@ spawn	iz_d05_i	20807	45	0	Deep Sea Swordfish
 spawn	iz_d05_i	20809	45	0	Deep Sea Phen
 spawn	iz_d05_i	20806	45	0	Deep Sea Sedora
 spawn	iz_d05_i	20810	45	0	Deep Sea King Dramoh
+file	npc/re/mobs/dungeons/jor_ab.txt
+spawn	jor_ab01	21538	65	0	
+spawn	jor_ab01	21540	65	0	
+spawn	jor_ab01	21541	35	0	
+spawn	jor_ab01	21543	35	0	
+spawn	jor_ab01	21600	10	0	
+spawn	jor_ab02	21539	55	0	
+spawn	jor_ab02	21542	55	0	
+spawn	jor_ab02	21544	40	0	
+spawn	jor_ab02	21545	40	0	
+spawn	jor_ab02	21601	10	0	
+file	npc/re/mobs/dungeons/jor_dun.txt
+spawn	jor_dun01	21526	80	0	
+spawn	jor_dun01	21527	50	0	
+spawn	jor_dun01	21528	20	0	
+spawn	jor_dun01	21599	10	0	
+spawn	jor_dun02	21527	60	0	
+spawn	jor_dun02	21528	50	0	
+spawn	jor_dun02	21529	15	0	
+spawn	jor_dun02	21599	10	0	
+spawn	jor_que	21534	3	0	
+spawn	jor_que	21535	5	0	
 file	npc/re/mobs/dungeons/juperos.txt
 spawn	juperos_01	1676	70	0	Venatu
 spawn	juperos_01	1677	70	0	Venatu
@@ -14660,6 +14735,20 @@ spawn	hu_fild06	1073	35	0	Crab
 spawn	hu_fild06	1266	35	0	Aster
 spawn	hu_fild06	1080	10	0	Green Plant
 spawn	hu_fild06	1081	10	0	Yellow Plant
+file	npc/re/mobs/fields/jor_back.txt
+spawn	jor_back1	21524	60	0	
+spawn	jor_back1	21525	60	0	
+spawn	jor_back1	21523	80	0	
+spawn	jor_back2	21521	70	0	
+spawn	jor_back2	21525	25	0	
+spawn	jor_back2	21523	35	0	
+spawn	jor_back2	21520	70	0	
+spawn	jor_back3	21526	30	0	
+spawn	jor_back3	21527	15	0	
+spawn	jor_back3	21525	20	0	
+spawn	jor_back3	21522	70	0	
+spawn	jor_back3	21520	70	0	
+spawn	jor_back3	21537	1	0	
 file	npc/re/mobs/fields/lighthalzen.txt
 spawn	lhz_fild01	1162	170	0	Rafflesia
 spawn	lhz_fild01	1215	45	0	Stem Worm
