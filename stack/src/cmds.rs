@@ -2041,7 +2041,15 @@ pub fn up(cfg: &Config, dk: &Docker, lan: bool, ram_mib: Option<u32>) -> Result<
         eprintln!("warning: guild emblems are unavailable: {e}");
     }
     phase(cfg, "Loading maps and NPCs…");
-    crate::readiness::wait(dk, None, Duration::from_secs(180))?;
+    match crate::readiness::wait(dk, None, Duration::from_secs(180)) {
+        // Still running, just slow. That is worth saying rather than failing:
+        // a first launch on a slow machine genuinely takes a while, and the
+        // maps finish loading shortly after. A server that stopped is an error.
+        Err(e) if e == crate::readiness::TIMED_OUT => {
+            eprintln!("warning: {e}; first login may need a retry");
+        }
+        other => other?,
+    }
     // After the map server has read its tables and before anyone is told the
     // world is ready: this is the only moment rAthena's verdict on the mods'
     // own tables exists, and it exists in its log and nowhere else.

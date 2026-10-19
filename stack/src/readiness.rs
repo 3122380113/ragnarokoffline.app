@@ -6,6 +6,11 @@ use std::time::{Duration, Instant};
 
 const SERVERS: [&str; 3] = ["ragnarok-login", "ragnarok-char", "ragnarok-map"];
 
+/// What `wait` returns when the budget runs out with every server still
+/// running. Callers compare against it to tell "slow" from "stopped".
+pub(crate) const TIMED_OUT: &str =
+    "Timed out waiting for character registration with login-server and map loading";
+
 // The pinned engine normalizes StartedAt and log records to RFC3339Nano UTC.
 // Unknown formats fail closed rather than comparing arbitrary strings.
 fn timestamp(value: &str) -> Option<&str> {
@@ -116,11 +121,13 @@ pub(crate) fn wait(
                 return Ok(());
             }
         }
+        // Each pass is up to ten engine CLI calls; on Windows every one is a
+        // process spawn competing with the VM that is loading the maps.
         std::thread::sleep(
-            Duration::from_millis(250).min(deadline.saturating_duration_since(Instant::now())),
+            Duration::from_secs(1).min(deadline.saturating_duration_since(Instant::now())),
         );
     }
-    Err("Timed out waiting for character registration with login-server and map loading".into())
+    Err(TIMED_OUT.into())
 }
 
 /// Keep rAthena's useful error text without its terminal colour sequences.
@@ -199,6 +206,6 @@ mod tests {
         let dk = Docker::new("unused".into(), "unused".into(), "unused".into());
         assert!(wait(&dk, None, Duration::ZERO)
             .unwrap_err()
-            .contains("Timed out"));
+            == TIMED_OUT);
     }
 }
