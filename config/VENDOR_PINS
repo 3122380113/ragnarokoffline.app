@@ -9,7 +9,7 @@
 # what scripts/vendor-bump.sh resolves -- builds fetch the commit.
 #
 #   name              url                                                commit                                    branch
-roBrowserLegacy   https://github.com/Flux159/roBrowserLegacy.git   4d4627d93e91071852c2ab1bd6f5519cb0266e9e  ragnarokoffline
+roBrowserLegacy   https://github.com/Flux159/roBrowserLegacy.git   9a90496340383ae13643e71b49a1a90673204b5e  ragnarokoffline
 ROenglishRE       https://github.com/llchrisll/ROenglishRE.git     66cdfec631603fda6a90ba4bbe26ab07b5204c84
 rathena           https://github.com/Flux159/rathena.git           d176792751dd8d958da5840dafb72e3c42273dbc  ragnarokoffline
 #
