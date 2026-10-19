@@ -432,11 +432,14 @@ load	renewal	npc/re/guides/guides_umbala.txt
 load	renewal	npc/re/guides/guides_veins.txt
 load	renewal	npc/re/guides/guides_woe_te.txt
 load	renewal	npc/re/instances/AirshipAssault.txt
+load	renewal	npc/re/instances/AirshipDestruction.txt
+load	renewal	npc/re/instances/BaggotLaboratory.txt
 load	renewal	npc/re/instances/BakonawaLake.txt
 load	renewal	npc/re/instances/BangungotHospital.txt
 load	renewal	npc/re/instances/BuwayaCave.txt
 load	renewal	npc/re/instances/CentralLaboratory.txt
 load	renewal	npc/re/instances/CharlestonCrisis.txt
+load	renewal	npc/re/instances/ConfusedSnakesNest.txt
 load	renewal	npc/re/instances/CorOperation.txt
 load	renewal	npc/re/instances/DeepForest.txt
 load	renewal	npc/re/instances/DevilTower.txt
@@ -451,6 +454,7 @@ load	renewal	npc/re/instances/HeartHunterWarBase.txt
 load	renewal	npc/re/instances/HiddenGarden.txt
 load	renewal	npc/re/instances/InfiniteSpace.txt
 load	renewal	npc/re/instances/IsleOfBios.txt
+load	renewal	npc/re/instances/IwinPatrol.txt
 load	renewal	npc/re/instances/LastRoom.txt
 load	renewal	npc/re/instances/LostFarm.txt
 load	renewal	npc/re/instances/MalangdoCulvert.txt
@@ -505,6 +509,7 @@ load	renewal	npc/re/merchants/enchan_rockridge.txt
 load	renewal	npc/re/merchants/enchan_sage_legacy_17_2.txt
 load	renewal	npc/re/merchants/enchan_verus.txt
 load	renewal	npc/re/merchants/enchantgrade.txt
+load	renewal	npc/re/merchants/episode_19.txt
 load	renewal	npc/re/merchants/Extended_Ammunition.txt
 load	renewal	npc/re/merchants/Extended_Stylist.txt
 load	renewal	npc/re/merchants/flute.txt
@@ -594,6 +599,7 @@ load	renewal	npc/re/quests/quests_illusion_dungeons.txt
 load	renewal	npc/re/quests/quests_17_1.txt
 load	renewal	npc/re/quests/quests_17_2.txt
 load	renewal	npc/re/quests/quests_18.txt
+load	renewal	npc/re/quests/quests_19.txt
 load	renewal	npc/re/quests/quests_aldebaran.txt
 load	renewal	npc/re/quests/quests_dewata.txt
 load	renewal	npc/re/quests/quests_dicastes.txt
@@ -721,6 +727,8 @@ load	renewal	npc/re/mobs/dungeons/gon_dun.txt
 load	renewal	npc/re/mobs/dungeons/ice_dun.txt
 load	renewal	npc/re/mobs/dungeons/in_sphinx.txt
 load	renewal	npc/re/mobs/dungeons/iz_dun.txt
+load	renewal	npc/re/mobs/dungeons/jor_ab.txt
+load	renewal	npc/re/mobs/dungeons/jor_dun.txt
 load	renewal	npc/re/mobs/dungeons/juperos.txt
 load	renewal	npc/re/mobs/dungeons/kh_dun.txt
 load	renewal	npc/re/mobs/dungeons/lhz_dun.txt
@@ -769,6 +777,7 @@ load	renewal	npc/re/mobs/fields/geffen.txt
 load	renewal	npc/re/mobs/fields/gonryun.txt
 load	renewal	npc/re/mobs/fields/gw_fild.txt
 load	renewal	npc/re/mobs/fields/hugel.txt
+load	renewal	npc/re/mobs/fields/jor_back.txt
 load	renewal	npc/re/mobs/fields/lighthalzen.txt
 load	renewal	npc/re/mobs/fields/louyang.txt
 load	renewal	npc/re/mobs/fields/lutie.txt
@@ -794,6 +803,7 @@ load	renewal	npc/re/warps/cities/einbech.txt
 load	renewal	npc/re/warps/cities/einbroch.txt
 load	renewal	npc/re/warps/cities/lasagna.txt
 load	renewal	npc/re/warps/cities/lighthalzen.txt
+load	renewal	npc/re/warps/cities/icecastle.txt
 load	renewal	npc/re/warps/cities/izlude.txt
 load	renewal	npc/re/warps/cities/malangdo.txt
 load	renewal	npc/re/warps/cities/malaya.txt
@@ -808,6 +818,7 @@ load	renewal	npc/re/warps/dungeons/ecl_dun.txt
 load	renewal	npc/re/warps/dungeons/ein_dun.txt
 load	renewal	npc/re/warps/dungeons/harboro2.txt
 load	renewal	npc/re/warps/dungeons/iz_dun.txt
+load	renewal	npc/re/warps/dungeons/jor_dun.txt
 load	renewal	npc/re/warps/dungeons/mag_dun.txt
 load	renewal	npc/re/warps/dungeons/moc_pryd.txt
 load	renewal	npc/re/warps/dungeons/nif_dun.txt
@@ -823,6 +834,7 @@ load	renewal	npc/re/warps/fields/dic_fild.txt
 load	renewal	npc/re/warps/fields/geffen_fild.txt
 load	renewal	npc/re/warps/fields/gw_fild.txt
 load	renewal	npc/re/warps/fields/hugel_fild.txt
+load	renewal	npc/re/warps/fields/jor_fild.txt
 load	renewal	npc/re/warps/fields/morroc_fild.txt
 load	renewal	npc/re/warps/fields/payon_fild.txt
 load	renewal	npc/re/warps/fields/prontera_fild.txt
@@ -3785,6 +3797,10 @@ on	Womenfolk#ep16wig01
 file	npc/re/quests/quests_16_2.txt
 on	Hiding researcher#
 on	Naga#16.2rmA
+file	npc/re/quests/quests_19.txt
+warp	prt_cas	174	342	king_room_in_king_room_	prt_cas	322	336
+warp	prt_cas	318	336	king_room_out_king_room	prt_cas	170	342
+warp	jor_ab02	286	87	#to_jor_ab01_	jor_ab01	12	238
 file	npc/re/quests/quests_dicastes.txt
 on	Hibba Agip#ep133_is07
 file	npc/re/quests/quests_eclage.txt
@@ -3936,6 +3952,34 @@ warp	ein_in01	273	273	roomB_roomBGate	ein_in01	274	243
 warp	einbroch	302	331	ein_to_pub	pub_cat	49	27
 warp	pub_cat	44	27	pub_to_ein	einbroch	302	326
 warp	pub_cat	146	105	backroom_exit	pub_cat	100	106
+file	npc/re/warps/cities/icecastle.txt
+warp	icas_in	33	109	#out_house1	icecastle	60	211
+warp	icecastle	62	137	#in_house5	icas_in	249	112
+warp	icas_in	249	109	#out_house5	icecastle	62	134
+warp	icecastle	64	225	#in_house2	icas_in	85	112
+warp	icas_in	85	109	#out_house2	icecastle	67	222
+warp	icecastle	88	241	#in_house3	icas_in	138	112
+warp	icas_in	138	109	#out_house3	icecastle	88	238
+warp	icecastle	159	243	#in_house4	icas_in	191	112
+warp	icas_in	191	109	#out_house4	icecastle	159	241
+warp	icecastle	186	222	#in_barracks	icas_in	108	32
+warp	icas_in	92	60	#in_barracks_L	icas_in	56	60
+warp	icas_in	59	60	#out_barracks)L	icas_in	95	60
+warp	icas_in	125	60	#in_barracks_R	icas_in	161	60
+warp	icas_in	158	60	#out_barracks_R	icas_in	122	60
+warp	icas_in	108	29	#out_barracks	icecastle	186	218
+warp	icas_in	85	257	#in_icas_room_L	icas_in	49	258
+warp	icas_in	53	258	#out_icas_romm_L	icas_in	89	257
+warp	icas_in	193	257	#in_icas_room_R	icas_in	226	258
+warp	icas_in	222	258	#out_icas_romm_R	icas_in	189	257
+warp	icas_in	83	233	#in_dining	icas_in	25	169
+warp	icas_in	25	166	#out_dining	icas_in	83	229
+warp	icas_in	193	233	#in_bedroom	icas_in	253	169
+warp	icas_in	253	166	#icas_in__	icas_in	193	229
+warp	icas_in	138	183	#out_icas	icecastle	208	168
+warp	icecastle	124	171	#in_restaurant	icas_in	243	36
+warp	icas_in	243	33	#out_restaurant	icecastle	123	168
+warp	icecastle	213	175	#to_icas_in	icas_in	138	187
 file	npc/re/warps/cities/izlude.txt
 warp	prt_fild08	371	212	prtf005	izlude	24	98
 warp	izlude	20	98	iz001	prt_fild08	367	212
@@ -4417,6 +4461,12 @@ file	npc/re/warps/dungeons/ein_dun.txt
 warp	ein_dun03	268	283	out_to_dun02	ein_dun02	24	250
 file	npc/re/warps/dungeons/harboro2.txt
 warp	harboro2	284	104	harboro2#harboro1	harboro1	318	124
+file	npc/re/warps/dungeons/jor_dun.txt
+warp	jor_dun02	286	87	#to_jor_dun01_B	jor_dun01	12	238
+warp	jor_dun02	18	31	#to_jor_nest	jor_nest	278	18
+warp	jor_ab01	113	7	#to_jor_back2_C	jor_back2	261	313
+warp	jor_nest	282	18	#jor_nest_to_jor_dun02	jor_dun02	21	32
+warp	jor_dun03	58	48	#hw_ep19re3_	jor_nest	62	255
 file	npc/re/warps/dungeons/mag_dun.txt
 warp	mag_dun03	124	120	mag03a_mag02a	mag_dun02	243	68
 file	npc/re/warps/dungeons/moc_pryd.txt
@@ -4615,6 +4665,22 @@ warp	hu_fild06	28	119	hugel011a	hu_fild05	347	130
 warp	ein_fild01	106	34	EinF01Dn01_EinF05Up01	ein_fild05	172	366
 warp	ein_fild01	234	34	EinF01Dn02_EinF05Up02	ein_fild05	172	366
 warp	ein_fild05	172	371	EinF05Up01_EinF01Dn01	ein_fild01	106	40
+file	npc/re/warps/fields/jor_fild.txt
+warp	jor_tail	219	294	#to_jor_back1_3	jor_back1	222	22
+warp	jor_back1	222	19	#to_tail_3	jor_tail	219	291
+warp	jor_tail	98	287	#to_jor_back1_1	jor_back1	98	13
+warp	jor_back1	98	10	#to_tail_1	jor_tail	98	284
+warp	jor_back1	131	10	#to_tail_2	jor_tail	139	280
+warp	jor_tail	134	281	#to_jor_back1_2	jor_back1	131	13
+warp	jor_back1	385	229	#to_icecastle	icecastle	20	123
+warp	icecastle	17	123	#to_jor_back1_A	jor_back1	380	229
+warp	jor_back1	214	390	#to_jor_back2_A	jor_back2	229	17
+warp	jor_back2	229	12	#to_jor_back1_B	jor_back1	214	387
+warp	jor_back2	9	248	#to_jor_back3_A	jor_back3	364	245
+warp	jor_back3	368	245	#to_jor_back2_B	jor_back2	13	248
+warp	jor_back3	63	326	#to_jor_dun01_A	jor_dun01	113	10
+warp	jor_dun01	113	7	#to_jor_back3_B	jor_back3	65	321
+warp	jor_back3	368	245	#to_jor_back2_D	jor_back2	13	248
 file	npc/re/warps/fields/morroc_fild.txt
 warp	moc_fild01	22	242	mocf005	prt_fild09	380	237
 warp	moc_fild01	239	382	mocf006	prt_fild08	233	20
