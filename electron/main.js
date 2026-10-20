@@ -1067,6 +1067,10 @@ const SETTINGS_DEFAULTS = {
 	// Random / Cancel; on, it warps at once, as a Fly Wing does. Maps to
 	// rAthena's skip_teleport_lv1_menu (conf/battle/skill.conf), stock `no`.
 	skip_teleport_lv1_menu: false,
+	// Which character a command starts with: '@storage' or '!storage'. Maps to
+	// rAthena's atcommand_symbol; '@' is stock. See
+	// electron/command-symbol.js for why the choice is a fixed list.
+	command_symbol: '@',
 	population_enable: false,
 	// A ceiling, not a target. Demand-driven spawning builds only the maps
 	// somebody is on, and a map holds 20-40 by the spawn tables, so this binds
@@ -1253,7 +1257,11 @@ function toolsInstance() {
 				}
 				handlers.open_game();
 				if (moved && moved.error) return { message: `The map is on, but the character was not moved: ${moved.error}`, moved };
-				return { message: char ? `The map is on. Log in with that character and you arrive on ${map} at ${x}, ${y}.` : `The map is on. As a GM: @warp ${map} ${x} ${y}.`, moved };
+				// The prefix is a setting, so the command to type has to be
+				// read rather than spelled: telling a player to type @warp on
+				// a server running on ! sends them somewhere nothing happens.
+				const prefix = require('./command-symbol').symbol(getSettings().command_symbol);
+				return { message: char ? `The map is on. Log in with that character and you arrive on ${map} at ${x}, ${y}.` : `The map is on. As a GM: ${prefix}warp ${map} ${x} ${y}.`, moved };
 			},
 		});
 	}
@@ -1283,6 +1291,10 @@ function agentPlay() {
 			gamePath: GAME_PATH,
 			runAccount: request => require('./accounts').runAccounts(stackBin(), stackEnv(), request),
 			era: () => (getSettings().prerenewal ? 'prerenewal' : 'renewal'),
+			// Read per call, not once: the player can change the prefix while
+			// an agent is playing, and a stale one leaves it saying "@warp
+			// prontera" in local chat instead of travelling.
+			commandPrefix: () => require('./command-symbol').symbol(getSettings().command_symbol),
 			hosting: () => getClientPaths().mode !== 'join',
 			log: appLog,
 		});
@@ -1382,6 +1394,10 @@ function toBattleConf(s) {
 		// battle.conf, so an untouched install writes nothing surprising.
 		`arrow_decrement: ${s.unlimited_arrows ? 'no' : 'yes'}\n` +
 		`skip_teleport_lv1_menu: ${s.skip_teleport_lv1_menu ? 'yes' : 'no'}\n` +
+		// Which character starts a command. One line, but the choice of what
+		// may go in it is rAthena's and not obvious -- see
+		// electron/command-symbol.js.
+		require('./command-symbol').commandSymbolConf(s) +
 		// One cap in the UI, several keys here, because rAthena caps third,
 		// baby, extended and summoner classes separately and a player who
 		// raises "the" limit means all of them -- setting only max_parameter
