@@ -1154,6 +1154,12 @@ const SETTINGS_DEFAULTS = {
 	// better served reading that. See GameText in stack/src/assets.rs for why
 	// the text and the codepage are one setting rather than two.
 	game_text: 'english',
+	// The client starts walking on a click instead of waiting for the server's
+	// answer, and blends the server's moves in rather than snapping to them
+	// (roBrowserLegacy#163). Off by default: with it off the client walks
+	// exactly as it always has. write_client_config in stack/src/assets.rs
+	// hands it to the client as `movePrediction`.
+	move_prediction: false,
 	// Which client version the server is built for and the client speaks --
 	// see electron/packetvers.js. null follows the app's default rather than
 	// pinning today's, so a later app that moves the default moves this too.
