@@ -69,7 +69,19 @@ function libraryInstallOnQuit(platform, installOnQuit) {
 	return platform !== 'darwin' && !!installOnQuit;
 }
 
-function createAppUpdater({ app, platform = process.platform, log, preferences, availability: avail, load, nativeUpdater, timers = { setTimeout, setInterval, clearTimeout } }) {
+// Where the Windows installer should put an update: the folder this copy runs
+// from. Left to itself, the NSIS installer works its folder out again from the
+// registry and the install mode (per user or for everyone), and for a player
+// who installed onto another drive it can work out the default instead -- the
+// update lands in AppData and the copy they use is left behind (#632). /D
+// overrides whatever it works out; electron-updater passes it from
+// installDirectory. null when the folder is not known.
+function windowsInstallDirectory(execPath) {
+	if (!execPath) return null;
+	return require('node:path').win32.dirname(execPath);
+}
+
+function createAppUpdater({ app, platform = process.platform, execPath = process.execPath, log, preferences, availability: avail, load, nativeUpdater, timers = { setTimeout, setInterval, clearTimeout } }) {
 	const state = {
 		enabled: avail.ok,
 		reason: avail.reason,
@@ -95,6 +107,10 @@ function createAppUpdater({ app, platform = process.platform, log, preferences, 
 		updater.allowPrerelease = false;
 		updater.allowDowngrade = false;
 		updater.autoInstallOnAppQuit = libraryInstallOnQuit(platform, preferences().installOnQuit);
+		if (platform === 'win32') {
+			const dir = windowsInstallDirectory(execPath);
+			if (dir) updater.installDirectory = dir;
+		}
 		updater.on('checking-for-update', () => { if (state.phase !== 'downloading') state.phase = 'checking'; });
 		updater.on('update-available', info => {
 			state.available = info.version;
@@ -238,4 +254,4 @@ function shortError(error) {
 	return message.split('\n')[0].slice(0, 200);
 }
 
-module.exports = { availability, quitPlan, libraryInstallOnQuit, createAppUpdater, shortError, CHECK_FIRST_MS, CHECK_EVERY_MS };
+module.exports = { availability, quitPlan, libraryInstallOnQuit, windowsInstallDirectory, createAppUpdater, shortError, CHECK_FIRST_MS, CHECK_EVERY_MS };
