@@ -14,12 +14,12 @@ is the reference for every hook, field and action used here.
 [`examples/mods/custom-skills`](../../examples/mods/custom-skills) is a
 complete example: a Guillotine Cross that loses two skills and gains seven.
 
-This needs **app 1.6.5 or later**. An older app has none of the hooks below,
+This needs **app 1.6.7 or later**. An older app has none of the hooks below,
 and lets a mod's skill tables replace the client's whole tables, so every
 stock skill loses its name and its place in the window. Say so in `mod.json`:
 
 ```json
-"requires": { "app": ">=1.6.5" }
+"requires": { "app": ">=1.6.7" }
 ```
 
 ## What goes in the mod
