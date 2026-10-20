@@ -92,6 +92,14 @@ pub fn game_text(cfg: &Config) -> Result<GameText, String> {
     }
 }
 
+/// Whether the player turned on move prediction. Anything but `true`, an
+/// unreadable settings.json included, leaves the client walking as it always
+/// has.
+fn move_prediction(cfg: &Config) -> bool {
+    crate::registration::settings(&cfg.state)
+        .is_ok_and(|s| matches!(s.get("move_prediction"), Some(crate::json::Value::Bool(true))))
+}
+
 /// Small overlays are owned copies. Multi-gigabyte archives and music are
 /// read in place through private configuration; no filesystem links are needed.
 fn readable_path(path: &Path, directory: bool) -> Result<PathBuf, String> {
@@ -925,6 +933,11 @@ fn write_client_config(
         body.replace("langtype: 0,", &format!("langtype: {},", text.langtype()))
     };
     let mut body = body;
+    // Settings -> General -> Movement: walk on the click rather than on the
+    // server's answer. Absent, the client's default (off) applies.
+    if move_prediction(cfg) {
+        body = insert_before_close(body, "\tmovePrediction: true,\n");
+    }
     // Only the stock Renewal server defines these packages. This separate file
     // fills missing client boxes without replacing any native package table.
     if !crate::cmds::is_prerenewal(cfg) {
@@ -1784,6 +1797,30 @@ mod tests {
         );
         assert!(body.contains("'plain': { path: 'plugins/plain/index', pars: {  } }"), "{body}");
         assert!(body.trim_end().ends_with("};"), "{body}");
+        fs::remove_dir_all(cfg.state.parent().unwrap()).unwrap();
+    }
+
+    /// Move prediction reaches the client only when the player turned it on;
+    /// off, or never set, the client config says nothing and the client's own
+    /// default (off) applies.
+    #[test]
+    fn move_prediction_follows_the_setting() {
+        let cfg = fixture_config("move-prediction");
+        fs::create_dir_all(cfg.root.join("config")).unwrap();
+        fs::write(cfg.root.join("config/Config.local.js"), "window.ROConfigLocal = {\nrenewal: true,\n};\n").unwrap();
+        let web = cfg.state.join("web");
+        fs::create_dir_all(&web).unwrap();
+        let written = || {
+            write_client_config(&cfg, &web, &[], &ModTables::default(), GameText::English, crate::packetver::default()).unwrap();
+            fs::read_to_string(web.join("Config.local.js")).unwrap()
+        };
+        assert!(!written().contains("movePrediction"));
+        fs::write(cfg.state.join("settings.json"), r#"{"move_prediction": false}"#).unwrap();
+        assert!(!written().contains("movePrediction"));
+        fs::write(cfg.state.join("settings.json"), r#"{"move_prediction": true}"#).unwrap();
+        let on = written();
+        assert!(on.contains("\tmovePrediction: true,\n"), "{on}");
+        assert!(on.trim_end().ends_with("};"), "{on}");
         fs::remove_dir_all(cfg.state.parent().unwrap()).unwrap();
     }
 
