@@ -64,6 +64,11 @@ impl GameText {
     }
 }
 
+/// Served as SystemEN/OngoingQuests.lub when the English quest table is
+/// already System/OngoingQuestInfoList.lub.
+const QUESTS_SERVED_AS_SYSTEM: &str =
+    "-- The English quest table is System/OngoingQuestInfoList.lub.\nQuestInfoList = {}\n";
+
 /// Read the setting, defaulting to the English translation.
 ///
 /// A value nobody wrote is refused rather than read as the default: the only
@@ -85,6 +90,14 @@ pub fn game_text(cfg: &Config) -> Result<GameText, String> {
         },
         Some(_) => Err(ERROR.into()),
     }
+}
+
+/// Whether the player turned on move prediction. Anything but `true`, an
+/// unreadable settings.json included, leaves the client walking as it always
+/// has.
+fn move_prediction(cfg: &Config) -> bool {
+    crate::registration::settings(&cfg.state)
+        .is_ok_and(|s| matches!(s.get("move_prediction"), Some(crate::json::Value::Bool(true))))
 }
 
 /// Small overlays are owned copies. Multi-gigabyte archives and music are
@@ -439,6 +452,14 @@ pub fn link(cfg: &Config, args: &[String]) -> Result<(), String> {
             )?;
         }
         copy_over(&en.join("SystemEN"), &server_root.join("SystemEN"))?;
+        // The client loads System/OngoingQuestInfoList.lub and then this file
+        // over it. Both are now the English table, so the second is an empty
+        // one: the same quests, without sending the table twice.
+        fs::write(
+            server_root.join("SystemEN/OngoingQuests.lub"),
+            QUESTS_SERVED_AS_SYSTEM,
+        )
+        .map_err(|e| e.to_string())?;
     }
     copy_data_aliased(
         &cfg.root.join("client-assets/data"),
@@ -454,8 +475,10 @@ pub fn link(cfg: &Config, args: &[String]) -> Result<(), String> {
     // (v3: the signboard table's name; v4: the client's item table staged
     // behind the English one; v5: the Compatibility layers stacked by packet
     // version; v6: the translation's hat effect table left out; v7: native
-    // itemInfo filename aliases), so a client holding the old staging drops it.
-    fnv(&mut fingerprint, b"owned-assets-v7");
+    // itemInfo filename aliases; v8: the English quest table sent once; v9: a
+    // mod's achievement table kept aside instead of over the base), so a
+    // client holding the old staging drops it.
+    fnv(&mut fingerprint, b"owned-assets-v9");
     fnv(&mut fingerprint, text.as_str().as_bytes());
     // Config.local.js carries it, and that file is an ordinary HTTP request
     // the shell only re-fetches when this fingerprint moves. Left out at the
@@ -910,6 +933,11 @@ fn write_client_config(
         body.replace("langtype: 0,", &format!("langtype: {},", text.langtype()))
     };
     let mut body = body;
+    // Settings -> General -> Movement: walk on the click rather than on the
+    // server's answer. Absent, the client's default (off) applies.
+    if move_prediction(cfg) {
+        body = insert_before_close(body, "\tmovePrediction: true,\n");
+    }
     // Only the stock Renewal server defines these packages. This separate file
     // fills missing client boxes without replacing any native package table.
     if !crate::cmds::is_prerenewal(cfg) {
@@ -1022,6 +1050,15 @@ mod tests {
         assert_eq!(
             fs::read_to_string(cfg.state.join("assets/System/itemInfo.lua")).unwrap(),
             "English items"
+        );
+        // The quests go once, under the name the client asks for first.
+        assert_eq!(
+            fs::read_to_string(cfg.state.join("assets/System/OngoingQuestInfoList.lub")).unwrap(),
+            "English quests"
+        );
+        assert_eq!(
+            fs::read_to_string(cfg.state.join("assets/SystemEN/OngoingQuests.lub")).unwrap(),
+            QUESTS_SERVED_AS_SYSTEM
         );
         assert_eq!(
             fs::read_to_string(en.join("Renewal/SystemEN/LuaFiles514/itemInfo.lua")).unwrap(),
@@ -1202,6 +1239,33 @@ mod tests {
         assert!(!cfg.state.join("assets/.translation/data/absent.txt").exists());
         assert!(!cfg.state.join("escaped.txt").exists());
         assert!(!cfg.state.join("assets/escaped.txt").exists());
+        fs::remove_dir_all(cfg.state.parent().unwrap()).unwrap();
+    }
+
+    /// A mod's achievement table is added to the English one rather than
+    /// served in its place: the stock achievements keep their text, and the
+    /// client is told to load the mod's after it (#594).
+    #[test]
+    fn a_mod_s_achievements_are_added_to_the_english_table() {
+        let cfg = fixture_config("mod-achievements");
+        let client = cfg.state.parent().unwrap().join("client");
+        write(&client.join("data.grf"), "archive");
+        write(&client.join("System/achievement_list.lub"), "Korean achievements");
+        let en = cfg.root.join("vendor/ROenglishRE/Translation");
+        write(&en.join("Renewal/data/table.txt"), "renewal table");
+        write(&en.join("Renewal/SystemEN/LuaFiles514/itemInfo.lua"), "English items");
+        write(&en.join("Renewal/SystemEN/OngoingQuests.lub"), "English quests");
+        write(&en.join("Renewal/SystemEN/achievements.lub"), "English achievements");
+        write(&cfg.root.join("config/Config.local.js"), "window.ROConfigLocal = {\nrenewal: true,\n};\n");
+        write(&cfg.root.join("config/index.html"), "game entry");
+        write(&cfg.state.join("mods/deeds/System/achievement_list.lub"), "Deeds achievements");
+        crate::mods::set_enabled(&cfg.state, "deeds", true).unwrap();
+        link(&cfg, &[client.join("data.grf").to_str().unwrap().to_string()]).unwrap();
+        let read = |p: &str| fs::read_to_string(cfg.state.join("assets").join(p)).unwrap();
+        assert_eq!(read("System/achievement_list.lub"), "English achievements");
+        assert_eq!(read("System/achievement_list-deeds.lub"), "Deeds achievements");
+        let config = read("Config.local.js");
+        assert!(config.contains("\tcustomAchievementInfo: ['System/achievement_list-deeds.lub'],\n"), "{config}");
         fs::remove_dir_all(cfg.state.parent().unwrap()).unwrap();
     }
 
@@ -1661,8 +1725,9 @@ mod tests {
         let _ = fs::remove_dir_all(&tmp);
     }
 
-    /// A mod's item and quest tables travel from its System/ folder into the
-    /// client config: the whole path, with the base item table named after it.
+    /// A mod's item, quest and achievement tables travel from its System/
+    /// folder into the client config: the whole path, with the base item table
+    /// named after it.
     #[test]
     fn a_mod_s_tables_reach_the_client_config() {
         let cfg = fixture_config("mod-tables");
@@ -1672,12 +1737,14 @@ mod tests {
         let src = cfg.state.join("mods/story/System");
         write(&src.join("itemInfo.lua"), "MOD ITEMS");
         write(&src.join("OngoingQuestInfoList.lub"), "MOD QUESTS");
+        write(&src.join("achievement_list.lub"), "MOD ACHIEVEMENTS");
         fs::write(cfg.root.join("config/Config.local.js"), "window.ROConfigLocal = {\n\tskipIntro: true\n};\n").unwrap();
         let tables = copy_system_layer(&src, &web.join("System"), "story").unwrap();
         write_client_config(&cfg, &web, &[], &tables, GameText::English, crate::packetver::default()).unwrap();
         let body = fs::read_to_string(web.join("Config.local.js")).unwrap();
         assert!(body.contains("\tcustomItemInfo: ['System/itemInfo-story.lua', 'System/itemInfo.lua'],\n"), "{body}");
         assert!(body.contains("\tcustomQuestInfo: ['System/OngoingQuestInfoList-story.lub'],\n"), "{body}");
+        assert!(body.contains("\tcustomAchievementInfo: ['System/achievement_list-story.lub'],\n"), "{body}");
         assert!(body.trim_end().ends_with("};"), "{body}");
         fs::remove_dir_all(cfg.state.parent().unwrap()).unwrap();
     }
@@ -1730,6 +1797,30 @@ mod tests {
         );
         assert!(body.contains("'plain': { path: 'plugins/plain/index', pars: {  } }"), "{body}");
         assert!(body.trim_end().ends_with("};"), "{body}");
+        fs::remove_dir_all(cfg.state.parent().unwrap()).unwrap();
+    }
+
+    /// Move prediction reaches the client only when the player turned it on;
+    /// off, or never set, the client config says nothing and the client's own
+    /// default (off) applies.
+    #[test]
+    fn move_prediction_follows_the_setting() {
+        let cfg = fixture_config("move-prediction");
+        fs::create_dir_all(cfg.root.join("config")).unwrap();
+        fs::write(cfg.root.join("config/Config.local.js"), "window.ROConfigLocal = {\nrenewal: true,\n};\n").unwrap();
+        let web = cfg.state.join("web");
+        fs::create_dir_all(&web).unwrap();
+        let written = || {
+            write_client_config(&cfg, &web, &[], &ModTables::default(), GameText::English, crate::packetver::default()).unwrap();
+            fs::read_to_string(web.join("Config.local.js")).unwrap()
+        };
+        assert!(!written().contains("movePrediction"));
+        fs::write(cfg.state.join("settings.json"), r#"{"move_prediction": false}"#).unwrap();
+        assert!(!written().contains("movePrediction"));
+        fs::write(cfg.state.join("settings.json"), r#"{"move_prediction": true}"#).unwrap();
+        let on = written();
+        assert!(on.contains("\tmovePrediction: true,\n"), "{on}");
+        assert!(on.trim_end().ends_with("};"), "{on}");
         fs::remove_dir_all(cfg.state.parent().unwrap()).unwrap();
     }
 
