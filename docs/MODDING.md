@@ -443,6 +443,11 @@ avoiding. If the two files cannot be combined at all — different `Type:` in
 the header, or a file that is not a table — the later name wins outright and
 **Settings → Mods says so under the mod whose copy is not in effect.**
 
+`db/mob_skill_db.txt` is a list of rows, not of entries with ids: rAthena gives
+a monster every row that names it, wherever the row is. Two mods' copies are
+joined, the later mod's rows after the earlier's, so a monster can get skills
+from both.
+
 ```yaml
 # my-mod/db/mob_db.yml — a Poring that fights back
 Header:

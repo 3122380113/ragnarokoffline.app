@@ -1589,6 +1589,30 @@ fn add_header_clear(text: &str) -> Option<String> {
     Some(format!("{}{indent}Clear: true\n{}", &text[..after], &text[after..]))
 }
 
+/// The line-based tables whose rows rAthena adds up rather than keys: one row
+/// per line, and a monster with rows in two places has them all. Two mods'
+/// copies combine by putting one's rows after the other's.
+const ROW_TABLES: &[&str] = &["mob_skill_db.txt"];
+
+/// Whether `child` (a path under `db/import`) is one of [`ROW_TABLES`].
+fn is_row_table(child: &str) -> bool {
+    let name = child.rsplit('/').next().unwrap_or(child);
+    ROW_TABLES.iter().any(|t| name.eq_ignore_ascii_case(t))
+}
+
+/// Two copies of a row table, the later mod's rows after the earlier's.
+fn merge_rows(existing: &str, incoming: &str) -> String {
+    let mut out = existing.trim_end_matches(['\r', '\n']).to_string();
+    if !out.is_empty() {
+        out.push('\n');
+    }
+    out.push_str(incoming);
+    if !out.ends_with('\n') {
+        out.push('\n');
+    }
+    out
+}
+
 /// Combine two mods' copies of the same rAthena table.
 ///
 /// Two mods that both add an item each ship `db/item_db.yml`, and merging them
@@ -1692,6 +1716,7 @@ fn copy_tree_owned(
             // accumulated their entries; merging by filename instead means one
             // of them silently does not exist, which is #98.
             let merged = match (fs::read_to_string(&to), fs::read_to_string(&from)) {
+                (Ok(existing), Ok(incoming)) if is_row_table(&child) => Some(merge_rows(&existing, &incoming)),
                 (Ok(existing), Ok(incoming)) => merge_tables(&existing, &incoming),
                 _ => None,
             };
@@ -3275,6 +3300,18 @@ mod tests {
 
     const TABLE_A: &str = "# a comment mentioning Body: in passing\nHeader:\n  Type: ITEM_DB\n  Version: 3\n\nBody:\n  - Id: 30000\n    AegisName: Mod_A_Potion\n";
     const TABLE_B: &str = "Header:\n  Type: ITEM_DB\n  Version: 3\n\nBody:\n  - Id: 30001\n    AegisName: Mod_B_Potion\n";
+
+    #[test]
+    fn row_tables_add_up() {
+        assert!(is_row_table("mob_skill_db.txt"));
+        assert!(is_row_table("sub/MOB_SKILL_DB.TXT"));
+        assert!(!is_row_table("mob_db.yml"));
+        let a = "// mod a\n1001,a@NPC_X,idle,1,1,1,0,0,yes,self,always,0,,,,,,\r\n";
+        let b = "1002,b@NPC_Y,idle,1,1,1,0,0,yes,self,always,0,,,,,,";
+        assert_eq!(merge_rows(a, b),
+            "// mod a\n1001,a@NPC_X,idle,1,1,1,0,0,yes,self,always,0,,,,,,\n1002,b@NPC_Y,idle,1,1,1,0,0,yes,self,always,0,,,,,,\n");
+        assert_eq!(merge_rows("", b), format!("{b}\n"));
+    }
 
     /// #98: two mods each add an item, each ships db/item_db.yml, and one of
     /// them silently did not exist. rAthena would have read both files.
