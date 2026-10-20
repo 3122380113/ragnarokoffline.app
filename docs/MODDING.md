@@ -1836,9 +1836,9 @@ Name a track as `"maps"` asks: letters, digits, `_` and `-`, and no `bgm` in a
 name that has a `-`. The client cuts any name that mentions "bgm" down to its
 last run of letters, digits and `_`, so `playBGM "duel-bgm"` plays `bgm.mp3`.
 
-In apps up to 1.6.4 both commands change nothing: their client ignored the
+In apps up to 1.6.6 both commands change nothing: their client ignored the
 packet they send to the client versions the app offers. A mod that depends on
-its music can say `"requires": { "app": ">1.6.4" }`.
+its music can say `"requires": { "app": ">=1.6.7" }`.
 
 ## Custom maps
 
