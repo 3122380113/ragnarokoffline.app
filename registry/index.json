@@ -697,6 +697,38 @@
       ]
     },
     {
+      "name": "halloween-town",
+      "version": "",
+      "author": "Lil Art",
+      "description": "A Halloween instance in a haunted, night-time Niflheim, solo or with your party. Talk to Casper in Niflheim (185, 190), pick a moon (Blue Moon for 90+, Blood Moon for 100-199, Eclipse for 200+), and stop Blair the witch across three hordes and four bosses within 90 minutes. Every kill pays Halloween Coins, which Jakk (180, 191) trades for costumes, boxes and a Sealed Card Album; Blair's tickets trade for Cash Points. Blue Moon works on Pre-renewal too.",
+      "homepage": "https://github.com/LilArt420/halloweentown",
+      "tags": [
+        "halloween",
+        "instance",
+        "mvp",
+        "npc",
+        "party",
+        "seasonal"
+      ],
+      "icon": "images/icon.png",
+      "screenshots": [],
+      "requires": {
+        "mods": [],
+        "era": "",
+        "app": ""
+      },
+      "source": {
+        "github": "LilArt420/halloweentown",
+        "asset": "halloween-town-*.zip"
+      },
+      "files": [
+        {
+          "path": "images/icon.png",
+          "sha256": "783ea154637c9f9096654e23fcd71338e13b66a77152b7e828a979fab6347967"
+        }
+      ]
+    },
+    {
       "name": "map-spawn-rate",
       "version": "1.0.0",
       "author": "BlaXun",
@@ -748,6 +780,39 @@
         {
           "path": "settings/maps.json",
           "sha256": "59a8c09cdbcf23e8f870a484f010087644384cb0fc5be73438cb9969dd9071fc"
+        }
+      ]
+    },
+    {
+      "name": "mega-booster",
+      "version": "",
+      "author": "akreao",
+      "description": "kRO's Mega Booster promotion. New characters get a Booster Box from the Booster Guide in Izlude (Lasagna for Doram), and the Booster Call summons Lime Evenor wherever you are: booster coin and mission shops, Lv 1-80 hunts, Booster Missions from Lv 80, enchants, Level Up Tickets, milestone rewards and the Premium Booster upgrade. Adds the Job Agent, Reset Service and Booster Exchanger in Prontera's Convenience Center and the two Booster Enchanters, with English quest text. Renewal only.",
+      "homepage": "https://github.com/akreao/mega-booster",
+      "tags": [
+        "booster",
+        "kro",
+        "leveling",
+        "npc",
+        "quest",
+        "renewal",
+        "shop"
+      ],
+      "icon": "images/icon.png",
+      "screenshots": [],
+      "requires": {
+        "mods": [],
+        "era": "renewal",
+        "app": ""
+      },
+      "source": {
+        "github": "akreao/mega-booster",
+        "asset": "mega-booster-*.zip"
+      },
+      "files": [
+        {
+          "path": "images/icon.png",
+          "sha256": "73892040edb5145bf08ffd79e8282afdcf43b3040d4d71af57920d14085913e8"
         }
       ]
     },
@@ -1025,6 +1090,47 @@
         {
           "path": "npc/refine_matk.txt",
           "sha256": "0819a593314d4254b1fea0b8d209de0ddab2b0176bed8a8bf0646f266f84a663"
+        }
+      ]
+    },
+    {
+      "name": "regional-items",
+      "version": "2.0.0",
+      "author": "Lil Art",
+      "description": "English names and descriptions for the regional items the server learned in 1.6.4: the kRO-only ones, iRO's wording for the 8 iRO-ability items, and names instead of \"Unknown Item\" for 3,582 server items no client table describes.",
+      "homepage": "",
+      "tags": [],
+      "icon": "",
+      "screenshots": [],
+      "requires": {
+        "mods": [],
+        "era": "renewal",
+        "app": ">=1.6.4"
+      },
+      "files": [
+        {
+          "path": "CHANGELOG.md",
+          "sha256": "04fdbaf3d9b80a6412fdb30b4e91d03a5e4c888ae627638d050584cd195e7fb8"
+        },
+        {
+          "path": "README.md",
+          "sha256": "940851df9531cf88a3b6a1231c1750c3cbd403a7ff0c453412720441d60bee5d"
+        },
+        {
+          "path": "System/itemInfo-regional-items-fill.lua",
+          "sha256": "6ce824873fffc13a091aa261dedbeb3fd2d68998d7f078a09f9e69f322064151"
+        },
+        {
+          "path": "System/itemInfo-regional-items-iro.lua",
+          "sha256": "0b2428297073196d0c267934aefd497c50fbb7e90a13e3ca7bcaf76d99fe15b4"
+        },
+        {
+          "path": "System/itemInfo-regional-items.lua",
+          "sha256": "184a7d73ca3a3a55eec564d70832efe6b73bd9c26d6e52dcde47abbd33a76ebb"
+        },
+        {
+          "path": "mod.json",
+          "sha256": "835e1f8e9495cfeb03931b96a8bcda980d86a6174ffae393a4d4a4f684f9a370"
         }
       ]
     },
