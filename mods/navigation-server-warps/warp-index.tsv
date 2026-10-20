@@ -443,6 +443,7 @@ load	renewal	npc/re/instances/ConfusedSnakesNest.txt
 load	renewal	npc/re/instances/CorOperation.txt
 load	renewal	npc/re/instances/DeepForest.txt
 load	renewal	npc/re/instances/DevilTower.txt
+load	renewal	npc/re/instances/DragonsTest.txt
 load	renewal	npc/re/instances/EclageInterior.txt
 load	renewal	npc/re/instances/EddaHalfMoonInTheDaylight.txt
 load	renewal	npc/re/instances/FacewormsNest.txt
@@ -669,6 +670,7 @@ load	renewal	npc/re/jobs/novice/academy.txt
 load	renewal	npc/re/jobs/novice/supernovice_ex.txt
 load	renewal	npc/re/jobs/repair.txt
 load	renewal	npc/re/jobs/doram/spirit_handler.txt
+load	renewal	npc/re/jobs/4-1/dragon_knight.txt
 load	renewal	npc/re/quests/skills/merchant_skills.txt
 load	renewal	npc/re/quests/skills/swordman_skills.txt
 load	renewal	npc/re/mapflag/nopvp.txt
