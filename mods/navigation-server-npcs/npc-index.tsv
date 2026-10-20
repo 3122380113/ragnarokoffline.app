@@ -2169,6 +2169,11 @@ load	renewal	npc/re/warps/other/TrainingZone123.txt
 load	renewal	npc/re/warps/other/un_myst.txt
 load	renewal	npc/re/warps/other/verus.txt
 load	renewal	npc/re/warps/guildcastles.txt
+load	renewal	npc/re/world_sync/spawns.txt
+load	renewal	npc/re/world_sync/warps.txt
+load	renewal	npc/re/world_sync/transports.txt
+load	renewal	npc/re/world_sync/npcs.txt
+load	renewal	npc/re/world_sync/rune_tablet.txt
 load	renewal	npc/custom/population/arena.txt
 load	renewal	npc/custom/population/recruiter.txt
 load	prerenewal	npc/other/Global_Functions.txt
@@ -13697,6 +13702,109 @@ npc	mid_camp	210	292	0	10007	Transport Device
 npc	moc_fild22b	222	200	0	10007	Transport Device
 npc	bif_fild01	318	159	0	10007	Transport Device
 npc	dic_fild02	241	31	0	10007	Transport Device
+file	npc/re/world_sync/npcs.txt
+npc	hero_lb	128	151	0	117	Kafra Staff
+npc	jor_albe	118	150	1	84	Tool Dealer
+npc	kindlbrk	174	124	0	114	Kafra Employee
+npc	mbase_in	217	126	1	83	Tool Dealer
+npc	pay_mk	107	93	0	117	Kafra Employee
+npc	pay_mk	109	44	0	115	Kafra Employee
+npc	pay_mk	160	103	0	114	Kafra Employee
+npc	pay_mk	46	104	0	113	Kafra Employee
+npc	pay_mk	99	160	0	112	Kafra Employee
+npc	pay_mk	145	163	1	83	Tool Dealer
+npc	pay_mk	64	162	1	84	Tool Dealer
+npc	pay_mk	67	40	1	85	Tool Dealer
+npc	pay_mk	143	37	1	85	Tool Dealer
+npc	prt_mk	162	153	0	117	Kafra Employee
+npc	prt_mk	172	24	0	115	Kafra Employee
+npc	prt_mk	295	171	0	114	Kafra Employee
+npc	prt_mk	28	154	0	113	Kafra Employee
+npc	prt_mk	152	299	0	112	Kafra Employee
+npc	prt_mk	294	47	1	83	Tool Dealer
+npc	prt_mk	53	23	1	84	Tool Dealer
+npc	prt_mk	27	275	1	85	Tool Dealer
+npc	prt_mk	272	299	1	85	Tool Dealer
+npc	ygg_fruit	167	119	0	114	Kafra Employee
+file	npc/re/world_sync/rune_tablet.txt
+npc	prontera	140	190	0	726	Rune Tablet
+file	npc/re/world_sync/transports.txt
+npc	ba_chess	13	16	0	100	Travel to ba_maison
+npc	ba_chess	13	36	0	100	Travel to bl_depth2
+npc	bl_death	65	121	0	100	Travel to bl_depth1
+npc	bl_depth1	179	179	0	100	Travel to ba_in01
+npc	bl_depth2	141	137	0	100	Travel to ba_chess
+npc	bl_grass	131	365	0	100	Travel to bl_depth1
+npc	bl_ice	198	268	0	100	Travel to bl_depth1
+npc	bl_lava	151	263	0	100	Travel to bl_depth1
+npc	bl_soul	300	292	0	100	Travel to bl_depth1
+npc	bl_temple	272	331	0	100	Travel to bl_depth1
+npc	bl_venom	182	250	0	100	Travel to bl_depth1
+npc	iroweekrace	134	208	0	100	Travel to izlude
+npc	jor_root1	32	75	0	100	Travel to jor_safty2
+npc	jor_safty1	195	155	0	100	Travel to jor_twice
+npc	jor_safty1	328	150	0	100	Travel to jor_twice
+npc	jor_twice	43	331	0	100	Travel to jor_twig
+npc	vr_bob	293	202	0	100	Travel to vr_bob
+npc	vr_bob	288	183	0	100	Travel to vr_bob
+npc	vr_bob	82	388	0	100	Travel to vr_bob
+npc	vr_bob	295	209	0	100	Travel to vr_bob
+npc	ch1fild1	106	84	0	100	Travel to ch1zero1
+npc	ch2safe3	142	68	0	100	Travel to kindlbrk
+npc	ch2safe4	197	114	0	100	Travel to uknw_ruin2
+npc	ch2safe4	213	231	0	100	Travel to uknw_ruin2
+npc	ch2safe4	235	176	0	100	Travel to ch2safe4
+npc	hem_dun01	221	209	0	100	Travel to ch1_dw
+npc	hem_fild	207	32	0	100	Travel to ygg_roots
+npc	hem_fild	334	188	0	100	Travel to hem_dun02
+npc	hem_fild	133	337	0	100	Travel to ch1_gfn03
+npc	hem_fild	231	299	0	100	Travel to ch1_gfn01
+npc	hero_lb	153	148	0	100	Travel to hero_dun1
+npc	hero_lb	116	163	0	100	Travel to gef_fild13
+npc	hero_lb	116	116	0	100	Travel to alde_gld
+npc	hero_lb	163	116	0	100	Travel to prt_gld
+npc	hero_lb	163	163	0	100	Travel to pay_gld
+npc	job4_tro	51	47	0	100	Travel to odin_tem03
+npc	jor_albe	201	200	0	100	Travel to jor_mbase
+npc	jor_crk	139	141	0	100	Travel to jor_tail
+npc	jor_crk	105	108	0	100	Travel to jor_crk_p
+npc	jor_crk_p	79	64	0	100	Travel to jor_mbase
+npc	jor_crk_p	105	108	0	100	Travel to jor_crk
+npc	jor_mbase	122	27	0	100	Travel to jor_crk_p
+npc	jor_mbase	343	148	0	100	Travel to jor_albe
+npc	jor_mbase	161	343	0	100	Travel to jor_raise2
+npc	jor_raise2	100	26	0	100	Travel to jor_mbase
+npc	kin_in01	171	122	0	100	Travel to kin_in01
+npc	kindlbrk	256	120	0	100	Travel to ch2safe3
+npc	mbase_in	85	141	0	100	Travel to mbase_in
+npc	mu_fild01	84	160	0	100	Travel to ygg_roots
+npc	rgs_dun1	273	80	0	100	Travel to ch2safe4
+npc	star_in	177	84	0	100	Travel to star_frst
+npc	uknw_ruin	266	243	0	100	Travel to ygg_roots
+npc	veledor	153	315	0	100	Travel to ygg_edge
+npc	vr_gen	20	56	0	100	Travel to prt_elib
+npc	vr_pop1	299	291	0	100	Travel to prt_elib
+npc	vr_pop1	284	244	0	100	Travel to vr_pop1
+npc	vr_pop1	253	81	0	100	Travel to vr_pop1
+npc	vr_pop1	73	147	0	100	Travel to vr_pop1
+npc	vr_pop1	49	160	0	100	Travel to vr_pop1
+npc	vr_pop1	81	94	0	100	Travel to vr_pop1
+npc	vr_pop1	70	91	0	100	Travel to vr_pop1
+npc	vr_pop1	102	358	0	100	Travel to vr_pop2
+npc	vr_pop2	152	29	0	100	Travel to vr_pop2
+npc	vr_pop2	159	167	0	100	Travel to vr_pop3
+npc	vr_pop3	149	179	0	100	Travel to vr_pop1
+npc	vr_prtg	50	22	0	100	Travel to vr_prtd03
+npc	vr_zrr01	46	134	0	100	Travel to vr_zrr02
+npc	ygg_edge	259	245	0	100	Travel to yggdrasil01
+npc	ygg_edge	31	117	0	100	Travel to ygg_roots
+npc	ygg_roots	325	153	0	100	Travel to ygg_edge
+npc	ygg_roots	157	242	0	100	Travel to hem_fild
+npc	ygg_roots	342	252	0	100	Travel to mu_fild01
+npc	ygg_roots	34	126	0	100	Travel to uknw_ruin
+npc	yuno_lib	61	84	0	100	Travel to vr_zrr01
+npc	yuno_lib	56	84	0	100	Travel to vr_hero00
+npc	yuno_lib	50	84	0	100	Travel to vr_prtg
 file	npc/test/npc_test_checkweight.txt
 npc	prontera	161	181	0	763	ChkSpace
 file	npc/test/npc_test_longvar.txt
