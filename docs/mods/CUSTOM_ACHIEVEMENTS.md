@@ -8,12 +8,12 @@ All of it comes from a mod folder, with no server rebuild. This page covers
 what such an achievement is made of and the traps between the files involved.
 [Making mods](../MODDING.md) is the reference for the rest of the mod format.
 
-An achievement needs **app 1.6.5 or later**: an older app replaces the
+An achievement needs **app 1.6.7 or later**: an older app replaces the
 client's whole achievement table with the mod's, and every stock achievement
 loses its text. Say so in `mod.json`:
 
 ```json
-"requires": { "app": ">=1.6.5" }
+"requires": { "app": ">=1.6.7" }
 ```
 
 ## What goes in the mod

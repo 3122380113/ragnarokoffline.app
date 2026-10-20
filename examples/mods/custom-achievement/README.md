@@ -21,7 +21,7 @@ are tested on their own.
 
 The client's achievement table names every achievement in the game. A mod that
 had to replace it to add one would take every other achievement's text with it,
-and before app 1.6.5 that is what happened. Now the app copies a mod's table
+and before app 1.6.7 that is what happened. Now the app copies a mod's table
 aside as `achievement_list-<mod>.lub` and lists it in the client's
 `customAchievementInfo`, which loads it after the stock table:
 

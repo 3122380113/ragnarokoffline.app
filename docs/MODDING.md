@@ -1969,8 +1969,8 @@ What completes the achievement, its reward and its score are in your mod's
 text in ASCII. The app copies each table aside as `achievement_list-<mod>.lub`
 and lists them in the client's `customAchievementInfo`, which loads **after**
 the base, in mod order, the last definition of an achievement winning. This
-needs app 1.6.5 or later: an older one lets the file replace the client's
-whole table, so say `"requires": { "app": ">=1.6.5" }`.
+needs app 1.6.7 or later: an older one lets the file replace the client's
+whole table, so say `"requires": { "app": ">=1.6.7" }`.
 [Custom achievements](mods/CUSTOM_ACHIEVEMENTS.md) covers the whole
 achievement: the server's side, the window's tabs, ids and titles. See
 [`examples/mods/custom-achievement`](../examples/mods/custom-achievement).
