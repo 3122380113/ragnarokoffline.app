@@ -442,6 +442,7 @@ load	renewal	npc/re/instances/ConfusedSnakesNest.txt
 load	renewal	npc/re/instances/CorOperation.txt
 load	renewal	npc/re/instances/DeepForest.txt
 load	renewal	npc/re/instances/DevilTower.txt
+load	renewal	npc/re/instances/DragonsTest.txt
 load	renewal	npc/re/instances/EclageInterior.txt
 load	renewal	npc/re/instances/EddaHalfMoonInTheDaylight.txt
 load	renewal	npc/re/instances/FacewormsNest.txt
@@ -668,6 +669,7 @@ load	renewal	npc/re/jobs/novice/academy.txt
 load	renewal	npc/re/jobs/novice/supernovice_ex.txt
 load	renewal	npc/re/jobs/repair.txt
 load	renewal	npc/re/jobs/doram/spirit_handler.txt
+load	renewal	npc/re/jobs/4-1/dragon_knight.txt
 load	renewal	npc/re/quests/skills/merchant_skills.txt
 load	renewal	npc/re/quests/skills/swordman_skills.txt
 load	renewal	npc/re/mapflag/nopvp.txt
@@ -3608,6 +3610,7 @@ mob	renewal	3814	MD_POPORING	36	Formless	Small	Wind	1	0	Enriched Poporing
 mob	renewal	3815	MD_PORING	34	Formless	Small	Earth	1	0	Enriched Poring
 mob	renewal	3816	MD_MARIN	33	Formless	Small	Water	1	0	Enriched Marin
 mob	renewal	3896	G_ILL_ASSULTER	160	Demon	Small	Wind	2	0	Ominous Assaulter
+mob	renewal	3910	E_EMPEL_1	0				0	0	Guardian Stone
 mob	renewal	20118	GOBLIN_KING	255	Demihuman	Medium	Wind	3	0	Goblin King
 mob	renewal	20175	EXTRA_JOKER	255	Demon	Large	Wind	4	0	Extra Joker
 mob	renewal	20176	ERZSEBET	254	Demon	Medium	Dark	1	0	Erzsebet
@@ -3686,6 +3689,8 @@ mob	renewal	20419	MUSPELLSKOLL_H	188	Demon	Medium	Fire	3	1	Rigid Muspellskoll
 mob	renewal	20420	WANDER_MAN_H	187	Demon	Medium	Wind	2	0	Corrupted Wanderer
 mob	renewal	20421	BRINARANEA_H	195	Demon	Large	Dark	3	1	Corrupted Spider Queen
 mob	renewal	20422	DARK_LORD_H	194	Undead	Large	Undead	3	1	Corrupted Dark Lord
+mob	renewal	20507	BONE_FERUS_MJ	206	Undead	Large	Undead	4	0	Bone Ferus
+mob	renewal	20508	BONE_ACIDUS_MJ	207	Undead	Large	Undead	4	0	Bone Acidus
 mob	renewal	20516	G_BONE_FERUS	206	Undead	Large	Undead	4	0	Bone Ferus
 mob	renewal	20517	G_BONE_ACIDUS	207	Undead	Large	Undead	4	0	Bone Acidus
 mob	renewal	20520	ILL_BAPHOMET	178	Demon	Large	Dark	3	0	Chaos Baphomet
@@ -3846,6 +3851,8 @@ mob	renewal	20848	SUMMON_WOODENWARRIOR	200	Plant	Medium	Earth	4	0	Wooden Warrior
 mob	renewal	20849	SUMMON_WOODEN_FAIRY	200	Plant	Small	Earth	4	0	Wooden Fairy
 mob	renewal	20850	SUMMON_CREEPER	200	Plant	Small	Earth	4	0	Creeper
 mob	renewal	20851	SUMMON_HELLTREE	200	Plant	Large	Neutral	4	0	Hell Tree
+mob	renewal	20875	4JOB_LETICIA	200	Dragon	Large	Dark	3	0	Leticia
+mob	renewal	20876	4JOB_ACIDUS	200	Dragon	Large	Holy	2	0	Spacetime Observer
 mob	renewal	20920	CHIMERA_LAVA	243	Formless	Small	Fire	3	0	Lavaeter
 mob	renewal	20921	CHIMERA_FULGOR	244	Brute	Medium	Water	3	0	Fulgor
 mob	renewal	20922	CHIMERA_NAPEO	244	Plant	Medium	Wind	3	0	Napeo
