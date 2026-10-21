@@ -122,7 +122,7 @@ test('keysIn ignores the generated header comment', () => {
 
 test('the generated settings come first and the player\'s own last', () => {
 	const main = read('electron/main.js');
-	assert.match(main, /function toBattleConf\(s\) \{\n\treturn generatedBattleConf\(s\) \+ require\('\.\/custom-conf'\)\.customConf\(s\);/,
+	assert.match(main, /function toBattleConf\(s\) \{\r?\n\treturn generatedBattleConf\(s\) \+ require\('\.\/custom-conf'\)\.customConf\(s\);/,
 		'custom lines must be appended after the generated ones, or they could not override a slider');
 	assert.match(main, /custom_battle_conf: '',/, 'SETTINGS_DEFAULTS does not carry the box');
 	assert.match(main, /require\('\.\/custom-conf'\)\.report\(generatedBattleConf\(settings\), settings\.custom_battle_conf\)/,
