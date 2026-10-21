@@ -187,6 +187,38 @@
       ]
     },
     {
+      "name": "black-sun",
+      "version": "",
+      "author": "Lil Art",
+      "description": "Black Sun: a solo or party instance on Mt. Mjolnir. James Wolf was bitten by a werewolf in the mountains, and the Black Sun is rising. Talk to his older brother John Wolf in Prontera (113, 190), break the Pack with your cousin-guide Nightwing, climb to the summit and face James, the Black Sun. Every party gets its own copy of the mountain. Base level 200, Renewal.",
+      "homepage": "https://github.com/LilArt420/blacksun",
+      "tags": [
+        "instance",
+        "mvp",
+        "npc",
+        "party",
+        "story",
+        "werewolf"
+      ],
+      "icon": "images/icon.png",
+      "screenshots": [],
+      "requires": {
+        "mods": [],
+        "era": "",
+        "app": ""
+      },
+      "source": {
+        "github": "LilArt420/blacksun",
+        "asset": "black-sun-*.zip"
+      },
+      "files": [
+        {
+          "path": "images/icon.png",
+          "sha256": "c09636b6a419dfdbfa540bb2df7496cf5213eb252c10aa67923c1eebb6546d72"
+        }
+      ]
+    },
+    {
       "name": "blaze-shield",
       "version": "1.0.0",
       "author": "BlaXun, Ragnarok Offline",
