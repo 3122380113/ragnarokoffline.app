@@ -4218,23 +4218,29 @@ mod tests {
     }
 
     /// The bundled player-commands grants must not repeat anything rAthena
-    /// already gives group 0, with or without its @go and @warp options -- a
-    /// repeat would cost it every other command in the group.
+    /// already gives group 0, with or without its @go, @warp and @storage
+    /// options -- a repeat would cost it every other command in the group.
     #[test]
     fn the_bundled_player_commands_grant_repeats_nothing() {
         let own = include_str!("../../mods/player-commands/conf/groups.yml");
         let go = include_str!("../../mods/player-commands/conf/when/allow_go/groups.yml");
         let warp = include_str!("../../mods/player-commands/conf/when/allow_warp/groups.yml");
+        let storage = include_str!("../../mods/player-commands/conf/when/allow_storage/groups.yml");
         let entries = vec![
             ("player-commands".to_string(), own.to_string()),
             ("player-commands (allow_go)".to_string(), go.to_string()),
             ("player-commands (allow_warp)".to_string(), warp.to_string()),
+            ("player-commands (allow_storage)".to_string(), storage.to_string()),
         ];
         let (body, notes) = combine_whole_conf("groups.yml", &entries, &[]);
         assert!(notes.is_empty(), "{notes:?}");
         let body = body.unwrap();
         assert!(body.contains("      autoloot: true") && body.contains("      go: true"), "{body}");
         assert!(body.contains("      mapmove: true"), "{body}");
+        // @storage is group 0's own storage. `storagelist` is a different
+        // command -- a GM reading somebody else's -- and stays where it is.
+        assert!(body.contains("      storage: true"), "{body}");
+        assert!(!body.contains("storagelist"), "{body}");
         // Spelled with its alias, @warp is the same grant as mapmove.
         let aliased = format!("{GROUP_HEADER}  - Id: 0\n    Commands:\n      warp: true\n");
         let mut entries = entries;
