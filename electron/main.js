@@ -1164,6 +1164,10 @@ const SETTINGS_DEFAULTS = {
 	// exactly as it always has. write_client_config in stack/src/assets.rs
 	// hands it to the client as `movePrediction`.
 	move_prediction: false,
+	// Map changes without the fade to and from the loading image: the client's
+	// `transitionDuration` at 1 ms instead of its 500 (write_client_config).
+	// Off by default, as official clients fade.
+	instant_map_changes: false,
 	// Which client version the server is built for and the client speaks --
 	// see electron/packetvers.js. null follows the app's default rather than
 	// pinning today's, so a later app that moves the default moves this too.
