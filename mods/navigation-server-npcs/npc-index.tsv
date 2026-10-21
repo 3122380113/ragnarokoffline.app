@@ -13732,7 +13732,7 @@ npc	prt_mk	27	275	1	85	Tool Dealer
 npc	prt_mk	272	299	1	85	Tool Dealer
 npc	ygg_fruit	167	119	0	114	Kafra Employee
 file	npc/re/world_sync/rune_tablet.txt
-npc	prontera	140	190	0	726	Rune Tablet
+npc	prontera	193	189	0	726	Rune Tablet
 file	npc/re/world_sync/transports.txt
 npc	ba_chess	13	16	0	100	Travel to ba_maison
 npc	ba_chess	13	36	0	100	Travel to bl_depth2
