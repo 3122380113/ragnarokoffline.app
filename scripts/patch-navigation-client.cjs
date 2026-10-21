@@ -200,8 +200,13 @@ function replaceNavigationRawAssignment(variableName, value) {
 replaceNavigationRawAssignment('Navigation_default$2', classicNavigationHtml);
 replaceNavigationRawAssignment('Navigation_default$1', classicNavigationCss);
 
-const navigationVarsNeedle = 'var Navigation, _arrow, _toolDealer, _weaponDealer, _armorDealer, _blacksmith, _guide, _inn, _kafra, _map, _ctx$2, _towninfo, _markers, _path, _lastPathUpdate, _pathUpdateThrottle, _pathUpdateLock, _pathFindingWorker, _mapData, _targetData, _finalTargetData, _isMapClickTarget, _blinking, _fadeInterval, _originalColor, _documentClickHandler, Navigation_default;';
-if (patched.split(navigationVarsNeedle).length !== 2) throw Error('Navigation variable declaration not found');
+// The bundler numbers a module-level name that another module also uses
+// (`_ctx$2`), and the number moves whenever a module anywhere in the client
+// adds or drops one -- the 2026-10-15 client pin made it `_ctx$3`. Match the
+// declaration with any number rather than one build's.
+const navigationVarsMatches = patched.match(/var Navigation, _arrow, _toolDealer, _weaponDealer, _armorDealer, _blacksmith, _guide, _inn, _kafra, _map, _ctx(?:\$\d+)?, _towninfo, _markers, _path, _lastPathUpdate, _pathUpdateThrottle, _pathUpdateLock, _pathFindingWorker, _mapData, _targetData, _finalTargetData, _isMapClickTarget, _blinking, _fadeInterval, _originalColor, _documentClickHandler, Navigation_default;/g) || [];
+if (navigationVarsMatches.length !== 1) throw Error('Navigation variable declaration not found');
+const navigationVarsNeedle = navigationVarsMatches[0];
 const groundPathImplementation = String.raw`var _navigationGroundPathProgram = null;
 var _navigationGroundPathBuffers = Array(8).fill(null);
 var _navigationGroundPathTextures = Array(8).fill(null);

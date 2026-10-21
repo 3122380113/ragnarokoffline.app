@@ -1589,6 +1589,30 @@ fn add_header_clear(text: &str) -> Option<String> {
     Some(format!("{}{indent}Clear: true\n{}", &text[..after], &text[after..]))
 }
 
+/// The line-based tables whose rows rAthena adds up rather than keys: one row
+/// per line, and a monster with rows in two places has them all. Two mods'
+/// copies combine by putting one's rows after the other's.
+const ROW_TABLES: &[&str] = &["mob_skill_db.txt"];
+
+/// Whether `child` (a path under `db/import`) is one of [`ROW_TABLES`].
+fn is_row_table(child: &str) -> bool {
+    let name = child.rsplit('/').next().unwrap_or(child);
+    ROW_TABLES.iter().any(|t| name.eq_ignore_ascii_case(t))
+}
+
+/// Two copies of a row table, the later mod's rows after the earlier's.
+fn merge_rows(existing: &str, incoming: &str) -> String {
+    let mut out = existing.trim_end_matches(['\r', '\n']).to_string();
+    if !out.is_empty() {
+        out.push('\n');
+    }
+    out.push_str(incoming);
+    if !out.ends_with('\n') {
+        out.push('\n');
+    }
+    out
+}
+
 /// Combine two mods' copies of the same rAthena table.
 ///
 /// Two mods that both add an item each ship `db/item_db.yml`, and merging them
@@ -1692,6 +1716,7 @@ fn copy_tree_owned(
             // accumulated their entries; merging by filename instead means one
             // of them silently does not exist, which is #98.
             let merged = match (fs::read_to_string(&to), fs::read_to_string(&from)) {
+                (Ok(existing), Ok(incoming)) if is_row_table(&child) => Some(merge_rows(&existing, &incoming)),
                 (Ok(existing), Ok(incoming)) => merge_tables(&existing, &incoming),
                 _ => None,
             };
@@ -2491,11 +2516,13 @@ const CLASHES_FILE: &str = ".clashes.tsv";
 /// kinds of trouble with a mod's tables reach Settings by the same road.
 /// The id namespaces two mods can collide in: every item table is one
 /// namespace (rAthena reads item_db.yml and the item_db_*.yml files into the
-/// same table), and monsters are another.
+/// same table), and monsters and achievements are one each.
 fn id_namespace(file: &str) -> Option<&'static str> {
     let lower = file.to_lowercase();
     if lower == "mob_db.yml" {
         Some("monster")
+    } else if lower == "achievement_db.yml" {
+        Some("achievement")
     } else if lower.starts_with("item_db") && lower.ends_with(".yml") {
         Some("item")
     } else {
@@ -2512,7 +2539,7 @@ fn table_ids(body: &str) -> Vec<u64> {
         .collect()
 }
 
-/// Two enabled mods that define the same monster or item id.
+/// Two enabled mods that define the same monster, item or achievement id.
 ///
 /// Their tables are combined (see copy_tree_owned), and rAthena applies the
 /// entries in mod order, so the later mod's fields win over the earlier's for
@@ -2549,7 +2576,11 @@ fn id_collisions(mods: &[(&str, &Path)]) -> Vec<(String, String)> {
         .map(|((earlier, later, ns), ids)| {
             let shown: Vec<String> = ids.iter().take(5).map(u64::to_string).collect();
             let more = if ids.len() > 5 { format!(" and {} more", ids.len() - 5) } else { String::new() };
-            let (noun, plural) = if ns == "item" { ("item", "items") } else { ("monster", "monsters") };
+            let (noun, plural) = match ns {
+                "item" => ("item", "items"),
+                "achievement" => ("achievement", "achievements"),
+                _ => ("monster", "monsters"),
+            };
             let what = if ids.len() == 1 { format!("{noun} {}", shown[0]) } else { format!("{plural} {}{more}", shown.join(", ")) };
             (
                 earlier.clone(),
@@ -3270,6 +3301,18 @@ mod tests {
     const TABLE_A: &str = "# a comment mentioning Body: in passing\nHeader:\n  Type: ITEM_DB\n  Version: 3\n\nBody:\n  - Id: 30000\n    AegisName: Mod_A_Potion\n";
     const TABLE_B: &str = "Header:\n  Type: ITEM_DB\n  Version: 3\n\nBody:\n  - Id: 30001\n    AegisName: Mod_B_Potion\n";
 
+    #[test]
+    fn row_tables_add_up() {
+        assert!(is_row_table("mob_skill_db.txt"));
+        assert!(is_row_table("sub/MOB_SKILL_DB.TXT"));
+        assert!(!is_row_table("mob_db.yml"));
+        let a = "// mod a\n1001,a@NPC_X,idle,1,1,1,0,0,yes,self,always,0,,,,,,\r\n";
+        let b = "1002,b@NPC_Y,idle,1,1,1,0,0,yes,self,always,0,,,,,,";
+        assert_eq!(merge_rows(a, b),
+            "// mod a\n1001,a@NPC_X,idle,1,1,1,0,0,yes,self,always,0,,,,,,\n1002,b@NPC_Y,idle,1,1,1,0,0,yes,self,always,0,,,,,,\n");
+        assert_eq!(merge_rows("", b), format!("{b}\n"));
+    }
+
     /// #98: two mods each add an item, each ships db/item_db.yml, and one of
     /// them silently did not exist. rAthena would have read both files.
     #[test]
@@ -3643,6 +3686,16 @@ mod tests {
         // Items are one namespace across item_db.yml and item_db_*.yml.
         fs::write(a.join("db/item_db.yml"), "Body:\n  - Id: 50001\n").unwrap();
         fs::write(c.join("db/item_db_etc.yml"), "Body:\n  - Id: 50001\n  - Id: 50002\n").unwrap();
+        // Achievements are a namespace of their own: 50001 there is no item.
+        let achievements = |ids: &[u64]| {
+            let mut s = String::from("Header:\n  Type: ACHIEVEMENT_DB\n  Version: 2\n\nBody:\n");
+            for id in ids {
+                s.push_str(&format!("  - Id: {id}\n    Group: None\n    Name: A{id}\n    Dependents:\n      900000: true\n"));
+            }
+            s
+        };
+        fs::write(b.join("db/achievement_db.yml"), achievements(&[900001, 50001])).unwrap();
+        fs::write(c.join("db/achievement_db.yml"), achievements(&[900001, 900002])).unwrap();
 
         let found = id_collisions(&[("a", a.as_path()), ("b", b.as_path()), ("c", c.as_path())]);
         assert_eq!(
@@ -3655,6 +3708,10 @@ mod tests {
                 (
                     "a".to_string(),
                     "c also defines item 50001, so c's version is the one in effect. If they are different items, one of the two mods needs other ids.".to_string()
+                ),
+                (
+                    "b".to_string(),
+                    "c also defines achievement 900001, so c's version is the one in effect. If they are different achievements, one of the two mods needs other ids.".to_string()
                 ),
             ]
         );
@@ -4161,23 +4218,29 @@ mod tests {
     }
 
     /// The bundled player-commands grants must not repeat anything rAthena
-    /// already gives group 0, with or without its @go and @warp options -- a
-    /// repeat would cost it every other command in the group.
+    /// already gives group 0, with or without its @go, @warp and @storage
+    /// options -- a repeat would cost it every other command in the group.
     #[test]
     fn the_bundled_player_commands_grant_repeats_nothing() {
         let own = include_str!("../../mods/player-commands/conf/groups.yml");
         let go = include_str!("../../mods/player-commands/conf/when/allow_go/groups.yml");
         let warp = include_str!("../../mods/player-commands/conf/when/allow_warp/groups.yml");
+        let storage = include_str!("../../mods/player-commands/conf/when/allow_storage/groups.yml");
         let entries = vec![
             ("player-commands".to_string(), own.to_string()),
             ("player-commands (allow_go)".to_string(), go.to_string()),
             ("player-commands (allow_warp)".to_string(), warp.to_string()),
+            ("player-commands (allow_storage)".to_string(), storage.to_string()),
         ];
         let (body, notes) = combine_whole_conf("groups.yml", &entries, &[]);
         assert!(notes.is_empty(), "{notes:?}");
         let body = body.unwrap();
         assert!(body.contains("      autoloot: true") && body.contains("      go: true"), "{body}");
         assert!(body.contains("      mapmove: true"), "{body}");
+        // @storage is group 0's own storage. `storagelist` is a different
+        // command -- a GM reading somebody else's -- and stays where it is.
+        assert!(body.contains("      storage: true"), "{body}");
+        assert!(!body.contains("storagelist"), "{body}");
         // Spelled with its alias, @warp is the same grant as mapmove.
         let aliased = format!("{GROUP_HEADER}  - Id: 0\n    Commands:\n      warp: true\n");
         let mut entries = entries;

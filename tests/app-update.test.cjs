@@ -63,7 +63,7 @@ function fakeNative() {
   return n;
 }
 
-function make({ platform = 'win32', installOnQuit = false, auto = true } = {}) {
+function make({ platform = 'win32', installOnQuit = false, auto = true, execPath = 'D:\\Games\\Ragnarok Offline\\Ragnarok Offline.exe' } = {}) {
   const prefs = { auto, installOnQuit };
   const lib = fakeLibrary();
   const native = fakeNative();
@@ -71,6 +71,7 @@ function make({ platform = 'win32', installOnQuit = false, auto = true } = {}) {
   const u = update.createAppUpdater({
     app: { getVersion: () => '1.6.2' },
     platform,
+    execPath,
     log: () => {},
     preferences: () => ({ ...prefs }),
     availability: { ok: true, reason: '' },
@@ -189,4 +190,18 @@ test('electron-updater stages with Squirrel.Mac only when told to', { skip: !fs.
   assert.match(before(calls[0]), /if \(this\.autoInstallOnAppQuit\) \{[^}]*$/);
   // In quitAndInstall, only when the flag was off (so the download path did not).
   assert.match(before(calls[1]), /quitAndInstall\(\) \{[\s\S]*if \(!this\.autoInstallOnAppQuit\) \{[^}]*$/);
+});
+
+test('Windows: the update installs over the folder this copy runs from, even on another drive (#632)', async () => {
+  const t = make({ platform: 'win32' });
+  await downloaded(t);
+  assert.strictEqual(t.lib.installDirectory, 'D:\\Games\\Ragnarok Offline');
+  assert.strictEqual(update.windowsInstallDirectory('C:\\Users\\p\\AppData\\Local\\Programs\\ragnarokoffline\\Ragnarok Offline.exe'),
+    'C:\\Users\\p\\AppData\\Local\\Programs\\ragnarokoffline');
+  assert.strictEqual(update.windowsInstallDirectory(''), null);
+  for (const platform of ['darwin', 'linux']) {
+    const other = make({ platform });
+    await downloaded(other);
+    assert.strictEqual(other.lib.installDirectory, undefined, platform);
+  }
 });

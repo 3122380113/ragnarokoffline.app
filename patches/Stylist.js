@@ -122,7 +122,15 @@ function offered(look) {
  * 0 or 1, but an entity may carry its outfit's job ID instead.
  */
 function bodyStyle(player) {
-	return player && player.body > 0 && player.body !== player.job ? 1 : 0;
+	return player && player.body > 0 && player.body !== baseJob(player) ? 1 : 0;
+}
+
+/**
+ * The character's own class. `job` is what it is drawn as: the mount's
+ * sprite while riding (Peco Peco, Dragon, Gryphon, Madogear, ...).
+ */
+function baseJob(player) {
+	return player._job >= 0 ? player._job : player.job;
 }
 
 /**
@@ -353,7 +361,7 @@ function makeEntity(look) {
 	entity.set({
 		GID: 'stylist_' + ++_entities,
 		objecttype: Entity.TYPE_PC,
-		job: player ? player.job : 0,
+		job: player ? baseJob(player) : 0,
 		sex: player ? player.sex : 0,
 		name: '',
 		hideShadow: true,
