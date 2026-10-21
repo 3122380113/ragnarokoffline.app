@@ -2671,10 +2671,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9969] = {
-		unidentifiedDisplayName = "Healing Ark    # !todo check english name",
+		unidentifiedDisplayName = "Healing Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Healing Ark    # !todo check english name",
+		identifiedDisplayName = "Healing Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2686,10 +2686,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9970] = {
-		unidentifiedDisplayName = "Stick Ark    # !todo check english name",
+		unidentifiedDisplayName = "Stick Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Stick Ark    # !todo check english name",
+		identifiedDisplayName = "Stick Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2701,10 +2701,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9971] = {
-		unidentifiedDisplayName = "Major Battle Ark    # !todo check english name",
+		unidentifiedDisplayName = "Major Battle Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Major Battle Ark    # !todo check english name",
+		identifiedDisplayName = "Major Battle Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2716,10 +2716,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9972] = {
-		unidentifiedDisplayName = "Battle Ark    # !todo check english name",
+		unidentifiedDisplayName = "Battle Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Battle Ark    # !todo check english name",
+		identifiedDisplayName = "Battle Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2731,10 +2731,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9973] = {
-		unidentifiedDisplayName = "Major Ark of Life    # !todo check english name",
+		unidentifiedDisplayName = "Major Ark of Life",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Major Ark of Life    # !todo check english name",
+		identifiedDisplayName = "Major Ark of Life",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2746,10 +2746,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9974] = {
-		unidentifiedDisplayName = "Ark of Life    # !todo check english name",
+		unidentifiedDisplayName = "Ark of Life",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Ark of Life    # !todo check english name",
+		identifiedDisplayName = "Ark of Life",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2761,10 +2761,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9975] = {
-		unidentifiedDisplayName = "Divine Major Ark    # !todo check english name",
+		unidentifiedDisplayName = "Divine Major Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Divine Major Ark    # !todo check english name",
+		identifiedDisplayName = "Divine Major Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2776,10 +2776,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9976] = {
-		unidentifiedDisplayName = "Divine Ark    # !todo check english name",
+		unidentifiedDisplayName = "Divine Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Divine Ark    # !todo check english name",
+		identifiedDisplayName = "Divine Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2791,10 +2791,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9977] = {
-		unidentifiedDisplayName = "Major Refining Ark    # !todo check english name",
+		unidentifiedDisplayName = "Major Refining Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Major Refining Ark    # !todo check english name",
+		identifiedDisplayName = "Major Refining Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2806,10 +2806,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9978] = {
-		unidentifiedDisplayName = "Refining Ark    # !todo check english name",
+		unidentifiedDisplayName = "Refining Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Refining Ark    # !todo check english name",
+		identifiedDisplayName = "Refining Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2821,10 +2821,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9979] = {
-		unidentifiedDisplayName = "Perfect Ark    # !todo check english name",
+		unidentifiedDisplayName = "Perfect Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Perfect Ark    # !todo check english name",
+		identifiedDisplayName = "Perfect Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2836,10 +2836,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9980] = {
-		unidentifiedDisplayName = "Ore Ark    # !todo check english name",
+		unidentifiedDisplayName = "Ore Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Ore Ark    # !todo check english name",
+		identifiedDisplayName = "Ore Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2851,10 +2851,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9981] = {
-		unidentifiedDisplayName = "Scroll Ark    # !todo check english name",
+		unidentifiedDisplayName = "Scroll Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Scroll Ark    # !todo check english name",
+		identifiedDisplayName = "Scroll Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2866,10 +2866,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9982] = {
-		unidentifiedDisplayName = "Special Ark    # !todo check english name",
+		unidentifiedDisplayName = "Special Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Special Ark    # !todo check english name",
+		identifiedDisplayName = "Special Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2881,10 +2881,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9983] = {
-		unidentifiedDisplayName = "Major Celestial Ark    # !todo check english name",
+		unidentifiedDisplayName = "Major Celestial Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Major Celestial Ark    # !todo check english name",
+		identifiedDisplayName = "Major Celestial Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2896,10 +2896,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9984] = {
-		unidentifiedDisplayName = "Major Celestial Ark    # !todo check english name",
+		unidentifiedDisplayName = "Major Celestial Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Major Celestial Ark    # !todo check english name",
+		identifiedDisplayName = "Major Celestial Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2911,10 +2911,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9985] = {
-		unidentifiedDisplayName = "Potions Ark    # !todo check english name",
+		unidentifiedDisplayName = "Potions Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Potions Ark    # !todo check english name",
+		identifiedDisplayName = "Potions Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2926,10 +2926,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9986] = {
-		unidentifiedDisplayName = "Reset Ark    # !todo check english name",
+		unidentifiedDisplayName = "Reset Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Reset Ark    # !todo check english name",
+		identifiedDisplayName = "Reset Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2941,10 +2941,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9987] = {
-		unidentifiedDisplayName = "Major Evolve Ark    # !todo check english name",
+		unidentifiedDisplayName = "Major Evolve Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Major Evolve Ark    # !todo check english name",
+		identifiedDisplayName = "Major Evolve Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -2956,10 +2956,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[9988] = {
-		unidentifiedDisplayName = "Evolve Ark    # !todo check english name",
+		unidentifiedDisplayName = "Evolve Ark",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Evolve Ark    # !todo check english name",
+		identifiedDisplayName = "Evolve Ark",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -4637,10 +4637,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[14622] = {
-		unidentifiedDisplayName = "Cherry Blossom Scroll    # !todo check english name",
+		unidentifiedDisplayName = "Cherry Blossom Scroll",
 		unidentifiedResourceName = "오래된노란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Cherry Blossom Scroll    # !todo check english name",
+		identifiedDisplayName = "Cherry Blossom Scroll",
 		identifiedResourceName = "오래된노란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -6100,10 +6100,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[15345] = {
-		unidentifiedDisplayName = "Blue Dragon Armor    # !todo check english name",
+		unidentifiedDisplayName = "Blue Dragon Armor",
 		unidentifiedResourceName = "코튼셔츠",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Blue Dragon Armor    # !todo check english name",
+		identifiedDisplayName = "Blue Dragon Armor",
 		identifiedResourceName = "코튼셔츠",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -6119,10 +6119,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[15369] = {
-		unidentifiedDisplayName = "Futuristic Tiara    # !todo check english name",
+		unidentifiedDisplayName = "Futuristic Tiara",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Futuristic Tiara    # !todo check english name",
+		identifiedDisplayName = "Futuristic Tiara",
 		identifiedResourceName = "시험관헤어밴드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -6162,10 +6162,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[15385] = {
-		unidentifiedDisplayName = "Little Robot Know-It-All    # !todo check english name",
+		unidentifiedDisplayName = "Little Robot Know-It-All",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Little Robot Know-It-All    # !todo check english name",
+		identifiedDisplayName = "Little Robot Know-It-All",
 		identifiedResourceName = "소형정찰기",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -7347,10 +7347,10 @@ tbl = {
 		ClassNum = 2057
 	},
 	[15847] = {
-		unidentifiedDisplayName = "Costume Unknown Feather Hat    # !todo check english name",
+		unidentifiedDisplayName = "Costume Unknown Feather Hat",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Unknown Feather Hat    # !todo check english name",
+		identifiedDisplayName = "Costume Unknown Feather Hat",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -7668,10 +7668,10 @@ tbl = {
 		ClassNum = 2121
 	},
 	[15920] = {
-		unidentifiedDisplayName = "Flaming Heart    # !todo check english name",
+		unidentifiedDisplayName = "Flaming Heart",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Flaming Heart    # !todo check english name",
+		identifiedDisplayName = "Flaming Heart",
 		identifiedResourceName = "챰오브프레임하트",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -11471,10 +11471,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[19933] = {
-		unidentifiedDisplayName = "Costume 711 Headphone    # !todo check english name",
+		unidentifiedDisplayName = "Costume 711 Headphone",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume 711 Headphone    # !todo check english name",
+		identifiedDisplayName = "Costume 711 Headphone",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -11841,10 +11841,10 @@ tbl = {
 		ClassNum = 5
 	},
 	[20617] = {
-		unidentifiedDisplayName = "Costume Wing of Eutaxy    # !todo check english name",
+		unidentifiedDisplayName = "Costume Wing of Eutaxy",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Wing of Eutaxy    # !todo check english name",
+		identifiedDisplayName = "Costume Wing of Eutaxy",
 		identifiedResourceName = "포링모자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -12340,10 +12340,10 @@ tbl = {
 		ClassNum = 32
 	},
 	[20927] = {
-		unidentifiedDisplayName = "2018 RTC Cape1    # !todo check english name",
+		unidentifiedDisplayName = "2018 RTC Cape1",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "2018 RTC Cape1    # !todo check english name",
+		identifiedDisplayName = "2018 RTC Cape1",
 		identifiedResourceName = "스위트젠틀",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -12363,10 +12363,10 @@ tbl = {
 		ClassNum = 29
 	},
 	[20928] = {
-		unidentifiedDisplayName = "2018 RTC Cape2    # !todo check english name",
+		unidentifiedDisplayName = "2018 RTC Cape2",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "2018 RTC Cape2    # !todo check english name",
+		identifiedDisplayName = "2018 RTC Cape2",
 		identifiedResourceName = "골든헤드기어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -12386,10 +12386,10 @@ tbl = {
 		ClassNum = 30
 	},
 	[20929] = {
-		unidentifiedDisplayName = "2018 RTC Cape3    # !todo check english name",
+		unidentifiedDisplayName = "2018 RTC Cape3",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "2018 RTC Cape3    # !todo check english name",
+		identifiedDisplayName = "2018 RTC Cape3",
 		identifiedResourceName = "올드스터로맨스",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -13147,10 +13147,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[22182] = {
-		unidentifiedDisplayName = "Shoes of Punishment    # !todo check english name",
+		unidentifiedDisplayName = "Shoes of Punishment",
 		unidentifiedResourceName = "샌들",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Shoes of Punishment    # !todo check english name",
+		identifiedDisplayName = "Shoes of Punishment",
 		identifiedResourceName = "샌들",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -14007,10 +14007,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[25482] = {
-		unidentifiedDisplayName = "Earth League Card    # !todo check english name",
+		unidentifiedDisplayName = "Earth League Card",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Earth League Card    # !todo check english name",
+		identifiedDisplayName = "Earth League Card",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -14021,10 +14021,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[25483] = {
-		unidentifiedDisplayName = "Fire League Card    # !todo check english name",
+		unidentifiedDisplayName = "Fire League Card",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Fire League Card    # !todo check english name",
+		identifiedDisplayName = "Fire League Card",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -14035,10 +14035,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[25484] = {
-		unidentifiedDisplayName = "Water League Card    # !todo check english name",
+		unidentifiedDisplayName = "Water League Card",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Water League Card    # !todo check english name",
+		identifiedDisplayName = "Water League Card",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -14049,10 +14049,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[25485] = {
-		unidentifiedDisplayName = "Wind League Card    # !todo check english name",
+		unidentifiedDisplayName = "Wind League Card",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Wind League Card    # !todo check english name",
+		identifiedDisplayName = "Wind League Card",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -14063,10 +14063,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[25486] = {
-		unidentifiedDisplayName = "Fire Pride Badge    # !todo check english name",
+		unidentifiedDisplayName = "Fire Pride Badge",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Fire Pride Badge    # !todo check english name",
+		identifiedDisplayName = "Fire Pride Badge",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -14077,10 +14077,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[25487] = {
-		unidentifiedDisplayName = "Water Pride Badge    # !todo check english name",
+		unidentifiedDisplayName = "Water Pride Badge",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Water Pride Badge    # !todo check english name",
+		identifiedDisplayName = "Water Pride Badge",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -14091,10 +14091,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[25488] = {
-		unidentifiedDisplayName = "Wind Pride Badge    # !todo check english name",
+		unidentifiedDisplayName = "Wind Pride Badge",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Wind Pride Badge    # !todo check english name",
+		identifiedDisplayName = "Wind Pride Badge",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -14105,10 +14105,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[25489] = {
-		unidentifiedDisplayName = "Earth Pride Badge    # !todo check english name",
+		unidentifiedDisplayName = "Earth Pride Badge",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Earth Pride Badge    # !todo check english name",
+		identifiedDisplayName = "Earth Pride Badge",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -15049,10 +15049,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[27413] = {
-		unidentifiedDisplayName = "Power of Shango    # !todo check english name",
+		unidentifiedDisplayName = "Power of Shango",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Power of Shango    # !todo check english name",
+		identifiedDisplayName = "Power of Shango",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -15064,10 +15064,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[27414] = {
-		unidentifiedDisplayName = "Power of Ochosi    # !todo check english name",
+		unidentifiedDisplayName = "Power of Ochosi",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Power of Ochosi    # !todo check english name",
+		identifiedDisplayName = "Power of Ochosi",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -15079,10 +15079,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[27415] = {
-		unidentifiedDisplayName = "Power of Iansa    # !todo check english name",
+		unidentifiedDisplayName = "Power of Iansa",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Power of Iansa    # !todo check english name",
+		identifiedDisplayName = "Power of Iansa",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -15094,10 +15094,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[27416] = {
-		unidentifiedDisplayName = "Power of Oshun    # !todo check english name",
+		unidentifiedDisplayName = "Power of Oshun",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Power of Oshun    # !todo check english name",
+		identifiedDisplayName = "Power of Oshun",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -15383,10 +15383,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[28145] = {
-		unidentifiedDisplayName = "Sky Rush Axe    # !todo check english name",
+		unidentifiedDisplayName = "Sky Rush Axe",
 		unidentifiedResourceName = "액스",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Sky Rush Axe    # !todo check english name",
+		identifiedDisplayName = "Sky Rush Axe",
 		identifiedResourceName = "토마호크",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -16414,10 +16414,10 @@ tbl = {
 		ClassNum = 1
 	},
 	[28947] = {
-		unidentifiedDisplayName = "Gaia's Shield    # !todo check english name",
+		unidentifiedDisplayName = "Gaia's Shield",
 		unidentifiedResourceName = "가드",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Gaia's Shield    # !todo check english name",
+		identifiedDisplayName = "Gaia's Shield",
 		identifiedResourceName = "가드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17176,10 +17176,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[31108] = {
-		unidentifiedDisplayName = "Costume Free Hug    # !todo check english name",
+		unidentifiedDisplayName = "Costume Free Hug",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Free Hug    # !todo check english name",
+		identifiedDisplayName = "Costume Free Hug",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17192,10 +17192,10 @@ tbl = {
 		ClassNum = 1542
 	},
 	[31109] = {
-		unidentifiedDisplayName = "Costume Guildsman Recruit    # !todo check english name",
+		unidentifiedDisplayName = "Costume Guildsman Recruit",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Guildsman Recruit    # !todo check english name",
+		identifiedDisplayName = "Costume Guildsman Recruit",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17208,10 +17208,10 @@ tbl = {
 		ClassNum = 1543
 	},
 	[31110] = {
-		unidentifiedDisplayName = "Costume Party Seeker    # !todo check english name",
+		unidentifiedDisplayName = "Costume Party Seeker",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Party Seeker    # !todo check english name",
+		identifiedDisplayName = "Costume Party Seeker",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17224,10 +17224,10 @@ tbl = {
 		ClassNum = 1544
 	},
 	[31111] = {
-		unidentifiedDisplayName = "Costume Party Mem Recruit    # !todo check english name",
+		unidentifiedDisplayName = "Costume Party Mem Recruit",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Party Mem Recruit    # !todo check english name",
+		identifiedDisplayName = "Costume Party Mem Recruit",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17240,10 +17240,10 @@ tbl = {
 		ClassNum = 1545
 	},
 	[31112] = {
-		unidentifiedDisplayName = "Costume Begging Board    # !todo check english name",
+		unidentifiedDisplayName = "Costume Begging Board",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Begging Board    # !todo check english name",
+		identifiedDisplayName = "Costume Begging Board",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17704,10 +17704,10 @@ tbl = {
 		ClassNum = 1518
 	},
 	[31357] = {
-		unidentifiedDisplayName = "Costume Oliver Wolf Hood    # !todo check english name",
+		unidentifiedDisplayName = "Costume Oliver Wolf Hood",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Oliver Wolf Hood    # !todo check english name",
+		identifiedDisplayName = "Costume Oliver Wolf Hood",
 		identifiedResourceName = "올리버늑대후드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17720,10 +17720,10 @@ tbl = {
 		ClassNum = 849
 	},
 	[31358] = {
-		unidentifiedDisplayName = "Costume Hahoe Mask    # !todo check english name",
+		unidentifiedDisplayName = "Costume Hahoe Mask",
 		unidentifiedResourceName = "스마일",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Hahoe Mask    # !todo check english name",
+		identifiedDisplayName = "Costume Hahoe Mask",
 		identifiedResourceName = "하회탈",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17736,10 +17736,10 @@ tbl = {
 		ClassNum = 230
 	},
 	[31359] = {
-		unidentifiedDisplayName = "Costume Assassin Mask    # !todo check english name",
+		unidentifiedDisplayName = "Costume Assassin Mask",
 		unidentifiedResourceName = "마스크",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Assassin Mask    # !todo check english name",
+		identifiedDisplayName = "Costume Assassin Mask",
 		identifiedResourceName = "어새신마스크",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17752,10 +17752,10 @@ tbl = {
 		ClassNum = 180
 	},
 	[31360] = {
-		unidentifiedDisplayName = "Costume Centimental Flower    # !todo check english name",
+		unidentifiedDisplayName = "Costume Centimental Flower",
 		unidentifiedResourceName = "마스크",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Centimental Flower    # !todo check english name",
+		identifiedDisplayName = "Costume Centimental Flower",
 		identifiedResourceName = "꽃잎",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17768,10 +17768,10 @@ tbl = {
 		ClassNum = 56
 	},
 	[31361] = {
-		unidentifiedDisplayName = "Costume Blush    # !todo check english name",
+		unidentifiedDisplayName = "Costume Blush",
 		unidentifiedResourceName = "발그레",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Blush    # !todo check english name",
+		identifiedDisplayName = "Costume Blush",
 		identifiedResourceName = "발그레",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17784,10 +17784,10 @@ tbl = {
 		ClassNum = 125
 	},
 	[31362] = {
-		unidentifiedDisplayName = "Costume Magestic Goat    # !todo check english name",
+		unidentifiedDisplayName = "Costume Magestic Goat",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Magestic Goat    # !todo check english name",
+		identifiedDisplayName = "Costume Magestic Goat",
 		identifiedResourceName = "마제스틱고우트",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17800,10 +17800,10 @@ tbl = {
 		ClassNum = 41
 	},
 	[31363] = {
-		unidentifiedDisplayName = "Costume Frog Cap    # !todo check english name",
+		unidentifiedDisplayName = "Costume Frog Cap",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Frog Cap    # !todo check english name",
+		identifiedDisplayName = "Costume Frog Cap",
 		identifiedResourceName = "개구리모자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17816,10 +17816,10 @@ tbl = {
 		ClassNum = 448
 	},
 	[31364] = {
-		unidentifiedDisplayName = "Costume Deviruchi Cap    # !todo check english name",
+		unidentifiedDisplayName = "Costume Deviruchi Cap",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Deviruchi Cap    # !todo check english name",
+		identifiedDisplayName = "Costume Deviruchi Cap",
 		identifiedResourceName = "새끼악마모자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17832,10 +17832,10 @@ tbl = {
 		ClassNum = 123
 	},
 	[31365] = {
-		unidentifiedDisplayName = "Costume Boys Cap    # !todo check english name",
+		unidentifiedDisplayName = "Costume Boys Cap",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Boys Cap    # !todo check english name",
+		identifiedDisplayName = "Costume Boys Cap",
 		identifiedResourceName = "학생모",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17848,10 +17848,10 @@ tbl = {
 		ClassNum = 102
 	},
 	[31366] = {
-		unidentifiedDisplayName = "Costume Valkyrie Helm    # !todo check english name",
+		unidentifiedDisplayName = "Costume Valkyrie Helm",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Valkyrie Helm    # !todo check english name",
+		identifiedDisplayName = "Costume Valkyrie Helm",
 		identifiedResourceName = "발키리투구",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17880,10 +17880,10 @@ tbl = {
 		ClassNum = 1270
 	},
 	[31421] = {
-		unidentifiedDisplayName = "Costume Pink Angeling Bubble    # !todo check english name",
+		unidentifiedDisplayName = "Costume Pink Angeling Bubble",
 		unidentifiedResourceName = "마스크",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Pink Angeling Bubble    # !todo check english name",
+		identifiedDisplayName = "Costume Pink Angeling Bubble",
 		identifiedResourceName = "핑크엔젤링풍선",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17912,10 +17912,10 @@ tbl = {
 		ClassNum = 1038
 	},
 	[31424] = {
-		unidentifiedDisplayName = "Costume Love Love Balloon    # !todo check english name",
+		unidentifiedDisplayName = "Costume Love Love Balloon",
 		unidentifiedResourceName = "마스크",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Love Love Balloon    # !todo check english name",
+		identifiedDisplayName = "Costume Love Love Balloon",
 		identifiedResourceName = "러브러브풍선",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -17976,10 +17976,10 @@ tbl = {
 		ClassNum = 537
 	},
 	[31500] = {
-		unidentifiedDisplayName = "Costume Sparkler Stick    # !todo check english name",
+		unidentifiedDisplayName = "Costume Sparkler Stick",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Sparkler Stick    # !todo check english name",
+		identifiedDisplayName = "Costume Sparkler Stick",
 		identifiedResourceName = "Sparkler_Stick",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -18071,10 +18071,10 @@ tbl = {
 		ClassNum = 1773
 	},
 	[31557] = {
-		unidentifiedDisplayName = "Costume Hoplite Helmet Silver    # !todo check english name",
+		unidentifiedDisplayName = "Costume Hoplite Helmet Silver",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Hoplite Helmet Silver    # !todo check english name",
+		identifiedDisplayName = "Costume Hoplite Helmet Silver",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -18198,10 +18198,10 @@ tbl = {
 		ClassNum = 513
 	},
 	[31629] = {
-		unidentifiedDisplayName = "Costume Evil Bone Hat    # !todo check english name",
+		unidentifiedDisplayName = "Costume Evil Bone Hat",
 		unidentifiedResourceName = "마왕의뼈투구",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Evil Bone Hat    # !todo check english name",
+		identifiedDisplayName = "Costume Evil Bone Hat",
 		identifiedResourceName = "마왕의뼈투구",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -18246,10 +18246,10 @@ tbl = {
 		ClassNum = 737
 	},
 	[31680] = {
-		unidentifiedDisplayName = "Costume Fairy Long Purple    # !todo check english name",
+		unidentifiedDisplayName = "Costume Fairy Long Purple",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Fairy Long Purple    # !todo check english name",
+		identifiedDisplayName = "Costume Fairy Long Purple",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -18294,10 +18294,10 @@ tbl = {
 		ClassNum = 1308
 	},
 	[31722] = {
-		unidentifiedDisplayName = "Costume Sedora Hat    # !todo check english name",
+		unidentifiedDisplayName = "Costume Sedora Hat",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Sedora Hat    # !todo check english name",
+		identifiedDisplayName = "Costume Sedora Hat",
 		identifiedResourceName = "세도라의모자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -18461,10 +18461,10 @@ tbl = {
 		ClassNum = 621
 	},
 	[31897] = {
-		unidentifiedDisplayName = "Costume Pisces Crown    # !todo check english name",
+		unidentifiedDisplayName = "Costume Pisces Crown",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Pisces Crown    # !todo check english name",
+		identifiedDisplayName = "Costume Pisces Crown",
 		identifiedResourceName = "쌍어궁왕관",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -19238,10 +19238,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[32404] = {
-		unidentifiedDisplayName = "Engine pile bunker    # !todo check english name",
+		unidentifiedDisplayName = "Engine pile bunker",
 		unidentifiedResourceName = "클럽",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Engine pile bunker    # !todo check english name",
+		identifiedDisplayName = "Engine pile bunker",
 		identifiedResourceName = "클럽",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -19383,10 +19383,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[100848] = {
-		unidentifiedDisplayName = "Watermelon Pudding    # !todo check english name",
+		unidentifiedDisplayName = "Watermelon Pudding",
 		unidentifiedResourceName = "빨간포션",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Watermelon Pudding    # !todo check english name",
+		identifiedDisplayName = "Watermelon Pudding",
 		identifiedResourceName = "빨간포션",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -19608,10 +19608,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[101512] = {
-		unidentifiedDisplayName = "Ancient Hero Box 1    # !todo check english name",
+		unidentifiedDisplayName = "Ancient Hero Box 1",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Ancient Hero Box 1    # !todo check english name",
+		identifiedDisplayName = "Ancient Hero Box 1",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -19845,10 +19845,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105488] = {
-		unidentifiedDisplayName = "[Event] All-in-One Healing Potion\"    # !todo check english name",
+		unidentifiedDisplayName = "[Event] All-in-One Healing Potion",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "[Event] All-in-One Healing Potion\"    # !todo check english name",
+		identifiedDisplayName = "[Event] All-in-One Healing Potion",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -19859,10 +19859,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105489] = {
-		unidentifiedDisplayName = "[Event] All-in-One Buff Potion\"    # !todo check english name",
+		unidentifiedDisplayName = "[Event] All-in-One Buff Potion",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "[Event] All-in-One Buff Potion\"    # !todo check english name",
+		identifiedDisplayName = "[Event] All-in-One Buff Potion",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -19873,10 +19873,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105490] = {
-		unidentifiedDisplayName = "ROS Gift Box    # !todo check english name",
+		unidentifiedDisplayName = "ROS Gift Box",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "ROS Gift Box    # !todo check english name",
+		identifiedDisplayName = "ROS Gift Box",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -19888,10 +19888,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105518] = {
-		unidentifiedDisplayName = "Costume Enchantment Stone Box 41    # !todo check english name",
+		unidentifiedDisplayName = "Costume Enchantment Stone Box 41",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Enchantment Stone Box 41    # !todo check english name",
+		identifiedDisplayName = "Costume Enchantment Stone Box 41",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -19903,10 +19903,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105615] = {
-		unidentifiedDisplayName = "ROS FESTA BOX    # !todo check english name",
+		unidentifiedDisplayName = "ROS FESTA BOX",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "ROS FESTA BOX    # !todo check english name",
+		identifiedDisplayName = "ROS FESTA BOX",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -19918,10 +19918,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105616] = {
-		unidentifiedDisplayName = "Episode 19-21 Card Album    # !todo check english name",
+		unidentifiedDisplayName = "Episode 19-21 Card Album",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Episode 19-21 Card Album    # !todo check english name",
+		identifiedDisplayName = "Episode 19-21 Card Album",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -19933,10 +19933,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105617] = {
-		unidentifiedDisplayName = "Episode 19-21 Boss Card Album    # !todo check english name",
+		unidentifiedDisplayName = "Episode 19-21 Boss Card Album",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Episode 19-21 Boss Card Album    # !todo check english name",
+		identifiedDisplayName = "Episode 19-21 Boss Card Album",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -19948,10 +19948,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105619] = {
-		unidentifiedDisplayName = "Geoborg Activation Reward    # !todo check english name",
+		unidentifiedDisplayName = "Geoborg Activation Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Geoborg Activation Reward    # !todo check english name",
+		identifiedDisplayName = "Geoborg Activation Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -19963,10 +19963,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105620] = {
-		unidentifiedDisplayName = "Geoborg Completion Reward    # !todo check english name",
+		unidentifiedDisplayName = "Geoborg Completion Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Geoborg Completion Reward    # !todo check english name",
+		identifiedDisplayName = "Geoborg Completion Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -19978,10 +19978,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105621] = {
-		unidentifiedDisplayName = "Ice Coast Activation Reward    # !todo check english name",
+		unidentifiedDisplayName = "Ice Coast Activation Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Ice Coast Activation Reward    # !todo check english name",
+		identifiedDisplayName = "Ice Coast Activation Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -19993,10 +19993,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105622] = {
-		unidentifiedDisplayName = "Ice Coast Completion Reward    # !todo check english name",
+		unidentifiedDisplayName = "Ice Coast Completion Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Ice Coast Completion Reward    # !todo check english name",
+		identifiedDisplayName = "Ice Coast Completion Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20008,10 +20008,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105623] = {
-		unidentifiedDisplayName = "Ice Coast 2-Set Reward    # !todo check english name",
+		unidentifiedDisplayName = "Ice Coast 2-Set Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Ice Coast 2-Set Reward    # !todo check english name",
+		identifiedDisplayName = "Ice Coast 2-Set Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20023,10 +20023,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105624] = {
-		unidentifiedDisplayName = "Yosker Yorker Activation Reward    # !todo check english name",
+		unidentifiedDisplayName = "Yosker Yorker Activation Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Yosker Yorker Activation Reward    # !todo check english name",
+		identifiedDisplayName = "Yosker Yorker Activation Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20038,10 +20038,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105625] = {
-		unidentifiedDisplayName = "Yosker Yorker Completion Reward    # !todo check english name",
+		unidentifiedDisplayName = "Yosker Yorker Completion Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Yosker Yorker Completion Reward    # !todo check english name",
+		identifiedDisplayName = "Yosker Yorker Completion Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20053,10 +20053,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105626] = {
-		unidentifiedDisplayName = "Staff Activation Reward    # !todo check english name",
+		unidentifiedDisplayName = "Staff Activation Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Staff Activation Reward    # !todo check english name",
+		identifiedDisplayName = "Staff Activation Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20068,10 +20068,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105627] = {
-		unidentifiedDisplayName = "Staff Completion Reward    # !todo check english name",
+		unidentifiedDisplayName = "Staff Completion Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Staff Completion Reward    # !todo check english name",
+		identifiedDisplayName = "Staff Completion Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20083,10 +20083,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105628] = {
-		unidentifiedDisplayName = "Management Activation Reward    # !todo check english name",
+		unidentifiedDisplayName = "Management Activation Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Management Activation Reward    # !todo check english name",
+		identifiedDisplayName = "Management Activation Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20098,10 +20098,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105629] = {
-		unidentifiedDisplayName = "Management Completion Reward    # !todo check english name",
+		unidentifiedDisplayName = "Management Completion Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Management Completion Reward    # !todo check english name",
+		identifiedDisplayName = "Management Completion Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20113,10 +20113,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105630] = {
-		unidentifiedDisplayName = "Management 2-Set Reward    # !todo check english name",
+		unidentifiedDisplayName = "Management 2-Set Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Management 2-Set Reward    # !todo check english name",
+		identifiedDisplayName = "Management 2-Set Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20128,10 +20128,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105631] = {
-		unidentifiedDisplayName = "Purification Activity Activation Reward    # !todo check english name",
+		unidentifiedDisplayName = "Purification Activity Activation Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Purification Activity Activation Reward    # !todo check english name",
+		identifiedDisplayName = "Purification Activity Activation Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20143,10 +20143,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105632] = {
-		unidentifiedDisplayName = "Purification Activity Completion Rewards    # !todo check english name",
+		unidentifiedDisplayName = "Purification Activity Completion Rewards",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Purification Activity Completion Rewards    # !todo check english name",
+		identifiedDisplayName = "Purification Activity Completion Rewards",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20158,10 +20158,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105633] = {
-		unidentifiedDisplayName = "Purification Activity 3-Set Reward    # !todo check english name",
+		unidentifiedDisplayName = "Purification Activity 3-Set Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Purification Activity 3-Set Reward    # !todo check english name",
+		identifiedDisplayName = "Purification Activity 3-Set Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20173,10 +20173,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105634] = {
-		unidentifiedDisplayName = "Purification Activity 5-Set Reward    # !todo check english name",
+		unidentifiedDisplayName = "Purification Activity 5-Set Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Purification Activity 5-Set Reward    # !todo check english name",
+		identifiedDisplayName = "Purification Activity 5-Set Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20188,10 +20188,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105635] = {
-		unidentifiedDisplayName = "Civil Support Activation Reward    # !todo check english name",
+		unidentifiedDisplayName = "Civil Support Activation Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Civil Support Activation Reward    # !todo check english name",
+		identifiedDisplayName = "Civil Support Activation Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20203,10 +20203,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105636] = {
-		unidentifiedDisplayName = "Civil Support Completion Reward    # !todo check english name",
+		unidentifiedDisplayName = "Civil Support Completion Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Civil Support Completion Reward    # !todo check english name",
+		identifiedDisplayName = "Civil Support Completion Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20218,10 +20218,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105637] = {
-		unidentifiedDisplayName = "Civil Support 2-Set Reward    # !todo check english name",
+		unidentifiedDisplayName = "Civil Support 2-Set Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Civil Support 2-Set Reward    # !todo check english name",
+		identifiedDisplayName = "Civil Support 2-Set Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20233,10 +20233,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105638] = {
-		unidentifiedDisplayName = "Civil Support 4-Set Reward    # !todo check english name",
+		unidentifiedDisplayName = "Civil Support 4-Set Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Civil Support 4-Set Reward    # !todo check english name",
+		identifiedDisplayName = "Civil Support 4-Set Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20248,10 +20248,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105639] = {
-		unidentifiedDisplayName = "Group Activation Reward    # !todo check english name",
+		unidentifiedDisplayName = "Group Activation Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Group Activation Reward    # !todo check english name",
+		identifiedDisplayName = "Group Activation Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20263,10 +20263,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105640] = {
-		unidentifiedDisplayName = "Group Completion Reward    # !todo check english name",
+		unidentifiedDisplayName = "Group Completion Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Group Completion Reward    # !todo check english name",
+		identifiedDisplayName = "Group Completion Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20278,10 +20278,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105641] = {
-		unidentifiedDisplayName = "Group 3-Set Reward    # !todo check english name",
+		unidentifiedDisplayName = "Group 3-Set Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Group 3-Set Reward    # !todo check english name",
+		identifiedDisplayName = "Group 3-Set Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20293,10 +20293,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105642] = {
-		unidentifiedDisplayName = "Group 5-Set Reward    # !todo check english name",
+		unidentifiedDisplayName = "Group 5-Set Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Group 5-Set Reward    # !todo check english name",
+		identifiedDisplayName = "Group 5-Set Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20308,10 +20308,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105643] = {
-		unidentifiedDisplayName = "Frozen Horn Activation Reward    # !todo check english name",
+		unidentifiedDisplayName = "Frozen Horn Activation Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Frozen Horn Activation Reward    # !todo check english name",
+		identifiedDisplayName = "Frozen Horn Activation Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20323,10 +20323,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105644] = {
-		unidentifiedDisplayName = "Frozen Horn Completion Reward    # !todo check english name",
+		unidentifiedDisplayName = "Frozen Horn Completion Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Frozen Horn Completion Reward    # !todo check english name",
+		identifiedDisplayName = "Frozen Horn Completion Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20338,10 +20338,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105645] = {
-		unidentifiedDisplayName = "Frozen Horn 3-Set Reward    # !todo check english name",
+		unidentifiedDisplayName = "Frozen Horn 3-Set Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Frozen Horn 3-Set Reward    # !todo check english name",
+		identifiedDisplayName = "Frozen Horn 3-Set Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20353,10 +20353,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105646] = {
-		unidentifiedDisplayName = "Frozen Horn 5-Set Reward    # !todo check english name",
+		unidentifiedDisplayName = "Frozen Horn 5-Set Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Frozen Horn 5-Set Reward    # !todo check english name",
+		identifiedDisplayName = "Frozen Horn 5-Set Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20368,10 +20368,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105647] = {
-		unidentifiedDisplayName = "Encroachment Activation Reward    # !todo check english name",
+		unidentifiedDisplayName = "Encroachment Activation Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Encroachment Activation Reward    # !todo check english name",
+		identifiedDisplayName = "Encroachment Activation Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20383,10 +20383,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105648] = {
-		unidentifiedDisplayName = "Encroachment Completion Reward    # !todo check english name",
+		unidentifiedDisplayName = "Encroachment Completion Reward",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Encroachment Completion Reward    # !todo check english name",
+		identifiedDisplayName = "Encroachment Completion Reward",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20398,10 +20398,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105685] = {
-		unidentifiedDisplayName = "Second Dimensional Tuning (Submarine Anchor)    # !todo check english name",
+		unidentifiedDisplayName = "Second Dimensional Tuning (Submarine Anchor)",
 		unidentifiedResourceName = "부르스티",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Second Dimensional Tuning (Submarine Anchor)    # !todo check english name",
+		identifiedDisplayName = "Second Dimensional Tuning (Submarine Anchor)",
 		identifiedResourceName = "부르스티",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20414,10 +20414,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105686] = {
-		unidentifiedDisplayName = "Second Dimensional Tuning (Vida Noctorno)    # !todo check english name",
+		unidentifiedDisplayName = "Second Dimensional Tuning (Vida Noctorno)",
 		unidentifiedResourceName = "부르스티",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Second Dimensional Tuning (Vida Noctorno)    # !todo check english name",
+		identifiedDisplayName = "Second Dimensional Tuning (Vida Noctorno)",
 		identifiedResourceName = "부르스티",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20430,10 +20430,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105687] = {
-		unidentifiedDisplayName = "Second Dimensional Tuning (Judgment Day)    # !todo check english name",
+		unidentifiedDisplayName = "Second Dimensional Tuning (Judgment Day)",
 		unidentifiedResourceName = "부르스티",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Second Dimensional Tuning (Judgment Day)    # !todo check english name",
+		identifiedDisplayName = "Second Dimensional Tuning (Judgment Day)",
 		identifiedResourceName = "부르스티",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20446,10 +20446,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105688] = {
-		unidentifiedDisplayName = "Second Dimensional Tuning (Geigg)    # !todo check english name",
+		unidentifiedDisplayName = "Second Dimensional Tuning (Geigg)",
 		unidentifiedResourceName = "부르스티",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Second Dimensional Tuning (Geigg)    # !todo check english name",
+		identifiedDisplayName = "Second Dimensional Tuning (Geigg)",
 		identifiedResourceName = "부르스티",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20462,10 +20462,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105689] = {
-		unidentifiedDisplayName = "Second Dimensional Tuning (Needle Whip)    # !todo check english name",
+		unidentifiedDisplayName = "Second Dimensional Tuning (Needle Whip)",
 		unidentifiedResourceName = "부르스티",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Second Dimensional Tuning (Needle Whip)    # !todo check english name",
+		identifiedDisplayName = "Second Dimensional Tuning (Needle Whip)",
 		identifiedResourceName = "부르스티",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20478,10 +20478,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105690] = {
-		unidentifiedDisplayName = "Second Dimensional Tuning (Jack O'Rush)    # !todo check english name",
+		unidentifiedDisplayName = "Second Dimensional Tuning (Jack O'Rush)",
 		unidentifiedResourceName = "부르스티",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Second Dimensional Tuning (Jack O'Rush)    # !todo check english name",
+		identifiedDisplayName = "Second Dimensional Tuning (Jack O'Rush)",
 		identifiedResourceName = "부르스티",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20494,10 +20494,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105715] = {
-		unidentifiedDisplayName = "Infinite Giant Fly's Wings 1-Hour Box    # !todo check english name",
+		unidentifiedDisplayName = "Infinite Giant Fly's Wings 1-Hour Box",
 		unidentifiedResourceName = "오래된노란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Infinite Giant Fly's Wings 1-Hour Box    # !todo check english name",
+		identifiedDisplayName = "Infinite Giant Fly's Wings 1-Hour Box",
 		identifiedResourceName = "오래된노란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20509,10 +20509,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105737] = {
-		unidentifiedDisplayName = "Celestial Weapon Refining Hammer    # !todo check english name",
+		unidentifiedDisplayName = "Celestial Weapon Refining Hammer",
 		unidentifiedResourceName = "부르스티",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Celestial Weapon Refining Hammer    # !todo check english name",
+		identifiedDisplayName = "Celestial Weapon Refining Hammer",
 		identifiedResourceName = "부르스티",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20524,10 +20524,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105738] = {
-		unidentifiedDisplayName = "Celestial Crown Refining Hammer    # !todo check english name",
+		unidentifiedDisplayName = "Celestial Crown Refining Hammer",
 		unidentifiedResourceName = "부르스티",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Celestial Crown Refining Hammer    # !todo check english name",
+		identifiedDisplayName = "Celestial Crown Refining Hammer",
 		identifiedResourceName = "부르스티",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20539,10 +20539,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105828] = {
-		unidentifiedDisplayName = "[A] Time Gap Dagger Box\"    # !todo check english name",
+		unidentifiedDisplayName = "[A] Time Gap Dagger Box",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "[A] Time Gap Dagger Box\"    # !todo check english name",
+		identifiedDisplayName = "[A] Time Gap Dagger Box",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20554,10 +20554,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105829] = {
-		unidentifiedDisplayName = "[A] Time Gap Kurojin Boxes\"    # !todo check english name",
+		unidentifiedDisplayName = "[A] Time Gap Kurojin Boxes",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "[A] Time Gap Kurojin Boxes\"    # !todo check english name",
+		identifiedDisplayName = "[A] Time Gap Kurojin Boxes",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20569,10 +20569,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105830] = {
-		unidentifiedDisplayName = "+12 [A] Crown of Good and Evil (Night's Watch) Se\"    # !todo check english name",
+		unidentifiedDisplayName = "+12 [A] Crown of Good and Evil (Night's Watch) Se",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "+12 [A] Crown of Good and Evil (Night's Watch) Se\"    # !todo check english name",
+		identifiedDisplayName = "+12 [A] Crown of Good and Evil (Night's Watch) Se",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20583,10 +20583,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105831] = {
-		unidentifiedDisplayName = "+10 [C] Crown of Good and Evil (Night's Watch) Se\"    # !todo check english name",
+		unidentifiedDisplayName = "+10 [C] Crown of Good and Evil (Night's Watch) Se",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "+10 [C] Crown of Good and Evil (Night's Watch) Se\"    # !todo check english name",
+		identifiedDisplayName = "+10 [C] Crown of Good and Evil (Night's Watch) Se",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20597,10 +20597,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105832] = {
-		unidentifiedDisplayName = "+12 [A] Spear of Wrath Shield Box\"    # !todo check english name",
+		unidentifiedDisplayName = "+12 [A] Spear of Wrath Shield Box",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "+12 [A] Spear of Wrath Shield Box\"    # !todo check english name",
+		identifiedDisplayName = "+12 [A] Spear of Wrath Shield Box",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20612,10 +20612,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105833] = {
-		unidentifiedDisplayName = "+10 [C] Spear of Wrath Shield Box\"    # !todo check english name",
+		unidentifiedDisplayName = "+10 [C] Spear of Wrath Shield Box",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "+10 [C] Spear of Wrath Shield Box\"    # !todo check english name",
+		identifiedDisplayName = "+10 [C] Spear of Wrath Shield Box",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20627,10 +20627,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105834] = {
-		unidentifiedDisplayName = "+12 [A] Two-Handed Dagger of Wrath Box\"    # !todo check english name",
+		unidentifiedDisplayName = "+12 [A] Two-Handed Dagger of Wrath Box",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "+12 [A] Two-Handed Dagger of Wrath Box\"    # !todo check english name",
+		identifiedDisplayName = "+12 [A] Two-Handed Dagger of Wrath Box",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20642,10 +20642,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105835] = {
-		unidentifiedDisplayName = "+10 [C] Two-Handed Dagger of Wrath Box\"    # !todo check english name",
+		unidentifiedDisplayName = "+10 [C] Two-Handed Dagger of Wrath Box",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "+10 [C] Two-Handed Dagger of Wrath Box\"    # !todo check english name",
+		identifiedDisplayName = "+10 [C] Two-Handed Dagger of Wrath Box",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20657,10 +20657,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105836] = {
-		unidentifiedDisplayName = "Holiday Season Gift    # !todo check english name",
+		unidentifiedDisplayName = "Holiday Season Gift",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Holiday Season Gift    # !todo check english name",
+		identifiedDisplayName = "Holiday Season Gift",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20672,10 +20672,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105917] = {
-		unidentifiedDisplayName = "Divine Box    # !todo check english name",
+		unidentifiedDisplayName = "Divine Box",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Divine Box    # !todo check english name",
+		identifiedDisplayName = "Divine Box",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20688,10 +20688,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105927] = {
-		unidentifiedDisplayName = "White Fox Hooded Twin Costume Selection Box    # !todo check english name",
+		unidentifiedDisplayName = "White Fox Hooded Twin Costume Selection Box",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "White Fox Hooded Twin Costume Selection Box    # !todo check english name",
+		identifiedDisplayName = "White Fox Hooded Twin Costume Selection Box",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20702,10 +20702,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105928] = {
-		unidentifiedDisplayName = "Winged Hair Costume Selection Box    # !todo check english name",
+		unidentifiedDisplayName = "Winged Hair Costume Selection Box",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Winged Hair Costume Selection Box    # !todo check english name",
+		identifiedDisplayName = "Winged Hair Costume Selection Box",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20716,10 +20716,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[105929] = {
-		unidentifiedDisplayName = "Wonderful Long Costume Selection Box    # !todo check english name",
+		unidentifiedDisplayName = "Wonderful Long Costume Selection Box",
 		unidentifiedResourceName = "오래된파란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Wonderful Long Costume Selection Box    # !todo check english name",
+		identifiedDisplayName = "Wonderful Long Costume Selection Box",
 		identifiedResourceName = "오래된파란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20925,10 +20925,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[200764] = {
-		unidentifiedDisplayName = "Nymphalina Costume Mileage Package I (Stone Box 4    # !todo check english name",
+		unidentifiedDisplayName = "Nymphalina Costume Mileage Package I (Stone Box 4",
 		unidentifiedResourceName = "오래된노란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Nymphalina Costume Mileage Package I (Stone Box 4    # !todo check english name",
+		identifiedDisplayName = "Nymphalina Costume Mileage Package I (Stone Box 4",
 		identifiedResourceName = "오래된노란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20940,10 +20940,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[200765] = {
-		unidentifiedDisplayName = "Nymphalina Costume Mileage Package II (Stone Box     # !todo check english name",
+		unidentifiedDisplayName = "Nymphalina Costume Mileage Package II (Stone Box",
 		unidentifiedResourceName = "오래된노란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Nymphalina Costume Mileage Package II (Stone Box     # !todo check english name",
+		identifiedDisplayName = "Nymphalina Costume Mileage Package II (Stone Box",
 		identifiedResourceName = "오래된노란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20955,10 +20955,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[200766] = {
-		unidentifiedDisplayName = "Nymphalina Costume Mileage Package III (Stone Box    # !todo check english name",
+		unidentifiedDisplayName = "Nymphalina Costume Mileage Package III (Stone Box",
 		unidentifiedResourceName = "오래된노란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Nymphalina Costume Mileage Package III (Stone Box    # !todo check english name",
+		identifiedDisplayName = "Nymphalina Costume Mileage Package III (Stone Box",
 		identifiedResourceName = "오래된노란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20970,10 +20970,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[200785] = {
-		unidentifiedDisplayName = "Cat's Nest Fruit Special Package    # !todo check english name",
+		unidentifiedDisplayName = "Cat's Nest Fruit Special Package",
 		unidentifiedResourceName = "오래된노란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Cat's Nest Fruit Special Package    # !todo check english name",
+		identifiedDisplayName = "Cat's Nest Fruit Special Package",
 		identifiedResourceName = "오래된노란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -20985,10 +20985,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[200786] = {
-		unidentifiedDisplayName = "Cat's Nest Fruit Special Package I    # !todo check english name",
+		unidentifiedDisplayName = "Cat's Nest Fruit Special Package I",
 		unidentifiedResourceName = "오래된노란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Cat's Nest Fruit Special Package I    # !todo check english name",
+		identifiedDisplayName = "Cat's Nest Fruit Special Package I",
 		identifiedResourceName = "오래된노란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -21000,10 +21000,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[200787] = {
-		unidentifiedDisplayName = "Cat's Nest Fruit Special Package II    # !todo check english name",
+		unidentifiedDisplayName = "Cat's Nest Fruit Special Package II",
 		unidentifiedResourceName = "오래된노란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Cat's Nest Fruit Special Package II    # !todo check english name",
+		identifiedDisplayName = "Cat's Nest Fruit Special Package II",
 		identifiedResourceName = "오래된노란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -21015,10 +21015,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[200788] = {
-		unidentifiedDisplayName = "Nyandarae Fruit Special Package III    # !todo check english name",
+		unidentifiedDisplayName = "Nyandarae Fruit Special Package III",
 		unidentifiedResourceName = "오래된노란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Nyandarae Fruit Special Package III    # !todo check english name",
+		identifiedDisplayName = "Nyandarae Fruit Special Package III",
 		identifiedResourceName = "오래된노란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -21030,10 +21030,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[200789] = {
-		unidentifiedDisplayName = "Special Refining Month Package I    # !todo check english name",
+		unidentifiedDisplayName = "Special Refining Month Package I",
 		unidentifiedResourceName = "오래된노란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Special Refining Month Package I    # !todo check english name",
+		identifiedDisplayName = "Special Refining Month Package I",
 		identifiedResourceName = "오래된노란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -21045,10 +21045,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[200790] = {
-		unidentifiedDisplayName = "Special Refining Month Package II    # !todo check english name",
+		unidentifiedDisplayName = "Special Refining Month Package II",
 		unidentifiedResourceName = "오래된노란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Special Refining Month Package II    # !todo check english name",
+		identifiedDisplayName = "Special Refining Month Package II",
 		identifiedResourceName = "오래된노란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -21060,10 +21060,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[200791] = {
-		unidentifiedDisplayName = "Special Year-End Growth Package    # !todo check english name",
+		unidentifiedDisplayName = "Special Year-End Growth Package",
 		unidentifiedResourceName = "오래된노란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Special Year-End Growth Package    # !todo check english name",
+		identifiedDisplayName = "Special Year-End Growth Package",
 		identifiedResourceName = "오래된노란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -21075,10 +21075,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[200792] = {
-		unidentifiedDisplayName = "White Fox Costume Package    # !todo check english name",
+		unidentifiedDisplayName = "White Fox Costume Package",
 		unidentifiedResourceName = "오래된노란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "White Fox Costume Package    # !todo check english name",
+		identifiedDisplayName = "White Fox Costume Package",
 		identifiedResourceName = "오래된노란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -21090,10 +21090,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[200793] = {
-		unidentifiedDisplayName = "Clock Witch Costume Package    # !todo check english name",
+		unidentifiedDisplayName = "Clock Witch Costume Package",
 		unidentifiedResourceName = "오래된노란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Clock Witch Costume Package    # !todo check english name",
+		identifiedDisplayName = "Clock Witch Costume Package",
 		identifiedResourceName = "오래된노란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -21105,10 +21105,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[200794] = {
-		unidentifiedDisplayName = "Wonderful Forest Costume Package    # !todo check english name",
+		unidentifiedDisplayName = "Wonderful Forest Costume Package",
 		unidentifiedResourceName = "오래된노란상자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Wonderful Forest Costume Package    # !todo check english name",
+		identifiedDisplayName = "Wonderful Forest Costume Package",
 		identifiedResourceName = "오래된노란상자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -23410,10 +23410,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[300715] = {
-		unidentifiedDisplayName = "As Card    # !todo check english name",
+		unidentifiedDisplayName = "As Card",
 		unidentifiedResourceName = "이름없는카드",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "As Card    # !todo check english name",
+		identifiedDisplayName = "As Card",
 		identifiedResourceName = "이름없는카드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -23425,10 +23425,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[300716] = {
-		unidentifiedDisplayName = "Kaya Toss Card    # !todo check english name",
+		unidentifiedDisplayName = "Kaya Toss Card",
 		unidentifiedResourceName = "이름없는카드",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Kaya Toss Card    # !todo check english name",
+		identifiedDisplayName = "Kaya Toss Card",
 		identifiedResourceName = "이름없는카드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -23440,10 +23440,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[300717] = {
-		unidentifiedDisplayName = "Tatio Card    # !todo check english name",
+		unidentifiedDisplayName = "Tatio Card",
 		unidentifiedResourceName = "이름없는카드",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Tatio Card    # !todo check english name",
+		identifiedDisplayName = "Tatio Card",
 		identifiedResourceName = "이름없는카드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -23455,10 +23455,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[300718] = {
-		unidentifiedDisplayName = "Chairman Rekenber Card    # !todo check english name",
+		unidentifiedDisplayName = "Chairman Rekenber Card",
 		unidentifiedResourceName = "이름없는카드",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Chairman Rekenber Card    # !todo check english name",
+		identifiedDisplayName = "Chairman Rekenber Card",
 		identifiedResourceName = "이름없는카드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -23470,10 +23470,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[300721] = {
-		unidentifiedDisplayName = "Rekenber Tatio Card    # !todo check english name",
+		unidentifiedDisplayName = "Rekenber Tatio Card",
 		unidentifiedResourceName = "이름없는카드",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Rekenber Tatio Card    # !todo check english name",
+		identifiedDisplayName = "Rekenber Tatio Card",
 		identifiedResourceName = "이름없는카드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34107,10 +34107,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314094] = {
-		unidentifiedDisplayName = "Blue Fighting Spirit Effect    # !todo check english name",
+		unidentifiedDisplayName = "Blue Fighting Spirit Effect",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Blue Fighting Spirit Effect    # !todo check english name",
+		identifiedDisplayName = "Blue Fighting Spirit Effect",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34122,10 +34122,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314095] = {
-		unidentifiedDisplayName = "Red Fighting Spirit Effect    # !todo check english name",
+		unidentifiedDisplayName = "Red Fighting Spirit Effect",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Red Fighting Spirit Effect    # !todo check english name",
+		identifiedDisplayName = "Red Fighting Spirit Effect",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34167,10 +34167,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314661] = {
-		unidentifiedDisplayName = "Hit Physical Stone (Dual)    # !todo check english name",
+		unidentifiedDisplayName = "Hit Physical Stone (Dual)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Hit Physical Stone (Dual)    # !todo check english name",
+		identifiedDisplayName = "Hit Physical Stone (Dual)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34183,10 +34183,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314662] = {
-		unidentifiedDisplayName = "Hit Physical Stone (Upper)    # !todo check english name",
+		unidentifiedDisplayName = "Hit Physical Stone (Upper)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Hit Physical Stone (Upper)    # !todo check english name",
+		identifiedDisplayName = "Hit Physical Stone (Upper)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34198,10 +34198,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314663] = {
-		unidentifiedDisplayName = "Hit Physical Stone (Middle)    # !todo check english name",
+		unidentifiedDisplayName = "Hit Physical Stone (Middle)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Hit Physical Stone (Middle)    # !todo check english name",
+		identifiedDisplayName = "Hit Physical Stone (Middle)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34213,10 +34213,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314664] = {
-		unidentifiedDisplayName = "Hit Physical Stone (Lower)    # !todo check english name",
+		unidentifiedDisplayName = "Hit Physical Stone (Lower)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Hit Physical Stone (Lower)    # !todo check english name",
+		identifiedDisplayName = "Hit Physical Stone (Lower)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34228,10 +34228,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314665] = {
-		unidentifiedDisplayName = "Hit Physical Stone (Garment)    # !todo check english name",
+		unidentifiedDisplayName = "Hit Physical Stone (Garment)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Hit Physical Stone (Garment)    # !todo check english name",
+		identifiedDisplayName = "Hit Physical Stone (Garment)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34243,10 +34243,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314666] = {
-		unidentifiedDisplayName = "Experience Stone (Garment)    # !todo check english name",
+		unidentifiedDisplayName = "Experience Stone (Garment)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Experience Stone (Garment)    # !todo check english name",
+		identifiedDisplayName = "Experience Stone (Garment)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34258,10 +34258,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314667] = {
-		unidentifiedDisplayName = "Archmage Stone II (Garment)    # !todo check english name",
+		unidentifiedDisplayName = "Archmage Stone II (Garment)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Archmage Stone II (Garment)    # !todo check english name",
+		identifiedDisplayName = "Archmage Stone II (Garment)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34273,10 +34273,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314668] = {
-		unidentifiedDisplayName = "Biolo Stone II (Garment)    # !todo check english name",
+		unidentifiedDisplayName = "Biolo Stone II (Garment)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Biolo Stone II (Garment)    # !todo check english name",
+		identifiedDisplayName = "Biolo Stone II (Garment)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34288,10 +34288,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314669] = {
-		unidentifiedDisplayName = "Celestial Stone II (Garment)    # !todo check english name",
+		unidentifiedDisplayName = "Celestial Stone II (Garment)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Celestial Stone II (Garment)    # !todo check english name",
+		identifiedDisplayName = "Celestial Stone II (Garment)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34303,10 +34303,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314670] = {
-		unidentifiedDisplayName = "Warlock Stone II (Upper)    # !todo check english name",
+		unidentifiedDisplayName = "Warlock Stone II (Upper)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Warlock Stone II (Upper)    # !todo check english name",
+		identifiedDisplayName = "Warlock Stone II (Upper)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34318,10 +34318,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314671] = {
-		unidentifiedDisplayName = "Warlock Stone II (Middle)    # !todo check english name",
+		unidentifiedDisplayName = "Warlock Stone II (Middle)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Warlock Stone II (Middle)    # !todo check english name",
+		identifiedDisplayName = "Warlock Stone II (Middle)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34333,10 +34333,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314672] = {
-		unidentifiedDisplayName = "Warlock Stone II (Lower)    # !todo check english name",
+		unidentifiedDisplayName = "Warlock Stone II (Lower)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Warlock Stone II (Lower)    # !todo check english name",
+		identifiedDisplayName = "Warlock Stone II (Lower)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34348,10 +34348,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314673] = {
-		unidentifiedDisplayName = "Generic Stone II (Upper)    # !todo check english name",
+		unidentifiedDisplayName = "Generic Stone II (Upper)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Generic Stone II (Upper)    # !todo check english name",
+		identifiedDisplayName = "Generic Stone II (Upper)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34363,10 +34363,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314674] = {
-		unidentifiedDisplayName = "Generic Stone II (Middle)    # !todo check english name",
+		unidentifiedDisplayName = "Generic Stone II (Middle)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Generic Stone II (Middle)    # !todo check english name",
+		identifiedDisplayName = "Generic Stone II (Middle)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34378,10 +34378,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314675] = {
-		unidentifiedDisplayName = "Generic Stone II (Lower)    # !todo check english name",
+		unidentifiedDisplayName = "Generic Stone II (Lower)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Generic Stone II (Lower)    # !todo check english name",
+		identifiedDisplayName = "Generic Stone II (Lower)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34393,10 +34393,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314676] = {
-		unidentifiedDisplayName = "Holy Emperor Stone II (Upper)    # !todo check english name",
+		unidentifiedDisplayName = "Holy Emperor Stone II (Upper)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Holy Emperor Stone II (Upper)    # !todo check english name",
+		identifiedDisplayName = "Holy Emperor Stone II (Upper)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34408,10 +34408,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314677] = {
-		unidentifiedDisplayName = "Holy Emperor Stone II (Middle)    # !todo check english name",
+		unidentifiedDisplayName = "Holy Emperor Stone II (Middle)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Holy Emperor Stone II (Middle)    # !todo check english name",
+		identifiedDisplayName = "Holy Emperor Stone II (Middle)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34423,10 +34423,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[314678] = {
-		unidentifiedDisplayName = "Holy Emperor Stone II (Lower)    # !todo check english name",
+		unidentifiedDisplayName = "Holy Emperor Stone II (Lower)",
 		unidentifiedResourceName = "용의보주_홍",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Holy Emperor Stone II (Lower)    # !todo check english name",
+		identifiedDisplayName = "Holy Emperor Stone II (Lower)",
 		identifiedResourceName = "용의보주_홍",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34658,10 +34658,10 @@ tbl = {
 		ClassNum = 1056
 	},
 	[400080] = {
-		unidentifiedDisplayName = "Costume Kriemhild Crown    # !todo check english name",
+		unidentifiedDisplayName = "Costume Kriemhild Crown",
 		unidentifiedResourceName = "크림힐트의왕관",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Kriemhild Crown    # !todo check english name",
+		identifiedDisplayName = "Costume Kriemhild Crown",
 		identifiedResourceName = "크림힐트의왕관",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34673,10 +34673,10 @@ tbl = {
 		ClassNum = 1056
 	},
 	[400081] = {
-		unidentifiedDisplayName = "Costume 2020RTC Naughty Ghost    # !todo check english name",
+		unidentifiedDisplayName = "Costume 2020RTC Naughty Ghost",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume 2020RTC Naughty Ghost    # !todo check english name",
+		identifiedDisplayName = "Costume 2020RTC Naughty Ghost",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -34688,10 +34688,10 @@ tbl = {
 		ClassNum = 2009
 	},
 	[400082] = {
-		unidentifiedDisplayName = "2020RTC Naughty Ghost    # !todo check english name",
+		unidentifiedDisplayName = "2020RTC Naughty Ghost",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "2020RTC Naughty Ghost    # !todo check english name",
+		identifiedDisplayName = "2020RTC Naughty Ghost",
 		identifiedResourceName = "면사포",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -35030,10 +35030,10 @@ tbl = {
 		ClassNum = 2076
 	},
 	[400136] = {
-		unidentifiedDisplayName = "Costume Ancient Gold Deco    # !todo check english name",
+		unidentifiedDisplayName = "Costume Ancient Gold Deco",
 		unidentifiedResourceName = "고대의금장식",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Ancient Gold Deco    # !todo check english name",
+		identifiedDisplayName = "Costume Ancient Gold Deco",
 		identifiedResourceName = "고대의금장식",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -35045,10 +35045,10 @@ tbl = {
 		ClassNum = 739
 	},
 	[400159] = {
-		unidentifiedDisplayName = "Costume Bridal Heir Band    # !todo check english name",
+		unidentifiedDisplayName = "Costume Bridal Heir Band",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Bridal Heir Band    # !todo check english name",
+		identifiedDisplayName = "Costume Bridal Heir Band",
 		identifiedResourceName = "빨간테일리본",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -35079,10 +35079,10 @@ tbl = {
 		ClassNum = 2134
 	},
 	[400165] = {
-		unidentifiedDisplayName = "Costume Green Apple Hat    # !todo check english name",
+		unidentifiedDisplayName = "Costume Green Apple Hat",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Green Apple Hat    # !todo check english name",
+		identifiedDisplayName = "Costume Green Apple Hat",
 		identifiedResourceName = "청사과모자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -35094,10 +35094,10 @@ tbl = {
 		ClassNum = 821
 	},
 	[400166] = {
-		unidentifiedDisplayName = "Costume Aegir Helm    # !todo check english name",
+		unidentifiedDisplayName = "Costume Aegir Helm",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Aegir Helm    # !todo check english name",
+		identifiedDisplayName = "Costume Aegir Helm",
 		identifiedResourceName = "에길헬름",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -35109,10 +35109,10 @@ tbl = {
 		ClassNum = 870
 	},
 	[400167] = {
-		unidentifiedDisplayName = "Costume Mosquito Coil    # !todo check english name",
+		unidentifiedDisplayName = "Costume Mosquito Coil",
 		unidentifiedResourceName = "모기향",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Mosquito Coil    # !todo check english name",
+		identifiedDisplayName = "Costume Mosquito Coil",
 		identifiedResourceName = "모기향",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -35124,10 +35124,10 @@ tbl = {
 		ClassNum = 563
 	},
 	[400168] = {
-		unidentifiedDisplayName = "Costume Souvenirs Of Izlude    # !todo check english name",
+		unidentifiedDisplayName = "Costume Souvenirs Of Izlude",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Souvenirs Of Izlude    # !todo check english name",
+		identifiedDisplayName = "Costume Souvenirs Of Izlude",
 		identifiedResourceName = "이즈루드의기념품",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -35139,10 +35139,10 @@ tbl = {
 		ClassNum = 1377
 	},
 	[400169] = {
-		unidentifiedDisplayName = "Costume Fish Pin    # !todo check english name",
+		unidentifiedDisplayName = "Costume Fish Pin",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Fish Pin    # !todo check english name",
+		identifiedDisplayName = "Costume Fish Pin",
 		identifiedResourceName = "물고기핀",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -35154,10 +35154,10 @@ tbl = {
 		ClassNum = 669
 	},
 	[400170] = {
-		unidentifiedDisplayName = "Costume Jaty    # !todo check english name",
+		unidentifiedDisplayName = "Costume Jaty",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Jaty    # !todo check english name",
+		identifiedDisplayName = "Costume Jaty",
 		identifiedResourceName = "자티왕관",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -35169,10 +35169,10 @@ tbl = {
 		ClassNum = 686
 	},
 	[400171] = {
-		unidentifiedDisplayName = "Costume Angel feather    # !todo check english name",
+		unidentifiedDisplayName = "Costume Angel feather",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Angel feather    # !todo check english name",
+		identifiedDisplayName = "Costume Angel feather",
 		identifiedResourceName = "서클릿",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -35684,10 +35684,10 @@ tbl = {
 		ClassNum = 1251
 	},
 	[400348] = {
-		unidentifiedDisplayName = "Costume Red Cat Ear Witch Hat    # !todo check english name",
+		unidentifiedDisplayName = "Costume Red Cat Ear Witch Hat",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Red Cat Ear Witch Hat    # !todo check english name",
+		identifiedDisplayName = "Costume Red Cat Ear Witch Hat",
 		identifiedResourceName = "Purple_Cat_Ears_Beret",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -35699,10 +35699,10 @@ tbl = {
 		ClassNum = 2153
 	},
 	[400349] = {
-		unidentifiedDisplayName = "Costume Pumpkin Hat    # !todo check english name",
+		unidentifiedDisplayName = "Costume Pumpkin Hat",
 		unidentifiedResourceName = "호박모자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Pumpkin Hat    # !todo check english name",
+		identifiedDisplayName = "Costume Pumpkin Hat",
 		identifiedResourceName = "호박모자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38487,10 +38487,10 @@ tbl = {
 		ClassNum = 2523
 	},
 	[400794] = {
-		unidentifiedDisplayName = "Costume Many Flowers Love    # !todo check english name",
+		unidentifiedDisplayName = "Costume Many Flowers Love",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Many Flowers Love    # !todo check english name",
+		identifiedDisplayName = "Costume Many Flowers Love",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38532,10 +38532,10 @@ tbl = {
 		ClassNum = 2391
 	},
 	[400901] = {
-		unidentifiedDisplayName = "Costume Frog Cap (Brown)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Frog Cap (Brown)",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Frog Cap (Brown)    # !todo check english name",
+		identifiedDisplayName = "Costume Frog Cap (Brown)",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38547,10 +38547,10 @@ tbl = {
 		ClassNum = 2687
 	},
 	[400918] = {
-		unidentifiedDisplayName = "Costume White Cat Witch Hat    # !todo check english name",
+		unidentifiedDisplayName = "Costume White Cat Witch Hat",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume White Cat Witch Hat    # !todo check english name",
+		identifiedDisplayName = "Costume White Cat Witch Hat",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38577,10 +38577,10 @@ tbl = {
 		ClassNum = 2702
 	},
 	[400921] = {
-		unidentifiedDisplayName = "Costume Puppy Headband (Brown)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Puppy Headband (Brown)",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Puppy Headband (Brown)    # !todo check english name",
+		identifiedDisplayName = "Costume Puppy Headband (Brown)",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38607,10 +38607,10 @@ tbl = {
 		ClassNum = 809
 	},
 	[401015] = {
-		unidentifiedDisplayName = "Costume Inquisitor Veil    # !todo check english name",
+		unidentifiedDisplayName = "Costume Inquisitor Veil",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Inquisitor Veil    # !todo check english name",
+		identifiedDisplayName = "Costume Inquisitor Veil",
 		identifiedResourceName = "Inquisitor_Veil",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38622,10 +38622,10 @@ tbl = {
 		ClassNum = 2447
 	},
 	[401016] = {
-		unidentifiedDisplayName = "Costume Mage Hat (Brown)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Mage Hat (Brown)",
 		unidentifiedResourceName = "마법사의모자",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Mage Hat (Brown)    # !todo check english name",
+		identifiedDisplayName = "Costume Mage Hat (Brown)",
 		identifiedResourceName = "회색마법사의모자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38637,10 +38637,10 @@ tbl = {
 		ClassNum = 284
 	},
 	[401046] = {
-		unidentifiedDisplayName = "Costume Warm PoongCha    # !todo check english name",
+		unidentifiedDisplayName = "Costume Warm PoongCha",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Warm PoongCha    # !todo check english name",
+		identifiedDisplayName = "Costume Warm PoongCha",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38652,10 +38652,10 @@ tbl = {
 		ClassNum = 2755
 	},
 	[401055] = {
-		unidentifiedDisplayName = "Silver Stardust Crown    # !todo check english name",
+		unidentifiedDisplayName = "Silver Stardust Crown",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Silver Stardust Crown    # !todo check english name",
+		identifiedDisplayName = "Silver Stardust Crown",
 		identifiedResourceName = "면사포",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38672,10 +38672,10 @@ tbl = {
 		ClassNum = 2500
 	},
 	[401056] = {
-		unidentifiedDisplayName = "Scarlet Stardust Crown    # !todo check english name",
+		unidentifiedDisplayName = "Scarlet Stardust Crown",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Scarlet Stardust Crown    # !todo check english name",
+		identifiedDisplayName = "Scarlet Stardust Crown",
 		identifiedResourceName = "Poenetentia_B_Crown",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38692,10 +38692,10 @@ tbl = {
 		ClassNum = 2393
 	},
 	[401057] = {
-		unidentifiedDisplayName = "Violet Stardust Crown    # !todo check english name",
+		unidentifiedDisplayName = "Violet Stardust Crown",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Violet Stardust Crown    # !todo check english name",
+		identifiedDisplayName = "Violet Stardust Crown",
 		identifiedResourceName = "Poenetentia_S_Crown",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38712,10 +38712,10 @@ tbl = {
 		ClassNum = 2506
 	},
 	[401058] = {
-		unidentifiedDisplayName = "Celestial Rune Crown (Imperial Guard)    # !todo check english name",
+		unidentifiedDisplayName = "Celestial Rune Crown (Imperial Guard)",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Celestial Rune Crown (Imperial Guard)    # !todo check english name",
+		identifiedDisplayName = "Celestial Rune Crown (Imperial Guard)",
 		identifiedResourceName = "Midgard_Diadem_JP",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38731,10 +38731,10 @@ tbl = {
 		ClassNum = 2692
 	},
 	[401059] = {
-		unidentifiedDisplayName = "Celestial Rune Crown (Abyss Chaser)    # !todo check english name",
+		unidentifiedDisplayName = "Celestial Rune Crown (Abyss Chaser)",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Celestial Rune Crown (Abyss Chaser)    # !todo check english name",
+		identifiedDisplayName = "Celestial Rune Crown (Abyss Chaser)",
 		identifiedResourceName = "Midgard_Diadem_JP",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38750,10 +38750,10 @@ tbl = {
 		ClassNum = 2692
 	},
 	[401060] = {
-		unidentifiedDisplayName = "Rune Crown of the Sky (Spiritualist)    # !todo check english name",
+		unidentifiedDisplayName = "Rune Crown of the Sky (Spiritualist)",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Rune Crown of the Sky (Spiritualist)    # !todo check english name",
+		identifiedDisplayName = "Rune Crown of the Sky (Spiritualist)",
 		identifiedResourceName = "Midgard_Diadem_JP",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38769,10 +38769,10 @@ tbl = {
 		ClassNum = 2692
 	},
 	[401062] = {
-		unidentifiedDisplayName = "Costume Ignis Cap (Red)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Ignis Cap (Red)",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Ignis Cap (Red)    # !todo check english name",
+		identifiedDisplayName = "Costume Ignis Cap (Red)",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38799,10 +38799,10 @@ tbl = {
 		ClassNum = 2100
 	},
 	[401115] = {
-		unidentifiedDisplayName = "Sky Rune Crown (Meister)    # !todo check english name",
+		unidentifiedDisplayName = "Sky Rune Crown (Meister)",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Sky Rune Crown (Meister)    # !todo check english name",
+		identifiedDisplayName = "Sky Rune Crown (Meister)",
 		identifiedResourceName = "Midgard_Diadem_JP",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38818,10 +38818,10 @@ tbl = {
 		ClassNum = 2692
 	},
 	[401116] = {
-		unidentifiedDisplayName = "Sky Rune Crown (Windhawk)    # !todo check english name",
+		unidentifiedDisplayName = "Sky Rune Crown (Windhawk)",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Sky Rune Crown (Windhawk)    # !todo check english name",
+		identifiedDisplayName = "Sky Rune Crown (Windhawk)",
 		identifiedResourceName = "Midgard_Diadem_JP",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38837,10 +38837,10 @@ tbl = {
 		ClassNum = 2692
 	},
 	[401117] = {
-		unidentifiedDisplayName = "Sky Rune Crown (Hyper Novice)    # !todo check english name",
+		unidentifiedDisplayName = "Sky Rune Crown (Hyper Novice)",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Sky Rune Crown (Hyper Novice)    # !todo check english name",
+		identifiedDisplayName = "Sky Rune Crown (Hyper Novice)",
 		identifiedResourceName = "Midgard_Diadem_JP",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38856,10 +38856,10 @@ tbl = {
 		ClassNum = 2692
 	},
 	[401118] = {
-		unidentifiedDisplayName = "Sky Rune Crown (Cardinal)    # !todo check english name",
+		unidentifiedDisplayName = "Sky Rune Crown (Cardinal)",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Sky Rune Crown (Cardinal)    # !todo check english name",
+		identifiedDisplayName = "Sky Rune Crown (Cardinal)",
 		identifiedResourceName = "Midgard_Diadem_JP",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38875,10 +38875,10 @@ tbl = {
 		ClassNum = 2692
 	},
 	[401119] = {
-		unidentifiedDisplayName = "Sky Rune Crown (Inquisitor)    # !todo check english name",
+		unidentifiedDisplayName = "Sky Rune Crown (Inquisitor)",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Sky Rune Crown (Inquisitor)    # !todo check english name",
+		identifiedDisplayName = "Sky Rune Crown (Inquisitor)",
 		identifiedResourceName = "Midgard_Diadem_JP",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38894,10 +38894,10 @@ tbl = {
 		ClassNum = 2692
 	},
 	[401120] = {
-		unidentifiedDisplayName = "Sky Rune Crown (Sky Emperor)    # !todo check english name",
+		unidentifiedDisplayName = "Sky Rune Crown (Sky Emperor)",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Sky Rune Crown (Sky Emperor)    # !todo check english name",
+		identifiedDisplayName = "Sky Rune Crown (Sky Emperor)",
 		identifiedResourceName = "Midgard_Diadem_JP",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -38928,10 +38928,10 @@ tbl = {
 		ClassNum = 789
 	},
 	[401194] = {
-		unidentifiedDisplayName = "Costume Passion Rabbit Ribbon    # !todo check english name",
+		unidentifiedDisplayName = "Costume Passion Rabbit Ribbon",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Passion Rabbit Ribbon    # !todo check english name",
+		identifiedDisplayName = "Costume Passion Rabbit Ribbon",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39111,10 +39111,10 @@ tbl = {
 		ClassNum = 2487
 	},
 	[401248] = {
-		unidentifiedDisplayName = "Costume Apprentice Witch Hat    # !todo check english name",
+		unidentifiedDisplayName = "Costume Apprentice Witch Hat",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Apprentice Witch Hat    # !todo check english name",
+		identifiedDisplayName = "Costume Apprentice Witch Hat",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39126,10 +39126,10 @@ tbl = {
 		ClassNum = 2814
 	},
 	[401294] = {
-		unidentifiedDisplayName = "Costume Tulip Hairpin (Yellow)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Tulip Hairpin (Yellow)",
 		unidentifiedResourceName = "꽃",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Tulip Hairpin (Yellow)    # !todo check english name",
+		identifiedDisplayName = "Costume Tulip Hairpin (Yellow)",
 		identifiedResourceName = "황금튤립머리핀",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39156,10 +39156,10 @@ tbl = {
 		ClassNum = 2818
 	},
 	[401300] = {
-		unidentifiedDisplayName = "Costume Light Green Feather Hat    # !todo check english name",
+		unidentifiedDisplayName = "Costume Light Green Feather Hat",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Light Green Feather Hat    # !todo check english name",
+		identifiedDisplayName = "Costume Light Green Feather Hat",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39171,10 +39171,10 @@ tbl = {
 		ClassNum = 2819
 	},
 	[401320] = {
-		unidentifiedDisplayName = "Costume Astrologer's Tricorne (Blue)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Astrologer's Tricorne (Blue)",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Astrologer's Tricorne (Blue)    # !todo check english name",
+		identifiedDisplayName = "Costume Astrologer's Tricorne (Blue)",
 		identifiedResourceName = "강한자의헤어",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39474,10 +39474,10 @@ tbl = {
 		ClassNum = 2055
 	},
 	[410030] = {
-		unidentifiedDisplayName = "Costume Country Tail (Blue)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Country Tail (Blue)",
 		unidentifiedResourceName = "달과별의장식",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Country Tail (Blue)    # !todo check english name",
+		identifiedDisplayName = "Costume Country Tail (Blue)",
 		identifiedResourceName = "달과별의장식",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39489,10 +39489,10 @@ tbl = {
 		ClassNum = 2039
 	},
 	[410031] = {
-		unidentifiedDisplayName = "Costume Country Tail (Red)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Country Tail (Red)",
 		unidentifiedResourceName = "달과별의장식",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Country Tail (Red)    # !todo check english name",
+		identifiedDisplayName = "Costume Country Tail (Red)",
 		identifiedResourceName = "달과별의장식",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39504,10 +39504,10 @@ tbl = {
 		ClassNum = 2040
 	},
 	[410032] = {
-		unidentifiedDisplayName = "Costume Country Tail (Yellow)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Country Tail (Yellow)",
 		unidentifiedResourceName = "달과별의장식",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Country Tail (Yellow)    # !todo check english name",
+		identifiedDisplayName = "Costume Country Tail (Yellow)",
 		identifiedResourceName = "달과별의장식",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39519,10 +39519,10 @@ tbl = {
 		ClassNum = 2041
 	},
 	[410033] = {
-		unidentifiedDisplayName = "Costume Country Tail (Green)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Country Tail (Green)",
 		unidentifiedResourceName = "달과별의장식",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Country Tail (Green)    # !todo check english name",
+		identifiedDisplayName = "Costume Country Tail (Green)",
 		identifiedResourceName = "달과별의장식",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39534,10 +39534,10 @@ tbl = {
 		ClassNum = 2042
 	},
 	[410034] = {
-		unidentifiedDisplayName = "Costume Country Tail (Black)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Country Tail (Black)",
 		unidentifiedResourceName = "달과별의장식",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Country Tail (Black)    # !todo check english name",
+		identifiedDisplayName = "Costume Country Tail (Black)",
 		identifiedResourceName = "달과별의장식",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39549,10 +39549,10 @@ tbl = {
 		ClassNum = 2043
 	},
 	[410035] = {
-		unidentifiedDisplayName = "Costume Country Tail (White)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Country Tail (White)",
 		unidentifiedResourceName = "달과별의장식",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Country Tail (White)    # !todo check english name",
+		identifiedDisplayName = "Costume Country Tail (White)",
 		identifiedResourceName = "달과별의장식",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39564,10 +39564,10 @@ tbl = {
 		ClassNum = 2044
 	},
 	[410036] = {
-		unidentifiedDisplayName = "Costume Country Tail (Brown)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Country Tail (Brown)",
 		unidentifiedResourceName = "달과별의장식",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Country Tail (Brown)    # !todo check english name",
+		identifiedDisplayName = "Costume Country Tail (Brown)",
 		identifiedResourceName = "달과별의장식",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39579,10 +39579,10 @@ tbl = {
 		ClassNum = 2045
 	},
 	[410037] = {
-		unidentifiedDisplayName = "Costume Country Tail (Purple)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Country Tail (Purple)",
 		unidentifiedResourceName = "달과별의장식",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Country Tail (Purple)    # !todo check english name",
+		identifiedDisplayName = "Costume Country Tail (Purple)",
 		identifiedResourceName = "달과별의장식",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39594,10 +39594,10 @@ tbl = {
 		ClassNum = 2046
 	},
 	[410038] = {
-		unidentifiedDisplayName = "Costume Braid Half Up (Blue)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Braid Half Up (Blue)",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Braid Half Up (Blue)    # !todo check english name",
+		identifiedDisplayName = "Costume Braid Half Up (Blue)",
 		identifiedResourceName = "C_Braid_Half_Up_BU",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39609,10 +39609,10 @@ tbl = {
 		ClassNum = 2047
 	},
 	[410039] = {
-		unidentifiedDisplayName = "Costume Braid Half Up (Red)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Braid Half Up (Red)",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Braid Half Up (Red)    # !todo check english name",
+		identifiedDisplayName = "Costume Braid Half Up (Red)",
 		identifiedResourceName = "C_Braid_Half_Up_RD",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39624,10 +39624,10 @@ tbl = {
 		ClassNum = 2048
 	},
 	[410040] = {
-		unidentifiedDisplayName = "Costume Braid Half Up (Yellow)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Braid Half Up (Yellow)",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Braid Half Up (Yellow)    # !todo check english name",
+		identifiedDisplayName = "Costume Braid Half Up (Yellow)",
 		identifiedResourceName = "C_Braid_Half_Up_YL",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39639,10 +39639,10 @@ tbl = {
 		ClassNum = 2049
 	},
 	[410041] = {
-		unidentifiedDisplayName = "Costume Braid Half Up (Green)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Braid Half Up (Green)",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Braid Half Up (Green)    # !todo check english name",
+		identifiedDisplayName = "Costume Braid Half Up (Green)",
 		identifiedResourceName = "C_Braid_Half_Up_GN",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39654,10 +39654,10 @@ tbl = {
 		ClassNum = 2050
 	},
 	[410042] = {
-		unidentifiedDisplayName = "Costume Braid Half Up (Black)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Braid Half Up (Black)",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Braid Half Up (Black)    # !todo check english name",
+		identifiedDisplayName = "Costume Braid Half Up (Black)",
 		identifiedResourceName = "C_Braid_Half_Up_BL",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39669,10 +39669,10 @@ tbl = {
 		ClassNum = 2051
 	},
 	[410043] = {
-		unidentifiedDisplayName = "Costume Braid Half Up (White)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Braid Half Up (White)",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Braid Half Up (White)    # !todo check english name",
+		identifiedDisplayName = "Costume Braid Half Up (White)",
 		identifiedResourceName = "C_Braid_Half_Up_WH",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39684,10 +39684,10 @@ tbl = {
 		ClassNum = 2052
 	},
 	[410044] = {
-		unidentifiedDisplayName = "Costume Braid Half Up (Brown)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Braid Half Up (Brown)",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Braid Half Up (Brown)    # !todo check english name",
+		identifiedDisplayName = "Costume Braid Half Up (Brown)",
 		identifiedResourceName = "C_Braid_Half_Up_OM",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39699,10 +39699,10 @@ tbl = {
 		ClassNum = 2053
 	},
 	[410045] = {
-		unidentifiedDisplayName = "Costume Braid Half Up (Purple)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Braid Half Up (Purple)",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Braid Half Up (Purple)    # !todo check english name",
+		identifiedDisplayName = "Costume Braid Half Up (Purple)",
 		identifiedResourceName = "C_Braid_Half_Up_PP",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -39945,10 +39945,10 @@ tbl = {
 		ClassNum = 2129
 	},
 	[410086] = {
-		unidentifiedDisplayName = "Costume Melon Headphone    # !todo check english name",
+		unidentifiedDisplayName = "Costume Melon Headphone",
 		unidentifiedResourceName = "햇",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Melon Headphone    # !todo check english name",
+		identifiedDisplayName = "Costume Melon Headphone",
 		identifiedResourceName = "C_Melon_Headphone",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -40496,10 +40496,10 @@ tbl = {
 		ClassNum = 2318
 	},
 	[410224] = {
-		unidentifiedDisplayName = "Costume Pope Ribbon (Red)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Pope Ribbon (Red)",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Pope Ribbon (Red)    # !todo check english name",
+		identifiedDisplayName = "Costume Pope Ribbon (Red)",
 		identifiedResourceName = "Pope_Ribbon_R",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -41620,10 +41620,10 @@ tbl = {
 		ClassNum = 2226
 	},
 	[410447] = {
-		unidentifiedDisplayName = "Costume Telescope (Blue)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Telescope (Blue)",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Telescope (Blue)    # !todo check english name",
+		identifiedDisplayName = "Costume Telescope (Blue)",
 		identifiedResourceName = "Handiness_Telescope",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -41697,10 +41697,10 @@ tbl = {
 		ClassNum = 2809
 	},
 	[410587] = {
-		unidentifiedDisplayName = "Mermaid Headphones (Global Cooldown)    # !todo check english name",
+		unidentifiedDisplayName = "Mermaid Headphones (Global Cooldown)",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Mermaid Headphones (Global Cooldown)    # !todo check english name",
+		identifiedDisplayName = "Mermaid Headphones (Global Cooldown)",
 		identifiedResourceName = "머메이드헤드폰",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -41715,10 +41715,10 @@ tbl = {
 		ClassNum = 1254
 	},
 	[410588] = {
-		unidentifiedDisplayName = "Mermaid Headphones (Variable Casting)    # !todo check english name",
+		unidentifiedDisplayName = "Mermaid Headphones (Variable Casting)",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Mermaid Headphones (Variable Casting)    # !todo check english name",
+		identifiedDisplayName = "Mermaid Headphones (Variable Casting)",
 		identifiedResourceName = "머메이드헤드폰",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -41733,10 +41733,10 @@ tbl = {
 		ClassNum = 1254
 	},
 	[410589] = {
-		unidentifiedDisplayName = "Mermaid Headphones (MAXHP)    # !todo check english name",
+		unidentifiedDisplayName = "Mermaid Headphones (MAXHP)",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Mermaid Headphones (MAXHP)    # !todo check english name",
+		identifiedDisplayName = "Mermaid Headphones (MAXHP)",
 		identifiedResourceName = "머메이드헤드폰",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -41751,10 +41751,10 @@ tbl = {
 		ClassNum = 1254
 	},
 	[410590] = {
-		unidentifiedDisplayName = "Mermaid Headphones (Global Cooldown)    # !todo check english name",
+		unidentifiedDisplayName = "Mermaid Headphones (Global Cooldown)",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Mermaid Headphones (Global Cooldown)    # !todo check english name",
+		identifiedDisplayName = "Mermaid Headphones (Global Cooldown)",
 		identifiedResourceName = "머메이드헤드폰",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -41769,10 +41769,10 @@ tbl = {
 		ClassNum = 1254
 	},
 	[410591] = {
-		unidentifiedDisplayName = "Mermaid Headphones (Variable Casting)    # !todo check english name",
+		unidentifiedDisplayName = "Mermaid Headphones (Variable Casting)",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Mermaid Headphones (Variable Casting)    # !todo check english name",
+		identifiedDisplayName = "Mermaid Headphones (Variable Casting)",
 		identifiedResourceName = "머메이드헤드폰",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -41787,10 +41787,10 @@ tbl = {
 		ClassNum = 1254
 	},
 	[410592] = {
-		unidentifiedDisplayName = "Mermaid Headphones (MAXHP)    # !todo check english name",
+		unidentifiedDisplayName = "Mermaid Headphones (MAXHP)",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Mermaid Headphones (MAXHP)    # !todo check english name",
+		identifiedDisplayName = "Mermaid Headphones (MAXHP)",
 		identifiedResourceName = "머메이드헤드폰",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -42002,10 +42002,10 @@ tbl = {
 		ClassNum = 2133
 	},
 	[420075] = {
-		unidentifiedDisplayName = "Costume Floating Gioia    # !todo check english name",
+		unidentifiedDisplayName = "Costume Floating Gioia",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Floating Gioia    # !todo check english name",
+		identifiedDisplayName = "Costume Floating Gioia",
 		identifiedResourceName = "Jioia",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -42312,10 +42312,10 @@ tbl = {
 		ClassNum = 2078
 	},
 	[420172] = {
-		unidentifiedDisplayName = "Costume Braid Ring    # !todo check english name",
+		unidentifiedDisplayName = "Costume Braid Ring",
 		unidentifiedResourceName = "담배",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Braid Ring    # !todo check english name",
+		identifiedDisplayName = "Costume Braid Ring",
 		identifiedResourceName = "담배",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -42344,10 +42344,10 @@ tbl = {
 		ClassNum = 1924
 	},
 	[420177] = {
-		unidentifiedDisplayName = "Costume Valkyrie Hair    # !todo check english name",
+		unidentifiedDisplayName = "Costume Valkyrie Hair",
 		unidentifiedResourceName = "리본",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Valkyrie Hair    # !todo check english name",
+		identifiedDisplayName = "Costume Valkyrie Hair",
 		identifiedResourceName = "C_Valkyrie_Hair",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -43629,10 +43629,10 @@ tbl = {
 		ClassNum = 2655
 	},
 	[420447] = {
-		unidentifiedDisplayName = "Costume Emerald Rose    # !todo check english name",
+		unidentifiedDisplayName = "Costume Emerald Rose",
 		unidentifiedResourceName = "담배",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Emerald Rose    # !todo check english name",
+		identifiedDisplayName = "Costume Emerald Rose",
 		identifiedResourceName = "담배",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -43644,10 +43644,10 @@ tbl = {
 		ClassNum = 2526
 	},
 	[420514] = {
-		unidentifiedDisplayName = "Costume Wonderful Long (No Decoration)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Wonderful Long (No Decoration)",
 		unidentifiedResourceName = "담배",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Wonderful Long (No Decoration)    # !todo check english name",
+		identifiedDisplayName = "Costume Wonderful Long (No Decoration)",
 		identifiedResourceName = "담배",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -43749,10 +43749,10 @@ tbl = {
 		ClassNum = 2716
 	},
 	[420647] = {
-		unidentifiedDisplayName = "Costume Loose Braided Waves (Bronze)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Loose Braided Waves (Bronze)",
 		unidentifiedResourceName = "담배",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Loose Braided Waves (Bronze)    # !todo check english name",
+		identifiedDisplayName = "Costume Loose Braided Waves (Bronze)",
 		identifiedResourceName = "담배",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -43764,10 +43764,10 @@ tbl = {
 		ClassNum = 2756
 	},
 	[420648] = {
-		unidentifiedDisplayName = "Costume Loose Braided Waves (Royal Bronze)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Loose Braided Waves (Royal Bronze)",
 		unidentifiedResourceName = "담배",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Loose Braided Waves (Royal Bronze)    # !todo check english name",
+		identifiedDisplayName = "Costume Loose Braided Waves (Royal Bronze)",
 		identifiedResourceName = "담배",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -43779,10 +43779,10 @@ tbl = {
 		ClassNum = 2757
 	},
 	[420649] = {
-		unidentifiedDisplayName = "Costume Loose Braided Waves (Silver)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Loose Braided Waves (Silver)",
 		unidentifiedResourceName = "담배",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Loose Braided Waves (Silver)    # !todo check english name",
+		identifiedDisplayName = "Costume Loose Braided Waves (Silver)",
 		identifiedResourceName = "담배",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -43794,10 +43794,10 @@ tbl = {
 		ClassNum = 2758
 	},
 	[420650] = {
-		unidentifiedDisplayName = "Costume Loose Braided Waves (Royal Silver)    # !todo check english name",
+		unidentifiedDisplayName = "Costume Loose Braided Waves (Royal Silver)",
 		unidentifiedResourceName = "담배",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Loose Braided Waves (Royal Silver)    # !todo check english name",
+		identifiedDisplayName = "Costume Loose Braided Waves (Royal Silver)",
 		identifiedResourceName = "담배",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -43854,10 +43854,10 @@ tbl = {
 		ClassNum = 2794
 	},
 	[420728] = {
-		unidentifiedDisplayName = "Costume Heart Chocolate in Mouth    # !todo check english name",
+		unidentifiedDisplayName = "Costume Heart Chocolate in Mouth",
 		unidentifiedResourceName = "담배",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Heart Chocolate in Mouth    # !todo check english name",
+		identifiedDisplayName = "Costume Heart Chocolate in Mouth",
 		identifiedResourceName = "담배",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -44039,10 +44039,10 @@ tbl = {
 		ClassNum = 742
 	},
 	[440004] = {
-		unidentifiedDisplayName = "Costume Close Helmet    # !todo check english name",
+		unidentifiedDisplayName = "Costume Close Helmet",
 		unidentifiedResourceName = "헬름",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Close Helmet    # !todo check english name",
+		identifiedDisplayName = "Costume Close Helmet",
 		identifiedResourceName = "클로스헬멧",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -44054,10 +44054,10 @@ tbl = {
 		ClassNum = 203
 	},
 	[440005] = {
-		unidentifiedDisplayName = "Costume Dark Bacilium    # !todo check english name",
+		unidentifiedDisplayName = "Costume Dark Bacilium",
 		unidentifiedResourceName = "다크바실리움",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Dark Bacilium    # !todo check english name",
+		identifiedDisplayName = "Costume Dark Bacilium",
 		identifiedResourceName = "다크바실리움",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -48291,10 +48291,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[480086] = {
-		unidentifiedDisplayName = "Costume CAPOO Bag    # !todo check english name",
+		unidentifiedDisplayName = "Costume CAPOO Bag",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume CAPOO Bag    # !todo check english name",
+		identifiedDisplayName = "Costume CAPOO Bag",
 		identifiedResourceName = "광대모자",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -48306,10 +48306,10 @@ tbl = {
 		ClassNum = 89
 	},
 	[480092] = {
-		unidentifiedDisplayName = "Costume Sudden Wealth    # !todo check english name",
+		unidentifiedDisplayName = "Costume Sudden Wealth",
 		unidentifiedResourceName = "머리띠",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume Sudden Wealth    # !todo check english name",
+		identifiedDisplayName = "Costume Sudden Wealth",
 		identifiedResourceName = "원주민머리띠",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -50358,10 +50358,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[480616] = {
-		unidentifiedDisplayName = "Costume: Royal Knight's Rune Sword\"    # !todo check english name",
+		unidentifiedDisplayName = "Costume: Royal Knight's Rune Sword",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume: Royal Knight's Rune Sword\"    # !todo check english name",
+		identifiedDisplayName = "Costume: Royal Knight's Rune Sword",
 		identifiedResourceName = "분홍늘어진고양이",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -50373,10 +50373,10 @@ tbl = {
 		ClassNum = 276
 	},
 	[480617] = {
-		unidentifiedDisplayName = "Costume: Royal Knight's Greatsword\"    # !todo check english name",
+		unidentifiedDisplayName = "Costume: Royal Knight's Greatsword",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume: Royal Knight's Greatsword\"    # !todo check english name",
+		identifiedDisplayName = "Costume: Royal Knight's Greatsword",
 		identifiedResourceName = "파랑늘어진고양이",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -50388,10 +50388,10 @@ tbl = {
 		ClassNum = 277
 	},
 	[480618] = {
-		unidentifiedDisplayName = "Costume: Knight's Greatsword\"    # !todo check english name",
+		unidentifiedDisplayName = "Costume: Knight's Greatsword",
 		unidentifiedResourceName = "캡",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Costume: Knight's Greatsword\"    # !todo check english name",
+		identifiedDisplayName = "Costume: Knight's Greatsword",
 		identifiedResourceName = "노랑늘어진고양이",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -50419,10 +50419,10 @@ tbl = {
 		ClassNum = 282
 	},
 	[480669] = {
-		unidentifiedDisplayName = "Executioner's Cloak    # !todo check english name",
+		unidentifiedDisplayName = "Executioner's Cloak",
 		unidentifiedResourceName = "후드",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Executioner's Cloak    # !todo check english name",
+		identifiedDisplayName = "Executioner's Cloak",
 		identifiedResourceName = "후드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -50437,10 +50437,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[480670] = {
-		unidentifiedDisplayName = "Sharpshooter Muffler    # !todo check english name",
+		unidentifiedDisplayName = "Sharpshooter Muffler",
 		unidentifiedResourceName = "후드",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Sharpshooter Muffler    # !todo check english name",
+		identifiedDisplayName = "Sharpshooter Muffler",
 		identifiedResourceName = "후드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -50455,10 +50455,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[480671] = {
-		unidentifiedDisplayName = "Fighter's Cloak    # !todo check english name",
+		unidentifiedDisplayName = "Fighter's Cloak",
 		unidentifiedResourceName = "후드",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Fighter's Cloak    # !todo check english name",
+		identifiedDisplayName = "Fighter's Cloak",
 		identifiedResourceName = "후드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -50474,10 +50474,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[480672] = {
-		unidentifiedDisplayName = "Champion's Cloak    # !todo check english name",
+		unidentifiedDisplayName = "Champion's Cloak",
 		unidentifiedResourceName = "후드",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Champion's Cloak    # !todo check english name",
+		identifiedDisplayName = "Champion's Cloak",
 		identifiedResourceName = "후드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -50492,10 +50492,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[480673] = {
-		unidentifiedDisplayName = "Scholar's Muffler    # !todo check english name",
+		unidentifiedDisplayName = "Scholar's Muffler",
 		unidentifiedResourceName = "후드",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Scholar's Muffler    # !todo check english name",
+		identifiedDisplayName = "Scholar's Muffler",
 		identifiedResourceName = "후드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -50511,10 +50511,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[480674] = {
-		unidentifiedDisplayName = "Wizard's Cloak    # !todo check english name",
+		unidentifiedDisplayName = "Wizard's Cloak",
 		unidentifiedResourceName = "후드",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Wizard's Cloak    # !todo check english name",
+		identifiedDisplayName = "Wizard's Cloak",
 		identifiedResourceName = "후드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -51063,10 +51063,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[490168] = {
-		unidentifiedDisplayName = "Wind Spirit Ring    # !todo check english name",
+		unidentifiedDisplayName = "Wind Spirit Ring",
 		unidentifiedResourceName = "링",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Wind Spirit Ring    # !todo check english name",
+		identifiedDisplayName = "Wind Spirit Ring",
 		identifiedResourceName = "링",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -51353,10 +51353,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[490211] = {
-		unidentifiedDisplayName = "Discordant Pick    # !todo check english name",
+		unidentifiedDisplayName = "Discordant Pick",
 		unidentifiedResourceName = "링",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Discordant Pick    # !todo check english name",
+		identifiedDisplayName = "Discordant Pick",
 		identifiedResourceName = "링",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -51371,10 +51371,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[490219] = {
-		unidentifiedDisplayName = "Double Head Dragon Ring    # !todo check english name",
+		unidentifiedDisplayName = "Double Head Dragon Ring",
 		unidentifiedResourceName = "링",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Double Head Dragon Ring    # !todo check english name",
+		identifiedDisplayName = "Double Head Dragon Ring",
 		identifiedResourceName = "링",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -51528,10 +51528,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[490238] = {
-		unidentifiedDisplayName = "Chrono Gem Blade Chain    # !todo check english name",
+		unidentifiedDisplayName = "Chrono Gem Blade Chain",
 		unidentifiedResourceName = "링",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Chrono Gem Blade Chain    # !todo check english name",
+		identifiedDisplayName = "Chrono Gem Blade Chain",
 		identifiedResourceName = "링",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -51782,10 +51782,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[490269] = {
-		unidentifiedDisplayName = "Cardinal Light    # !todo check english name",
+		unidentifiedDisplayName = "Cardinal Light",
 		unidentifiedResourceName = "링",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Cardinal Light    # !todo check english name",
+		identifiedDisplayName = "Cardinal Light",
 		identifiedResourceName = "링",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -51836,10 +51836,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[490281] = {
-		unidentifiedDisplayName = "Armored Drive Gear    # !todo check english name",
+		unidentifiedDisplayName = "Armored Drive Gear",
 		unidentifiedResourceName = "링",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Armored Drive Gear    # !todo check english name",
+		identifiedDisplayName = "Armored Drive Gear",
 		identifiedResourceName = "링",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -51894,10 +51894,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[490284] = {
-		unidentifiedDisplayName = "Wind Eagle Sniper Ring    # !todo check english name",
+		unidentifiedDisplayName = "Wind Eagle Sniper Ring",
 		unidentifiedResourceName = "링",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Wind Eagle Sniper Ring    # !todo check english name",
+		identifiedDisplayName = "Wind Eagle Sniper Ring",
 		identifiedResourceName = "링",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -53222,10 +53222,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[490439] = {
-		unidentifiedDisplayName = "[NFS] Ring of Unknown Hero (Shadow Chaser)\"  # Name too long",
+		unidentifiedDisplayName = "[NFS] Ring of Unknown Hero (Shadow Chaser)",
 		unidentifiedResourceName = "이어링",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "[NFS] Ring of Unknown Hero (Shadow Chaser)\"  # Name too long",
+		identifiedDisplayName = "[NFS] Ring of Unknown Hero (Shadow Chaser)",
 		identifiedResourceName = "사라귀걸이",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -53931,10 +53931,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[490522] = {
-		unidentifiedDisplayName = "[NFS] Ring of Unknown Hero (Minstrel&Wanderer)\"  # Name too long",
+		unidentifiedDisplayName = "[NFS] Ring of Unknown Hero (Minstrel&Wanderer)",
 		unidentifiedResourceName = "이어링",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "[NFS] Ring of Unknown Hero (Minstrel&Wanderer)\"  # Name too long",
+		identifiedDisplayName = "[NFS] Ring of Unknown Hero (Minstrel&Wanderer)",
 		identifiedResourceName = "사라귀걸이",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -55582,10 +55582,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[500134] = {
-		unidentifiedDisplayName = "Celestial Napalm Sword    # !todo check english name",
+		unidentifiedDisplayName = "Celestial Napalm Sword",
 		unidentifiedResourceName = "소드",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Celestial Napalm Sword    # !todo check english name",
+		identifiedDisplayName = "Celestial Napalm Sword",
 		identifiedResourceName = "소드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -55924,10 +55924,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[510199] = {
-		unidentifiedDisplayName = "Chasing Dagger of the Sky    # !todo check english name",
+		unidentifiedDisplayName = "Chasing Dagger of the Sky",
 		unidentifiedResourceName = "나이프",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Chasing Dagger of the Sky    # !todo check english name",
+		identifiedDisplayName = "Chasing Dagger of the Sky",
 		identifiedResourceName = "나이프",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -56147,10 +56147,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[530076] = {
-		unidentifiedDisplayName = "Imperial Spear of the Sky    # !todo check english name",
+		unidentifiedDisplayName = "Imperial Spear of the Sky",
 		unidentifiedResourceName = "쟈벨린",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Imperial Spear of the Sky    # !todo check english name",
+		identifiedDisplayName = "Imperial Spear of the Sky",
 		identifiedResourceName = "쟈벨린",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -56230,10 +56230,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[540119] = {
-		unidentifiedDisplayName = "Judgment Day    # !todo check english name",
+		unidentifiedDisplayName = "Judgment Day",
 		unidentifiedResourceName = "북",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Judgment Day    # !todo check english name",
+		identifiedDisplayName = "Judgment Day",
 		identifiedResourceName = "북",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -56251,10 +56251,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[540122] = {
-		unidentifiedDisplayName = "Celestial Moonsong Book    # !todo check english name",
+		unidentifiedDisplayName = "Celestial Moonsong Book",
 		unidentifiedResourceName = "북",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Celestial Moonsong Book    # !todo check english name",
+		identifiedDisplayName = "Celestial Moonsong Book",
 		identifiedResourceName = "북",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -56536,10 +56536,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[550187] = {
-		unidentifiedDisplayName = "Foxtail of the Sky    # !todo check english name",
+		unidentifiedDisplayName = "Foxtail of the Sky",
 		unidentifiedResourceName = "롯드",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Foxtail of the Sky    # !todo check english name",
+		identifiedDisplayName = "Foxtail of the Sky",
 		identifiedResourceName = "롯드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -56556,10 +56556,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[550190] = {
-		unidentifiedDisplayName = "Celestial Arby Rod    # !todo check english name",
+		unidentifiedDisplayName = "Celestial Arby Rod",
 		unidentifiedResourceName = "롯드",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Celestial Arby Rod    # !todo check english name",
+		identifiedDisplayName = "Celestial Arby Rod",
 		identifiedResourceName = "롯드",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -56695,10 +56695,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[560086] = {
-		unidentifiedDisplayName = "Celestial Annihilation    # !todo check english name",
+		unidentifiedDisplayName = "Celestial Annihilation",
 		unidentifiedResourceName = "바그낙",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Celestial Annihilation    # !todo check english name",
+		identifiedDisplayName = "Celestial Annihilation",
 		identifiedResourceName = "바그낙",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -56833,10 +56833,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[570090] = {
-		unidentifiedDisplayName = "Gaig    # !todo check english name",
+		unidentifiedDisplayName = "Gaig",
 		unidentifiedResourceName = "바이올린",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Gaig    # !todo check english name",
+		identifiedDisplayName = "Gaig",
 		identifiedResourceName = "바이올린",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -56973,10 +56973,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[580090] = {
-		unidentifiedDisplayName = "Needle Whip    # !todo check english name",
+		unidentifiedDisplayName = "Needle Whip",
 		unidentifiedResourceName = "로프",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Needle Whip    # !todo check english name",
+		identifiedDisplayName = "Needle Whip",
 		identifiedResourceName = "로프",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -57137,10 +57137,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[590111] = {
-		unidentifiedDisplayName = "Submarine Anchor    # !todo check english name",
+		unidentifiedDisplayName = "Submarine Anchor",
 		unidentifiedResourceName = "클럽",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Submarine Anchor    # !todo check english name",
+		identifiedDisplayName = "Submarine Anchor",
 		identifiedResourceName = "클럽",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -57157,10 +57157,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[590112] = {
-		unidentifiedDisplayName = "Jack O' Rush    # !todo check english name",
+		unidentifiedDisplayName = "Jack O' Rush",
 		unidentifiedResourceName = "클럽",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Jack O' Rush    # !todo check english name",
+		identifiedDisplayName = "Jack O' Rush",
 		identifiedResourceName = "클럽",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -57395,10 +57395,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[610089] = {
-		unidentifiedDisplayName = "Vida Noctorno    # !todo check english name",
+		unidentifiedDisplayName = "Vida Noctorno",
 		unidentifiedResourceName = "카타르",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Vida Noctorno    # !todo check english name",
+		identifiedDisplayName = "Vida Noctorno",
 		identifiedResourceName = "쥬르",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -57887,10 +57887,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[700125] = {
-		unidentifiedDisplayName = "Celestial Crescent Bow    # !todo check english name",
+		unidentifiedDisplayName = "Celestial Crescent Bow",
 		unidentifiedResourceName = "보우",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Celestial Crescent Bow    # !todo check english name",
+		identifiedDisplayName = "Celestial Crescent Bow",
 		identifiedResourceName = "보우",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -58996,10 +58996,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002186] = {
-		unidentifiedDisplayName = "ROS Representative Tournament Participation Certi    # !todo check english name",
+		unidentifiedDisplayName = "ROS Representative Tournament Participation Certi",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "ROS Representative Tournament Participation Certi    # !todo check english name",
+		identifiedDisplayName = "ROS Representative Tournament Participation Certi",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59010,10 +59010,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002187] = {
-		unidentifiedDisplayName = "Level 5 Weapon 13 Refinement Guaranteed Ticket [R\"    # !todo check english name",
+		unidentifiedDisplayName = "Level 5 Weapon 13 Refinement Guaranteed Ticket [R",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Level 5 Weapon 13 Refinement Guaranteed Ticket [R\"    # !todo check english name",
+		identifiedDisplayName = "Level 5 Weapon 13 Refinement Guaranteed Ticket [R",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59024,10 +59024,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002188] = {
-		unidentifiedDisplayName = "Guaranteed Ticket for 2Lv Armor 13 Refining [ROS]\"    # !todo check english name",
+		unidentifiedDisplayName = "Guaranteed Ticket for 2Lv Armor 13 Refining [ROS]",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Guaranteed Ticket for 2Lv Armor 13 Refining [ROS]\"    # !todo check english name",
+		identifiedDisplayName = "Guaranteed Ticket for 2Lv Armor 13 Refining [ROS]",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59038,10 +59038,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002189] = {
-		unidentifiedDisplayName = "Guaranteed Ticket for 5Lv Weapon 14 Refining [ROS\"    # !todo check english name",
+		unidentifiedDisplayName = "Guaranteed Ticket for 5Lv Weapon 14 Refining [ROS",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Guaranteed Ticket for 5Lv Weapon 14 Refining [ROS\"    # !todo check english name",
+		identifiedDisplayName = "Guaranteed Ticket for 5Lv Weapon 14 Refining [ROS",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59052,10 +59052,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002190] = {
-		unidentifiedDisplayName = "Guaranteed Ticket for 2Lv Armor 14 Refining [ROS]\"    # !todo check english name",
+		unidentifiedDisplayName = "Guaranteed Ticket for 2Lv Armor 14 Refining [ROS]",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Guaranteed Ticket for 2Lv Armor 14 Refining [ROS]\"    # !todo check english name",
+		identifiedDisplayName = "Guaranteed Ticket for 2Lv Armor 14 Refining [ROS]",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59066,10 +59066,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002191] = {
-		unidentifiedDisplayName = "Guaranteed Ticket for 5Lv Weapon 15 Refining [ROS\"    # !todo check english name",
+		unidentifiedDisplayName = "Guaranteed Ticket for 5Lv Weapon 15 Refining [ROS",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Guaranteed Ticket for 5Lv Weapon 15 Refining [ROS\"    # !todo check english name",
+		identifiedDisplayName = "Guaranteed Ticket for 5Lv Weapon 15 Refining [ROS",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59080,10 +59080,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002192] = {
-		unidentifiedDisplayName = "Guaranteed Ticket for 2Lv Armor 15 Refining [ROS]\"    # !todo check english name",
+		unidentifiedDisplayName = "Guaranteed Ticket for 2Lv Armor 15 Refining [ROS]",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Guaranteed Ticket for 2Lv Armor 15 Refining [ROS]\"    # !todo check english name",
+		identifiedDisplayName = "Guaranteed Ticket for 2Lv Armor 15 Refining [ROS]",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59094,10 +59094,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002193] = {
-		unidentifiedDisplayName = "Blue Fighting Spirit Effect (Mid)    # !todo check english name",
+		unidentifiedDisplayName = "Blue Fighting Spirit Effect (Mid)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Blue Fighting Spirit Effect (Mid)    # !todo check english name",
+		identifiedDisplayName = "Blue Fighting Spirit Effect (Mid)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59108,10 +59108,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002194] = {
-		unidentifiedDisplayName = "Red Fighting Spirit Effect (Mid)    # !todo check english name",
+		unidentifiedDisplayName = "Red Fighting Spirit Effect (Mid)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Red Fighting Spirit Effect (Mid)    # !todo check english name",
+		identifiedDisplayName = "Red Fighting Spirit Effect (Mid)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59164,10 +59164,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002345] = {
-		unidentifiedDisplayName = "Howell Megas Walter Card Fragment    # !todo check english name",
+		unidentifiedDisplayName = "Howell Megas Walter Card Fragment",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Howell Megas Walter Card Fragment    # !todo check english name",
+		identifiedDisplayName = "Howell Megas Walter Card Fragment",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59178,10 +59178,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002363] = {
-		unidentifiedDisplayName = "Fides Nature Hall Blueprint    # !todo check english name",
+		unidentifiedDisplayName = "Fides Nature Hall Blueprint",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Fides Nature Hall Blueprint    # !todo check english name",
+		identifiedDisplayName = "Fides Nature Hall Blueprint",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59192,10 +59192,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002364] = {
-		unidentifiedDisplayName = "Fides Nature Axe Blueprint    # !todo check english name",
+		unidentifiedDisplayName = "Fides Nature Axe Blueprint",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Fides Nature Axe Blueprint    # !todo check english name",
+		identifiedDisplayName = "Fides Nature Axe Blueprint",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59206,10 +59206,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002395] = {
-		unidentifiedDisplayName = "Hit Physical Stone (Dual)    # !todo check english name",
+		unidentifiedDisplayName = "Hit Physical Stone (Dual)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Hit Physical Stone (Dual)    # !todo check english name",
+		identifiedDisplayName = "Hit Physical Stone (Dual)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59220,10 +59220,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002396] = {
-		unidentifiedDisplayName = "Hit Physical Stone (Upper)    # !todo check english name",
+		unidentifiedDisplayName = "Hit Physical Stone (Upper)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Hit Physical Stone (Upper)    # !todo check english name",
+		identifiedDisplayName = "Hit Physical Stone (Upper)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59234,10 +59234,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002397] = {
-		unidentifiedDisplayName = "Hit Physical Stone (Middle)    # !todo check english name",
+		unidentifiedDisplayName = "Hit Physical Stone (Middle)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Hit Physical Stone (Middle)    # !todo check english name",
+		identifiedDisplayName = "Hit Physical Stone (Middle)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59248,10 +59248,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002398] = {
-		unidentifiedDisplayName = "Hit Physical Stone (Lower)    # !todo check english name",
+		unidentifiedDisplayName = "Hit Physical Stone (Lower)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Hit Physical Stone (Lower)    # !todo check english name",
+		identifiedDisplayName = "Hit Physical Stone (Lower)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59262,10 +59262,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002399] = {
-		unidentifiedDisplayName = "Hit Physical Stone (Garment)    # !todo check english name",
+		unidentifiedDisplayName = "Hit Physical Stone (Garment)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Hit Physical Stone (Garment)    # !todo check english name",
+		identifiedDisplayName = "Hit Physical Stone (Garment)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59276,10 +59276,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002404] = {
-		unidentifiedDisplayName = "Experience Stone (Garment)    # !todo check english name",
+		unidentifiedDisplayName = "Experience Stone (Garment)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Experience Stone (Garment)    # !todo check english name",
+		identifiedDisplayName = "Experience Stone (Garment)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59290,10 +59290,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002405] = {
-		unidentifiedDisplayName = "Archmage Stone II (Garment)    # !todo check english name",
+		unidentifiedDisplayName = "Archmage Stone II (Garment)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Archmage Stone II (Garment)    # !todo check english name",
+		identifiedDisplayName = "Archmage Stone II (Garment)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59304,10 +59304,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002406] = {
-		unidentifiedDisplayName = "Biolo Stone II (Garment)    # !todo check english name",
+		unidentifiedDisplayName = "Biolo Stone II (Garment)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Biolo Stone II (Garment)    # !todo check english name",
+		identifiedDisplayName = "Biolo Stone II (Garment)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59318,10 +59318,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002407] = {
-		unidentifiedDisplayName = "Celestial Stone II (Garment)    # !todo check english name",
+		unidentifiedDisplayName = "Celestial Stone II (Garment)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Celestial Stone II (Garment)    # !todo check english name",
+		identifiedDisplayName = "Celestial Stone II (Garment)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59332,10 +59332,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002408] = {
-		unidentifiedDisplayName = "Warlock Stone II (Upper)    # !todo check english name",
+		unidentifiedDisplayName = "Warlock Stone II (Upper)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Warlock Stone II (Upper)    # !todo check english name",
+		identifiedDisplayName = "Warlock Stone II (Upper)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59346,10 +59346,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002409] = {
-		unidentifiedDisplayName = "Warlock Stone II (Middle)    # !todo check english name",
+		unidentifiedDisplayName = "Warlock Stone II (Middle)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Warlock Stone II (Middle)    # !todo check english name",
+		identifiedDisplayName = "Warlock Stone II (Middle)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59360,10 +59360,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002410] = {
-		unidentifiedDisplayName = "Warlock Stone II (Lower)    # !todo check english name",
+		unidentifiedDisplayName = "Warlock Stone II (Lower)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Warlock Stone II (Lower)    # !todo check english name",
+		identifiedDisplayName = "Warlock Stone II (Lower)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59374,10 +59374,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002411] = {
-		unidentifiedDisplayName = "Generic Stone II (Upper)    # !todo check english name",
+		unidentifiedDisplayName = "Generic Stone II (Upper)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Generic Stone II (Upper)    # !todo check english name",
+		identifiedDisplayName = "Generic Stone II (Upper)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59388,10 +59388,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002412] = {
-		unidentifiedDisplayName = "Generic Stone II (Middle)    # !todo check english name",
+		unidentifiedDisplayName = "Generic Stone II (Middle)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Generic Stone II (Middle)    # !todo check english name",
+		identifiedDisplayName = "Generic Stone II (Middle)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59402,10 +59402,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002413] = {
-		unidentifiedDisplayName = "Generic Stone II (Lower)    # !todo check english name",
+		unidentifiedDisplayName = "Generic Stone II (Lower)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Generic Stone II (Lower)    # !todo check english name",
+		identifiedDisplayName = "Generic Stone II (Lower)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59416,10 +59416,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002414] = {
-		unidentifiedDisplayName = "Holy Stone II (Upper)    # !todo check english name",
+		unidentifiedDisplayName = "Holy Stone II (Upper)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Holy Stone II (Upper)    # !todo check english name",
+		identifiedDisplayName = "Holy Stone II (Upper)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59430,10 +59430,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002415] = {
-		unidentifiedDisplayName = "Holy Stone II (Middle)    # !todo check english name",
+		unidentifiedDisplayName = "Holy Stone II (Middle)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Holy Stone II (Middle)    # !todo check english name",
+		identifiedDisplayName = "Holy Stone II (Middle)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59444,10 +59444,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002416] = {
-		unidentifiedDisplayName = "Holy Stone II (Lower)    # !todo check english name",
+		unidentifiedDisplayName = "Holy Stone II (Lower)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Holy Stone II (Lower)    # !todo check english name",
+		identifiedDisplayName = "Holy Stone II (Lower)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59458,10 +59458,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002442] = {
-		unidentifiedDisplayName = "Episode 21 Pass Ticket    # !todo check english name",
+		unidentifiedDisplayName = "Episode 21 Pass Ticket",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Episode 21 Pass Ticket    # !todo check english name",
+		identifiedDisplayName = "Episode 21 Pass Ticket",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59472,10 +59472,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002473] = {
-		unidentifiedDisplayName = "Engraved Gaebolg Armor    # !todo check english name",
+		unidentifiedDisplayName = "Engraved Gaebolg Armor",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Engraved Gaebolg Armor    # !todo check english name",
+		identifiedDisplayName = "Engraved Gaebolg Armor",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59486,10 +59486,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002474] = {
-		unidentifiedDisplayName = "Engraved Gaebolg Robe    # !todo check english name",
+		unidentifiedDisplayName = "Engraved Gaebolg Robe",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Engraved Gaebolg Robe    # !todo check english name",
+		identifiedDisplayName = "Engraved Gaebolg Robe",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59500,10 +59500,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002475] = {
-		unidentifiedDisplayName = "Engraved Gaebolg Cloak    # !todo check english name",
+		unidentifiedDisplayName = "Engraved Gaebolg Cloak",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Engraved Gaebolg Cloak    # !todo check english name",
+		identifiedDisplayName = "Engraved Gaebolg Cloak",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59514,10 +59514,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002476] = {
-		unidentifiedDisplayName = "Engraved Gaebolg Muffler    # !todo check english name",
+		unidentifiedDisplayName = "Engraved Gaebolg Muffler",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Engraved Gaebolg Muffler    # !todo check english name",
+		identifiedDisplayName = "Engraved Gaebolg Muffler",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59528,10 +59528,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002477] = {
-		unidentifiedDisplayName = "Engraved Gaebolg Boots    # !todo check english name",
+		unidentifiedDisplayName = "Engraved Gaebolg Boots",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Engraved Gaebolg Boots    # !todo check english name",
+		identifiedDisplayName = "Engraved Gaebolg Boots",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59542,10 +59542,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002478] = {
-		unidentifiedDisplayName = "Engraved Gaebolg Shoes    # !todo check english name",
+		unidentifiedDisplayName = "Engraved Gaebolg Shoes",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Engraved Gaebolg Shoes    # !todo check english name",
+		identifiedDisplayName = "Engraved Gaebolg Shoes",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59556,10 +59556,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002479] = {
-		unidentifiedDisplayName = "Engraved Gaebolg Ring    # !todo check english name",
+		unidentifiedDisplayName = "Engraved Gaebolg Ring",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Engraved Gaebolg Ring    # !todo check english name",
+		identifiedDisplayName = "Engraved Gaebolg Ring",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59570,10 +59570,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002480] = {
-		unidentifiedDisplayName = "Engraved Gaebolg Gloves    # !todo check english name",
+		unidentifiedDisplayName = "Engraved Gaebolg Gloves",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Engraved Gaebolg Gloves    # !todo check english name",
+		identifiedDisplayName = "Engraved Gaebolg Gloves",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59584,10 +59584,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002481] = {
-		unidentifiedDisplayName = "Engraved Gaebolg Earrings    # !todo check english name",
+		unidentifiedDisplayName = "Engraved Gaebolg Earrings",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Engraved Gaebolg Earrings    # !todo check english name",
+		identifiedDisplayName = "Engraved Gaebolg Earrings",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59598,10 +59598,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002482] = {
-		unidentifiedDisplayName = "Engraved Gaebolg Necklace    # !todo check english name",
+		unidentifiedDisplayName = "Engraved Gaebolg Necklace",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Engraved Gaebolg Necklace    # !todo check english name",
+		identifiedDisplayName = "Engraved Gaebolg Necklace",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59612,10 +59612,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002515] = {
-		unidentifiedDisplayName = "Job Change Map    # !todo check english name",
+		unidentifiedDisplayName = "Job Change Map",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Job Change Map    # !todo check english name",
+		identifiedDisplayName = "Job Change Map",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59668,10 +59668,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002640] = {
-		unidentifiedDisplayName = "Premium Black Ticket    # !todo check english name",
+		unidentifiedDisplayName = "Premium Black Ticket",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Premium Black Ticket    # !todo check english name",
+		identifiedDisplayName = "Premium Black Ticket",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59794,10 +59794,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002673] = {
-		unidentifiedDisplayName = "Gacha Ticket Stub    # !todo check english name",
+		unidentifiedDisplayName = "Gacha Ticket Stub",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Gacha Ticket Stub    # !todo check english name",
+		identifiedDisplayName = "Gacha Ticket Stub",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59822,10 +59822,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002678] = {
-		unidentifiedDisplayName = "Crispy Yongjirak Meat    # !todo check english name",
+		unidentifiedDisplayName = "Crispy Yongjirak Meat",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Crispy Yongjirak Meat    # !todo check english name",
+		identifiedDisplayName = "Crispy Yongjirak Meat",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59836,10 +59836,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002679] = {
-		unidentifiedDisplayName = "Burning Leather    # !todo check english name",
+		unidentifiedDisplayName = "Burning Leather",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Burning Leather    # !todo check english name",
+		identifiedDisplayName = "Burning Leather",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59850,10 +59850,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002680] = {
-		unidentifiedDisplayName = "Blazing Horn    # !todo check english name",
+		unidentifiedDisplayName = "Blazing Horn",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Blazing Horn    # !todo check english name",
+		identifiedDisplayName = "Blazing Horn",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59864,10 +59864,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002681] = {
-		unidentifiedDisplayName = "Old Snack    # !todo check english name",
+		unidentifiedDisplayName = "Old Snack",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Old Snack    # !todo check english name",
+		identifiedDisplayName = "Old Snack",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59878,10 +59878,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002682] = {
-		unidentifiedDisplayName = "Namungit    # !todo check english name",
+		unidentifiedDisplayName = "Namungit",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Namungit    # !todo check english name",
+		identifiedDisplayName = "Namungit",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59892,10 +59892,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002683] = {
-		unidentifiedDisplayName = "Fluffy Sparks    # !todo check english name",
+		unidentifiedDisplayName = "Fluffy Sparks",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Fluffy Sparks    # !todo check english name",
+		identifiedDisplayName = "Fluffy Sparks",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59906,10 +59906,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002684] = {
-		unidentifiedDisplayName = "Flickering Flower Fire    # !todo check english name",
+		unidentifiedDisplayName = "Flickering Flower Fire",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Flickering Flower Fire    # !todo check english name",
+		identifiedDisplayName = "Flickering Flower Fire",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59920,10 +59920,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002685] = {
-		unidentifiedDisplayName = "Hard Stone Box    # !todo check english name",
+		unidentifiedDisplayName = "Hard Stone Box",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Hard Stone Box    # !todo check english name",
+		identifiedDisplayName = "Hard Stone Box",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59934,10 +59934,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002686] = {
-		unidentifiedDisplayName = "Namunjae    # !todo check english name",
+		unidentifiedDisplayName = "Namunjae",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Namunjae    # !todo check english name",
+		identifiedDisplayName = "Namunjae",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59948,10 +59948,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002687] = {
-		unidentifiedDisplayName = "Hard Hammer    # !todo check english name",
+		unidentifiedDisplayName = "Hard Hammer",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Hard Hammer    # !todo check english name",
+		identifiedDisplayName = "Hard Hammer",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59962,10 +59962,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002688] = {
-		unidentifiedDisplayName = "Hard Spoon    # !todo check english name",
+		unidentifiedDisplayName = "Hard Spoon",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Hard Spoon    # !todo check english name",
+		identifiedDisplayName = "Hard Spoon",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59976,10 +59976,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002689] = {
-		unidentifiedDisplayName = "Hard Prostate    # !todo check english name",
+		unidentifiedDisplayName = "Hard Prostate",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Hard Prostate    # !todo check english name",
+		identifiedDisplayName = "Hard Prostate",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -59990,10 +59990,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002690] = {
-		unidentifiedDisplayName = "Sturdy Crowbar    # !todo check english name",
+		unidentifiedDisplayName = "Sturdy Crowbar",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Sturdy Crowbar    # !todo check english name",
+		identifiedDisplayName = "Sturdy Crowbar",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60004,10 +60004,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002691] = {
-		unidentifiedDisplayName = "Clatter    # !todo check english name",
+		unidentifiedDisplayName = "Clatter",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Clatter    # !todo check english name",
+		identifiedDisplayName = "Clatter",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60018,10 +60018,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002692] = {
-		unidentifiedDisplayName = "Cold Fire    # !todo check english name",
+		unidentifiedDisplayName = "Cold Fire",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Cold Fire    # !todo check english name",
+		identifiedDisplayName = "Cold Fire",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60032,10 +60032,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002693] = {
-		unidentifiedDisplayName = "Frost Shards    # !todo check english name",
+		unidentifiedDisplayName = "Frost Shards",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Frost Shards    # !todo check english name",
+		identifiedDisplayName = "Frost Shards",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60046,10 +60046,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002694] = {
-		unidentifiedDisplayName = "Frost Star    # !todo check english name",
+		unidentifiedDisplayName = "Frost Star",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Frost Star    # !todo check english name",
+		identifiedDisplayName = "Frost Star",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60060,10 +60060,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002695] = {
-		unidentifiedDisplayName = "Ice Jelly    # !todo check english name",
+		unidentifiedDisplayName = "Ice Jelly",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Ice Jelly    # !todo check english name",
+		identifiedDisplayName = "Ice Jelly",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60074,10 +60074,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002696] = {
-		unidentifiedDisplayName = "Old Watering Can    # !todo check english name",
+		unidentifiedDisplayName = "Old Watering Can",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Old Watering Can    # !todo check english name",
+		identifiedDisplayName = "Old Watering Can",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60088,10 +60088,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002697] = {
-		unidentifiedDisplayName = "Rusty Trowel    # !todo check english name",
+		unidentifiedDisplayName = "Rusty Trowel",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Rusty Trowel    # !todo check english name",
+		identifiedDisplayName = "Rusty Trowel",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60102,10 +60102,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002698] = {
-		unidentifiedDisplayName = "Sculpture of the Wraith    # !todo check english name",
+		unidentifiedDisplayName = "Sculpture of the Wraith",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Sculpture of the Wraith    # !todo check english name",
+		identifiedDisplayName = "Sculpture of the Wraith",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60116,10 +60116,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002699] = {
-		unidentifiedDisplayName = "Valkyrie's Regret    # !todo check english name",
+		unidentifiedDisplayName = "Valkyrie's Regret",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Valkyrie's Regret    # !todo check english name",
+		identifiedDisplayName = "Valkyrie's Regret",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60130,10 +60130,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002700] = {
-		unidentifiedDisplayName = "Flame Gold Coin    # !todo check english name",
+		unidentifiedDisplayName = "Flame Gold Coin",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Flame Gold Coin    # !todo check english name",
+		identifiedDisplayName = "Flame Gold Coin",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60144,10 +60144,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002701] = {
-		unidentifiedDisplayName = "Frozen Harban    # !todo check english name",
+		unidentifiedDisplayName = "Frozen Harban",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Frozen Harban    # !todo check english name",
+		identifiedDisplayName = "Frozen Harban",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60158,10 +60158,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002702] = {
-		unidentifiedDisplayName = "Ghost Flower    # !todo check english name",
+		unidentifiedDisplayName = "Ghost Flower",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Ghost Flower    # !todo check english name",
+		identifiedDisplayName = "Ghost Flower",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60172,10 +60172,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002703] = {
-		unidentifiedDisplayName = "Modified Hydraulic Tube    # !todo check english name",
+		unidentifiedDisplayName = "Modified Hydraulic Tube",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Modified Hydraulic Tube    # !todo check english name",
+		identifiedDisplayName = "Modified Hydraulic Tube",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60186,10 +60186,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002704] = {
-		unidentifiedDisplayName = "Ice Screw    # !todo check english name",
+		unidentifiedDisplayName = "Ice Screw",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Ice Screw    # !todo check english name",
+		identifiedDisplayName = "Ice Screw",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60200,10 +60200,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002705] = {
-		unidentifiedDisplayName = "Halppeong    # !todo check english name",
+		unidentifiedDisplayName = "Halppeong",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Halppeong    # !todo check english name",
+		identifiedDisplayName = "Halppeong",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60242,10 +60242,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002727] = {
-		unidentifiedDisplayName = "Clothing Enchantment Transfer Ticket    # !todo check english name",
+		unidentifiedDisplayName = "Clothing Enchantment Transfer Ticket",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Clothing Enchantment Transfer Ticket    # !todo check english name",
+		identifiedDisplayName = "Clothing Enchantment Transfer Ticket",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60270,10 +60270,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002751] = {
-		unidentifiedDisplayName = "Blue Paper    # !todo check english name",
+		unidentifiedDisplayName = "Blue Paper",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Blue Paper    # !todo check english name",
+		identifiedDisplayName = "Blue Paper",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60284,10 +60284,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002752] = {
-		unidentifiedDisplayName = "Red Paper    # !todo check english name",
+		unidentifiedDisplayName = "Red Paper",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Red Paper    # !todo check english name",
+		identifiedDisplayName = "Red Paper",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60298,10 +60298,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002753] = {
-		unidentifiedDisplayName = "Yellow Paper    # !todo check english name",
+		unidentifiedDisplayName = "Yellow Paper",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Yellow Paper    # !todo check english name",
+		identifiedDisplayName = "Yellow Paper",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60312,10 +60312,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002760] = {
-		unidentifiedDisplayName = "Energy Crystal (Variable Magic)    # !todo check english name",
+		unidentifiedDisplayName = "Energy Crystal (Variable Magic)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Energy Crystal (Variable Magic)    # !todo check english name",
+		identifiedDisplayName = "Energy Crystal (Variable Magic)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60606,10 +60606,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002827] = {
-		unidentifiedDisplayName = "Energy Crystal (Ring of Restoration)    # !todo check english name",
+		unidentifiedDisplayName = "Energy Crystal (Ring of Restoration)",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Energy Crystal (Ring of Restoration)    # !todo check english name",
+		identifiedDisplayName = "Energy Crystal (Ring of Restoration)",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60620,10 +60620,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002834] = {
-		unidentifiedDisplayName = "Ground Essence of the Rift    # !todo check english name",
+		unidentifiedDisplayName = "Ground Essence of the Rift",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Ground Essence of the Rift    # !todo check english name",
+		identifiedDisplayName = "Ground Essence of the Rift",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60634,10 +60634,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002835] = {
-		unidentifiedDisplayName = "Ground Rune Ore Shard    # !todo check english name",
+		unidentifiedDisplayName = "Ground Rune Ore Shard",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Ground Rune Ore Shard    # !todo check english name",
+		identifiedDisplayName = "Ground Rune Ore Shard",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60648,10 +60648,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002836] = {
-		unidentifiedDisplayName = "Ground Rune of Rift    # !todo check english name",
+		unidentifiedDisplayName = "Ground Rune of Rift",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Ground Rune of Rift    # !todo check english name",
+		identifiedDisplayName = "Ground Rune of Rift",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60662,10 +60662,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002837] = {
-		unidentifiedDisplayName = "Rift Volcanic Essence    # !todo check english name",
+		unidentifiedDisplayName = "Rift Volcanic Essence",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Rift Volcanic Essence    # !todo check english name",
+		identifiedDisplayName = "Rift Volcanic Essence",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60676,10 +60676,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002838] = {
-		unidentifiedDisplayName = "Rift Volcano Rune Shard    # !todo check english name",
+		unidentifiedDisplayName = "Rift Volcano Rune Shard",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Rift Volcano Rune Shard    # !todo check english name",
+		identifiedDisplayName = "Rift Volcano Rune Shard",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60690,10 +60690,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002839] = {
-		unidentifiedDisplayName = "Rift Volcano Rune    # !todo check english name",
+		unidentifiedDisplayName = "Rift Volcano Rune",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Rift Volcano Rune    # !todo check english name",
+		identifiedDisplayName = "Rift Volcano Rune",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60704,10 +60704,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002840] = {
-		unidentifiedDisplayName = "Fixed Crack    # !todo check english name",
+		unidentifiedDisplayName = "Fixed Crack",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Fixed Crack    # !todo check english name",
+		identifiedDisplayName = "Fixed Crack",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60718,10 +60718,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002841] = {
-		unidentifiedDisplayName = "Dimensional Land Card Shard    # !todo check english name",
+		unidentifiedDisplayName = "Dimensional Land Card Shard",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Dimensional Land Card Shard    # !todo check english name",
+		identifiedDisplayName = "Dimensional Land Card Shard",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
@@ -60732,10 +60732,10 @@ tbl = {
 		ClassNum = 0
 	},
 	[1002842] = {
-		unidentifiedDisplayName = "Dimensional Volcano Card Shard    # !todo check english name",
+		unidentifiedDisplayName = "Dimensional Volcano Card Shard",
 		unidentifiedResourceName = "금전주머니",
 		unidentifiedDescriptionName = { "" },
-		identifiedDisplayName = "Dimensional Volcano Card Shard    # !todo check english name",
+		identifiedDisplayName = "Dimensional Volcano Card Shard",
 		identifiedResourceName = "금전주머니",
 		identifiedDescriptionName = {
 			"^777777(No official description in this client; stats from the server.)^000000",
