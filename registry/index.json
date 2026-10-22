@@ -1672,13 +1672,13 @@
       "name": "world-sync-extras",
       "version": "",
       "author": "Lil Art",
-      "description": "Optional extras for the World Sync content (1.6.6): entrances from rAthena's towns and fields into the maps World Sync fills (off by default; needs those maps in your client), 740 official NPCs whose logic no server data has yet, placed with their own sprite, name and spot, and @npcplace, a GM command to move any NPC and keep it there. Renewal.",
+      "description": "World Sync's playable content and iRO's missing quests, in blocks you can switch: the Jormungandr saga (Episodes 20 and 21 with their memorial dungeons, dailies and traders), Chapters 1 and 2 of the Song of the World Tree, Varmundt, the Star Emperor job change, Sanctuary Herosria and its Sunday siege, iRO services like the Devil in the Box, and iRO Quests: Bounty Boards, City Investment, Gramps and the 2021 town quests. The official NPCs still without logic stand where the clients put them, and @npcplace moves any NPC. Renewal, 1.6.7+.",
       "homepage": "https://github.com/LilArt420/world-sync-extras",
       "tags": [
-        "gm-tools",
+        "episodes",
         "maps",
         "npc",
-        "travel",
+        "quests",
         "world"
       ],
       "icon": "",
