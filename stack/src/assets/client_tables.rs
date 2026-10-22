@@ -191,7 +191,7 @@ const STATE_ICON_DIR: &str = "data/luafiles514/lua files/stateicon";
 /// The three status icon tables -- with [`STATE_ICON_IMAGES`] and
 /// [`STATE_ICON_INFO`] -- are each one table for every icon, like the skill
 /// tables. A mod ships only its rows: names for its own icons, in the range
-/// servers keep for mods (20000-29999 in our rAthena fork), their pictures
+/// servers keep for mods (20000-22999 in our rAthena fork), their pictures
 /// and tooltips, or a new picture or tooltip for a stock icon. The client
 /// reads every mod's names, then its own pictures and tooltips, then the
 /// mods', each in mod order: a later mod wins.

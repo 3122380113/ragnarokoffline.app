@@ -61,9 +61,11 @@ id is the same skill: its entry is merged over yours, and Settings → Mods does
 not report it the way it reports a clashing item or monster id. The fork has
 room for 1,000 skills from mods on top of rAthena's own.
 
-**Status icons** of a mod's own take numbers from **20000–29999**, which our
+**Status icons** of a mod's own take numbers from **20000–22999**, which our
 rAthena fork keeps for mods (its own icons stop below 2000): see
-[A status icon of your own](#a-status-icon-of-your-own).
+[A status icon of your own](#a-status-icon-of-your-own). The range is kept
+small for now and can grow if mods need more, so take a block no bigger than
+your mod needs.
 
 Blocks taken so far. Add yours here in the same pull request as your mod, so
 the next mod picks a free one:
@@ -296,7 +298,7 @@ status("GCR_TOXIN", {
 
 | Field | Means | Default |
 |---|---|---|
-| `icon` | the icon a player sees while it lasts: one the client has, by its `EFST_` name, or a number of your own from 20000–29999 ([below](#a-status-icon-of-your-own)) | none |
+| `icon` | the icon a player sees while it lasts: one the client has, by its `EFST_` name, or a number of your own from 20000–22999 ([below](#a-status-icon-of-your-own)) | none |
 | `duration` | how long it lasts, in ms | 0: until it is taken off |
 | `refresh` | a new application starts the duration again | `true` |
 | `max_stacks` | the most stacks it holds | 1 |
@@ -349,7 +351,7 @@ left, and goes on when they are back.
 A stock icon brings its picture and its tooltip with it, and a status that
 borrows one takes over that icon on the player's screen: if the stock status
 that owns it is up too, one of them hides the other. A mod can have icons of
-its own instead. Take a number from your block of 20000–29999 for the status,
+its own instead. Take a number from your block of 20000–22999 for the status,
 and tell the client what it is called, what it looks like and what its
 tooltip says, in three tables of `data/luafiles514/lua files/stateicon/`.
 Like the skill tables, a mod's copies are added to the client's: ship your

@@ -1920,7 +1920,7 @@ The client knows a status icon by three tables in
 `data/luafiles514/lua files/stateicon/`: `efstids.lub` (its name and number),
 `stateiconimginfo.lub` (its picture, a file in `data/texture/effect/`) and
 `stateiconinfo.lub` (its tooltip). As with the skill tables, a mod's copies are
-**added to the client's**: ship rows for your own icons, numbers 20000–29999
+**added to the client's**: ship rows for your own icons, numbers 20000–22999
 that the server keeps for mods, or new pictures and tooltips for stock ones.
 
 - **Every mod's `efstids.lub` is read first**, then the client's pictures and
