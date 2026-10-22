@@ -150,6 +150,30 @@ for the file in a script, rather than assuming a date.
 An app from before `clientFolders` ignores it and reads only the mod's own
 folders; `requires.client` makes such an app refuse the mod by name.
 
+#### Asking from a script: F_ClientInfo
+
+`clientFolders` and `requires.client` go by the main client only. The
+[fallback GRF](TROUBLESHOOTING.md#druid-karnos-or-alitea-is-invisible-or-their-skills-show-nothing)
+supplies files but not tables, so it can't choose a mod's tables. A script
+that has to know whether some art is there, such as a job changer that offers
+Druid only when kRO's sprites are, can ask about both:
+
+```c
+.@main$     = callfunc("F_ClientInfo", "client");         // "iRO"
+.@fallback$ = callfunc("F_ClientInfo", "fallback");       // "kRO", or "" if none is set
+.@date      = callfunc("F_ClientInfo", "fallback_date");  // 20261007, or 0
+if (.@main$ == "kRO" || .@fallback$ == "kRO")
+	.@menu$ = .@menu$ + "Druid:";
+```
+
+`client_date` is the main client's. A client the app can't name is `""`, and a
+date it can't read is 0. A date is the GRF file's own, the day it was last
+patched, so it says roughly how new the files are, not which client version
+they are. These are the host's files, as of the last server start: changing the
+client or the fallback reaches scripts when the server next starts. Like
+`F_ModSetting`, the function is written only when some mod ships scripts, and
+an app from before it does not have it.
+
 ### renewalFolder / prerenewalFolder — one mod for both eras
 
 Some files only work in one era. An item script that calls a renewal-only
