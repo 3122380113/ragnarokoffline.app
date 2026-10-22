@@ -55,10 +55,15 @@ function availability({ packaged, headless, platform, appImage, adHocSigned, has
 // `relaunch` is a launch that arrived during the quit (main.js's
 // second-instance handler): the installer starts the app instead, so two
 // copies do not race the files being replaced.
-function quitPlan({ ready, restartRequested, installOnQuit, relaunch }) {
+// `misplaced` is set when the last install landed in another folder. An
+// explicit "Restart to install" still goes ahead -- the player asked, and they
+// may have just reinstalled over the right folder -- but the automatic
+// install-on-quit does not, because unattended it would make another stray
+// copy on every quit and never update the copy being used.
+function quitPlan({ ready, restartRequested, installOnQuit, relaunch, misplaced }) {
 	if (!ready) return 'exit';
 	if (restartRequested) return 'install-relaunch';
-	if (installOnQuit) return relaunch ? 'install-relaunch' : 'install';
+	if (installOnQuit) return misplaced ? 'exit' : (relaunch ? 'install-relaunch' : 'install');
 	return 'exit';
 }
 
@@ -81,7 +86,98 @@ function windowsInstallDirectory(execPath) {
 	return require('node:path').win32.dirname(execPath);
 }
 
-function createAppUpdater({ app, platform = process.platform, execPath = process.execPath, log, preferences, availability: avail, load, nativeUpdater, timers = { setTimeout, setInterval, clearTimeout } }) {
+// Whether a recorded install attempt actually landed on this copy.
+//
+// The reason this exists: on Windows the NSIS installer decides its own
+// destination, and `installDirectory` (the /D switch) is a request, not a
+// guarantee. When it lands somewhere else the update *succeeds* -- a second
+// copy of the app appears in the default folder, fully updated -- and the copy
+// the player launches is untouched. Nothing anywhere said so, so the player
+// sees "the updater reinstalls instead of updating" and tries again, and again
+// (#632, still reported against 1.6.7 and 1.6.8).
+//
+// So: before handing over to the installer, write down the version we expect
+// to be running next time. On the next start, if we are not running it, the
+// update went somewhere else.
+//
+// Returns null when there is nothing to say -- no attempt recorded, or the
+// version we hoped for is the version we got.
+function installLanded({ attempt, version }) {
+	if (!attempt || !attempt.version) return null;
+	// Running the version we installed, or something newer still (a hand
+	// installed release on top): it landed, or no longer matters.
+	if (!olderThan(version, attempt.version)) return null;
+	return { expected: attempt.version, running: version, directory: attempt.directory || null };
+}
+
+// `a` is an earlier release than `b`. Compares the numeric dot-parts and
+// nothing else: these are our own release tags (1.6.8), and anything it cannot
+// read counts as not-older, so a tag shape we have never seen reports no
+// problem rather than a false one.
+function olderThan(a, b) {
+	// Every dot-part must be digits and nothing else. '' would otherwise read
+	// as 0 and make any real version look newer than it, which would accuse a
+	// release of failing on a copy that simply could not name itself.
+	const parts = v => {
+		const text = String(v == null ? '' : v).trim();
+		if (!text) return null;
+		const out = text.split('.').map(seg => (/^\d+$/.test(seg) ? Number(seg) : NaN));
+		return out.every(Number.isFinite) ? out : null;
+	};
+	const x = parts(a), y = parts(b);
+	if (!x || !y) return false;
+	for (let i = 0; i < Math.max(x.length, y.length); i++) {
+		const d = (x[i] || 0) - (y[i] || 0);
+		if (d) return d < 0;
+	}
+	return false;
+}
+
+// What to tell the player, in one line they can act on. Named folder first:
+// the whole confusion is not knowing which copy is which.
+function misplacedMessage({ expected, running, directory }) {
+	const where = directory ? ` over ${directory}` : ' over the folder this copy runs from';
+	return `Update ${expected} installed somewhere else -- this copy is still ${running}. `
+		+ `Windows installers choose their own folder, and yours is not the default one. `
+		+ `Download the installer from the releases page and run it${where}.`;
+}
+
+// Where the attempt is written down. A tiny JSON file in the state folder, so
+// it survives the install and the restart. `directory` is a function because
+// main.js resolves the state folder from RAGNAROKMAC_STATE, which a second
+// copy of the app overrides.
+//
+// Guarded at every step: this is a diagnostic, and it must never be the reason
+// the app will not start.
+function fileInstallRecord(directory) {
+	const file = () => {
+		const fs = require('node:fs'), path = require('node:path');
+		return { fs, path, at: path.join(directory(), 'update-attempt.json') };
+	};
+	return {
+		read() {
+			try {
+				const { fs, at } = file();
+				return JSON.parse(fs.readFileSync(at, 'utf8'));
+			} catch { return null; }
+		},
+		write(attempt) {
+			try {
+				const { fs, path, at } = file();
+				fs.mkdirSync(path.dirname(at), { recursive: true });
+				fs.writeFileSync(at, JSON.stringify(attempt, null, 2) + '\n');
+			} catch { /* a diagnostic; never fatal */ }
+		},
+		clear() {
+			try {
+				const { fs, at } = file();
+				fs.rmSync(at, { force: true });
+			} catch { /* as above */ }
+		},
+	};
+}
+
+function createAppUpdater({ app, platform = process.platform, execPath = process.execPath, log, preferences, availability: avail, load, nativeUpdater, installRecord = fileInstallRecord(() => require('node:path').join(app.getPath('userData'), 'state')), timers = { setTimeout, setInterval, clearTimeout } }) {
 	const state = {
 		enabled: avail.ok,
 		reason: avail.reason,
@@ -91,6 +187,10 @@ function createAppUpdater({ app, platform = process.platform, execPath = process
 		ready: null, // the version downloaded and waiting
 		checkedAt: null,
 		error: null,
+		// Set when the last install landed in another folder -- see
+		// installLanded. Suppresses automatic install-on-quit, so the app
+		// stops quietly making another copy on every restart.
+		misplaced: null,
 	};
 	let updater = null;
 	let checking = null;
@@ -154,7 +254,24 @@ function createAppUpdater({ app, platform = process.platform, execPath = process
 		return checking;
 	}
 
+	// Run once by start(), before the availability check: the message matters
+	// most on a copy that cannot update itself. Returned as well so a caller
+	// that does not start the timers can still ask.
+	function reviewLastInstall() {
+		const attempt = installRecord.read();
+		if (!attempt) return state.misplaced;
+		const missed = installLanded({ attempt, version: app.getVersion() });
+		// Either way the record has served its purpose; a stale one would
+		// accuse the next release of a failure that already got fixed.
+		installRecord.clear();
+		state.misplaced = missed;
+		if (missed) log(`update: ${misplacedMessage(missed)}`);
+		else log(`update: ${attempt.version} installed where this copy runs`);
+		return state.misplaced;
+	}
+
 	function start() {
+		reviewLastInstall();
 		if (!state.enabled) {
 			log(`update: automatic updates are off: ${state.reason}`);
 			return;
@@ -182,6 +299,8 @@ function createAppUpdater({ app, platform = process.platform, execPath = process
 			canInstall: !!state.ready && state.phase !== 'downloading',
 			checkedAt: state.checkedAt,
 			error: state.error,
+			misplaced: state.misplaced,
+			misplacedMessage: state.misplaced ? misplacedMessage(state.misplaced) : null,
 			...preferences(),
 		};
 	}
@@ -199,9 +318,26 @@ function createAppUpdater({ app, platform = process.platform, execPath = process
 			restartRequested,
 			installOnQuit: preferences().installOnQuit,
 			relaunch,
+			misplaced: state.misplaced,
 		});
-		if (plan === 'exit') return 'none';
+		if (plan === 'exit') {
+			if (state.misplaced && preferences().installOnQuit) {
+				log(`update: not installing on quit -- ${misplacedMessage(state.misplaced)}`);
+			}
+			return 'none';
+		}
 		const u = lib();
+		// Written down before the installer runs, because after it runs this
+		// process is gone. Windows only: it is the only installer that picks
+		// its own folder (macOS replaces the bundle in place, the AppImage
+		// rewrites itself).
+		if (platform === 'win32') {
+			installRecord.write({
+				version: state.ready,
+				directory: windowsInstallDirectory(execPath),
+				at: new Date().toISOString(),
+			});
+		}
 		try {
 			if (plan === 'install-relaunch') {
 				log(`update: installing ${state.ready} and restarting`);
@@ -243,7 +379,7 @@ function createAppUpdater({ app, platform = process.platform, execPath = process
 		});
 	}
 
-	return { start, check, status, preferencesChanged, finishQuit, _state: state };
+	return { start, check, status, preferencesChanged, finishQuit, reviewLastInstall, _state: state };
 }
 
 function shortError(error) {
@@ -254,4 +390,4 @@ function shortError(error) {
 	return message.split('\n')[0].slice(0, 200);
 }
 
-module.exports = { availability, quitPlan, libraryInstallOnQuit, windowsInstallDirectory, createAppUpdater, shortError, CHECK_FIRST_MS, CHECK_EVERY_MS };
+module.exports = { availability, quitPlan, libraryInstallOnQuit, windowsInstallDirectory, installLanded, olderThan, misplacedMessage, fileInstallRecord, createAppUpdater, shortError, CHECK_FIRST_MS, CHECK_EVERY_MS };

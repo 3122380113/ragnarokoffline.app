@@ -3755,6 +3755,9 @@ function appUpdater() {
 		}),
 		load: () => require('electron-updater').autoUpdater,
 		nativeUpdater: () => require('electron').autoUpdater,
+		// stateDir(), not app.getPath('userData'): a second copy run with
+		// RAGNAROKMAC_STATE has its own, and the record is about that copy.
+		installRecord: update.fileInstallRecord(stateDir),
 	});
 	return appUpdaterInstance;
 }

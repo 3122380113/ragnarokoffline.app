@@ -516,6 +516,11 @@
   <div class="panel" id="updates-panel">
     <div class="row"><span class="name">This version</span><span class="state" id="s-app-version">—</span></div>
     <div class="row"><span class="name">Status</span><span class="state" id="s-app-update">—</span></div>
+    <!-- Only on the one failure a player cannot work out for themselves: the
+         update installed, into a different folder, and this copy is untouched.
+         .note.bad keeps line breaks and is the same red used for the fallback
+         GRF warning. -->
+    <p class="note bad" id="app-update-misplaced" hidden></p>
     <div class="row actions" style="padding-top:10px; justify-content: flex-start">
       <button id="app-update-install" hidden>Restart to install</button>
       <button id="app-update-check" class="ghost">Check now</button>
@@ -2946,6 +2951,10 @@ function paintAppUpdate(u) {
   else if (u.phase === 'error') text = `Could not check: ${u.error}`;
   else text = u.auto ? 'Checks every few hours' : 'Not checking automatically';
   paint($('s-app-update'), u.phase !== 'error', text);
+  // Said here as well as in the log: the log is not where somebody looks
+  // when the updater appears to reinstall the app instead of updating it.
+  $('app-update-misplaced').textContent = u.misplacedMessage || '';
+  $('app-update-misplaced').hidden = !u.misplacedMessage;
   $('app-update-install').hidden = !u.canInstall;
   $('app-update-install').textContent = u.ready ? `Restart to install ${u.ready}` : 'Restart to install';
   $('app-update-check').disabled = !u.enabled || u.phase === 'checking' || u.phase === 'downloading';
