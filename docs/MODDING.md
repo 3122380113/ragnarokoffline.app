@@ -1537,6 +1537,7 @@ options.
 | `c:place_unit("MG_FIREWALL", level, x, y, { duration, by, power })` | place a ground skill at a cell, owned by the hook's owner (or `by`), whatever the skill's own limit on how many may stand; `duration` in ms, default the skill's; `power` the % of the damage its hits deal |
 | `c:end_unit(group)` | remove a ground skill: a `group` from `unit:ground_units()` or `ground_units_around()` |
 | `c:give_item("RED_POTION", amount, who, { floor = true })` | an item for `"caster"` (default), when that is a player; at its feet with `floor`, or when the bag is full |
+| `c:give_zeny(amount, who)` | zeny for `"caster"` (default), when that is a player, logged as a script's; never past the most a character can hold |
 | `c:take_item("MAGIC_GEAR_FUEL", amount, who)` | take items from a player, `"caster"` by default: all of them, or none when it has fewer |
 | `c:copy_skill("WZ_STORMGUST", level, who, slot)` | put a skill in a player's Plagiarism slot (`"plagiarism"`, the default) or Reproduce slot (`"reproduce"`), as the server's own copy does; `"caster"` by default. A skill the player has of its own is left alone |
 | `c:itemskill("WZ_METEOR", level, who)` | let a player use a skill once, as a scroll does: the client asks for the target. `"caster"` by default |
