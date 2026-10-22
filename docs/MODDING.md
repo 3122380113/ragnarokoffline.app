@@ -1914,6 +1914,27 @@ lists them in the client's `customSkillId`, `customSkillInfoList`,
 [New skills, passives and statuses](mods/CUSTOM_SKILLS.md#what-players-see-the-clients-skill-tables)
 shows each table with an example.
 
+### Status icons: pictures and tooltips
+
+The client knows a status icon by three tables in
+`data/luafiles514/lua files/stateicon/`: `efstids.lub` (its name and number),
+`stateiconimginfo.lub` (its picture, a file in `data/texture/effect/`) and
+`stateiconinfo.lub` (its tooltip). As with the skill tables, a mod's copies are
+**added to the client's**: ship rows for your own icons, numbers 20000–22999
+that the server keeps for mods, or new pictures and tooltips for stock ones.
+
+- **The client's `efstids.lub` is read first, then every mod's**, then the
+  client's pictures and tooltips, then the mods', in mod order. A later mod
+  wins. A mod names only new icons in 20000–22999, never a stock one.
+- **Only that folder is read.** A status icon table anywhere else is copied
+  like any other file, and the log says so.
+
+The app copies each mod's tables aside as `efstids-<mod>.lub` and so on, and
+lists them in the client's `customEfstIds`, `customStateIconImgInfo` and
+`customStateIconInfo`.
+[A status icon of your own](mods/CUSTOM_SKILLS.md#a-status-icon-of-your-own)
+has an example of each, and the Lua side.
+
 ### Cut-ins: an NPC's full-length picture
 
 `cutin "<name>", <position>;` in an NPC's script shows a picture beside the
