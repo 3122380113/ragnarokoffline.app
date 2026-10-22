@@ -1923,8 +1923,9 @@ The client knows a status icon by three tables in
 **added to the client's**: ship rows for your own icons, numbers 20000–22999
 that the server keeps for mods, or new pictures and tooltips for stock ones.
 
-- **Every mod's `efstids.lub` is read first**, then the client's pictures and
-  tooltips, then the mods', in mod order. A later mod wins.
+- **The client's `efstids.lub` is read first, then every mod's**, then the
+  client's pictures and tooltips, then the mods', in mod order. A later mod
+  wins. A mod names only new icons in 20000–22999, never a stock one.
 - **Only that folder is read.** A status icon table anywhere else is copied
   like any other file, and the log says so.
 

@@ -402,10 +402,13 @@ StateIconList[EFST_IDs.EFST_GCX_FLURRY] = {
 - **A stock icon can get a new picture or tooltip** the same way, from its own
   name; every status that wears it then shows the new one.
 - **The server sends your number as it is**, to the players around, for a
-  player's status and a monster's alike (a Toxin on a monster shows over its
-  head).
-- **Every mod's names are read first**, then the client's pictures and
-  tooltips, then the mods', in mod order: a later mod wins.
+  player's status and a monster's alike. The client draws status icons only
+  for your own character, so a monster's (a Toxin on it) shows nothing yet.
+- **The client's names are read first, then every mod's**, then the client's
+  pictures and tooltips, then the mods', in mod order: a later mod wins. A
+  mod's names are taken only for new icons in 20000–22999; a name the client
+  already has keeps its number. A mod file with a Lua error is left out on its
+  own.
 
 An app too old for this loads a `status()` with a number from 20000 up as an
 error, and the mod's whole Lua file with it. A mod that must also run on older
