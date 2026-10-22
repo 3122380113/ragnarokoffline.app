@@ -1266,9 +1266,12 @@ skill("GCR_VENOM_BURST", {
 
 `stock_checks = false` turns off the checks the server makes for that skill
 alone before it can be used (`skill_check_condition_castbegin` and `_castend`
-in rAthena's `skill.cpp`): Spell Fist's "only while casting a bolt", Release
-at level 2 needing a summoned sphere, Feint Bomb's Land Protector check, a
-summoning skill's limit. A reused skill whose effect a mod replaces usually
+in rAthena's `skill.cpp`), and on its target (`skill_castend_id_check`):
+Spell Fist's "only while casting a bolt", Release at level 2 needing a
+summoned sphere, Feint Bomb's Land Protector check, a summoning skill's limit,
+pre-renewal Back Stab's "only from behind". The skill's own effect may check
+again (Back Stab does), so a mod that wants it gone takes the effect over in
+`before_cast`. A reused skill whose effect a mod replaces usually
 wants them gone. What `skill_db.yml` asks for (SP, items, weapon, state,
 spheres) is still asked, and `can_cast` adds checks of the mod's own.
 
