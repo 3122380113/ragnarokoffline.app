@@ -2426,6 +2426,7 @@ It is a supported interface, not a sandbox for untrusted JavaScript.
 | `api.input.suspend()` | Suspend movement while showing a plugin dialog. Returns an idempotent release function, also released at disposal. |
 | `api.actions.perform(name, payload)` | Native actions: `attack`, `target` (toggle auto-target), `interact`, `pickup`, `menu` (game options), `shortcut` with `{ index: 0…35 }`, `shortcut:assign` and `storage:transfer` (below), or `window` with an allowed `{ name }`. Returns whether the action was dispatched, not whether the server accepted it. |
 | `api.targeting.pick({ type, label })` | Raises the client's own target cursor and resolves to a frozen `{ classId, gid, name, kind }` for what the player clicks, or `null` for ESC, empty ground, a client too old to offer it, or the player starting a skill of their own (their action wins). `type` is `mob` (default), `player` or `any`; NPCs cannot be picked. One pick at a time: a new one cancels the last, and so does disposal. |
+| `api.monsters.friendly(gid, on)` / `.friendlySupported()` | A monster the player's party owns, such as a mod's pet: the plain cursor over it instead of the attack one, and left out of `api.actions.attackNearest()`. Looks only; the server decides what can be hit. Unmarked when the plugin goes. See [below](#a-partys-own-monsters--apimonstersfriendly). Absent in an older app. |
 | `api.server.command(text)` | Sends an `@` or `#` command as if the player had typed it in chat, so the server allows exactly what the player's group allows. Anything else is refused; returns whether it was sent. |
 | `api.graphics.registerPass({ name, fragment, uniforms, enabled })` | A full-screen GLSL pass over each frame, after bloom and before anti-aliasing. Returns a function that removes it; it also goes when the plugin does. See [Graphics passes](#graphics-passes). |
 | `api.ui.window({ id, title, width, height, resizable })` | A window of the plugin's own; fill its `body`. `show`, `hide`, `toggle`, `isOpen`, `setTitle`, `onClose`. See [Windows and server requests](#windows-and-server-requests). |
@@ -2908,6 +2909,29 @@ call it from `init`, and it is put back when the mod is turned off. An app
 before 1.4.5 has no `api.players`, and a client without the switches answers
 `gmLookSupported()` with `false` (`gmLook` then returns `null`). It reads `Session.AdminLook` in the
 roBrowser fork. See [`mods/gm-class-look`](../mods/gm-class-look).
+
+### A party's own monsters — `api.monsters.friendly`
+
+A monster a mod spawns for the player's party, such as a pet that follows a
+companion, is still a monster to the client: the mouse shows the attack
+cursor over it, and `api.actions.attackNearest()` walks up to it. Mark it by
+its gid, which the mod's server script knows (`monster` returns it) and can
+send to its plugin:
+
+```js
+if (api.monsters?.friendlySupported?.()) {
+    api.monsters.friendly(gid);          // the plain cursor, and left out of attackNearest
+    api.monsters.friendly(gid, false);   // a monster again
+}
+```
+
+`friendly` returns `true` once marked or unmarked, and `false` on a client
+without it. Marking the same gid twice is one mark. Two mods can mark the same
+monster, and it stays friendly until both let it go. Everything a mod marked
+is unmarked when it is turned off. This only changes what the player sees and
+what `attackNearest` picks: the server still decides what can be hit, so give
+the monster a master on the server too (`setunitdata .@gid, UMOB_MASTERAID, ...`).
+An older app has no `api.monsters`.
 
 ### Window sizes — `api.ui.scale`
 
