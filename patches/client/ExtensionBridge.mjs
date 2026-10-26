@@ -298,11 +298,15 @@ export function init() {
         return clientSet.apply(this, arguments);
     };
     // A friendly monster under the mouse gets the plain cursor, as a pet does
-    // (the client sets the attack one in onMouseOver, just before this).
+    // (the client sets the attack one in onMouseOver, just before this). The
+    // map calls this every frame and setType restarts the cursor's animation,
+    // so switch only once.
     const clientOver = EntityManager.setOverEntity;
     EntityManager.setOverEntity = function (target) {
         const result = clientOver.apply(this, arguments);
-        if (isFriendly(target) && !Camera.action?.active) Cursor.setType(Cursor.ACTION.DEFAULT);
+        if (isFriendly(target) && !Camera.action?.active && Cursor.getActualType() !== Cursor.ACTION.DEFAULT) {
+            Cursor.setType(Cursor.ACTION.DEFAULT);
+        }
         return result;
     };
     // Emit item:use so mods can react to a consumable being used. The id is the
