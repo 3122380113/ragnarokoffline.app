@@ -21,6 +21,13 @@ const HEADLESS = process.argv.includes('--headless') || process.env.RAGNAROK_OFF
 // fallback if this build of Electron lacks it.
 if (HEADLESS && process.platform === 'linux' && !process.env.DISPLAY && !process.env.WAYLAND_DISPLAY) {
 	app.commandLine.appendSwitch('ozone-platform', 'headless');
+} else if (process.platform === 'linux' && process.env.DISPLAY
+	&& !process.argv.some(a => a.startsWith('--ozone-platform'))) {
+	// Electron 38 and later start as a native Wayland app in a Wayland
+	// session. Electron 33 ran through Xwayland there, and that is what the
+	// game was tested on (docs/STEAM_DECK.md), so keep it while an X server is
+	// available. `--ozone-platform=wayland` on the command line opts in.
+	app.commandLine.appendSwitch('ozone-platform', 'x11');
 }
 // Mods' own settings pages are served from a private scheme, which Chromium
 // only accepts if it is declared before the app is ready.
@@ -1711,11 +1718,13 @@ function makeWindow(id, file, opts) {
 	// Levels are Electron's: 0 verbose, 1 info, 2 warning, 3 error.
 	clientLogStart();
 	win.webContents.on('console-message', (...a) => {
-		// Electron 36 replaced (event, level, message, line, sourceId) with a
-		// single details object. Accept both so this does not go quiet on an
+		// Electron 35 moved (event, level, message, line, sourceId) onto the
+		// event itself and deprecated the extra arguments. Read the event first
+		// and fall back to the old arguments, so this does not go quiet on an
 		// upgrade -- silently logging nothing is the failure it exists to fix.
-		const d = a.length === 1 && typeof a[0] === 'object' ? a[0] : null;
-		const level = d ? d.level : a[1];
+		const d = a[0] && typeof a[0].message === 'string' ? a[0] : null;
+		// The event names the lowest level 'debug'; the log has called it 'verbose'.
+		const level = d ? (d.level === 'debug' ? 'verbose' : d.level) : a[1];
 		const text = d ? d.message : a[2];
 		const line = d ? d.lineNumber : a[3];
 		const src = d ? d.sourceId : a[4];
@@ -2893,7 +2902,7 @@ const handlers = {
 	// GitHub or Reddit, not a folder.
 	copy_diagnostics: async () => {
 		const text = await handlers.collect_diagnostics();
-		clipboard.writeText(text);
+		await clipboard.writeText(text);
 		return `Copied ${Math.round(text.length / 1024)} KB — paste it into the issue.`;
 	},
 
@@ -2907,7 +2916,7 @@ const handlers = {
 	// through that, so the body is a placeholder telling them to paste.
 	report_issue: async () => {
 		const text = await handlers.collect_diagnostics();
-		clipboard.writeText(text);
+		await clipboard.writeText(text);
 		const body = [
 			'**What happened?**', '', '(describe it here)', '',
 			'**What did you expect?**', '', '', '---', '',
@@ -2965,8 +2974,9 @@ const handlers = {
     // Remembered, so that applying a setting a minute later does not undo it.
     // Cleared by the next start, by hand or at the next launch.
     sharing_stop: async () => { sharingStoppedByHand = true; ++sharingStartRequest; await getSharing().stop(); return getSharing().status(); },
-    sharing_copy: () => {
-        clipboard.writeText(getSharing().invitation());
+    sharing_copy: async () => {
+        // Electron 44's clipboard writes return a promise.
+        await clipboard.writeText(getSharing().invitation());
         // Say the figure actually in force rather than a number baked into the
         // sentence: this is configurable, and it was never Cloudflare's limit.
         const days = Number(getSettings().sharing_invite_days);
@@ -3305,7 +3315,7 @@ const handlers = {
 		return true;
 	},
 
-	copy_text: ({ text }) => clipboard.writeText(String(text || '')),
+	copy_text: async ({ text }) => { await clipboard.writeText(String(text || '')); },
 
 	// Settings -> Tools (#195).
 	tools_list: () => toolsInstance().list(),
