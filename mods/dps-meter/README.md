@@ -32,4 +32,4 @@ settings.
 
 The numbers are what the server told the client, from the client API's
 `combat:damage` event ([docs/MODDING.md](../../docs/MODDING.md#client-api-1)),
-so the meter needs app 1.7.3 or later.
+so the meter needs app 1.7.2 or later.
