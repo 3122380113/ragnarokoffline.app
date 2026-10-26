@@ -1,6 +1,6 @@
 // The only adapter between the versioned plugin API and roBrowser internals.
 // Imported by Online, never by GUIComponent or NetworkManager (avoids cycles).
-import Runtime from './ExtensionRuntime.mjs';
+import Runtime, { hitDamage } from './ExtensionRuntime.mjs';
 import { install as installAgentHook } from './AgentHook.mjs';
 import * as Graphics from './GraphicsPasses.mjs';
 import * as Gltf from './GltfModels.mjs';
@@ -322,6 +322,30 @@ export function init() {
             }
         } catch { /* a hook must never break the packet send */ }
         return send.apply(this, arguments);
+    };
+    // Emit combat:damage for every hit the client is told about, mods' DPS
+    // meters and the like. The map engine hooks these packets after init()
+    // (once per map-server connection), so wrap the callback as it is hooked
+    // rather than editing Entity.js. The client handles the packet either way.
+    const actPackets = new Set([PACKET.ZC.NOTIFY_ACT, PACKET.ZC.NOTIFY_ACT2, PACKET.ZC.NOTIFY_ACT3].filter(Boolean));
+    const skillPackets = new Set([PACKET.ZC.NOTIFY_SKILL, PACKET.ZC.NOTIFY_SKILL2].filter(Boolean));
+    const hookPacket = Network.hookPacket;
+    Network.hookPacket = function (packet, callback) {
+        const skill = skillPackets.has(packet);
+        if ((skill || actPackets.has(packet)) && typeof callback === 'function') {
+            const handle = callback;
+            callback = function (pkt) {
+                try {
+                    const amount = hitDamage(pkt, { skill });
+                    if (amount > 0) {
+                        const source = skill ? pkt.AID : pkt.GID;
+                        Runtime.damage({ source, target: skill ? pkt.targetID : pkt.targetGID, amount, skill: skill ? pkt.SKID : 0, own: source === Session.Entity?.GID });
+                    }
+                } catch { /* a hook must never break the packet handler */ }
+                return handle.apply(this, arguments);
+            };
+        }
+        return hookPacket.call(this, packet, callback);
     };
     Runtime.configure({
         inputState,
