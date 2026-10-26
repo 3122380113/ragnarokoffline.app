@@ -445,15 +445,24 @@ function readIfExists(p) {
 // Not just the sandboxed filesystem: Config.local.js and the plugin bundles
 // are ordinary HTTP requests, and a stale one of those loads the previous
 // mod's client code, or a plugin the player has since switched off.
-async function dropStaleClientCache() {
+//
+// Every session has a cache of its own, so each gets its own stamp. The game
+// window uses the default session; each AI agent's window has a partition
+// (agent-play.js) and passes its name. With one stamp for all of them, the
+// player's launch marked every cache current while clearing only its own, and
+// an agent went on playing with files from before the mods changed: an
+// itemInfo table a later release had fixed still failed to parse in the
+// agent's window, and every item it named went with it.
+async function dropStaleClientCache(partition = null) {
 	const want = readIfExists(path.join(stateDir(), 'assets', 'overlay.id')).trim();
 	// No fingerprint means link-assets has not run, and dropping a warm cache
 	// on a guess would just make the launch slower.
 	if (!want) return;
-	const stamp = path.join(stateDir(), 'client-cache.id');
+	const name = partition ? `client-cache.${partition.replace(/^persist:/, '')}.id` : 'client-cache.id';
+	const stamp = path.join(stateDir(), name);
 	if (readIfExists(stamp).trim() === want) return;
 	try {
-		const ses = session.defaultSession;
+		const ses = partition ? session.fromPartition(partition) : session.defaultSession;
 		await ses.clearStorageData({ storages: ['filesystem', 'cachestorage'] });
 		await ses.clearCache();
 	} catch (e) {
@@ -1308,6 +1317,7 @@ function agentPlay() {
 			// prontera" in local chat instead of travelling.
 			commandPrefix: () => require('./command-symbol').symbol(getSettings().command_symbol),
 			hosting: () => getClientPaths().mode !== 'join',
+			dropStaleClientCache,
 			log: appLog,
 		});
 	}
