@@ -2077,7 +2077,8 @@ the overlay to `state/assets/overlay.id` — the era, plus the name, size and
 mtime of every file each enabled mod puts under `data/`, `BGM/`, `System/` or
 `client/` — and the app drops the client's cache whenever that number moves.
 So installing, editing or switching off a mod takes effect on the next launch,
-and an ordinary launch still starts from a warm cache.
+and an ordinary launch still starts from a warm cache. Each AI agent's window
+keeps a cache of its own, and drops it the same way when it next opens.
 
 A mod that only touches `db/`, `npc/` or `conf/` deliberately does not count:
 the client never sees those, and clearing its cache would cost you a re-download
