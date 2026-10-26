@@ -329,8 +329,36 @@ export function init() {
     // rather than editing Entity.js. The client handles the packet either way.
     const actPackets = new Set([PACKET.ZC.NOTIFY_ACT, PACKET.ZC.NOTIFY_ACT2, PACKET.ZC.NOTIFY_ACT3].filter(Boolean));
     const skillPackets = new Set([PACKET.ZC.NOTIFY_SKILL, PACKET.ZC.NOTIFY_SKILL2].filter(Boolean));
+    // Who the player's party is, from the same packets PartyFriends reads (its
+    // own list is private): the full list, a join, a leave. A player's AID is
+    // its entity GID, so the damage packets' source can be looked up here.
+    const partyList = new Set([PACKET.ZC.GROUP_LIST, PACKET.ZC.GROUP_LIST2, PACKET.ZC.GROUP_LIST3].filter(Boolean));
+    const partyJoin = new Set([PACKET.ZC.ADD_MEMBER_TO_GROUP, PACKET.ZC.ADD_MEMBER_TO_GROUP2, PACKET.ZC.ADD_MEMBER_TO_GROUP3, PACKET.ZC.ADD_MEMBER_TO_GROUP4].filter(Boolean));
+    const partyLeave = PACKET.ZC.DELETE_MEMBER_FROM_GROUP;
+    const party = new Set();
+    const trackParty = (packet, pkt) => {
+        if (partyList.has(packet)) { party.clear(); (pkt.groupInfo || []).forEach(m => party.add(m.AID)); }
+        else if (partyJoin.has(packet)) party.add(pkt.AID);
+        else if (packet === partyLeave) { if (pkt.AID === Session.AID) party.clear(); else party.delete(pkt.AID); }
+    };
+    // Whose hit it was, as combat:damage's `by`.
+    const sourceKind = source => {
+        if (source === Session.Entity?.GID) return 'me';
+        if (Session.homunId && source === Session.homunId) return 'homun';
+        if (Session.mercId && source === Session.mercId) return 'merc';
+        if (party.has(source)) return 'party';
+        if (friendlyMonsters.has(source)) return 'companion-pet';
+        return 'other';
+    };
     const hookPacket = Network.hookPacket;
     Network.hookPacket = function (packet, callback) {
+        if (packet && (partyList.has(packet) || partyJoin.has(packet) || packet === partyLeave) && typeof callback === 'function') {
+            const handle = callback;
+            callback = function (pkt) {
+                try { trackParty(packet, pkt); } catch { /* a hook must never break the packet handler */ }
+                return handle.apply(this, arguments);
+            };
+        }
         const skill = skillPackets.has(packet);
         if ((skill || actPackets.has(packet)) && typeof callback === 'function') {
             const handle = callback;
@@ -339,7 +367,9 @@ export function init() {
                     const amount = hitDamage(pkt, { skill });
                     if (amount > 0) {
                         const source = skill ? pkt.AID : pkt.GID;
-                        Runtime.damage({ source, target: skill ? pkt.targetID : pkt.targetGID, amount, skill: skill ? pkt.SKID : 0, own: source === Session.Entity?.GID });
+                        const by = sourceKind(source);
+                        const name = by === 'me' || by === 'other' ? '' : String(EntityManager.get(source)?.display?.name || '');
+                        Runtime.damage({ source, target: skill ? pkt.targetID : pkt.targetGID, amount, skill: skill ? pkt.SKID : 0, own: by === 'me', by, name });
                     }
                 } catch { /* a hook must never break the packet handler */ }
                 return handle.apply(this, arguments);

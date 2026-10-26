@@ -9,6 +9,7 @@ const MENU_PICTURE = /^(?!.*\.\.)[A-Za-z0-9_][A-Za-z0-9_./-]*\.(bmp|tga|png|jpe?
 // draws them: normal, endure, multi-hit, multi-hit endure, critical, lucky
 // dodge and 13. Pick-up, sit and stand reuse the packet with no damage.
 const DAMAGE_ACTIONS = new Set([0, 4, 8, 9, 10, 11, 13]);
+const DAMAGE_SOURCES = new Set(['me', 'homun', 'merc', 'party', 'companion-pet', 'other']);
 /**
  * The damage one received packet dealt: NOTIFY_ACT* (`skill` false) adds the
  * off-hand's leftDamage; NOTIFY_SKILL* carries the skill's total. A miss, a
@@ -527,10 +528,16 @@ export function createRuntime({ storage, report = (...args) => console.error(...
         // the client received. source and target are entity ids (GIDs), skill
         // the skill id or 0 for a plain attack, own true when the source is the
         // player's own character. Hits of 0 (misses) are not sent.
+        // `by` says whose: 'me', 'homun' or 'merc' (the player's own), 'party'
+        // (a party member, AI companions included), 'companion-pet' (a monster
+        // marked with api.monsters.friendly) or 'other'; `name` is the source's
+        // shown name for the player's side ('' otherwise).
         damage(event) {
-            const { source, target, amount, skill = 0, own = false } = event || {};
+            const { source, target, amount, skill = 0, own = false, by, name } = event || {};
             if (![source, target, amount, skill].every(Number.isInteger) || amount <= 0) return;
-            emit('combat:damage', Object.freeze({ source, target, amount, skill, own: own === true }));
+            const kind = DAMAGE_SOURCES.has(by) ? by : (own === true ? 'me' : 'other');
+            const label = typeof name === 'string' && kind !== 'me' && kind !== 'other' ? name.slice(0, 40) : '';
+            emit('combat:damage', Object.freeze({ source, target, amount, skill, own: kind === 'me', by: kind, name: label }));
         },
         // A mod's server script spoke first: `@@event <command> <text>`
         // (PluginWindows.mjs).
