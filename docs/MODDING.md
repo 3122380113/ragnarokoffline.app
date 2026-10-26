@@ -1963,6 +1963,38 @@ lists them in the client's `customEfstIds`, `customStateIconImgInfo` and
 [A status icon of your own](mods/CUSTOM_SKILLS.md#a-status-icon-of-your-own)
 has an example of each, and the Lua side.
 
+### Selection boxes: the pick-one window
+
+A box that lets the player choose one reward, such as the Booster costume
+boxes, opens the client's selection window instead of an NPC dialogue when
+both sides know the box:
+
+- **The server** gives what was picked from `db/item_packages.yml`. Ship the
+  box's groups there, as an import like any other table.
+- **The client** draws the window from
+  `data/luafiles514/lua files/selectpackage/selectpackageitem.lub`. A mod's
+  copy is **added to the client's, not laid over it**: ship rows for your own
+  boxes only.
+
+```lua
+-- my-mod/data/luafiles514/lua files/selectpackage/selectpackageitem.lua
+packageitemsetbox = {
+	-- { box, group, item, amount, rental hours, refine }
+	{ 106849, 0, 31874, 1, 0, 0 },
+	{ 106849, 1, 31875, 1, 0, 0 },
+}
+```
+
+- **Group numbers start at 0 and must match `item_packages.yml`.** The
+  client sends the group number, and the server gives that group's items.
+- **A box the client already defines keeps its own choices.** A mod's rows
+  fill only boxes the client's table lacks. Among the mods, a later mod wins.
+- **Keep the box's item script.** It runs on clients without the window
+  (packet versions before 2022-02-16), so a menu there still works.
+
+The app copies each mod's table aside as `selectpackageitem-<mod>.lua` and
+lists it in the client's `itemPackageSupplement`, before the app's own.
+
 ### Cut-ins: an NPC's full-length picture
 
 `cutin "<name>", <position>;` in an NPC's script shows a picture beside the
