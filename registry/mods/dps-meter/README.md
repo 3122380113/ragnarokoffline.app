@@ -1,7 +1,7 @@
 # DPS meter
 
-A small window that shows how hard you are hitting. Off by default: turn on
-**dps-meter** in Settings → Mods. In game, press **Alt+N** or the **DPS**
+A small window that shows how hard you are hitting. Install it from
+Settings → Mods → Find Mods. In game, press **Alt+N** or the **DPS**
 button under the **DB** button to open it. Drag it by its title bar; it
 remembers where you left it.
 
@@ -31,5 +31,5 @@ To count only yourself, turn off **Count companions' damage** in the mod's
 settings.
 
 The numbers are what the server told the client, from the client API's
-`combat:damage` event ([docs/MODDING.md](../../docs/MODDING.md#client-api-1)),
-so the meter needs app 1.7.2 or later.
+`combat:damage` event ([docs/MODDING.md](../../../docs/MODDING.md#client-api-1)),
+so the meter needs app 1.7.5 or later.

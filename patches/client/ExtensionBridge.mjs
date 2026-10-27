@@ -328,7 +328,7 @@ export function init() {
     // (once per map-server connection), so wrap the callback as it is hooked
     // rather than editing Entity.js. The client handles the packet either way.
     const actPackets = new Set([PACKET.ZC.NOTIFY_ACT, PACKET.ZC.NOTIFY_ACT2, PACKET.ZC.NOTIFY_ACT3].filter(Boolean));
-    const skillPackets = new Set([PACKET.ZC.NOTIFY_SKILL, PACKET.ZC.NOTIFY_SKILL2].filter(Boolean));
+    const skillPackets = new Set([PACKET.ZC.NOTIFY_SKILL, PACKET.ZC.NOTIFY_SKILL2, PACKET.ZC.NOTIFY_SKILL_POSITION].filter(Boolean));
     // Who the player's party is, from the same packets PartyFriends reads (its
     // own list is private): the full list, a join, a leave. A player's AID is
     // its entity GID, so the damage packets' source can be looked up here.

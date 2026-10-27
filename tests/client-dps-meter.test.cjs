@@ -4,7 +4,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const runtimeModule = import('../patches/client/ExtensionRuntime.mjs');
-const meterModule = import('../mods/dps-meter/client/index.js');
+const meterModule = import('../registry/mods/dps-meter/client/index.js');
 
 test('hitDamage reads attack and skill packets the way the client draws them', async () => {
     const { hitDamage } = await runtimeModule;
