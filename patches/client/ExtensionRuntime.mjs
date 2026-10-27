@@ -2,9 +2,24 @@ import { createMovement } from './MovementCore.mjs';
 
 import { SCREENS } from './PregameViews.mjs';
 
-const EVENTS = new Set(['map:enter', 'map:leave', 'connection', 'ui:append', 'ui:remove', 'movement:clear', 'preferences:change', 'item:use', 'exit', 'server:event']);
+const EVENTS = new Set(['map:enter', 'map:leave', 'connection', 'ui:append', 'ui:remove', 'movement:clear', 'preferences:change', 'item:use', 'exit', 'server:event', 'combat:damage']);
 // A picture in the client's interface folder: plain names, no `..`.
 const MENU_PICTURE = /^(?!.*\.\.)[A-Za-z0-9_][A-Za-z0-9_./-]*\.(bmp|tga|png|jpe?g)$/i;
+// NOTIFY_ACT actions that carry damage, as the client's own onEntityAction
+// draws them: normal, endure, multi-hit, multi-hit endure, critical, lucky
+// dodge and 13. Pick-up, sit and stand reuse the packet with no damage.
+const DAMAGE_ACTIONS = new Set([0, 4, 8, 9, 10, 11, 13]);
+const DAMAGE_SOURCES = new Set(['me', 'homun', 'merc', 'party', 'companion-pet', 'other']);
+/**
+ * The damage one received packet dealt: NOTIFY_ACT* (`skill` false) adds the
+ * off-hand's leftDamage; NOTIFY_SKILL* carries the skill's total. A miss, a
+ * heal or an action that is not an attack is 0.
+ */
+export function hitDamage(packet, { skill = false } = {}) {
+    if (!packet || (!skill && !DAMAGE_ACTIONS.has(packet.action))) return 0;
+    const part = value => (Number.isFinite(value) && value > 0 ? value : 0);
+    return part(packet.damage) + (skill ? 0 : part(packet.leftDamage));
+}
 const copy = value => value === undefined ? undefined : JSON.parse(JSON.stringify(value));
 function freeze(value) {
     if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); }
@@ -509,6 +524,21 @@ export function createRuntime({ storage, report = (...args) => console.error(...
         // sends, so it carries the item's type id (ITID), resolved from the live
         // inventory before the server consumes the stack.
         useItem(itemId) { if (Number.isInteger(itemId)) emit('item:use', Object.freeze({ itemId })); },
+        // A hit landed: { source, target, amount, skill, own }, from the packet
+        // the client received. source and target are entity ids (GIDs), skill
+        // the skill id or 0 for a plain attack, own true when the source is the
+        // player's own character. Hits of 0 (misses) are not sent.
+        // `by` says whose: 'me', 'homun' or 'merc' (the player's own), 'party'
+        // (a party member, AI companions included), 'companion-pet' (a monster
+        // marked with api.monsters.friendly) or 'other'; `name` is the source's
+        // shown name for the player's side ('' otherwise).
+        damage(event) {
+            const { source, target, amount, skill = 0, own = false, by, name } = event || {};
+            if (![source, target, amount, skill].every(Number.isInteger) || amount <= 0) return;
+            const kind = DAMAGE_SOURCES.has(by) ? by : (own === true ? 'me' : 'other');
+            const label = typeof name === 'string' && kind !== 'me' && kind !== 'other' ? name.slice(0, 40) : '';
+            emit('combat:damage', Object.freeze({ source, target, amount, skill, own: kind === 'me', by: kind, name: label }));
+        },
         // A mod's server script spoke first: `@@event <command> <text>`
         // (PluginWindows.mjs).
         serverEvent(command, text) {
