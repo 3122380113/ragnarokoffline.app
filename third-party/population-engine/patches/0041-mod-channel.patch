@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000041
 Subject: [PATCH] mod_channel: mods talk to their client plugin over their own packets
 
-Server extension mod_channel (off by default). CZ 0x0b81 / ZC 0x0bbb carry a
+Server extension mod_channel (off by default). CZ 0x0cfe / ZC 0x0cff carry a
 channel name, a request id and typed values (numbers, strings, arrays).
 modchannel binds a channel to an NPC label, which runs as soon as the packet
 arrives, also while the player has an NPC dialog open (stock atcommand events
@@ -12,7 +12,7 @@ hello and rate counters, an event lookup, and the script commands.
 
 --- a/db/extension_db.yml
 +++ b/db/extension_db.yml
-@@ -167,6 +167,26 @@
+@@ -167,6 +167,38 @@
        setstylistcost warns and does nothing.
      Enabled: false
  
@@ -20,8 +20,8 @@ hello and rate counters, an event lookup, and the script commands.
 +    Name: Mods talk to their client plugin over their own packets
 +    Description: |
 +      A client plugin and the NPC scripts of a mod exchange typed values
-+      (numbers, strings, arrays) over two packets of their own, CZ 0x0b81
-+      and ZC 0x0bbb, instead of chat lines: modchannel binds a channel to a
++      (numbers, strings, arrays) over two packets of their own, CZ 0x0cfe
++      and ZC 0x0cff, instead of chat lines: modchannel binds a channel to a
 +      label, which runs as soon as the packet arrives, also while the player
 +      has an NPC dialog open; modsend / modsendto answer. The server sends
 +      nothing to a client that did not say hello first, so a client without
@@ -35,6 +35,18 @@ hello and rate counters, an event lookup, and the script commands.
 +        Min: 10
 +        Max: 5000
 +        Description: Packets a client may send per second; the rest of that second are dropped.
++      - Key: ask
++        Type: String
++        Default: where mobs scan status buffs
++        Description: |
++          The verbs of channel ask the server answers, by spaces; any other
++          is answered s "off". Empty: none.
++      - Key: protocol
++        Type: Int
++        Default: 2
++        Min: 2
++        Max: 2
++        Description: The wire format's version, for the client's NPC (getextensionvalue); not a setting.
 +
  Footer:
    Imports:
@@ -254,12 +266,13 @@ hello and rate counters, an event lookup, and the script commands.
  int32 npc_touch_areanpc2(mob_data *md); // [Skotlex]
 --- a/src/map/pc.hpp
 +++ b/src/map/pc.hpp
-@@ -959,6 +959,10 @@
+@@ -959,6 +959,11 @@
  #ifdef PACKET_OBFUSCATION
  	uint32 cryptKey; ///< Packet obfuscation key to be used for the next received packet
  #endif
-+	// RAGNAROKMAC: mod channel (mod_channel.cpp): the client said hello, and its packets in the current second
++	// RAGNAROKMAC: mod channel (mod_channel.cpp): the client said hello, the ZC id it reads, its packets this second
 +	bool mc_ready = false;
++	uint16 mc_zc = 0;
 +	t_tick mc_window = 0;
 +	int64 mc_count = 0;
  

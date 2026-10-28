@@ -17,6 +17,7 @@
 #include <common/timer.hpp>
 #include <common/utils.hpp>
 
+#include "battle.hpp"
 #include "extensions.hpp"
 #include "map.hpp"
 #include "mob.hpp"
@@ -62,19 +63,30 @@ bool mod_channel_bind(const char* channel, const char* event, int32 flags) {
 bool mod_channel_send(map_session_data* sd, const char* channel, uint32 request, const std::vector<uint8>& values) {
 	if (!mod_channel_ready(sd) || !session_isActive(sd->fd))
 		return false;
-	size_t len = mod_channel::HEADER_LEN + values.size();
-	if (len > mod_channel::MAX_PACKET)
+	if (mod_channel::HEADER_LEN + values.size() > mod_channel::MAX_PACKET)
 		return false;
+	// One packet when it fits in MAX_FRAME; else parts, each led by T_PART or (the last) T_LAST.
+	constexpr size_t room = mod_channel::MAX_FRAME - mod_channel::HEADER_LEN - 1;
+	bool split = mod_channel::HEADER_LEN + values.size() > mod_channel::MAX_FRAME;
 	int32 fd = sd->fd;
-	WFIFOHEAD(fd, len);
-	WFIFOW(fd, 0) = mod_channel::HEADER_ZC;
-	WFIFOW(fd, 2) = (uint16)len;
-	memset(WFIFOP(fd, 4), 0, mod_channel::CHANNEL_LEN);
-	safestrncpy(WFIFOCP(fd, 4), channel, mod_channel::CHANNEL_LEN);
-	WFIFOL(fd, 4 + mod_channel::CHANNEL_LEN) = request;
-	if (!values.empty())
-		memcpy(WFIFOP(fd, mod_channel::HEADER_LEN), values.data(), values.size());
-	WFIFOSET(fd, len);
+	size_t at = 0;
+	do {
+		size_t n = split ? std::min(room, values.size() - at) : values.size();
+		size_t len = mod_channel::HEADER_LEN + (split ? 1 : 0) + n;
+		WFIFOHEAD(fd, len);
+		WFIFOW(fd, 0) = sd->mc_zc;
+		WFIFOW(fd, 2) = (uint16)len;
+		memset(WFIFOP(fd, 4), 0, mod_channel::CHANNEL_LEN);
+		safestrncpy(WFIFOCP(fd, 4), channel, mod_channel::CHANNEL_LEN);
+		WFIFOL(fd, 4 + mod_channel::CHANNEL_LEN) = request;
+		uint8* p = WFIFOP(fd, mod_channel::HEADER_LEN);
+		if (split)
+			*p++ = at + n == values.size() ? mod_channel::T_LAST : mod_channel::T_PART;
+		if (n > 0)
+			memcpy(p, values.data() + at, n);
+		WFIFOSET(fd, len);
+		at += n;
+	} while (at < values.size());
 	return true;
 }
 
@@ -283,28 +295,36 @@ static std::vector<int32> mc_ints(const std::vector<mc_value>& values, size_t fr
 }
 
 ///   where                 -> s map, i x, i y, i town (1/0)
-///   mobs {r}              -> i x, i y, I gid, I class, I x, I y, I hp, I maxhp, I target, I flags   (within r cells, 1-40, 14)
-///   scan {classes...}     -> I gid, I class, I x, I y, I flags   (the whole map; the classes given, or all)
+///   mobs {r}              -> i x, i y, I gid, I class, I x, I y, I hp, I maxhp, I target, I flags   (within r cells, 14)
+///   scan {classes...}     -> I gid, I class, I x, I y, I flags   (the classes given, or all)
 ///   status <sc ids...>    -> I left: ms to go, -1 without an end, 0 when not on
 ///   buffs <skill ids...>  -> I left: the same for the status each skill gives (skill_db Status), -2 when it gives none
 /// flags: 1 aggressive, 2 boss, 4 fights me, 8 fights my party, 16 fights another player. Dead monsters left out.
+/// mobs and scan see only what the player's client is shown anyway (area_size cells around them): no map hack.
+/// The key ask lists the verbs answered at all; another is answered s "off", s verb.
+
 static void mc_ask(map_session_data* sd, uint32 request, const std::vector<mc_value>& values) {
 	if (values.empty() || values[0].type != mod_channel::T_STR)
 		return;
 	const std::string& verb = values[0].str;
 	mod_channel::writer w;
-	if (verb == "where") {
+	std::string on = " " + extension_string("mod_channel", "ask", "where mobs scan status buffs") + " ";
+	if (on.find(" " + verb + " ") == std::string::npos) {
+		w.str("off");
+		w.str(verb.c_str());
+	} else if (verb == "where") {
 		w.str(map_getmapdata(sd->m)->name);
 		w.num(sd->x);
 		w.num(sd->y);
 		w.num(map_getmapflag(sd->m, MF_TOWN) ? 1 : 0);
 	} else if (verb == "mobs" || verb == "scan") {
+		int32 sight = battle_config.area_size;
 		mc_mob_list l;
 		l.sd = sd;
 		std::vector<int32> only;
 		if (verb == "mobs") {
 			int32 r = values.size() > 1 && values[1].type == mod_channel::T_INT32 ? (int32)values[1].num : 14;
-			r = cap_value(r, 1, 40);
+			r = cap_value(r, 1, sight);
 			l.cap = 300;
 			map_foreachinallrange(mc_collect_mob, sd, r, BL_MOB, &l);
 			w.num(sd->x);
@@ -313,7 +333,7 @@ static void mc_ask(map_session_data* sd, uint32 request, const std::vector<mc_va
 			only = mc_ints(values, 1);
 			l.only = &only;
 			l.cap = 600;
-			map_foreachinmap(mc_collect_mob, sd->m, BL_MOB, &l);
+			map_foreachinallrange(mc_collect_mob, sd, sight, BL_MOB, &l);
 		}
 		mc_put_ints(w, l.gid);
 		mc_put_ints(w, l.cls);
@@ -361,7 +381,9 @@ static void mc_sys(map_session_data* sd, uint32 request, const uint8* p, size_t 
 	if (values.empty() || values[0].type != mod_channel::T_STR)
 		return;
 	mod_channel::writer w;
-	if (values[0].str == "hello") {
+	if (values[0].str == "hello") { // s "hello", i protocol, i the ZC id the client reads (HEADER_ZC without it)
+		bool known = values.size() > 2 && values[2].type == mod_channel::T_INT32 && values[2].num == mod_channel::HEADER_ZC_KNOWN;
+		sd->mc_zc = known ? mod_channel::HEADER_ZC_KNOWN : mod_channel::HEADER_ZC;
 		sd->mc_ready = true;
 		w.str("hello");
 		w.num(mod_channel::PROTOCOL);
