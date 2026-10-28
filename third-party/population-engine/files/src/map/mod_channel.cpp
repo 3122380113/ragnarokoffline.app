@@ -250,6 +250,9 @@ static int32 mc_collect_mob(block_list* bl, va_list ap) {
 	mob_data* md = (mob_data*)bl;
 	if (l->gid.size() >= l->cap || md->status.hp == 0)
 		return 0;
+	// Only what the player's client shows: no hidden / cloaked monster, unless they see those (Maya Purple).
+	if (!l->sd->special_state.intravision && !status_check_visibility(l->sd, bl, false))
+		return 0;
 	if (l->only != nullptr && !l->only->empty() && std::find(l->only->begin(), l->only->end(), (int32)md->mob_id) == l->only->end())
 		return 0;
 	int32 f = 0;
@@ -300,7 +303,8 @@ static std::vector<int32> mc_ints(const std::vector<mc_value>& values, size_t fr
 ///   status <sc ids...>    -> I left: ms to go, -1 without an end, 0 when not on
 ///   buffs <skill ids...>  -> I left: the same for the status each skill gives (skill_db Status), -2 when it gives none
 /// flags: 1 aggressive, 2 boss, 4 fights me, 8 fights my party, 16 fights another player. Dead monsters left out.
-/// mobs and scan see only what the player's client is shown anyway (area_size cells around them): no map hack.
+/// mobs and scan see only what the player's client is shown anyway (area_size cells around them, no hidden or
+/// cloaked monster unless they have intravision): no map hack, no attacking what they can't see.
 /// The key ask lists the verbs answered at all; another is answered s "off", s verb.
 
 static void mc_ask(map_session_data* sd, uint32 request, const std::vector<mc_value>& values) {
